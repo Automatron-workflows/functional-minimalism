@@ -1,0 +1,17 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {mkdtemp,writeFile,readFile,rm,symlink} from 'node:fs/promises';
+import path from 'node:path';
+import os from 'node:os';
+import {fileURLToPath} from 'node:url';
+import {execFile} from 'node:child_process';
+import {promisify} from 'node:util';
+import {initialize,readJSON,loadProject,checkProject,remember,brief,verifySources} from '../src/node.mjs';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+const packPath=path.join(root,'packs/studio/pack.json');
+const run=promisify(execFile);
+test('new project preserves user instructions and reuses real components',async()=>{const dir=await mkdtemp(path.join(os.tmpdir(),'harness-'));try{await writeFile(path.join(dir,'AGENTS.md'),'User instructions: keep my branding.\n');await initialize(dir,packPath,root);assert.match(await readFile(path.join(dir,'AGENTS.md'),'utf8'),/^User instructions: keep my branding\./);assert.equal((await checkProject(dir)).status,'pass');await assert.rejects(()=>initialize(dir,packPath,root),/already initialized/);const contract=await readJSON(path.join(root,'examples/invoice.screen.json'));await remember(dir,{scope:'project',target:'studio-demo',rule:'Keep invoice amount visible.',reason:'Accepted correction',accept:true});assert.match(await brief(dir,contract),/Keep invoice amount visible/);const localPack=await readJSON(path.join(dir,'.design-harness/pack.json'));localPack.tokens['color.accent'].value='#ffffff';await writeFile(path.join(dir,'.design-harness/pack.json'),JSON.stringify(localPack));await assert.rejects(()=>loadProject(dir),/drift/);}finally{await rm(dir,{recursive:true,force:true});}});
+test('initialization does not write through instruction symlinks',async()=>{const dir=await mkdtemp(path.join(os.tmpdir(),'harness-'));try{await writeFile(path.join(dir,'outside.md'),'Original');await symlink(path.join(dir,'outside.md'),path.join(dir,'AGENTS.md'));await assert.rejects(()=>initialize(dir,packPath,root),/non-regular/);assert.equal(await readFile(path.join(dir,'outside.md'),'utf8'),'Original');}finally{await rm(dir,{recursive:true,force:true});}});
+test('source mappings cannot escape the project',async()=>{const pack=await readJSON(packPath);pack.components[0].source='../hardwire/package.json';assert.equal((await verifySources(pack,root))[0].code,'component-source');});
+test('initialization cannot write components through a symlinked parent',async()=>{const dir=await mkdtemp(path.join(os.tmpdir(),'harness-'));const outside=await mkdtemp(path.join(os.tmpdir(),'harness-outside-'));try{await symlink(outside,path.join(dir,'src'));await assert.rejects(()=>initialize(dir,packPath,root),/symlink/);}finally{await rm(dir,{recursive:true,force:true});await rm(outside,{recursive:true,force:true});}});
+test('CLI errors exit nonzero and machine output stays parseable',async()=>{const {stdout}=await run(process.execPath,[path.join(root,'bin/design-harness.mjs'),'validate',packPath]);assert.equal(JSON.parse(stdout).valid,true);await assert.rejects(()=>run(process.execPath,[path.join(root,'bin/design-harness.mjs'),'validate',packPath,'--misspelled','x']),e=>e.code===1&&e.stderr.includes('Unknown option'));});

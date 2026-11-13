@@ -1,0 +1,25 @@
+# v0.1 implementation status
+
+The original product plan remains a proposal. This file tracks the implemented slice.
+
+| Capability | Status |
+| --- | --- |
+| Versioned packs, semantic tokens, alias validation | Implemented |
+| Ten mapped HTML reference components | Implemented |
+| Three screen contracts and portable briefs | Implemented |
+| Codex / Claude project instruction files | Implemented; host must load them |
+| Scoped accepted/proposed/rejected decision memory | Implemented |
+| Pack pinning and drift detection | Implemented |
+| Normalized token-map import with provenance | Implemented |
+| Local source/export checks and lexical CSS checks | Implemented; limitations documented |
+| DOM collection and state/viewport evidence audit | Implemented |
+| Three interactive fixture flows and static build | Implemented |
+| Local Chrome behavioral verification runner | Implemented |
+| Live Figma / Code Connect importer | Pending |
+| Alps design pack | Pending actual source |
+| Automatic model calls or autonomous repair execution | Not included; host-agent workflow supplied |
+| AST-based React/TypeScript prop validation | Pending |
+| Model comparison study and participant usability study | Not run |
+| Public GitHub repository / npm publication | Not published |
+
+The implementation requires no credentials or external dependencies. Tests and observed results are recorded separately from product claims. The illustrated Before / With harness demo is not a measured performance comparison.

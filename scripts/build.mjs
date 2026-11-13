@@ -1,0 +1,13 @@
+import {mkdir,cp,rm,writeFile} from 'node:fs/promises';
+import path from 'node:path';
+import {root} from './serve.mjs';
+import {readJSON} from '../src/node.mjs';
+import {tokensToCSS,validatePack} from '../src/core.mjs';
+import {buildStandalone} from './standalone.mjs';
+const pack=validatePack(await readJSON(path.join(root,'packs/studio/pack.json')));
+await writeFile(path.join(root,'demo/tokens.css'),tokensToCSS(pack));
+const dist=path.join(root,'dist');await rm(dist,{recursive:true,force:true});await mkdir(dist,{recursive:true});
+for(const name of ['demo','src','packs','examples','docs','README.md'])await cp(path.join(root,name),path.join(dist,name),{recursive:true});
+await writeFile(path.join(dist,'index.html'),'<!doctype html><html lang="en"><meta charset="utf-8"><title>Automatron Design Harness</title><meta http-equiv="refresh" content="0;url=./demo/"><a href="./demo/">Open Design Harness</a></html>');
+await buildStandalone();
+console.log('Built static demo in dist/; generated tokens from the pinned reference pack.');

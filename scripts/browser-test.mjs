@@ -12,7 +12,7 @@ const run=promisify(execFile);
 const candidates=[process.env.CHROME_BIN,...(process.platform==='darwin'?['/Applications/Google Chrome.app/Contents/MacOS/Google Chrome']:['/usr/bin/google-chrome','/usr/bin/chromium','/usr/bin/chromium-browser'])].filter(Boolean);
 let chrome;for(const candidate of candidates){if(await access(candidate).then(()=>true,()=>false)){chrome=candidate;break;}}
 if(!chrome){console.error('Chrome not found. Set CHROME_BIN to a Chrome executable. No browser was downloaded.');process.exit(1);}
-const preview=pathToFileURL(path.join(root,'dist/Design_Harness_Preview.html')).href;
+const preview=pathToFileURL(path.join(root,'dist/Formthread_Workshop.html')).href;
 const pack=await readJSON(path.join(root,'packs/studio/pack.json')),collected=[],summary=[];
 const artifactDir=path.join(root,'artifacts');await mkdir(artifactDir,{recursive:true});
 try{

@@ -1,19 +1,44 @@
 {
-  "name": "@automatron/design-harness",
-  "version": "0.1.0",
-  "description": "Portable design judgment, project memory, and evidence checks for AI-built interfaces.",
+  "name": "@automatron/formthread",
+  "version": "0.2.0",
+  "description": "Functional minimalism for AI-built interfaces. Carry your design judgment into every build.",
   "private": true,
   "type": "module",
   "license": "MIT",
-  "engines": { "node": ">=18.16" },
-  "bin": { "design-harness": "./bin/design-harness.mjs" },
-  "exports": { ".": "./src/core.mjs", "./browser": "./src/browser.mjs", "./node": "./src/node.mjs" },
+  "engines": {
+    "node": ">=18.16"
+  },
+  "bin": {
+    "formthread": "./bin/formthread.mjs",
+    "design-harness": "./bin/design-harness.mjs"
+  },
+  "exports": {
+    ".": "./src/core.mjs",
+    "./browser": "./src/browser.mjs",
+    "./node": "./src/node.mjs"
+  },
   "scripts": {
     "test": "node --test test/*.test.mjs",
     "dev": "node scripts/serve.mjs",
     "build": "node scripts/build.mjs",
     "check": "node scripts/check.mjs",
-    "test:browser": "node scripts/browser-test.mjs"
+    "test:browser": "node scripts/browser-test.mjs",
+    "package:source": "node scripts/package.mjs"
   },
-  "files": ["bin", "src", "packs", "adapters", "docs", "examples", "demo", "scripts", "README.md", "LICENSE", "DESIGN_RULES.md", "references", "Automatron_Design_Harness_Plan.md"]
+  "files": [
+    "bin",
+    "src",
+    "packs",
+    "adapters",
+    "docs",
+    "examples",
+    "demo",
+    "scripts",
+    "README.md",
+    "LICENSE",
+    "DESIGN_RULES.md",
+    "references",
+    "Automatron_Design_Harness_Plan.md",
+    "AGENTS.md"
+  ]
 }

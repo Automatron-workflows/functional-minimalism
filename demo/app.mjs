@@ -1,10 +1,15 @@
 import { Button, IconButton, SegmentedControl, Poster, Field, Dialog, Status, TaskRow, Receipt, EmptyState, escape, icon, artworkURL } from './components.mjs';
 import { collectSnapshot } from '../src/browser.mjs';
-import { auditSnapshot, composeBrief } from '../src/core.mjs';
+import { auditSnapshot, composeBrief, validateMemory } from '../src/core.mjs';
 
 const read=async url=>{const r=await fetch(url);if(!r.ok)throw new Error(`Cannot load ${url}`);return r.json();};
 const [pack,...screens]=await Promise.all([read('../packs/studio/pack.json'),...['discovery','invoice','project'].map(id=>read(`../examples/${id}.screen.json`))]);
 const contracts=Object.fromEntries(screens.map(s=>[s.id,s]));
+const memoryKey='formthread.workshop.memory.v1';
+let demoMemory={schema:'design-harness.memory/1',decisions:[]};
+try{const stored=localStorage.getItem(memoryKey);if(stored)demoMemory=validateMemory(JSON.parse(stored));}catch{/* Storage may be unavailable in offline previews. */}
+function saveDemoMemory(){try{localStorage.setItem(memoryKey,JSON.stringify(demoMemory));return true;}catch{return false;}}
+
 const scene=document.querySelector('#scene');
 const films=[{id:'still',title:'A quieter world',subtitle:'2026 · 1h 42m · Slow cinema',art:'forest',mood:'slow'},{id:'long',title:'The long way',subtitle:'2026 · 1h 36m · Adventure',art:'desert',mood:'adventure'},{id:'night',title:'After the light',subtitle:'2026 · 1h 28m · Slow cinema',art:'night',mood:'slow'}];
 const initialTasks=()=>[{id:'1',title:'Set the creative direction',owner:'AM',date:'Today',done:true},{id:'2',title:'Explore the first three screens',owner:'JL',date:'Today',done:false},{id:'3',title:'Refine the motion language',owner:'AM',date:'16 Nov',done:false},{id:'4',title:'Review the mobile experience',owner:'SK',date:'17 Nov',done:false}];
@@ -63,16 +68,26 @@ function addTask(){const input=document.querySelector('[name="taskName"]');const
 function inspect(){const snapshot=collectSnapshot(scene,{screen:flow,state});const report=auditSnapshot(pack,contracts[flow],snapshot);const words=Object.values(snapshot.words).reduce((a,b)=>a+b,0);const content=`<div class="inspector"><div class="inspect-stats"><div><strong>${words}</strong><span>visible words</span></div><div><strong>${snapshot.words.explanation}</strong><span>explanatory words</span></div><div><strong>${snapshot.components.length}</strong><span>mapped instances</span></div></div><p class="dialog-copy">${report.status==='pass'?'No blocking findings in this snapshot.':'This snapshot has blocking findings.'}</p>${report.findings.length?`<ul class="findings">${report.findings.map(f=>`<li>${escape(f.message)}</li>`).join('')}</ul>`:''}<label class="state-select">Preview a state<select id="state-select">${contracts[flow].states.map(s=>`<option value="${s}" ${s===state?'selected':''}>${s[0].toUpperCase()+s.slice(1)}</option>`).join('')}</select></label><p class="consequence">Checks use the same library as the CLI. This snapshot does not verify usability, visual quality, or complete accessibility. Studio is an authored reference system, not Alps.</p></div>`;
  openDialog({title:'Behind the interface',content,actions:Button({label:'Show state',action:'show-state',variant:'secondary'})},'shell');
 }
-function guide(){openDialog({title:'Bring the judgment with you.',content:'<p class="dialog-copy">Install the project rules once. Start each screen with your design system, the task, and the decisions you’ve already made.</p><pre class="guide-code">node bin/design-harness.mjs init ./my-app\nnode bin/design-harness.mjs brief screen.json \\\n  --project ./my-app</pre><p class="consequence">Run from the downloaded source folder. No package is published to npm. Works with Codex and Claude instruction files; other agents can read the same brief.</p><div class="guide-links"><a href="../README.md">Read the guide ↗</a><a href="../packs/studio/pack.json">View the design pack ↗</a></div>'},'shell');}
+function memoryPanel(message=''){
+ const accepted=demoMemory.decisions.filter(d=>d.status==='accepted');
+ openDialog({title:'Keep the useful judgment.',content:`<p class="dialog-copy">Accept a correction, then inspect another screen’s brief. Project decisions travel with you; screen decisions stay scoped.</p><form id="memory-form">${Field({label:'Design decision',name:'decision',placeholder:'Keep unfamiliar actions visibly labelled.'})}<label class="state-select">Applies to<select id="memory-scope"><option value="project">All three demo screens</option><option value="screen">This screen only</option></select></label><div class="dialog-actions">${Button({label:'Accept decision',action:'accept-memory',primary:true})}</div></form><p class="consequence" id="memory-status" role="status">${escape(message||`${accepted.length} accepted decisions. Demo memory stays in this browser; it does not update your projects or agent.`)}</p>${accepted.length?`<ul class="findings">${accepted.map(d=>`<li>${escape(d.rule)} <small>(${escape(d.scope==='project'?'all screens':d.target.split('/')[1])})</small></li>`).join('')}</ul>`:''}<label class="state-select">Screen brief<select id="brief-screen">${Object.keys(contracts).map(id=>`<option value="${id}" ${id===flow?'selected':''}>${id}</option>`).join('')}</select></label>`,actions:Button({label:'Download brief',action:'download-brief',variant:'secondary'})+Button({label:'Clear demo memory',action:'clear-memory',variant:'ghost'})},'shell');
+ document.querySelector('#memory-form').addEventListener('submit',event=>{event.preventDefault();acceptMemory();});
+}
+function acceptMemory(){const input=document.querySelector('[name="decision"]'),rule=input.value.trim();if(!rule){input.setAttribute('aria-invalid','true');document.querySelector('#memory-status').textContent='Write the decision you want to keep.';input.focus();return;}const scope=document.querySelector('#memory-scope').value;const target=scope==='project'?contracts[flow].project:`${contracts[flow].project}/${flow}`;demoMemory=validateMemory({...demoMemory,decisions:[...demoMemory.decisions,{id:crypto.randomUUID(),scope,target,status:'accepted',rule,reason:'Explicitly accepted in the local workshop.',createdAt:new Date().toISOString()}]});const persisted=saveDemoMemory();memoryPanel(persisted?'Decision saved in this browser. Download a brief to inspect its scope.':'Decision kept for this session only. Browser storage is unavailable.');}
+function downloadBrief(){const screen=document.querySelector('#brief-screen').value;const url=URL.createObjectURL(new Blob([composeBrief(pack,contracts[screen],demoMemory)],{type:'text/markdown'}));const link=document.createElement('a');link.href=url;link.download=`${screen}-brief.md`;link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+function guide(){openDialog({title:'Bring the judgment with you.',content:'<p class="dialog-copy">Install the project rules once. Start each screen with your design system, the task, and the decisions you’ve already made.</p><pre class="guide-code">node bin/formthread.mjs setup ./my-app\nnode bin/formthread.mjs brief \\\n  --project ./my-app</pre><p class="consequence">Run from the downloaded source folder. No package is published to npm. Works with Codex and Claude instruction files; other agents can read the same brief.</p><div class="guide-links"><a href="../README.md">Read the guide ↗</a><a href="../packs/studio/pack.json">View the design pack ↗</a></div>'},'shell');}
 function changeFlow(next){closeDialog();flow=next;state='ready';render();announce(`${next} example`);}
 function setState(next){closeDialog();state=next;render();if(next==='confirmation')reviewPayment();if(next==='preview')preview('still');if(next==='editing')newTask();}
 document.addEventListener('click',event=>{
  const button=event.target.closest('button');if(!button||button.disabled)return;
  if(button.dataset.flow){changeFlow(button.dataset.flow);return;}
  if(button.dataset.mode){closeDialog();mode=button.dataset.mode;state='ready';render();return;}
- if(button.dataset.shell){const action=button.dataset.shell;if(action==='inspect')inspect();if(action==='guide')guide();if(action==='reset'){closeDialog();tasks=initialTasks();saved.clear();mood='all';taskFilter='all';state='ready';render();announce('Example reset');}return;}
+ if(button.dataset.shell){const action=button.dataset.shell;if(action==='inspect')inspect();if(action==='guide')guide();if(action==='memory')memoryPanel();if(action==='reset'){closeDialog();tasks=initialTasks();saved.clear();mood='all';taskFilter='all';state='ready';render();announce('Example reset');}return;}
  const action=button.dataset.action;if(!action)return;
- if(action==='close-dialog')closeDialog();
+ if(action==='accept-memory')acceptMemory();
+ else if(action==='download-brief')downloadBrief();
+ else if(action==='clear-memory'){demoMemory={schema:'design-harness.memory/1',decisions:[]};const persisted=saveDemoMemory();memoryPanel(persisted?'Demo memory cleared.':'Session memory cleared. Browser storage is unavailable.');}
+ else if(action==='close-dialog')closeDialog();
  else if(action==='mood'){mood=button.dataset.value;render();scene.querySelector(`[data-value="${mood}"]`).focus();}
  else if(action==='task-filter'){taskFilter=button.dataset.value;render();scene.querySelector(`[data-value="${taskFilter}"]`).focus();}
  else if(action.startsWith('play:'))preview(action.split(':')[1]);
@@ -87,7 +102,7 @@ document.addEventListener('click',event=>{
 });
 document.addEventListener('change',event=>{if(event.target.matches('[data-task]')){const id=event.target.dataset.task;const task=tasks.find(t=>t.id===id);task.done=event.target.checked;render();scene.querySelector(`[data-task="${id}"]`)?.focus();announce(task.done?'Task complete':'Task reopened');}});
 document.addEventListener('visibilitychange',()=>document.documentElement.classList.toggle('page-hidden',document.hidden));
-window.designHarness={pack,contracts,get state(){return {flow,mode,state,mood,taskFilter};},snapshot:()=>collectSnapshot(scene,{screen:flow,state}),audit:()=>auditSnapshot(pack,contracts[flow],collectSnapshot(scene,{screen:flow,state})),brief:()=>composeBrief(pack,contracts[flow]),setState,changeFlow};
+window.designHarness={pack,contracts,get state(){return {flow,mode,state,mood,taskFilter};},snapshot:()=>collectSnapshot(scene,{screen:flow,state}),audit:()=>auditSnapshot(pack,contracts[flow],collectSnapshot(scene,{screen:flow,state})),brief:()=>composeBrief(pack,contracts[flow],demoMemory),setState,changeFlow};
 render();
 if(new URLSearchParams(location.search).has('selftest')){
  const {runBrowserTests}=await import('./self-test.mjs');const result=await runBrowserTests();

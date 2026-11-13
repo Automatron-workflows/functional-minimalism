@@ -1,6 +1,8 @@
-# Design harness workflow
+# Formthread workflow · functional minimalism
 
 Apply this workflow to UI work. Keep planning and implementation commentary out of the product interface.
+
+Use functional minimalism: reduce interpretation and repeated explanation while preserving the information needed to act. Read `references/functional-minimalism.md` for the Dieter Rams reference and practical review criteria.
 
 Read the adjacent `DESIGN_RULES.md` when installed in `.design-harness/`; in the harness source, read the root `DESIGN_RULES.md`. It contains Matthias's accepted visual-first guidance. For explanatory demos, also read `references/hardwire.md`. Keep Hardwire's exact colors, layout, and pacing scoped to that reference.
 

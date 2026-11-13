@@ -1,14 +1,17 @@
-# v0.1 implementation status
+# Formthread v0.2 implementation status
 
 The original product plan remains a proposal. This file tracks the implemented slice.
 
 | Capability | Status |
 | --- | --- |
+| Functional minimalism guidance with Dieter Rams reference | Implemented; human review guidance |
+| One-command first-screen setup and doctor | Implemented |
+| Formthread brand, illustrative workflow film and setup panel | Implemented; browser verification pending |
 | Versioned packs, semantic tokens, alias validation | Implemented |
 | Ten mapped HTML reference components | Implemented |
 | Three screen contracts and portable briefs | Implemented |
 | Codex / Claude project instruction files | Implemented; host must load them |
-| Scoped accepted/proposed/rejected decision memory | Implemented |
+| Scoped accepted/proposed/rejected decision memory | Implemented; workshop adds local acceptance and brief download |
 | Pack pinning and drift detection | Implemented |
 | Normalized token-map import with provenance | Implemented |
 | Local source/export checks and lexical CSS checks | Implemented; limitations documented |

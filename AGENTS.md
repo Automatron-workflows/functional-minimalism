@@ -1,6 +1,6 @@
 # Design harness working context
 
-This folder contains the design plan, reusable authoring context, and v0.1 implementation. Read `docs/STATUS.md` and `docs/VERIFICATION.md` for implemented capabilities and verification limits. Live Figma importing and an Alps pack remain pending.
+This folder contains the design plan, reusable authoring context, and Formthread v0.2 implementation. Read `docs/STATUS.md` and `docs/VERIFICATION.md` for implemented capabilities and verification limits. Live Figma importing and an Alps pack remain pending.
 
 Before designing or reviewing a screen, read `DESIGN_RULES.md` and the relevant approved reference. Read `references/hardwire.md` for explanatory demos. Read `Automatron_Design_Harness_Plan.md` when changing the architecture or implementation scope.
 
@@ -23,3 +23,5 @@ The central question is: can a person identify the object, action and outcome wi
 If the answer is unclear, fix the composition, affordance or example first. Add the shortest useful label when it improves understanding. Do not conceal essential information to meet a word count.
 
 Report working behavior, inspected evidence and remaining uncertainty separately. User approval establishes an accepted design direction; it does not establish measured usability or accessibility certification.
+
+Use **functional minimalism** as the design philosophy. Read `references/functional-minimalism.md` for the Dieter Rams reference and practical review guidance. Reduce effort to understand and act; preserve useful information and product character.

@@ -1,7 +1,7 @@
 import { readFile, writeFile, mkdir, lstat, realpath, cp } from 'node:fs/promises';
 import path from 'node:path';
 import { createHash, randomUUID } from 'node:crypto';
-import { validatePack, validateMemory, invariant, composeBrief, tokensToCSS, checkCSS } from './core.mjs';
+import { validatePack, validateMemory, validateContract, invariant, composeBrief, tokensToCSS, checkCSS } from './core.mjs';
 
 export const readJSON = async file => JSON.parse(await readFile(file,'utf8'));
 export const canonical = value => Array.isArray(value)?'['+value.map(canonical).join(',')+']':value&&typeof value==='object'?'{'+Object.keys(value).sort().map(k=>JSON.stringify(k)+':'+canonical(value[k])).join(',')+'}':JSON.stringify(value);
@@ -28,11 +28,12 @@ export async function safeDestination(root, relative) {
 }
 const markerStart='<!-- design-harness:start -->';
 const markerEnd='<!-- design-harness:end -->';
+const validMarkers=content=>{const starts=content.split(markerStart).length-1,ends=content.split(markerEnd).length-1;return starts===0&&ends===0||starts===1&&ends===1&&content.indexOf(markerStart)<content.indexOf(markerEnd);};
 export async function appendInstructions(file, block) {
   const exists=await regularFile(file);
   const previous=exists?await readFile(file,'utf8'):'';
   if(previous.includes(markerStart)||previous.includes(markerEnd)) {
-    invariant(previous.includes(markerStart)&&previous.includes(markerEnd),`Malformed harness block: ${file}`);
+    invariant(validMarkers(previous),`Malformed harness block: ${file}`);
     return false; // Never silently overwrite user-edited instructions.
   }
   await writeFile(file,previous+(previous.endsWith('\n')?'':'\n')+`\n${markerStart}\n${block.trim()}\n${markerEnd}\n`,{flag:exists?'w':'wx'});
@@ -65,7 +66,10 @@ export async function initialize(project, packPath, bundleRoot, client='both') {
   const stylesTarget=path.join(project,'src/design-system/components.css');
   const assetsTarget=path.join(project,'src/design-system/assets');
   // Preflight every user-owned destination before writing anything.
-  for(const name of client==='both'?['AGENTS.md','CLAUDE.md']:[client==='codex'?'AGENTS.md':'CLAUDE.md']) await regularFile(path.join(project,name));
+  for(const name of client==='both'?['AGENTS.md','CLAUDE.md']:[client==='codex'?'AGENTS.md':'CLAUDE.md']) {
+    const file=path.join(project,name),exists=await regularFile(file);
+    if(exists){const content=await readFile(file,'utf8');invariant(validMarkers(content),`Malformed harness block: ${file}`);}
+  }
   for(const file of isBundled?[componentTarget,tokensTarget,stylesTarget,assetsTarget]:[]) {
     await safeDestination(project,path.relative(project,file));
     const existing=await lstat(file).catch(e=>{if(e.code==='ENOENT')return null;throw e;});invariant(!existing,`Will not overwrite ${file}`);
@@ -84,6 +88,7 @@ export async function initialize(project, packPath, bundleRoot, client='both') {
   await writeNew(path.join(directory,'WORKFLOW.md'),await readFile(path.join(bundleRoot,'adapters/WORKFLOW.md'),'utf8'));
   await writeNew(path.join(directory,'DESIGN_RULES.md'),await readFile(path.join(bundleRoot,'DESIGN_RULES.md'),'utf8'));
   await writeNew(path.join(directory,'references/hardwire.md'),await readFile(path.join(bundleRoot,'references/hardwire.md'),'utf8'));
+  await writeNew(path.join(directory,'references/functional-minimalism.md'),await readFile(path.join(bundleRoot,'references/functional-minimalism.md'),'utf8'));
   const block='For UI design and implementation, read `.design-harness/WORKFLOW.md`, the pinned `.design-harness/pack.json`, and accepted decisions in `.design-harness/memory.json`. Start from a screen contract. Use minimum reading, maximum clarity. Render and exercise the result before delivery. Preserve current user instructions and project-specific visual identity.';
   for(const name of client==='both'?['AGENTS.md','CLAUDE.md']:[client==='codex'?'AGENTS.md':'CLAUDE.md']) await appendInstructions(path.join(project,name),block);
   return {project:path.resolve(project),pack:pack.id,digest:config.packDigest,client};
@@ -113,4 +118,43 @@ export async function checkProject(project, cssFiles=[]) {
   const findings=await verifySources(pack,project);
   for(const file of cssFiles) findings.push(...checkCSS(pack,await readFile(file,'utf8'),file));
   return {status:findings.some(x=>x.severity==='error')?'fail':'pass',findings,renderedVerification:'not-run'};
+}
+
+export async function setupProject(project, bundleRoot, {template='project',client='both',packPath}={}) {
+  invariant(['discovery','invoice','project'].includes(template),'Template must be discovery, invoice, or project');
+  const source=packPath??path.join(bundleRoot,'packs/studio/pack.json');
+  const original=validatePack(await readJSON(source));
+  const id=path.basename(path.resolve(project)).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^[^a-z]+|-+$/g,'')||'my-app';
+  const contract=validateContract({...await readJSON(path.join(bundleRoot,`examples/${template}.screen.json`)),project:id});
+  composeBrief(original,contract); // Verify template compatibility before touching the project.
+  const result=await initialize(project,source,bundleRoot,client);
+  const screenPath=path.join(project,'.design-harness/screens',`${template}.json`);
+  await writeNew(screenPath,JSON.stringify(contract,null,2)+'\n');
+  const output=await brief(project,contract);
+  const briefPath=path.join(project,'.design-harness/START_HERE.md');
+  await writeNew(briefPath,output);
+  const configPath=path.join(project,'.design-harness/config.json');
+  const config=await readJSON(configPath);config.projectId=id;config.defaultScreen=`screens/${template}.json`;
+  await writeFile(configPath,JSON.stringify(config,null,2)+'\n');
+  return {...result,projectId:id,screen:screenPath,brief:briefPath,next:'Open this project in your coding agent and ask it to build from .design-harness/START_HERE.md. Then render and review the result.'};
+}
+
+export async function readScreen(project, requested) {
+  const {base,config}=await loadProject(project);
+  if(requested && (requested.includes('/')||requested.endsWith('.json')))return validateContract(await readJSON(path.resolve(requested)));
+  const relative=requested?`screens/${requested}.json`:config.defaultScreen;
+  invariant(typeof relative==='string'&&/^screens\/[a-z][a-z0-9.-]*\.json$/.test(relative),'Run setup or supply an explicit screen.json path');
+  return validateContract(await readJSON(path.join(base,relative)));
+}
+
+export async function doctor(project) {
+  const {config,pack,base}=await loadProject(project);
+  const result=await checkProject(project);
+  const instructionFiles=config.client==='both'?['AGENTS.md','CLAUDE.md']:[config.client==='claude'?'CLAUDE.md':'AGENTS.md'];
+  for(const file of instructionFiles){const content=await readFile(path.join(project,file),'utf8').catch(()=> '');if(!content.includes(markerStart)||!validMarkers(content)||!content.includes('.design-harness/WORKFLOW.md'))result.findings.push({severity:'error',code:'missing-instructions',message:`${file} is missing its workflow instructions`});}
+  for(const file of ['WORKFLOW.md','DESIGN_RULES.md','references/functional-minimalism.md']){if(!await regularFile(path.join(base,file)))result.findings.push({severity:'error',code:'missing-workflow',message:`Missing workflow context: ${file}`});}
+  if(config.defaultScreen){try{composeBrief(pack,await readScreen(project));}catch(error){result.findings.push({severity:'error',code:'invalid-screen',message:error.message});}}
+  else result.findings.push({severity:'warning',code:'no-screen',message:'No first-screen contract is selected. Use setup on a new project or add a contract.'});
+  result.status=result.findings.some(f=>f.severity==='error')?'fail':'pass';
+  return {...result,pack:`${pack.id}@${pack.version}`,client:config.client,instructionFiles,projectId:config.projectId??null,agentLoadedInstructions:'not-observable',renderedVerification:'not-run'};
 }

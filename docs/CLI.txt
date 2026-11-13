@@ -1,20 +1,27 @@
-Automatron Design Harness · v0.1
+Formthread · v0.2 · Functional minimalism
 
-node bin/design-harness.mjs init ./my-app --client both
-node bin/design-harness.mjs validate packs/studio/pack.json
-node bin/design-harness.mjs tokens packs/studio/pack.json
-node bin/design-harness.mjs brief examples/discovery.screen.json --project ./my-app
-node bin/design-harness.mjs check --project ./my-app --css ./my-app/src/styles.css
-node bin/design-harness.mjs audit screen.json evidence.json --project ./my-app
-node bin/design-harness.mjs remember --project ./my-app --scope project --target my-app --rule "..." --reason "..." --accept
-node bin/design-harness.mjs pin --project ./my-app
-node bin/design-harness.mjs import-tokens tokens.json --pack pack.json --out new-pack.json --source "Figma file URL / export revision"
+node bin/formthread.mjs setup ./my-app --template discovery --client both
+node bin/formthread.mjs doctor --project ./my-app
+node bin/formthread.mjs brief --project ./my-app
+node bin/formthread.mjs brief discovery --project ./my-app --out brief.md
+node bin/formthread.mjs init ./existing-app --pack my-pack.json --client both
+node bin/formthread.mjs validate packs/studio/pack.json
+node bin/formthread.mjs tokens packs/studio/pack.json
+node bin/formthread.mjs check --project ./my-app --css ./my-app/src/styles.css
+node bin/formthread.mjs audit screen.json evidence.json --project ./my-app
+node bin/formthread.mjs remember --project ./my-app --scope project --target my-app --rule "..." --reason "..." --accept
+node bin/formthread.mjs pin --project ./my-app
+node bin/formthread.mjs import-tokens tokens.json --pack pack.json --out new-pack.json --source "Figma file URL / export revision"
 
+setup templates: discovery, invoice, project. Clients: codex, claude, both.
+setup adds the pinned reference system, a project-scoped contract and START_HERE.md.
+For an existing system, use init --pack and your own compatible screen contract.
+doctor checks local files, not whether an agent loaded them or rendered a screen.
+brief includes accepted, applicable decisions only; regenerate after memory changes.
 init preserves existing instructions and refuses conflicting component files.
-brief includes accepted, applicable decisions only. Omit --accept to propose a decision.
 pin explicitly accepts a reviewed local pack revision. It does not fetch updates.
 import-tokens consumes the documented normalized map, not arbitrary Figma JSON.
-check covers registry paths/exports and optional lexical CSS rules, not JSX/TS AST analysis.
+check covers registry paths/exports and lexical CSS, not JSX/TS AST analysis.
 audit requires every contract state at every viewport and the pinned packDigest.
 Source-only checks explicitly report renderedVerification: not-run.
-No npm publication, API keys, model calls, or remote services are required.
+Legacy bin/design-harness.mjs remains available. No npm package is published.

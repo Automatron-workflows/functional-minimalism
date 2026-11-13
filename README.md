@@ -1,87 +1,95 @@
-# Automatron Design Harness
+# Formthread
 
-**Minimum reading. Maximum clarity.**
+**Less to read. More to use.**
 
-A portable workflow for AI-built interfaces: reusable design packs, task-specific screen contracts, scoped design memory, and checks against the rendered result.
+Functional minimalism for AI-built interfaces. An Automatron project, alongside Hardwire.
 
-The first implementation is **v0.1.0**. It runs locally, has no npm dependencies, and makes no model or service calls. Studio is an authored reference system, **not Alps**. No npm package has been published.
+## Why
 
-## Try the working examples
+You should not have to repeat the same design corrections in every new AI conversation. Formthread carries your design system and accepted decisions into the next build. The task leads; explanation earns its place.
 
-Use Node 18.16 or newer. From this folder:
+[Functional minimalism](references/functional-minimalism.md) is our practical philosophy, inspired by Dieter Rams's principles. Reduce the effort needed to understand and act. Preserve labels, meaningful content, prices, permissions and recovery. Each product keeps its own character.
+
+## What
+
+A local design harness with versioned design packs, screen contracts, scoped design memory, and source/rendered-evidence checks. Your coding agent performs the design, browser work and repair; Formthread supplies context and checks. No model calls, credentials, npm dependencies or telemetry.
+
+**v0.2.0** includes a branded illustrated demo, three working fixture flows, and one-command first-screen setup. Studio is an explicit reference system, not Alps. Nothing is published to npm.
+
+## Set up your first screen
+
+Download and extract `formthread-source.zip`. From the extracted `formthread` folder, with Node 18.16 or newer:
+
+```sh
+node bin/formthread.mjs setup ../my-app --template discovery --client both
+node bin/formthread.mjs doctor --project ../my-app
+```
+
+Choose `discovery`, `invoice` or `project`; agent adapters are `codex`, `claude` or `both`. Replace `../my-app` with your new project's path.
+
+Setup installs the Studio reference components, pinned pack, workflow, design rules, Rams reference, empty decision memory, a project-scoped screen contract, and `.design-harness/START_HERE.md`. It appends bounded blocks to agent instructions, preserving existing content. Existing harness installations and conflicting component files are refused.
+
+Open the target project in your coding agent and ask:
+
+> Build the screen described in `.design-harness/START_HERE.md`. Follow `.design-harness/WORKFLOW.md`. Render and exercise the result, repair findings, and report any verification limits.
+
+The setup creates context and reusable components, not a running application. The host must load its instruction files; `doctor` cannot observe whether it did. Review the starter contract before building a real product.
+
+## Use your existing design system
+
+Map your actual tokens, components and source paths into a pack using [the format guide](docs/FORMAT.md). Component files must already exist in the target project.
+
+```sh
+node bin/formthread.mjs init ../existing-app --pack ./my-pack.json --client both
+node bin/formthread.mjs brief ./my-screen.json --project ../existing-app
+```
+
+Do not install Studio over an established design system. Custom packs keep their own palette, density, typography and behavior. A normalized token-map importer exists; live Figma/Code Connect import and an Alps pack are pending actual integration and source material.
+
+## Carry a decision forward
+
+```sh
+node bin/formthread.mjs remember --project ../my-app \
+  --scope project --target my-app \
+  --rule "Keep unfamiliar actions visibly labelled." \
+  --reason "Explicit user feedback on navigation." --accept
+node bin/formthread.mjs brief --project ../my-app
+```
+
+Use the `projectId` returned by setup as the target. Without `--accept`, a decision stays proposed and is excluded from briefs. Accepted memory supports global (`*`), pack, project, and screen (`project-id/screen-id`) scopes. `--supersedes <id>` replaces a decision only within the same scope and target. Regenerate the brief after changing a contract or memory; `START_HERE.md` is an initial snapshot, not a live file.
+
+## See it work
 
 ```sh
 npm run build
 npm run dev
 ```
 
-Open **http://127.0.0.1:4178/demo/**. Try film discovery, invoice confirmation, and project tasks. Switch Before / With harness to see an illustrated comparison. Both versions preserve the same task information. These are authored fixtures, not outputs from a measured model benchmark. All payments are simulated.
+Open **http://127.0.0.1:4178/demo/**. The landing illustration shows a system shaping three interfaces. Why explains the purpose; Set up gives the exact commands and downloadable source. Try the working examples opens film discovery, a simulated invoice confirmation, and project tasks. Inspect runs real DOM checks against the fixture contracts. Design memory lets you accept a scoped correction and download another screen’s brief to see which decisions carry forward. That memory is local to the demo browser; it does not write to your project or agent.
 
-Alternatively, open **dist/Design_Harness_Preview.html** directly in a browser. This standalone build includes its scripts, styles, data, and artwork, and does not need a server or network connection.
-
-Choose **Inspect** to see real DOM counts and findings from the same checker used by the CLI. The state selector exposes loading, empty, error, confirmation, and success states where applicable.
-
-## Use it on a project
-
-```sh
-node bin/design-harness.mjs init ../my-app --client both
-node bin/design-harness.mjs brief examples/discovery.screen.json --project ../my-app
-node bin/design-harness.mjs check --project ../my-app
-```
-
-Initialization adds a versioned `.design-harness/` directory and appends a bounded instruction block to `AGENTS.md` and `CLAUDE.md`. Existing instructions are preserved. Existing harness installations and conflicting reference-component files are not overwritten. With the bundled pack, actual reference components, tokens, styles, and artwork are copied into `src/design-system/`. Import the component functions and both CSS files when using that reference system; user-supplied text must be escaped. The styles include the demonstration shell, so use your own mapped pack for an established product.
-
-For your own system, supply `--pack path/to/pack.json`. Component paths then refer to files already in the target project. The harness does not copy another project's brand into yours or assume a screenshot provides a complete design system.
-
-Adapt an example screen contract: set `project` to your project identifier, define the task, essential information IDs, applicable states, widths, and actual components. The generated brief is portable text; the host agent performs the design and repair work. Instruction-file support depends on the agent host actually loading the files.
-
-## Remember a correction
-
-```sh
-node bin/design-harness.mjs remember --project ../my-app \
-  --scope project --target my-app \
-  --rule "Keep unfamiliar actions visibly labelled." \
-  --reason "Explicit user feedback on navigation." --accept
-```
-
-Without `--accept`, a decision remains proposed and is excluded from generated briefs. Accepted decisions can target `global` (`*`), `pack`, `project`, or `screen` (`project-id/screen-id`). `--supersedes <id>` replaces a prior decision only in the same scope and target. Memory is editable JSON, not model training.
+Or open **dist/Formthread_Preview.html** directly in a browser: a self-contained preview with the workshop and source ZIP embedded. **dist/Formthread_Workshop.html** is the separate offline workshop. The film and Before/With harness comparisons are authored illustrations, not measured model outputs or user research. No real payment occurs.
 
 ## Check the result
 
 ```sh
 npm test
+npm run build
 npm run check
 npm run test:browser
 ```
 
-Build first. The browser command uses a **locally installed Chrome**, the standalone preview, a temporary fresh profile, and two viewport widths. Set `CHROME_BIN` if Chrome is in a different location. No browser download is attempted. Reports are written to `artifacts/` when the run completes and include actual captured snapshots. No screenshot or report is sent to a service. See the verification record for restrictions encountered in the build environment.
+The browser runner requires a local Chrome installation and permission to launch it. Set `CHROME_BIN` if needed. It tests the workshop at 390px and 1440px and writes evidence to `artifacts/`. It does not download a browser. See [the verification record](docs/VERIFICATION.md) for actual results and restrictions.
 
-For another app, import `collectSnapshot` from `src/browser.mjs`, collect the contract's states at each requested width, and create the documented evidence envelope. The CLI requires the evidence to match the pinned design-pack digest:
+For your own screen, use `src/browser.mjs` to collect each contract state at each viewport and create the documented evidence envelope, then run:
 
 ```sh
-node bin/design-harness.mjs audit screen.json evidence.json --project ../my-app
+node bin/formthread.mjs audit screen.json evidence.json --project ../my-app
 ```
 
-The checker catches missing essential information, unnamed or clipped controls, horizontal overflow, unknown annotated components/variants, missing primary actions, and incomplete state/viewport coverage. Explanatory word counts, competing actions, and small targets are review findings. Fewer words never offset a missing amount or label.
+Checks cover missing essential information, unnamed/clipped controls, overflow, annotated component/variant mismatches, missing primary actions, and state/viewport coverage. Small targets, competing actions and explanatory copy produce review findings. No word reduction can compensate for lost task information.
 
-`check --css file.css` also scans CSS for unrecognized semantic variables, token overrides, and literal color values. This is a **lexical CSS checker**, not a complete CSS parser, JSX/TypeScript AST analyzer, or proof that the actual component implementation was used. Component-source checks establish local paths and recognizable export declarations only. The DOM name heuristic is not the full accessible-name algorithm.
+`check --css path.css` is lexical CSS analysis, not a full parser. Source checks validate paths and recognizable exports, not actual runtime component identity. DOM accessible names use a heuristic, not the full accessible-name algorithm. Caller-supplied evidence is not authenticated. These checks do not certify accessibility, aesthetics or usability.
 
-## Connect Figma or your library
+Pack drift requires review and explicit `pin`. Memory is inspectable JSON, not model training. There is no autonomous repair engine or cross-model study.
 
-See [the format guide](docs/FORMAT.md). v0.1 imports a documented normalized token map and records its source. Structured Figma data and Code Connect mappings can be converted into this format, but **a live Figma connector and automatic component mapping are not implemented**. Verify the mapping against real source code. The Alps source is still required for an Alps-specific pack.
-
-Pack changes trigger a drift error until reviewed and explicitly pinned with `pin --project …`. Importing a token map creates a separate pack file and increments its patch version; it never silently updates consuming projects.
-
-## What this release establishes
-
-- A usable CLI, library, and two agent instruction adapters.
-- Ten real reference components with variants and usage rules.
-- Three interactive example flows, with browser instrumentation and reproducible behavior checks.
-- Scoped memory and explicit version pinning.
-- Static demo output that can be hosted without a backend.
-
-The host agent still has to inspect visual quality, exercise keyboard and assistive-technology behavior, and repair findings. These checks do not certify accessibility, aesthetics, usability, genuine user approval, or evidence authenticity. Evidence is caller supplied. No cross-model benchmark or participant usability study has been run.
-
-Read [the workflow](adapters/WORKFLOW.md), [accepted design rules](DESIGN_RULES.md), [the Hardwire reference](references/hardwire.md), [CLI commands](docs/CLI.txt), [the implementation status](docs/STATUS.md), [the verification record](docs/VERIFICATION.md), and [the original product plan](Automatron_Design_Harness_Plan.md).
-
-MIT license. An Automatron project.
+Read [workflow](adapters/WORKFLOW.md), [rules](DESIGN_RULES.md), [brand](docs/BRAND.md), [audit](docs/AUDIT-v0.2.md), [commands](docs/CLI.txt), [status](docs/STATUS.md) and [Hardwire reference](references/hardwire.md). The legacy `design-harness.mjs` entry point remains compatible. MIT license.

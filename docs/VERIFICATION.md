@@ -1,28 +1,31 @@
-# Verification record · 13 November 2026
+# Formthread v0.2 verification · 13 November 2026
 
 ## Passed
 
-- **17 unit and CLI integration tests** on Node 18.16.0. These cover token validation/cycles/type mismatches, registry validation, preservation of consequential information, malformed evidence, state/viewport coverage, project and screen scope isolation, supersession safety, CSS findings, non-destructive project initialization, symlink refusal, source-path containment, and CLI exit behavior.
-- Static build, including a standalone HTML preview with embedded data, artwork, styles, and scripts.
-- Registry/source checks for ten mapped components, three screen contracts, generated-token consistency, and semantic CSS checks. Zero findings.
-- JavaScript syntax checks for all 12 implementation/build modules and the assembled standalone script.
+- **25 unit and CLI integration tests** on Node 18.16.0. Coverage includes token/type/alias validation, task information, evidence completeness, scope isolation, supersession, lexical CSS findings, non-destructive initialization, symlink refusal, CLI errors, first-screen setup, instruction preflight, doctor findings, and illustration playback gates.
+- Static build with a self-contained branded preview, embedded workshop and downloadable source archive.
+- Registry/source checks for ten mapped components, three screen contracts, generated-token consistency and reference-system CSS. Zero findings. The branded presentation's CSS is separate from the Studio pack; the reference CSS check does not certify it.
+- JavaScript syntax checks for source, CLI, demo and build modules, plus both assembled standalone scripts.
+- ZIP integrity and successful setup/doctor from an extracted source archive for discovery/Codex, invoice/Claude, and project/both. These checks exercise real packaged files, not only source imports.
 
-## Blocked in the build environment
+## Blocked
 
-- Local HTTP preview: the environment rejected binding a localhost port (`EPERM`).
-- Headless browser run: the installed Chrome process could not launch in this sandbox. No browser-result file was produced and no browser assertions are counted as passed.
-- Desktop browser preview: browser security policy rejected opening a `file:` URL. No workaround was attempted after that rejection.
-- GitHub publication: the local GitHub CLI reported invalid authentication. No remote repository was created and no code was published.
+The local environment rejects HTTP port binding and cannot launch the installed headless Chrome. The browser security policy also rejected a local file URL; no alternate browser route was used for that blocked action. These limitations were established in the preceding audit and are not claimed to have changed.
 
-## Not established
+A new private Site was registered for the hosted demo. Source publication failed because the environment could not resolve the Git host. **No version was deployed and there is no verified live URL.** The static output and hosting manifest remain prepared for a later publication attempt. GitHub CLI authentication was also invalid in the preceding audit; no public repository or npm package was published.
 
-Rendered appearance, mobile layout, actual interaction correctness in a browser, keyboard traversal, screen-reader behavior, contrast, and motion behavior still need browser review. The implementation includes checks and native semantics for these, but source inspection does not prove them. The 23 browser assertions per viewport are supplied for a later run, not reported as passed.
+## Still to verify in a browser
 
-No model-comparison experiment, participant usability study, live Figma import, or Alps-specific validation has been performed.
+- Desktop and 390px composition, overflow, text enlargement and contrast.
+- Landing before/after selection, sequential composition, pause, replay, reduced motion, offscreen/hidden suspension and modal focus.
+- Setup selectors, copy fallback, source download, workshop opening and Escape dismissal.
+- Discovery/save/filter, invoice confirmation/recovery and task creation/filtering.
+- Workshop decision acceptance, project versus screen scope, browser persistence or session-only fallback, clearing, and downloaded brief content.
+- Keyboard traversal and assistive technology behavior.
+
+The supplied workshop browser runner has not executed successfully here. No browser assertions, visual review, model-comparison experiment or participant usability study are counted as passed. Live Figma import and an Alps pack are not implemented. Source checks and authored animation are not usability evidence.
 
 ## Reproduce
-
-From the source directory:
 
 ```sh
 npm test
@@ -31,6 +34,6 @@ npm run check
 npm run test:browser
 ```
 
-The browser runner needs a local Chrome installation and permission to launch it; it uses the standalone HTML and a temporary profile, without a web server. If needed, set `CHROME_BIN` to the browser executable. Successful execution writes per-screen evidence and detailed results under `artifacts/`.
+The browser runner requires a local Chrome installation and permission to launch it; set `CHROME_BIN` if needed. It runs `dist/Formthread_Workshop.html` at 390px and 1440px, using a temporary profile and no HTTP server. A successful run writes evidence under `artifacts/`.
 
-You can also open `dist/Design_Harness_Preview.html` yourself. It runs offline. Use each main action and the Inspect panel's state picker at desktop and narrow window widths. Review every required state and independently test keyboard and assistive technology behavior before treating this release as fully verified.
+Open `dist/Formthread_Preview.html` for the complete offline demonstration. Use the browser checklist above for the landing and memory controls in addition to the runner. Treat this release as implemented and source-checked, pending browser acceptance.

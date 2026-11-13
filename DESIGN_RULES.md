@@ -1,4 +1,6 @@
-# Visual first design rules
+# Functional minimalism · design rules
+
+Functional minimalism means less effort to understand and act. See [the Dieter Rams reference and our software review practices](references/functional-minimalism.md). These principles guide decisions; they do not require blank screens, unlabeled icons, or one visual style for every product.
 
 Accepted by Matthias on 13 November 2026 following the Hardwire silent demo. These rules are authoring and review context. They are not implemented automated checks.
 

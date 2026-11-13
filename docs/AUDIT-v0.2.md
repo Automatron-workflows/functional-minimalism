@@ -1,4 +1,4 @@
-# Audit and changes for Formthread v0.2
+# Audit and changes for Functional Minimalism v0.2
 
 ## Product findings
 
@@ -13,6 +13,6 @@
 
 ## Changes
 
-Formthread adds a name, brand assets, concise why/what/how, a visual workflow film, and a separate interactive workshop. The film demonstrates the harness rather than presenting one app as the product. A setup command now writes a correctly scoped first-screen contract and generated brief. Doctor checks the pack, mappings, instructions, and selected screen without pretending to observe the agent's context. The original command and data schemas remain compatible.
+Functional Minimalism adds a name, brand assets, concise why/what/how, a visual workflow film, and a separate interactive workshop. The film demonstrates the harness rather than presenting one app as the product. A setup command now writes a correctly scoped first-screen contract and generated brief. Doctor checks the pack, mappings, instructions, and selected screen without pretending to observe the agent's context. The original command and data schemas remain compatible.
 
 The live Figma adapter, Alps pack, and cross-model/participant studies remain out of scope for this release. Naming and product presentation do not close those evidence gaps.

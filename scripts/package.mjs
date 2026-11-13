@@ -10,8 +10,8 @@ export function zipFiles(files){const local=[],central=[];let offset=0;
  const directory=Buffer.concat(central),end=Buffer.alloc(22);end.writeUInt32LE(0x06054b50);end.writeUInt16LE(files.length,8);end.writeUInt16LE(files.length,10);end.writeUInt32LE(directory.length,12);end.writeUInt32LE(offset,16);return Buffer.concat([...local,directory,end]);
 }
 export async function packageSource(){const files=[];const metadata=JSON.parse(await readFile(path.join(root,'package.json'),'utf8'));
- async function visit(relative){const absolute=path.join(root,relative),info=await lstat(absolute);if(info.isSymbolicLink())throw new Error(`Refusing symlink: ${relative}`);if(info.isDirectory()){for(const name of (await readdir(absolute)).sort())if(!name.startsWith('.'))await visit(path.posix.join(relative,name));}else files.push({name:`formthread/${relative}`,data:await readFile(absolute)});}
+ async function visit(relative){const absolute=path.join(root,relative),info=await lstat(absolute);if(info.isSymbolicLink())throw new Error(`Refusing symlink: ${relative}`);if(info.isDirectory()){for(const name of (await readdir(absolute)).sort())if(!name.startsWith('.'))await visit(path.posix.join(relative,name));}else files.push({name:`functional-minimalism/${relative}`,data:await readFile(absolute)});}
  for(const relative of [...metadata.files,'package.json','test'])await visit(relative);
- const zip=zipFiles(files);await mkdir(path.join(root,'dist'),{recursive:true});await writeFile(path.join(root,'dist/formthread-source.zip'),zip);return zip;
+ const zip=zipFiles(files);await mkdir(path.join(root,'dist'),{recursive:true});await writeFile(path.join(root,'dist/functional-minimalism-source.zip'),zip);return zip;
 }
-if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){await packageSource();console.log('Packaged dist/formthread-source.zip');}
+if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){await packageSource();console.log('Packaged dist/functional-minimalism-source.zip');}

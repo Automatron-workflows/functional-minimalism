@@ -1,10 +1,10 @@
 # Functional minimalism
 
-Formthread's philosophy: reduce the effort needed to understand and use an interface. Keep what helps the person act; remove what competes with it. A dense table can be right. A sparse screen can still be confusing.
+Functional Minimalism's philosophy: reduce the effort needed to understand and use an interface. Keep what helps the person act; remove what competes with it. A dense table can be right. A sparse screen can still be confusing.
 
 The reference is Dieter Rams's ten principles, documented by [Vitsœ](https://www.vitsoe.com/gb/about/good-design). His phrase “Less, but better” captures the ambition. Functional minimalism is our name for this application, not a term or endorsement attributed to Rams.
 
-The following are Formthread's own software review practices, inspired by that reference:
+The following are Functional Minimalism's own software review practices, inspired by that reference:
 
 | Lens | Review practice |
 | --- | --- |

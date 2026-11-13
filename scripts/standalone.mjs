@@ -18,7 +18,7 @@ async function buildWorkshopStandalone(){
  html=html.replace('<link rel="stylesheet" href="./tokens.css"/>','').replace('<link rel="stylesheet" href="./styles.css"/>',`<style>${await read('demo/tokens.css')}\n${await read('demo/styles.css')}</style>`);
  html=html.replace('<script type="module" src="./app.mjs"></script>',`<script type="module">${script}</script>`);
  html=html.replace('href="./" aria-label="Automatron','href="#" aria-label="Automatron');
- const output=path.join(root,'dist/Formthread_Workshop.html');await writeFile(output,html);return html;
+ const output=path.join(root,'dist/Functional_Minimalism_Workshop.html');await writeFile(output,html);return html;
 }
 
 export async function buildStandalone(){
@@ -31,10 +31,10 @@ export async function buildStandalone(){
  const mark='data:image/svg+xml;base64,'+Buffer.from(await read('demo/mark.svg')).toString('base64');
  let script=(await read('src/timeline.mjs')).replace(/^export /gm,'')+'\n'+(await read('demo/film.mjs')).replace(/^import .*;\n/gm,'');
  script+=`\ndocument.querySelector('#workshop iframe').srcdoc=${JSON.stringify(workshop)};`;
- script+=`\nconst __zip=Uint8Array.from(atob(${JSON.stringify(zip.toString('base64'))}),c=>c.charCodeAt(0));const __zipURL=URL.createObjectURL(new Blob([__zip],{type:'application/zip'}));document.querySelector('[data-source]').href=__zipURL;document.querySelector('[data-source]').download='formthread-source.zip';`;
+ script+=`\nconst __zip=Uint8Array.from(atob(${JSON.stringify(zip.toString('base64'))}),c=>c.charCodeAt(0));const __zipURL=URL.createObjectURL(new Blob([__zip],{type:'application/zip'}));document.querySelector('[data-source]').href=__zipURL;document.querySelector('[data-source]').download='functional-minimalism-source.zip';`;
  script+=`\nconst __guideURL=URL.createObjectURL(new Blob([${JSON.stringify(await read('README.md'))}],{type:'text/plain'}));document.querySelectorAll('a[href="../README.md"]').forEach(a=>{a.href=__guideURL;a.download='README.md';});`;
  let html=await read('demo/index.html');
  html=html.replace('<link rel="stylesheet" href="./brand.css">',()=>'<style>'+css+'</style>').replaceAll('./mark.svg',mark);
  html=html.replace('<script type="module" src="./film.mjs"></script>',()=>'<script type="module">'+script.replace(/<\/script/gi,'<\\/script')+'</script>');
- const output=path.join(root,'dist/Formthread_Preview.html');await writeFile(output,html);return output;
+ const output=path.join(root,'dist/Functional_Minimalism_Preview.html');await writeFile(output,html);return output;
 }

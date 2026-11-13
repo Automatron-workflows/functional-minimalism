@@ -5,7 +5,7 @@ import { auditSnapshot, composeBrief, validateMemory } from '../src/core.mjs';
 const read=async url=>{const r=await fetch(url);if(!r.ok)throw new Error(`Cannot load ${url}`);return r.json();};
 const [pack,...screens]=await Promise.all([read('../packs/studio/pack.json'),...['discovery','invoice','project'].map(id=>read(`../examples/${id}.screen.json`))]);
 const contracts=Object.fromEntries(screens.map(s=>[s.id,s]));
-const memoryKey='formthread.workshop.memory.v1';
+const memoryKey='functional-minimalism.workshop.memory.v1';
 let demoMemory={schema:'design-harness.memory/1',decisions:[]};
 try{const stored=localStorage.getItem(memoryKey);if(stored)demoMemory=validateMemory(JSON.parse(stored));}catch{/* Storage may be unavailable in offline previews. */}
 function saveDemoMemory(){try{localStorage.setItem(memoryKey,JSON.stringify(demoMemory));return true;}catch{return false;}}
@@ -74,8 +74,8 @@ function memoryPanel(message=''){
  document.querySelector('#memory-form').addEventListener('submit',event=>{event.preventDefault();acceptMemory();});
 }
 function acceptMemory(){const input=document.querySelector('[name="decision"]'),rule=input.value.trim();if(!rule){input.setAttribute('aria-invalid','true');document.querySelector('#memory-status').textContent='Write the decision you want to keep.';input.focus();return;}const scope=document.querySelector('#memory-scope').value;const target=scope==='project'?contracts[flow].project:`${contracts[flow].project}/${flow}`;demoMemory=validateMemory({...demoMemory,decisions:[...demoMemory.decisions,{id:crypto.randomUUID(),scope,target,status:'accepted',rule,reason:'Explicitly accepted in the local workshop.',createdAt:new Date().toISOString()}]});const persisted=saveDemoMemory();memoryPanel(persisted?'Decision saved in this browser. Download a brief to inspect its scope.':'Decision kept for this session only. Browser storage is unavailable.');}
-function downloadBrief(){const screen=document.querySelector('#brief-screen').value;const url=URL.createObjectURL(new Blob([composeBrief(pack,contracts[screen],demoMemory)],{type:'text/markdown'}));const link=document.createElement('a');link.href=url;link.download=`${screen}-brief.md`;link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
-function guide(){openDialog({title:'Bring the judgment with you.',content:'<p class="dialog-copy">Install the project rules once. Start each screen with your design system, the task, and the decisions you’ve already made.</p><pre class="guide-code">node bin/formthread.mjs setup ./my-app\nnode bin/formthread.mjs brief \\\n  --project ./my-app</pre><p class="consequence">Run from the downloaded source folder. No package is published to npm. Works with Codex and Claude instruction files; other agents can read the same brief.</p><div class="guide-links"><a href="../README.md">Read the guide ↗</a><a href="../packs/studio/pack.json">View the design pack ↗</a></div>'},'shell');}
+function downloadBrief(){const screen=document.querySelector('#brief-screen').value;const url=URL.createObjectURL(new Blob([composeBrief(pack,contracts[screen],demoMemory,{compact:true})],{type:'text/markdown'}));const link=document.createElement('a');link.href=url;link.download=`${screen}-brief.md`;link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+function guide(){openDialog({title:'Bring the judgment with you.',content:'<p class="dialog-copy">Install the project rules once. Start each screen with your design system, the task, and the decisions you’ve already made.</p><pre class="guide-code">node bin/functional-minimalism.mjs setup ./my-app\nnode bin/functional-minimalism.mjs brief \\\n  --project ./my-app</pre><p class="consequence">Run from the downloaded source folder. No package is published to npm. Works with Codex and Claude instruction files; other agents can read the same brief.</p><div class="guide-links"><a href="../README.md">Read the guide ↗</a><a href="../packs/studio/pack.json">View the design pack ↗</a></div>'},'shell');}
 function changeFlow(next){closeDialog();flow=next;state='ready';render();announce(`${next} example`);}
 function setState(next){closeDialog();state=next;render();if(next==='confirmation')reviewPayment();if(next==='preview')preview('still');if(next==='editing')newTask();}
 document.addEventListener('click',event=>{
@@ -102,7 +102,7 @@ document.addEventListener('click',event=>{
 });
 document.addEventListener('change',event=>{if(event.target.matches('[data-task]')){const id=event.target.dataset.task;const task=tasks.find(t=>t.id===id);task.done=event.target.checked;render();scene.querySelector(`[data-task="${id}"]`)?.focus();announce(task.done?'Task complete':'Task reopened');}});
 document.addEventListener('visibilitychange',()=>document.documentElement.classList.toggle('page-hidden',document.hidden));
-window.designHarness={pack,contracts,get state(){return {flow,mode,state,mood,taskFilter};},snapshot:()=>collectSnapshot(scene,{screen:flow,state}),audit:()=>auditSnapshot(pack,contracts[flow],collectSnapshot(scene,{screen:flow,state})),brief:()=>composeBrief(pack,contracts[flow],demoMemory),setState,changeFlow};
+window.designHarness={pack,contracts,get state(){return {flow,mode,state,mood,taskFilter};},snapshot:()=>collectSnapshot(scene,{screen:flow,state}),audit:()=>auditSnapshot(pack,contracts[flow],collectSnapshot(scene,{screen:flow,state})),brief:()=>composeBrief(pack,contracts[flow],demoMemory,{compact:true}),setState,changeFlow};
 render();
 if(new URLSearchParams(location.search).has('selftest')){
  const {runBrowserTests}=await import('./self-test.mjs');const result=await runBrowserTests();

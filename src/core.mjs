@@ -106,10 +106,19 @@ export function selectDecisions(memory, context) {
   return accepted.filter(d=>!superseded.has(d.id) && d.target===targets[d.scope]).sort((a,b)=>['global','pack','project','screen'].indexOf(a.scope)-['global','pack','project','screen'].indexOf(b.scope));
 }
 
-export function composeBrief(pack, contract, memory={schema:'design-harness.memory/1',decisions:[]}) {
+export function composeBrief(pack, contract, memory={schema:'design-harness.memory/1',decisions:[]}, options={}) {
   validatePack(pack); validateContract(contract);
   const components=contract.components.map(name=>{ const c=pack.components.find(c=>c.name===name); invariant(c, `Unknown contract component: ${name}`); return c; });
   const decisions=selectDecisions(memory,{pack:pack.id,project:contract.project,screen:contract.id});
+  if(options.compact)return [
+    `# ${contract.id} | ${pack.id}@${pack.version}`,
+    `Task: ${contract.goal}\nObject: ${contract.object}\nAction: ${contract.primaryAction}\nLayout: ${contract.composition}`,
+    `Preserve: ${contract.essential.join('; ')}`,
+    `Rules:\n${pack.principles.join('\n')}`,
+    `Components:\n${components.map(c=>`${c.name}=${c.source}#${c.export} [${c.variants.join('|')}] ${c.rules.join(' ')}`).join('\n')}`,
+    `Accepted:\n${decisions.length?decisions.map(d=>`${d.scope}:${d.target}: ${d.rule} (${d.reason})`).join('\n'):'None.'}`,
+    `Verify: ${contract.viewports.join('/')}px; ${contract.states.join(', ')}. Exercise the task, keyboard, focus, contrast, enlarged text and reduced motion. Capture evidence; repair up to three passes, then report limits. Current instructions and task requirements override older preferences. Preserve function, access and consequences.`
+  ].join('\n\n')+'\n';
   return [
     `# ${contract.id} · ${pack.name} ${pack.version}`,
     `Goal: ${contract.goal}\nObject: ${contract.object}\nPrimary action: ${contract.primaryAction}\nComposition: ${contract.composition}`,

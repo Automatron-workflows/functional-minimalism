@@ -8,6 +8,7 @@ const pack=validatePack(await readJSON(path.join(root,'packs/studio/pack.json'))
 await writeFile(path.join(root,'demo/tokens.css'),tokensToCSS(pack));
 const dist=path.join(root,'dist');await rm(dist,{recursive:true,force:true});await mkdir(dist,{recursive:true});
 for(const name of ['demo','src','packs','examples','docs','references','README.md'])await cp(path.join(root,name),path.join(dist,name),{recursive:true});
-await writeFile(path.join(dist,'index.html'),'<!doctype html><html lang="en"><meta charset="utf-8"><title>Formthread</title><meta http-equiv="refresh" content="0;url=./demo/"><a href="./demo/">Open Formthread</a></html>');
+await writeFile(path.join(dist,'index.html'),'<!doctype html><html lang="en"><meta charset="utf-8"><title>Functional Minimalism</title><meta http-equiv="refresh" content="0;url=./demo/"><a href="./demo/">Open Functional Minimalism</a></html>');
 await buildStandalone();
-console.log('Built Formthread demo in dist/; generated tokens from the pinned reference pack.');
+await writeFile(path.join(dist,'.nojekyll'),'');
+console.log('Built Functional Minimalism demo in dist/; generated tokens from the pinned reference pack.');

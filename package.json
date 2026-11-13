@@ -1,7 +1,7 @@
 {
-  "name": "@automatron/formthread",
-  "version": "0.2.0",
-  "description": "Functional minimalism for AI-built interfaces. Carry your design judgment into every build.",
+  "name": "@automatron/functional-minimalism",
+  "version": "0.3.0",
+  "description": "Functional minimalism for AI-built interfaces. Better first drafts, fewer retries, less token waste.",
   "private": true,
   "type": "module",
   "license": "MIT",
@@ -9,7 +9,7 @@
     "node": ">=18.16"
   },
   "bin": {
-    "formthread": "./bin/formthread.mjs",
+    "functional-minimalism": "./bin/functional-minimalism.mjs",
     "design-harness": "./bin/design-harness.mjs"
   },
   "exports": {
@@ -23,7 +23,8 @@
     "build": "node scripts/build.mjs",
     "check": "node scripts/check.mjs",
     "test:browser": "node scripts/browser-test.mjs",
-    "package:source": "node scripts/package.mjs"
+    "package:source": "node scripts/package.mjs",
+    "measure:context": "node scripts/measure-context.mjs"
   },
   "files": [
     "bin",
@@ -40,5 +41,10 @@
     "references",
     "Automatron_Design_Harness_Plan.md",
     "AGENTS.md"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Automatron-workflows/functional-minimalism.git"
+  },
+  "homepage": "https://automatron-workflows.github.io/functional-minimalism/"
 }

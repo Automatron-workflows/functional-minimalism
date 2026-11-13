@@ -6,3 +6,5 @@
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
 
 .invoice .screen-label{margin-bottom:16px}.invoice .noise{font-size:10px;line-height:1.4;max-height:42px;margin-bottom:8px}.invoice-total{margin-top:12px}.invoice-line{margin-top:12px;padding-top:10px}.invoice-action{margin-top:14px}
+
+.wordmark{font-size:19px;letter-spacing:-.7px}.wordmark img{width:30px;height:30px}.hero p:last-child{max-width:275px}@media(max-width:640px){.wordmark{font-size:14px;letter-spacing:-.35px;gap:5px}.wordmark img{width:23px;height:23px}.nav .text{padding:0 8px}.nav .button{padding:9px 10px}.hero h1{font-size:56px}}

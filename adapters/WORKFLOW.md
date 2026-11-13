@@ -1,4 +1,4 @@
-# Formthread workflow · functional minimalism
+# Functional Minimalism workflow · functional minimalism
 
 Apply this workflow to UI work. Keep planning and implementation commentary out of the product interface.
 

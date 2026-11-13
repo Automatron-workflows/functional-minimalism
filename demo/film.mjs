@@ -18,10 +18,10 @@ document.querySelectorAll('[data-open]').forEach(button=>button.addEventListener
 document.querySelectorAll('[data-close]').forEach(button=>button.addEventListener('click',()=>button.closest('dialog').close()));
 document.querySelectorAll('[data-next]').forEach(button=>button.addEventListener('click',()=>{button.closest('dialog').close();openDialog(button.dataset.next);}));
 dialogs.forEach(dialog=>dialog.addEventListener('close',sync));
-function command(){return `node bin/formthread.mjs setup ../my-app --template ${document.querySelector('#template').value} --client ${document.querySelector('#client').value}\nnode bin/formthread.mjs doctor --project ../my-app`;}
+function command(){return `node bin/functional-minimalism.mjs setup ../my-app --template ${document.querySelector('#template').value} --client ${document.querySelector('#client').value}\nnode bin/functional-minimalism.mjs doctor --project ../my-app`;}
 function updateCommand(){document.querySelector('#command').textContent=command();document.querySelector('#copy-status').textContent='';}
 document.querySelectorAll('select').forEach(select=>select.addEventListener('change',updateCommand));
 document.querySelector('#copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(command());document.querySelector('#copy-status').textContent='Copied. Run inside the extracted source folder.';}catch{const range=document.createRange();range.selectNodeContents(document.querySelector('#command'));const selection=getSelection();selection.removeAllRanges();selection.addRange(range);document.querySelector('#copy-status').textContent='Commands selected. Use your browser’s Copy command.';}});
 updateCommand();sync();
 // Read-only diagnostics for browser review; not model or usability measurements.
-window.formthreadFilm={snapshot:()=>({elapsed,playing,stage:film.dataset.stage,running:canRun(),reducedMotion:reduced.matches})};
+window.minimalismFilm={snapshot:()=>({elapsed,playing,stage:film.dataset.stage,running:canRun(),reducedMotion:reduced.matches})};

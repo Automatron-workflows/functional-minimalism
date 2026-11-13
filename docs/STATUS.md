@@ -1,12 +1,12 @@
-# Formthread v0.2 implementation status
+# Functional Minimalism v0.3 implementation status
 
 The original product plan remains a proposal. This file tracks the implemented slice.
 
 | Capability | Status |
 | --- | --- |
 | Functional minimalism guidance with Dieter Rams reference | Implemented; human review guidance |
-| One-command first-screen setup and doctor | Implemented |
-| Formthread brand, illustrative workflow film and setup panel | Implemented; browser verification pending |
+| One-command first-screen setup and doctor | Implemented; compact brief by default |
+| Functional Minimalism brand, illustrative workflow film and setup panel | Implemented; browser verification pending |
 | Versioned packs, semantic tokens, alias validation | Implemented |
 | Ten mapped HTML reference components | Implemented |
 | Three screen contracts and portable briefs | Implemented |
@@ -23,6 +23,7 @@ The original product plan remains a proposal. This file tracks the implemented s
 | Automatic model calls or autonomous repair execution | Not included; host-agent workflow supplied |
 | AST-based React/TypeScript prop validation | Pending |
 | Model comparison study and participant usability study | Not run |
-| Public GitHub repository / npm publication | Not published |
+| GitHub repository / Pages publication | Workflow prepared; see verification record for current status |
+| npm publication | Not published; install from source |
 
 The implementation requires no credentials or external dependencies. Tests and observed results are recorded separately from product claims. The illustrated Before / With harness demo is not a measured performance comparison.

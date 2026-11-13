@@ -1,22 +1,23 @@
-Formthread · v0.2 · Functional minimalism
+Functional Minimalism · v0.3 · Functional minimalism
 
-node bin/formthread.mjs setup ./my-app --template discovery --client both
-node bin/formthread.mjs doctor --project ./my-app
-node bin/formthread.mjs brief --project ./my-app
-node bin/formthread.mjs brief discovery --project ./my-app --out brief.md
-node bin/formthread.mjs init ./existing-app --pack my-pack.json --client both
-node bin/formthread.mjs validate packs/studio/pack.json
-node bin/formthread.mjs tokens packs/studio/pack.json
-node bin/formthread.mjs check --project ./my-app --css ./my-app/src/styles.css
-node bin/formthread.mjs audit screen.json evidence.json --project ./my-app
-node bin/formthread.mjs remember --project ./my-app --scope project --target my-app --rule "..." --reason "..." --accept
-node bin/formthread.mjs pin --project ./my-app
-node bin/formthread.mjs import-tokens tokens.json --pack pack.json --out new-pack.json --source "Figma file URL / export revision"
+node bin/functional-minimalism.mjs setup ./my-app --template discovery --client both
+node bin/functional-minimalism.mjs doctor --project ./my-app
+node bin/functional-minimalism.mjs brief --compact --project ./my-app
+node bin/functional-minimalism.mjs brief discovery --project ./my-app --out brief.md
+node bin/functional-minimalism.mjs init ./existing-app --pack my-pack.json --client both
+node bin/functional-minimalism.mjs validate packs/studio/pack.json
+node bin/functional-minimalism.mjs tokens packs/studio/pack.json
+node bin/functional-minimalism.mjs check --project ./my-app --css ./my-app/src/styles.css
+node bin/functional-minimalism.mjs audit screen.json evidence.json --project ./my-app
+node bin/functional-minimalism.mjs remember --project ./my-app --scope project --target my-app --rule "..." --reason "..." --accept
+node bin/functional-minimalism.mjs pin --project ./my-app
+node bin/functional-minimalism.mjs import-tokens tokens.json --pack pack.json --out new-pack.json --source "Figma file URL / export revision"
 
 setup templates: discovery, invoice, project. Clients: codex, claude, both.
 setup adds the pinned reference system, a project-scoped contract and START_HERE.md.
 For an existing system, use init --pack and your own compatible screen contract.
 doctor checks local files, not whether an agent loaded them or rendered a screen.
+--compact removes repeated framing while preserving task, component rules and scoped decisions.
 brief includes accepted, applicable decisions only; regenerate after memory changes.
 init preserves existing instructions and refuses conflicting component files.
 pin explicitly accepts a reviewed local pack revision. It does not fetch updates.

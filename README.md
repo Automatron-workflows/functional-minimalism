@@ -1,28 +1,30 @@
-# Formthread
+# Functional Minimalism
 
-**Less to read. More to use.**
+**Better UI. Fewer retries.**
 
 Functional minimalism for AI-built interfaces. An Automatron project, alongside Hardwire.
 
 ## Why
 
-You should not have to repeat the same design corrections in every new AI conversation. Formthread carries your design system and accepted decisions into the next build. The task leads; explanation earns its place.
+Repeated redesigns cost time and tokens. Functional Minimalism puts useful design defaults, your actual design system, and accepted decisions into the first brief. The goal is a better first draft with fewer corrective prompts.
 
 [Functional minimalism](references/functional-minimalism.md) is our practical philosophy, inspired by Dieter Rams's principles. Reduce the effort needed to understand and act. Preserve labels, meaningful content, prices, permissions and recovery. Each product keeps its own character.
 
 ## What
 
-A local design harness with versioned design packs, screen contracts, scoped design memory, and source/rendered-evidence checks. Your coding agent performs the design, browser work and repair; Formthread supplies context and checks. No model calls, credentials, npm dependencies or telemetry.
+A local design harness with versioned design packs, screen contracts, scoped design memory, and source/rendered-evidence checks. Your coding agent performs the design, browser work and repair; Functional Minimalism supplies context and checks. No model calls, credentials, npm dependencies or telemetry.
 
-**v0.2.0** includes a branded illustrated demo, three working fixture flows, and one-command first-screen setup. Studio is an explicit reference system, not Alps. Nothing is published to npm.
+**v0.3.0** includes a branded illustrated demo, three working fixture flows, and one-command first-screen setup. Studio is an explicit reference system, not Alps. Nothing is published to npm.
+
+See [the demo](https://automatron-workflows.github.io/functional-minimalism/) and [source](https://github.com/Automatron-workflows/functional-minimalism).
 
 ## Set up your first screen
 
-Download and extract `formthread-source.zip`. From the extracted `formthread` folder, with Node 18.16 or newer:
+Download and extract `functional-minimalism-source.zip`. From the extracted `functional-minimalism` folder, with Node 18.16 or newer:
 
 ```sh
-node bin/formthread.mjs setup ../my-app --template discovery --client both
-node bin/formthread.mjs doctor --project ../my-app
+node bin/functional-minimalism.mjs setup ../my-app --template discovery --client both
+node bin/functional-minimalism.mjs doctor --project ../my-app
 ```
 
 Choose `discovery`, `invoice` or `project`; agent adapters are `codex`, `claude` or `both`. Replace `../my-app` with your new project's path.
@@ -40,8 +42,8 @@ The setup creates context and reusable components, not a running application. Th
 Map your actual tokens, components and source paths into a pack using [the format guide](docs/FORMAT.md). Component files must already exist in the target project.
 
 ```sh
-node bin/formthread.mjs init ../existing-app --pack ./my-pack.json --client both
-node bin/formthread.mjs brief ./my-screen.json --project ../existing-app
+node bin/functional-minimalism.mjs init ../existing-app --pack ./my-pack.json --client both
+node bin/functional-minimalism.mjs brief ./my-screen.json --project ../existing-app
 ```
 
 Do not install Studio over an established design system. Custom packs keep their own palette, density, typography and behavior. A normalized token-map importer exists; live Figma/Code Connect import and an Alps pack are pending actual integration and source material.
@@ -49,11 +51,11 @@ Do not install Studio over an established design system. Custom packs keep their
 ## Carry a decision forward
 
 ```sh
-node bin/formthread.mjs remember --project ../my-app \
+node bin/functional-minimalism.mjs remember --project ../my-app \
   --scope project --target my-app \
   --rule "Keep unfamiliar actions visibly labelled." \
   --reason "Explicit user feedback on navigation." --accept
-node bin/formthread.mjs brief --project ../my-app
+node bin/functional-minimalism.mjs brief --compact --project ../my-app
 ```
 
 Use the `projectId` returned by setup as the target. Without `--accept`, a decision stays proposed and is excluded from briefs. Accepted memory supports global (`*`), pack, project, and screen (`project-id/screen-id`) scopes. `--supersedes <id>` replaces a decision only within the same scope and target. Regenerate the brief after changing a contract or memory; `START_HERE.md` is an initial snapshot, not a live file.
@@ -67,7 +69,13 @@ npm run dev
 
 Open **http://127.0.0.1:4178/demo/**. The landing illustration shows a system shaping three interfaces. Why explains the purpose; Set up gives the exact commands and downloadable source. Try the working examples opens film discovery, a simulated invoice confirmation, and project tasks. Inspect runs real DOM checks against the fixture contracts. Design memory lets you accept a scoped correction and download another screen’s brief to see which decisions carry forward. That memory is local to the demo browser; it does not write to your project or agent.
 
-Or open **dist/Formthread_Preview.html** directly in a browser: a self-contained preview with the workshop and source ZIP embedded. **dist/Formthread_Workshop.html** is the separate offline workshop. The film and Before/With harness comparisons are authored illustrations, not measured model outputs or user research. No real payment occurs.
+Or open **dist/Functional_Minimalism_Preview.html** directly in a browser: a self-contained preview with the workshop and source ZIP embedded. **dist/Functional_Minimalism_Workshop.html** is the separate offline workshop. The film and Before/With harness comparisons are authored illustrations, not measured model outputs or user research. No real payment occurs.
+
+## Time and token usage
+
+Setup emits a compact brief that retains the task, source mappings, component rules and accepted decisions. Use `brief --compact` to regenerate it. `npm run measure:context` reports exact UTF-8 byte counts for full and compact example briefs. Bytes are not model tokens.
+
+The harness adds context; the intended saving comes from avoiding repeated redesigns. No model benchmark or time-saving percentage is claimed. Follow [the paired experiment](docs/EXPERIMENT.md) to compare real usage and time under equal acceptance criteria.
 
 ## Check the result
 
@@ -83,7 +91,7 @@ The browser runner requires a local Chrome installation and permission to launch
 For your own screen, use `src/browser.mjs` to collect each contract state at each viewport and create the documented evidence envelope, then run:
 
 ```sh
-node bin/formthread.mjs audit screen.json evidence.json --project ../my-app
+node bin/functional-minimalism.mjs audit screen.json evidence.json --project ../my-app
 ```
 
 Checks cover missing essential information, unnamed/clipped controls, overflow, annotated component/variant mismatches, missing primary actions, and state/viewport coverage. Small targets, competing actions and explanatory copy produce review findings. No word reduction can compensate for lost task information.
@@ -92,4 +100,4 @@ Checks cover missing essential information, unnamed/clipped controls, overflow, 
 
 Pack drift requires review and explicit `pin`. Memory is inspectable JSON, not model training. There is no autonomous repair engine or cross-model study.
 
-Read [workflow](adapters/WORKFLOW.md), [rules](DESIGN_RULES.md), [brand](docs/BRAND.md), [audit](docs/AUDIT-v0.2.md), [commands](docs/CLI.txt), [status](docs/STATUS.md) and [Hardwire reference](references/hardwire.md). The legacy `design-harness.mjs` entry point remains compatible. MIT license.
+Read [workflow](adapters/WORKFLOW.md), [rules](DESIGN_RULES.md), [brand](docs/BRAND.md), [audit](docs/AUDIT-v0.3.md), [commands](docs/CLI.txt), [status](docs/STATUS.md) and [Hardwire reference](references/hardwire.md). The legacy `design-harness.mjs` entry point remains compatible. MIT license.

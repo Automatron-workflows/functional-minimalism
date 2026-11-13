@@ -112,7 +112,7 @@ export async function remember(project, decision) {
   await writeFile(path.join(base,'memory.json'),JSON.stringify(next,null,2)+'\n'); return record;
 }
 
-export async function brief(project, contract) {const {pack,memory}=await loadProject(project);return composeBrief(pack,contract,memory);}
+export async function brief(project, contract, options={}) {const {pack,memory}=await loadProject(project);return composeBrief(pack,contract,memory,options);}
 export async function checkProject(project, cssFiles=[]) {
   const {pack}=await loadProject(project);
   const findings=await verifySources(pack,project);
@@ -130,7 +130,7 @@ export async function setupProject(project, bundleRoot, {template='project',clie
   const result=await initialize(project,source,bundleRoot,client);
   const screenPath=path.join(project,'.design-harness/screens',`${template}.json`);
   await writeNew(screenPath,JSON.stringify(contract,null,2)+'\n');
-  const output=await brief(project,contract);
+  const output=await brief(project,contract,{compact:true});
   const briefPath=path.join(project,'.design-harness/START_HERE.md');
   await writeNew(briefPath,output);
   const configPath=path.join(project,'.design-harness/config.json');

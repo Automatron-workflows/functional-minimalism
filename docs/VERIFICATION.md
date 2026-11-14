@@ -1,31 +1,48 @@
-# Functional Minimalism v0.3 verification · 13 November 2026
+# Functional Minimalism verification · 14 November 2026
 
-## Passed
+## Passed locally
 
-- **26 unit and CLI integration tests** on Node 18.16.0. Coverage includes token/type/alias validation, task information, evidence completeness, scope isolation, supersession, lexical CSS findings, non-destructive initialization, symlink refusal, CLI errors, first-screen setup, instruction preflight, doctor findings, and illustration playback gates.
-- Static build with a self-contained branded preview, embedded workshop and downloadable source archive.
-- Registry/source checks for ten mapped components, three screen contracts, generated-token consistency and reference-system CSS. Zero findings. The branded presentation's CSS is separate from the Studio pack; the reference CSS check does not certify it.
-- JavaScript syntax checks for source, CLI, demo and build modules, plus both assembled standalone scripts.
-- ZIP integrity and successful setup/doctor from an extracted source archive for discovery/Codex, invoice/Claude, and project/both. These checks exercise real packaged files, not only source imports.
+- **28 unit and CLI integration tests** on Node 18.16.0. This includes component/token validation, essential information, scope isolation, supersession, evidence completeness, non-destructive setup, symlink refusal, instruction checks, and playback gates.
+- The new starter export matches the CLI-installed `START_HERE.md` for discovery, invoice, and project. Applicable decisions are remapped to the starter without leaking another screen's decisions or mutating workshop memory.
+- Static build and registry/source checks: ten mapped components, three contracts, zero findings. These checks do not certify visual quality.
+- Both assembled offline JavaScript modules pass `node --check`.
+- Source ZIP integrity passes. Setup and doctor pass from the extracted archive for discovery/Codex, invoice/Claude, and project/both.
 
-## Earlier environment limitations
+## Remote browser evidence from the previous commit
 
-The local environment rejects HTTP port binding and cannot launch the installed headless Chrome. The browser security policy also rejected a local file URL; no alternate browser route was used for that blocked action. These limitations were established in the preceding audit and are not claimed to have changed.
+The initial GitHub workflow ran 23 workshop assertions successfully at an actual 500px width and 23 at 1440px. The evidence audit correctly refused to pass because the required 390px coverage was missing. See [run 43431360772](https://github.com/Automatron-workflows/functional-minimalism/actions/runs/43431360772).
 
-A new private Site was registered for the hosted demo. Source publication failed because the environment could not resolve the Git host. No Site version was deployed through that route. The static output and hosting manifest remain prepared for a later publication attempt. GitHub CLI authentication was also invalid in the preceding audit; no public repository or npm package was published.
+The runner is now changed to fixed-width iframe viewports and explicitly rejects a captured width different from the requested width. A new browser assertion covers visible starter-brief output. The updated browser runner has **not** executed successfully in this local environment: the Chrome process fails to launch. The new UI is not browser-verified.
 
-## Still to verify in a browser
+## Publication status
 
-- Desktop and 390px composition, overflow, text enlargement and contrast.
-- Landing before/after selection, sequential composition, pause, replay, reduced motion, offscreen/hidden suspension and modal focus.
-- Setup selectors, copy fallback, source download, workshop opening and Escape dismissal.
-- Discovery/save/filter, invoice confirmation/recovery and task creation/filtering.
-- Workshop decision acceptance, project versus screen scope, browser persistence or session-only fallback, clearing, and downloaded brief content.
-- Keyboard traversal and assistive technology behavior.
+- Public source repository: https://github.com/Automatron-workflows/functional-minimalism
+- GitHub Pages is enabled using GitHub Actions.
+- There is **no successful Pages deployment**. The latest remote run remains the failed run above; the local release changes have not been pushed.
+- The local Git transport cannot resolve `github.com`. The GitHub integration rejects writes with HTTP 403, despite repository metadata reporting that the user has push/admin rights.
+- The alternate Sites source host is also unreachable from this runtime. Its existing private, undeployed project was renamed Functional Minimalism; no Site version was deployed.
+- Vercel rejected creation of an isolated fallback project with HTTP 403. No project was created. Its CLI is not installed.
 
-The supplied workshop browser runner has not executed successfully here. No browser assertions, visual review, model-comparison experiment or participant usability study are counted as passed. Live Figma import and an Alps pack are not implemented. Source checks and authored animation are not usability evidence.
+These are access and runtime limits. No checks were disabled to claim a deployment.
 
-## Reproduce
+## Remaining browser acceptance
+
+- Actual 390px and 1440px workshop evidence after the viewport fix.
+- Landing composition, contrast, 200% text enlargement, focus, and keyboard traversal.
+- Playback, pause/resume/replay, reduced motion, hidden/offscreen suspension, and modal focus.
+- Why and Set up, selectors, clipboard fallback, source download, workshop open/close.
+- Get screen brief, copy/download, example switching, and project versus screen memory.
+- Discovery preview/save/filter, simulated invoice confirmation/recovery, and task creation/filtering.
+
+No participant usability study or model comparison has been run. Token and elapsed-time savings remain unmeasured. Live Figma importing and an Alps source pack are not implemented.
+
+## Complete the release
+
+From an authenticated, network-enabled Git client, push the local `main` branch to `Automatron-workflows/functional-minimalism`. GitHub Desktop's **Push origin** performs this step without changing the credentials available to this runtime.
+
+The Pages workflow runs unit tests, build, source checks, and browser checks before deployment. Review its result and repair any real findings. Only then open the returned Pages URL and complete the acceptance list above.
+
+Reproduce locally:
 
 ```sh
 npm test
@@ -34,6 +51,4 @@ npm run check
 npm run test:browser
 ```
 
-The browser runner requires a local Chrome installation and permission to launch it; set `CHROME_BIN` if needed. It runs `dist/Functional_Minimalism_Workshop.html` at 390px and 1440px, using a temporary profile and no HTTP server. A successful run writes evidence under `artifacts/`.
-
-Open `dist/Functional_Minimalism_Preview.html` for the complete offline demonstration. Use the browser checklist above for the landing and memory controls in addition to the runner. GitHub Pages publication and browser acceptance are being verified for v0.3; results are recorded below.
+The browser runner requires permission to launch an installed Chrome. It does not download a browser or disable its sandbox. Open `dist/Functional_Minimalism_Preview.html` for the offline demo, or `dist/Functional_Minimalism_Workshop.html` for the standalone workshop.

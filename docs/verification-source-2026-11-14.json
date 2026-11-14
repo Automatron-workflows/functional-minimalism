@@ -1,0 +1,273 @@
+{
+  "url": "http://127.0.0.1:4178",
+  "capturedAt": "2026-11-14T20:54:32.056Z",
+  "results": [
+    {
+      "width": 390,
+      "landing": "pass",
+      "setup": "pass",
+      "clipboardFallback": "pass",
+      "sourceDownload": "pass",
+      "workshop": "pass",
+      "briefDownload": "pass",
+      "scopedMemory": "pass",
+      "browserTests": 25,
+      "evidence": [
+        {
+          "screen": "discovery",
+          "state": "ready",
+          "width": 390,
+          "scrollWidth": 390,
+          "primaryActions": 1,
+          "blockingClip": false
+        },
+        {
+          "screen": "discovery",
+          "state": "empty",
+          "width": 390,
+          "scrollWidth": 390,
+          "primaryActions": 1,
+          "blockingClip": false
+        },
+        {
+          "screen": "discovery",
+          "state": "error",
+          "width": 390,
+          "scrollWidth": 390,
+          "primaryActions": 1,
+          "blockingClip": false
+        },
+        {
+          "screen": "discovery",
+          "state": "loading",
+          "width": 390,
+          "scrollWidth": 390,
+          "primaryActions": 0,
+          "blockingClip": false
+        },
+        {
+          "screen": "discovery",
+          "state": "preview",
+          "width": 390,
+          "scrollWidth": 390,
+          "primaryActions": 1,
+          "blockingClip": false
+        },
+        {
+          "screen": "invoice",
+          "state": "ready",
+          "width": 390,
+          "scrollWidth": 390,
+          "primaryActions": 1,
+          "blockingClip": false
+        },
+        {
+          "screen": "invoice",
+          "state": "confirmation",
+          "width": 390,
+          "scrollWidth": 390,
+          "primaryActions": 1,
+          "blockingClip": false
+        },
+        {
+          "screen": "invoice",
+          "state": "success",
+          "width": 390,
+          "scrollWidth": 390,
+          "primaryActions": 1,
+          "blockingClip": false
+        },
+        {
+          "screen": "invoice",
+          "state": "error",
+          "width": 390,
+          "scrollWidth": 390,
+          "primaryActions": 1,
+          "blockingClip": false
+        },
+        {
+          "screen": "invoice",
+          "state": "loading",
+          "width": 390,
+          "scrollWidth": 390,
+          "primaryActions": 0,
+          "blockingClip": false
+        },
+        {
+          "screen": "project",
+          "state": "ready",
+          "width": 390,
+          "scrollWidth": 390,
+          "primaryActions": 1,
+          "blockingClip": false
+        },
+        {
+          "screen": "project",
+          "state": "empty",
+          "width": 390,
+          "scrollWidth": 390,
+          "primaryActions": 1,
+          "blockingClip": false
+        },
+        {
+          "screen": "project",
+          "state": "error",
+          "width": 390,
+          "scrollWidth": 390,
+          "primaryActions": 1,
+          "blockingClip": false
+        },
+        {
+          "screen": "project",
+          "state": "loading",
+          "width": 390,
+          "scrollWidth": 390,
+          "primaryActions": 0,
+          "blockingClip": false
+        },
+        {
+          "screen": "project",
+          "state": "editing",
+          "width": 390,
+          "scrollWidth": 390,
+          "primaryActions": 1,
+          "blockingClip": false
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "landing": "pass",
+      "setup": "pass",
+      "clipboardFallback": "pass",
+      "sourceDownload": "pass",
+      "workshop": "pass",
+      "briefDownload": "pass",
+      "scopedMemory": "pass",
+      "browserTests": 25,
+      "evidence": [
+        {
+          "screen": "discovery",
+          "state": "ready",
+          "width": 1440,
+          "scrollWidth": 1440,
+          "primaryActions": 1,
+          "blockingClip": false
+        },
+        {
+          "screen": "discovery",
+          "state": "empty",
+          "width": 1440,
+          "scrollWidth": 1440,
+          "primaryActions": 1,
+          "blockingClip": false
+        },
+        {
+          "screen": "discovery",
+          "state": "error",
+          "width": 1440,
+          "scrollWidth": 1440,
+          "primaryActions": 1,
+          "blockingClip": false
+        },
+        {
+          "screen": "discovery",
+          "state": "loading",
+          "width": 1440,
+          "scrollWidth": 1440,
+          "primaryActions": 0,
+          "blockingClip": false
+        },
+        {
+          "screen": "discovery",
+          "state": "preview",
+          "width": 1440,
+          "scrollWidth": 1440,
+          "primaryActions": 1,
+          "blockingClip": false
+        },
+        {
+          "screen": "invoice",
+          "state": "ready",
+          "width": 1440,
+          "scrollWidth": 1440,
+          "primaryActions": 1,
+          "blockingClip": false
+        },
+        {
+          "screen": "invoice",
+          "state": "confirmation",
+          "width": 1440,
+          "scrollWidth": 1440,
+          "primaryActions": 1,
+          "blockingClip": false
+        },
+        {
+          "screen": "invoice",
+          "state": "success",
+          "width": 1440,
+          "scrollWidth": 1440,
+          "primaryActions": 1,
+          "blockingClip": false
+        },
+        {
+          "screen": "invoice",
+          "state": "error",
+          "width": 1440,
+          "scrollWidth": 1440,
+          "primaryActions": 1,
+          "blockingClip": false
+        },
+        {
+          "screen": "invoice",
+          "state": "loading",
+          "width": 1440,
+          "scrollWidth": 1440,
+          "primaryActions": 0,
+          "blockingClip": false
+        },
+        {
+          "screen": "project",
+          "state": "ready",
+          "width": 1440,
+          "scrollWidth": 1440,
+          "primaryActions": 1,
+          "blockingClip": false
+        },
+        {
+          "screen": "project",
+          "state": "empty",
+          "width": 1440,
+          "scrollWidth": 1440,
+          "primaryActions": 1,
+          "blockingClip": false
+        },
+        {
+          "screen": "project",
+          "state": "error",
+          "width": 1440,
+          "scrollWidth": 1440,
+          "primaryActions": 1,
+          "blockingClip": false
+        },
+        {
+          "screen": "project",
+          "state": "loading",
+          "width": 1440,
+          "scrollWidth": 1440,
+          "primaryActions": 0,
+          "blockingClip": false
+        },
+        {
+          "screen": "project",
+          "state": "editing",
+          "width": 1440,
+          "scrollWidth": 1440,
+          "primaryActions": 1,
+          "blockingClip": false
+        }
+      ]
+    }
+  ]
+}
+

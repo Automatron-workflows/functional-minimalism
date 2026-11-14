@@ -104,7 +104,7 @@ document.addEventListener('change',event=>{if(event.target.matches('[data-task]'
 document.addEventListener('visibilitychange',()=>document.documentElement.classList.toggle('page-hidden',document.hidden));
 window.designHarness={pack,contracts,get state(){return {flow,mode,state,mood,taskFilter};},snapshot:()=>collectSnapshot(scene,{screen:flow,state}),audit:()=>auditSnapshot(pack,contracts[flow],collectSnapshot(scene,{screen:flow,state})),brief:()=>composeBrief(pack,contracts[flow],demoMemory,{compact:true}),setState,changeFlow};
 render();
-if(new URLSearchParams(location.search).has('selftest')){
+if(new URLSearchParams(location.search).has('selftest') || window.frameElement?.hasAttribute('data-selftest')){
  const {runBrowserTests}=await import('./self-test.mjs');const result=await runBrowserTests();
  const output=document.createElement('script');output.id='harness-test-results';output.type='application/json';output.textContent=JSON.stringify(result);document.body.append(output);
 }

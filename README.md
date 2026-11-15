@@ -18,7 +18,7 @@ A local design harness with versioned design packs, screen contracts, scoped des
 
 [Source](https://github.com/Automatron-workflows/functional-minimalism) · [Contribute](CONTRIBUTING.md) · [Run a paired experiment](docs/EXPERIMENT.md)
 
-Deployment: the [hosted demo](https://functional-minimalism.higgsfield.app) is deployed, but its hosting gateway currently requires Higgsfield sign-in. Anonymous launch acceptance is blocked. GitHub Pages still awaits a source push. See [verification](docs/VERIFICATION.md) for the exact checks and remaining limits. The offline preview works without an account.
+The [public demo](https://automatron-workflows.github.io/functional-minimalism/) is hosted on GitHub Pages and opens without an account. Its route continues into `/demo/`. The source ZIP is also available from the workshop and offline preview. The separate Higgsfield draft is not part of this public release.
 
 ## Try the harness in a minute
 

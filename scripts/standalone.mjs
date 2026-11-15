@@ -6,7 +6,7 @@ async function buildWorkshopStandalone(){
  const read=file=>readFile(path.join(root,file),'utf8');
  const assets={};for(const name of ['forest','desert','night'])assets[name]='data:image/svg+xml;base64,'+Buffer.from(await read(`demo/assets/${name}.svg`)).toString('base64');
  const resources={};for(const file of ['packs/studio/pack.json',...['discovery','invoice','project'].map(n=>`examples/${n}.screen.json`)])resources['../'+file]=JSON.parse(await read(file));
- const modules=await Promise.all(['src/core.mjs','src/browser.mjs','demo/components.mjs','demo/self-test.mjs','demo/app.mjs'].map(read));
+ const modules=await Promise.all(['src/core.mjs','src/browser.mjs','demo/starter.mjs','demo/components.mjs','demo/self-test.mjs','demo/app.mjs'].map(read));
  let source=modules.map(code=>code.replace(/^import .*;\n/gm,'').replace(/^export /gm,'')).join('\n');
  source=source.replace(/const artworkURL = .*?;\n/,`const artworkURL = name => __assets[name];\n`);
  source=source.replace(/const read=async url=>\{.*?\};/,`const read=async url=>structuredClone(__resources[url]);`);

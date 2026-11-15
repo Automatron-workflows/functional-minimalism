@@ -1,7 +1,7 @@
 // Read-only DOM instrumentation. Names here are a heuristic, not the full ARIA algorithm.
 export function collectSnapshot(root, {screen,state='ready'}={}) {
   const doc=root.ownerDocument, win=doc.defaultView;
-  const modal=doc.querySelector('dialog[open]');
+  const modal=doc.querySelector('dialog:modal');
   const visible=el=>{
     if(modal && !modal.contains(el))return false;
     if(el.closest('[hidden],[inert],[aria-hidden="true"]'))return false;
@@ -19,6 +19,9 @@ export function collectSnapshot(root, {screen,state='ready'}={}) {
       const ps=win.getComputedStyle(parent),pr=parent.getBoundingClientRect();
       if(['hidden','clip'].includes(ps.overflowX) && (r.left<pr.left-1 || r.right>pr.right+1))clipped=true;
       if(['hidden','clip'].includes(ps.overflowY) && (r.top<pr.top-1 || r.bottom>pr.bottom+1))clipped=true;
+      // Native modal dialogs live in the top layer. Their DOM ancestors cannot
+      // clip them; containers inside the dialog still can.
+      if(parent.matches(':modal'))break;
     }
     return {tag:el.tagName.toLowerCase(),name:name(el),width:r.width,height:r.height,clipped};
   });

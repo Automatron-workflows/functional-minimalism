@@ -1,0 +1,23 @@
+name: Report a reproducible problem
+description: A broken setup, check, export, or interaction.
+title: "[Bug] "
+body:
+  - type: textarea
+    id: task
+    attributes:
+      label: What were you trying to do?
+      description: Include the screen, command, or example and the expected result.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction and actual result
+      description: Smallest example, error output, and Node/browser version. Remove credentials and personal data.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: For UI problems, include viewport width, a screenshot, and the interaction that failed.

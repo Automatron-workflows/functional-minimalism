@@ -1,0 +1,25 @@
+name: Propose a design pack
+description: Connect a real design system to the harness.
+title: "[Pack] "
+body:
+  - type: input
+    id: system
+    attributes:
+      label: Design system and source
+      description: Link to the actual component source or token documentation.
+    validations:
+      required: true
+  - type: textarea
+    id: task
+    attributes:
+      label: One task this pack should support
+      description: Include essential information, primary action, and required states.
+    validations:
+      required: true
+  - type: textarea
+    id: license
+    attributes:
+      label: Provenance and reuse permission
+      description: State the license and what you have permission to distribute.
+    validations:
+      required: true

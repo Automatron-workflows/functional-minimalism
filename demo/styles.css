@@ -5,3 +5,5 @@
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}.poster:hover .poster-art{transform:none}.button:hover{transform:none}}
 
 .page-hidden *{animation-play-state:paused!important}
+
+.intro{display:flex;align-items:center;justify-content:space-between;gap:24px}.intro>.button{flex-shrink:0}.brief-preview{max-height:270px;overflow:auto}.brief-summary{font-size:13px;line-height:1.6;color:var(--color-muted)}.brief-summary strong{color:var(--color-text);font-weight:500}@media(max-width:700px){.intro{align-items:flex-start;flex-direction:column;gap:22px}.brief-preview{max-height:220px}}

@@ -1,31 +1,28 @@
-# Functional Minimalism v0.3 verification · 13 November 2026
+# Functional Minimalism verification · 14 November 2026
 
-## Passed
+## Verified source
 
-- **26 unit and CLI integration tests** on Node 18.16.0. Coverage includes token/type/alias validation, task information, evidence completeness, scope isolation, supersession, lexical CSS findings, non-destructive initialization, symlink refusal, CLI errors, first-screen setup, instruction preflight, doctor findings, and illustration playback gates.
-- Static build with a self-contained branded preview, embedded workshop and downloadable source archive.
-- Registry/source checks for ten mapped components, three screen contracts, generated-token consistency and reference-system CSS. Zero findings. The branded presentation's CSS is separate from the Studio pack; the reference CSS check does not certify it.
-- JavaScript syntax checks for source, CLI, demo and build modules, plus both assembled standalone scripts.
-- ZIP integrity and successful setup/doctor from an extracted source archive for discovery/Codex, invoice/Claude, and project/both. These checks exercise real packaged files, not only source imports.
+- 28 unit and CLI integration tests pass. Static build and source checks pass: ten mapped components, three contracts, zero findings.
+- Chromium with preinstalled Playwright: **25 browser assertions pass at actual 390px and 1440px viewports**, including all three flows and every contracted state. Browser exceptions: zero.
+- A new regression proves native modal dialogs escape ancestor clipping, while genuinely clipped controls inside a modal still fail. The collector now follows the browser's top-layer behavior.
+- Additional browser interaction checks pass at both sizes: Why and modal focus restoration, setup selectors and generated commands, clipboard-denied fallback, actual source ZIP download, embedded workshop open/close, portable brief download, and accepted screen-memory isolation.
+- Reduced-motion preference prevents autoplay. Landing and workshop screenshots were inspected on mobile and desktop. The mobile transport no longer covers the example, and Try the harness appears in the hero.
+- Starter export tests match the CLI-installed START_HERE.md for discovery, invoice and project, with scoped decisions and installed component paths.
+- Source archive extraction, setup and doctor are checked independently of the presentation.
 
-## Earlier environment limitations
+The hosted editing environment has preinstalled Chromium and Playwright, so these are real browser checks of the source served over HTTP. They are **not** successful public deployment checks or a human usability study.
 
-The local environment rejects HTTP port binding and cannot launch the installed headless Chrome. The browser security policy also rejected a local file URL; no alternate browser route was used for that blocked action. These limitations were established in the preceding audit and are not claimed to have changed.
+## Deployment and access
 
-A new private Site was registered for the hosted demo. Source publication failed because the environment could not resolve the Git host. No Site version was deployed through that route. The static output and hosting manifest remain prepared for a later publication attempt. GitHub CLI authentication was also invalid in the preceding audit; no public repository or npm package was published.
+- Public source: https://github.com/Automatron-workflows/functional-minimalism
+- Hosted deployment: https://functional-minimalism.higgsfield.app
+- Hosting platform reports **deployed**. Its build accepted the existing demo and a thin TanStack server adapter.
+- Anonymous HTTP requests receive 401. An unauthenticated browser is redirected to Higgsfield sign-in before reaching the demo. Therefore live anonymous usability and downloads remain **blocked** despite deployment success.
+- No public-access toggle is exposed by the connected website tools. Community-feed publication is a separate action and was not used as an undocumented authentication workaround.
+- GitHub Pages is enabled, but its latest remote run is still the failed [run 43431360772](https://github.com/Automatron-workflows/functional-minimalism/actions/runs/43431360772). That earlier revision had 500px/1440px coverage and correctly failed the required 390px evidence gate.
+- The local branch contains the viewport and modal-audit fixes. Git transport cannot resolve github.com, and the GitHub integration rejects content writes with HTTP 403. These changes still need an authenticated push.
 
-## Still to verify in a browser
-
-- Desktop and 390px composition, overflow, text enlargement and contrast.
-- Landing before/after selection, sequential composition, pause, replay, reduced motion, offscreen/hidden suspension and modal focus.
-- Setup selectors, copy fallback, source download, workshop opening and Escape dismissal.
-- Discovery/save/filter, invoice confirmation/recovery and task creation/filtering.
-- Workshop decision acceptance, project versus screen scope, browser persistence or session-only fallback, clearing, and downloaded brief content.
-- Keyboard traversal and assistive technology behavior.
-
-The supplied workshop browser runner has not executed successfully here. No browser assertions, visual review, model-comparison experiment or participant usability study are counted as passed. Live Figma import and an Alps pack are not implemented. Source checks and authored animation are not usability evidence.
-
-## Reproduce
+## Reproduction and remaining checks
 
 ```sh
 npm test
@@ -34,6 +31,8 @@ npm run check
 npm run test:browser
 ```
 
-The browser runner requires a local Chrome installation and permission to launch it; set `CHROME_BIN` if needed. It runs `dist/Functional_Minimalism_Workshop.html` at 390px and 1440px, using a temporary profile and no HTTP server. A successful run writes evidence under `artifacts/`.
+The dependency-free browser runner requires an installed, permitted Chrome. Its direct dump-DOM mode did not complete in the hosted sandbox, although the equivalent workshop assertions and collected evidence passed using the platform's supported Playwright browser. The updated GitHub CI runner still needs its own successful run.
 
-Open `dist/Functional_Minimalism_Preview.html` for the complete offline demonstration. Use the browser checklist above for the landing and memory controls in addition to the runner. GitHub Pages publication and browser acceptance are being verified for v0.3; results are recorded below.
+Open dist/Functional_Minimalism_Preview.html for the complete offline demo. Open dist/Functional_Minimalism_Workshop.html for the standalone workshop.
+
+Remaining release work: push main using an authenticated Git client, inspect the resulting Pages workflow, and run anonymous acceptance against the returned URL. GitHub Desktop's Push origin can perform the missing push. A comprehensive accessibility audit, assistive-technology review, human usability study and paired model comparison have not been run. Time and token savings remain unmeasured. Live Figma import and an Alps source pack remain unimplemented.

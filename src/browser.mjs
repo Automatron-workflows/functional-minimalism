@@ -23,7 +23,7 @@ export function collectSnapshot(root, {screen,state='ready'}={}) {
       // clip them; containers inside the dialog still can.
       if(parent.matches(':modal'))break;
     }
-    return {tag:el.tagName.toLowerCase(),name:name(el),width:r.width,height:r.height,clipped};
+    return {tag:el.tagName.toLowerCase(),id:el.dataset.control??el.dataset.action??null,name:name(el),width:r.width,height:r.height,clipped};
   });
   const words={content:0,control:0,explanation:0,consequence:0,unclassified:0};
   const walker=doc.createTreeWalker(root,win.NodeFilter.SHOW_TEXT);
@@ -34,6 +34,7 @@ export function collectSnapshot(root, {screen,state='ready'}={}) {
     words[Object.hasOwn(words,role)?role:'unclassified']+=(node.textContent.trim().match(/\S+/g)||[]).length;
   }
   return {schema:'design-harness.snapshot/1',screen,state,width:win.innerWidth,scrollWidth:doc.documentElement.scrollWidth,
+    features:[...new Set([root,...root.querySelectorAll('[data-feature]')].filter(el=>el.hasAttribute('data-feature')&&visible(el)).map(el=>el.dataset.feature))],
     primaryActions:[...root.querySelectorAll('[data-primary]')].filter(visible).length,
     essential:[...root.querySelectorAll('[data-essential]')].filter(visible).flatMap(el=>el.dataset.essential.split(/\s+/)),
     components:[...root.querySelectorAll('[data-component]')].filter(visible).map(el=>({name:el.dataset.component,variant:el.dataset.variant??'default'})),controls,words};

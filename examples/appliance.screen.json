@@ -1,0 +1,30 @@
+{
+  "schema": "design-harness.screen/1",
+  "id": "kitchen-timer",
+  "project": "appliance-study",
+  "goal": "Set a duration and start a kitchen timer",
+  "object": "Remaining time",
+  "primaryAction": "Start timer",
+  "composition": "A dominant time value, directly adjustable duration, one adjacent start control, quiet presets",
+  "essential": ["duration", "unit", "timer-state"],
+  "essentialByState": {"running": ["duration", "unit", "timer-state"], "paused": ["duration", "unit", "timer-state"]},
+  "states": ["ready", "running", "paused", "complete"],
+  "viewports": [390, 1440],
+  "components": ["Button", "IconButton", "Field", "Status", "SegmentedControl"],
+  "maxPrimaryActions": 1,
+  "explanationBudget": 0,
+  "surface": {
+    "maxVisibleFeatures": 2,
+    "features": [
+      {"id": "timer", "placement": "primary", "reason": "Shows and controls the requested countdown"},
+      {"id": "presets", "placement": "secondary", "reason": "Speeds repeated duration selection without another page"},
+      {"id": "achievements", "placement": "omit", "reason": "Does not help set or run this timer"},
+      {"id": "account", "placement": "omit", "reason": "No cross-device persistence is required by this task"}
+    ],
+    "controls": [
+      {"id": "start", "label": "Start timer", "presentation": "text", "states": ["ready"]},
+      {"id": "pause", "label": "Pause timer", "presentation": "icon", "familiarity": "The pause symbol is a candidate convention; verify recognition with intended users", "states": ["running"]},
+      {"id": "resume", "label": "Resume timer", "presentation": "text", "states": ["paused"]}
+    ]
+  }
+}

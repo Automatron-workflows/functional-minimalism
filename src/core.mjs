@@ -75,7 +75,36 @@ export function validateContract(contract) {
   invariant(Number.isInteger(contract.maxPrimaryActions) && contract.maxPrimaryActions >= 1, 'Primary-action limit required');
   if(contract.explanationBudget!==undefined)invariant(Number.isInteger(contract.explanationBudget)&&contract.explanationBudget>=0,'Explanation budget must be a nonnegative integer');
   if(contract.consequential) invariant(contract.states.includes('confirmation') && contract.essential.includes('consequence'), 'Consequential actions require confirmation and consequence information');
+  if(contract.essentialByState!==undefined){
+    invariant(object(contract.essentialByState),'State information must be an object');
+    for(const [state,ids] of Object.entries(contract.essentialByState))invariant(contract.states.includes(state)&&strings(ids)&&unique(ids),'State information must name declared states and unique IDs');
+  }
+  if(contract.surface!==undefined){
+    const surface=contract.surface;
+    invariant(object(surface)&&Array.isArray(surface.features)&&Array.isArray(surface.controls),'Surface features and controls required');
+    invariant(unique(surface.features.map(f=>f.id))&&unique(surface.controls.map(c=>c.id)),'Duplicate surface identifiers');
+    invariant(surface.features.some(f=>f.placement==='primary'),'Surface needs a primary task feature');
+    for(const f of surface.features)invariant(keyPattern.test(f.id??'')&&text(f.reason)&&['primary','secondary','omit'].includes(f.placement),'Every feature needs an ID, placement and task reason');
+    for(const c of surface.controls){
+      invariant(keyPattern.test(c.id??'')&&text(c.label)&&['text','icon'].includes(c.presentation),'Every control needs a meaningful label and presentation');
+      invariant(strings(c.states)&&c.states.length&&unique(c.states)&&c.states.every(s=>contract.states.includes(s)),'Control states must be declared by the screen');
+      invariant(c.risk===undefined||['ordinary','consequential'].includes(c.risk),'Unknown control risk');
+      if(c.presentation==='icon')invariant(text(c.familiarity)&&c.risk!=='consequential','Icon-only controls need a familiarity rationale; consequential actions need text');
+    }
+    if(surface.maxVisibleFeatures!==undefined)invariant(Number.isInteger(surface.maxVisibleFeatures)&&surface.maxVisibleFeatures>=1,'Visible feature limit must be positive');
+  }
   return contract;
+}
+
+function surfaceBrief(contract){
+  const stateRules=Object.entries(contract.essentialByState??{}).map(([state,ids])=>`${state}: preserve ${ids.join(', ')}`);
+  if(!contract.surface)return stateRules.length?`State information: ${stateRules.join('; ')}`:'';
+  const {features,controls,maxVisibleFeatures}=contract.surface;
+  return ['Surface decisions:',...features.map(f=>`${f.placement}: ${f.id} — ${f.reason}`),
+    ...controls.map(c=>`${c.id}: ${c.presentation} "${c.label}" in ${c.states.join('/')} ${c.familiarity?`(${c.familiarity}; verify with people)`:''}`),
+    ...stateRules,...(maxVisibleFeatures?[`Visible feature limit: ${maxVisibleFeatures}.`]:[]),
+    'Make the object and action apparent through composition. Remove duplicate introductions first. Keep useful labels, values, units, feedback and recovery. Never replace visible labels with tooltips to meet a text budget.'
+  ].join('\n');
 }
 
 export function validateMemory(memory) {
@@ -114,6 +143,7 @@ export function composeBrief(pack, contract, memory={schema:'design-harness.memo
     `# ${contract.id} | ${pack.id}@${pack.version}`,
     `Task: ${contract.goal}\nObject: ${contract.object}\nAction: ${contract.primaryAction}\nLayout: ${contract.composition}`,
     `Preserve: ${contract.essential.join('; ')}`,
+    ...(surfaceBrief(contract)?[surfaceBrief(contract)]:[]),
     `Rules:\n${pack.principles.join('\n')}`,
     `Components:\n${components.map(c=>`${c.name}=${c.source}#${c.export} [${c.variants.join('|')}] ${c.rules.join(' ')}`).join('\n')}`,
     `Accepted:\n${decisions.length?decisions.map(d=>`${d.scope}:${d.target}: ${d.rule} (${d.reason})`).join('\n'):'None.'}`,
@@ -123,6 +153,7 @@ export function composeBrief(pack, contract, memory={schema:'design-harness.memo
     `# ${contract.id} · ${pack.name} ${pack.version}`,
     `Goal: ${contract.goal}\nObject: ${contract.object}\nPrimary action: ${contract.primaryAction}\nComposition: ${contract.composition}`,
     `## Preserve\n${contract.essential.map(x=>`- ${x}`).join('\n')}`,
+    ...(surfaceBrief(contract)?[`## Interface decisions\n${surfaceBrief(contract)}`]:[]),
     `## Design judgment\n${pack.principles.map(x=>`- ${x}`).join('\n')}`,
     `## Components\n${components.map(c=>`- ${c.name}: ${c.source} → ${c.export}; variants: ${c.variants.join(', ')}. ${c.rules.join(' ')}`).join('\n')}`,
     `## Accepted decisions\n${decisions.length?decisions.map(d=>`- [${d.scope}:${d.target}] ${d.rule} Reason: ${d.reason}`).join('\n'):'No accepted scoped decisions yet.'}`,
@@ -143,6 +174,17 @@ export function auditSnapshot(pack, contract, snapshot) {
   if(snapshot.primaryActions>contract.maxPrimaryActions) add('warning','competing-actions',`${snapshot.primaryActions} equally primary actions; expected at most ${contract.maxPrimaryActions}`);
   if(snapshot.state==='ready' && !snapshot.primaryActions) add('error','missing-primary','The ready state has no primary action');
   if(snapshot.state==='ready') for(const id of contract.essential) if(!snapshot.essential.includes(id)) add('error','missing-information',`Essential information is not visible: ${id}`);
+  for(const id of contract.essentialByState?.[snapshot.state]??[])if(!snapshot.essential.includes(id))add('error','missing-state-information',`${snapshot.state} must preserve ${id}`);
+  if(contract.surface){
+    if(!strings(snapshot.features))add('error','missing-feature-evidence','Capture data-feature markers before auditing the surface');
+    else {
+      const visible=[...new Set(snapshot.features)];
+      for(const id of visible){const feature=contract.surface.features.find(f=>f.id===id);if(!feature||feature.placement==='omit')add('error','unplanned-feature',`Visible feature is outside the accepted task: ${id}`);}
+      if(snapshot.state==='ready')for(const f of contract.surface.features.filter(f=>f.placement==='primary'))if(!visible.includes(f.id))add('error','missing-task-feature',`Primary task feature missing: ${f.id}`);
+      if(visible.length>(contract.surface.maxVisibleFeatures??Infinity))add('warning','feature-budget','Review competing visible features without hiding required task information');
+    }
+    for(const c of contract.surface.controls.filter(c=>c.states.includes(snapshot.state)))if(!snapshot.controls.some(control=>control.id===c.id))add('error','missing-task-control',`Required control missing: ${c.id}`);
+  }
   for(const c of snapshot.components) {
     invariant(object(c) && text(c.name) && text(c.variant), 'Malformed component evidence');
     const definition=pack.components.find(d=>d.name===c.name);

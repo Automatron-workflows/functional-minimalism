@@ -47,6 +47,8 @@ The setup creates context and reusable components, not a running application. Th
 
 ## Use your existing design system
 
+The [architecture guide](docs/ARCHITECTURE.md) explains how task scope, component adapters, compact briefs, rendered evidence and accepted memory work together. Start with the usable object and action; justify features before generating explanatory copy.
+
 Map your actual tokens, components and source paths into a pack using [the format guide](docs/FORMAT.md). Component files must already exist in the target project.
 
 ```sh
@@ -55,6 +57,18 @@ node bin/functional-minimalism.mjs brief ./my-screen.json --project ../existing-
 ```
 
 Do not install Studio over an established design system. Custom packs keep their own palette, density, typography and behavior. A normalized token-map importer exists; live Figma/Code Connect import and an Alps pack are pending actual integration and source material.
+
+## Connect an existing React stack
+
+```sh
+node bin/functional-minimalism.mjs inspect-react --project ../existing-app
+node bin/functional-minimalism.mjs connect-react --project ../existing-app --ui mui
+node bin/functional-minimalism.mjs brief ./my-screen.json --compact --project ../existing-app
+```
+
+Use this after `init --pack` with the application's own component mappings. Choose the adapter detected in that application; `mui` is an example. `react-adapters` lists all 13 adapters: nine UI systems and four supporting libraries. Connections preserve declared versions, reject ambiguous selections and detect relevant dependency/config drift. They provide implementation context, not installed components or certified runtime compatibility. No packages are installed or executed. See [the adapter boundaries](docs/ARCHITECTURE.md#react-integration).
+
+For new screens, a `surface` plan records primary, secondary and omitted features with task reasons, plus control names and text/icon choices. `essentialByState` keeps required information visible through confirmation and other states. The [appliance contract](examples/appliance.screen.json) demonstrates the planning format; it is not a running timer app.
 
 ## Carry a decision forward
 

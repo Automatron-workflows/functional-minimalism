@@ -2,7 +2,7 @@
 
 This folder contains the design plan, reusable authoring context, and Functional Minimalism v0.3 implementation. Read `docs/STATUS.md` and `docs/VERIFICATION.md` for implemented capabilities and verification limits. Live Figma importing and an Alps pack remain pending.
 
-Before designing or reviewing a screen, read `DESIGN_RULES.md` and the relevant approved reference. Read `references/hardwire.md` for explanatory demos. Read `Automatron_Design_Harness_Plan.md` when changing the architecture or implementation scope.
+Before designing or reviewing a screen, read `DESIGN_RULES.md` and the relevant approved reference. Read `references/hardwire.md` for explanatory demos and `references/object-first.md` for feature and control decisions. Read `docs/ARCHITECTURE.md` for the implemented foundation and its boundaries. `Automatron_Design_Harness_Plan.md` is the original proposal, not the current implementation status.
 
 ## Default approach
 

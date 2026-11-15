@@ -3,18 +3,23 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { readFile, writeFile } from 'node:fs/promises';
 import { validatePack, tokensToCSS, auditEvidence, invariant } from '../src/core.mjs';
-import { initialize, setupProject, readScreen, doctor, readJSON, loadProject, remember, brief, checkProject, digest, regularFile, writeNew } from '../src/node.mjs';
+import { initialize, setupProject, readScreen, doctor, readJSON, loadProject, remember, brief, checkProject, digest, regularFile, writeNew, connectReact } from '../src/node.mjs';
+import {inspectReact} from '../src/react-node.mjs';
+import {reactAdapters} from '../src/react.mjs';
 const bundle=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const args=process.argv.slice(2),command=args.shift();
 const positional=[],flags={};
 try {
   while(args.length) { const a=args.shift(); if(a.startsWith('--')) { const key=a.slice(2); invariant(!Object.hasOwn(flags,key),`Duplicate option: ${a}`); flags[key]=['accept','json','compact'].includes(key)?true:args.shift(); invariant(flags[key]!==undefined && !(typeof flags[key]==='string' && flags[key].startsWith('--')),`Missing value for ${a}`); } else positional.push(a); }
-  const allowed={setup:['pack','client','template'],doctor:['project'],init:['pack','client'],validate:[],tokens:['out'],brief:['project','out','compact'],check:['project','css'],audit:['project'],remember:['project','scope','target','rule','reason','accept','supersedes'],pin:['project'], 'import-tokens':['pack','out','source'],help:[]};
+  const allowed={setup:['pack','client','template'],doctor:['project'],init:['pack','client'],validate:[],tokens:['out'],brief:['project','out','compact'],check:['project','css'],audit:['project'],remember:['project','scope','target','rule','reason','accept','supersedes'],pin:['project'], 'import-tokens':['pack','out','source'],'react-adapters':[],'inspect-react':['project'],'connect-react':['project','ui'],help:[]};
   invariant(!command || Object.hasOwn(allowed,command),`Unknown command: ${command}`);
   for(const flag of Object.keys(flags)) invariant(allowed[command]?.includes(flag),`Unknown option: --${flag}`);
   const project=path.resolve(flags.project??'.');
   let output;
   switch(command) {
+    case 'react-adapters': invariant(!positional.length,'Usage: react-adapters');output={adapters:reactAdapters};break;
+    case 'inspect-react': invariant(!positional.length,'Usage: inspect-react --project dir');output=await inspectReact(project);break;
+    case 'connect-react': invariant(!positional.length,'Usage: connect-react --project dir [--ui adapter-id]');output=await connectReact(project,flags.ui);break;
     case 'setup': invariant(positional.length===1,'Usage: setup <project> [--template discovery|invoice|project] [--client both]'); output=await setupProject(path.resolve(positional[0]),bundle,{template:flags.template,client:flags.client,packPath:flags.pack?path.resolve(flags.pack):undefined});break;
     case 'doctor': invariant(!positional.length,'Usage: doctor [--project dir]');output=await doctor(project);if(output.status==='fail')process.exitCode=1;break;
     case 'init': invariant(positional.length===1,'Usage: init <project> [--pack pack.json] [--client both]'); output=await initialize(path.resolve(positional[0]),path.resolve(flags.pack??path.join(bundle,'packs/studio/pack.json')),bundle,flags.client??'both');break;

@@ -6,6 +6,8 @@ Accepted by Matthias on 13 November 2026 following the Hardwire silent demo. The
 
 ## General defaults
 
+Refinement accepted from Matthias on 15 November 2026: treat an interface as a usable object. Start with its function and controls; keep only features that serve the current task. Avoid introductory prose, feature tours and repeated descriptions around ordinary actions. Use form, proportion, position and feedback to communicate. Preserve visible labels where they make the action understandable. This direction refines the existing rules and does not authorize hiding costs, errors, names or units.
+
 | Rule | Apply it by doing this | Review evidence |
 | --- | --- | --- |
 | Show the task | Lead with the real object, preview, workspace or interaction. | The first view communicates what can happen. |

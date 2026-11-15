@@ -63,3 +63,17 @@ Each decision has `id`, `scope`, `target`, `status`, `rule`, `reason`, `createdA
 ## Current source limits
 
 The CSS scanner recognizes `var(--token)` references and color literals in declarations. It is not a full CSS parser, cannot detect every named color, and does not check computed styles against tokens. Source checks use a conservative export-declaration pattern without executing imports. A warning requests manual verification; it does not prove a missing export. Files must resolve inside the project. The browser collector provides a practical accessible-name heuristic, visibility, bounding boxes, component annotations, and visible word counts; use dedicated accessibility review for full coverage.
+# Surface and state extensions · 15 November 2026
+
+These are optional additions to design-harness.screen/1; existing contracts remain valid.
+
+- `essentialByState`: an object mapping declared state names to arrays of essential information IDs. The ready-state `essential` list still applies independently. The invoice example requires supplier, amount, destination and consequence in confirmation.
+- `surface.features`: unique `{id, placement, reason}` records. Placement is primary, secondary or omit. At least one primary feature is required.
+- `surface.controls`: unique `{id, label, presentation, states}` records. Presentation is text or icon; icon choices require a nonempty `familiarity` rationale. Optional risk is ordinary or consequential. Consequential controls must use text.
+- `surface.maxVisibleFeatures`: optional positive review threshold, scoped to the task. It does not override essential information.
+
+Snapshots from the collector now include `features` from visible `data-feature` annotations and control `id` from `data-control` (or the demo's `data-action`). An opted-in surface contract requires feature evidence. Its audit catches unknown/omitted annotated features, missing primary features in ready state and missing controls in declared states. An annotation is an assertion by the implementation: unannotated features and visible-label comprehension need separate review.
+
+Pass the active overlay DOM root to collectSnapshot when a React library renders dialogs through a portal. The harness does not infer library component identity from a DOM attribute.
+
+The React inventory and connection formats are `design-harness.react-inventory/1` and `design-harness.react-connection/1`. See [architecture](ARCHITECTURE.md). They record manifest declarations and config fingerprints, not resolved lockfile versions or runtime verification. Read their evidence level before making compatibility claims.

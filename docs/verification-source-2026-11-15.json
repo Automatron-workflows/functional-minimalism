@@ -1,0 +1,42 @@
+{
+  "capturedAt": "2026-11-15T09:11:41.156Z",
+  "surface": "source served over HTTP",
+  "results": [
+    {
+      "width": 390,
+      "passed": 25,
+      "failed": 0,
+      "errors": [],
+      "confirmationInformation": [
+        "supplier",
+        "amount",
+        "destination",
+        "consequence"
+      ],
+      "featureCollection": {
+        "features": [
+          "timer"
+        ],
+        "control": "start"
+      }
+    },
+    {
+      "width": 1440,
+      "passed": 25,
+      "failed": 0,
+      "errors": [],
+      "confirmationInformation": [
+        "supplier",
+        "amount",
+        "destination",
+        "consequence"
+      ],
+      "featureCollection": {
+        "features": [
+          "timer"
+        ],
+        "control": "start"
+      }
+    }
+  ]
+}

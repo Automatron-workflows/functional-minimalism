@@ -16,6 +16,10 @@ The original product plan remains a proposal. This file tracks the implemented s
 | Normalized token-map import with provenance | Implemented |
 | Local source/export checks and lexical CSS checks | Implemented; limitations documented |
 | DOM collection and state/viewport evidence audit | Implemented |
+| Feature scope and control presentation plans | Implemented optional surface schema; annotation-based checks; recognition requires people |
+| State-specific essential information | Implemented; invoice confirmation now declares required information |
+| React stack adapters | 13 context adapters; manifest/config detection, explicit UI selection, brief composition and drift checks |
+| React version/build compatibility matrix | Not run; adapters do not certify installed API compatibility |
 | Three interactive fixture flows and static build | Implemented; direct starter brief copy/download added |
 | Local Chrome behavioral verification runner | Actual-width iframe runner implemented; direct Playwright browser verification passes 25 assertions per viewport; CI runner still pending |
 | Live Figma / Code Connect importer | Pending |

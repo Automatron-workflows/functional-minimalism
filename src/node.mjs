@@ -2,6 +2,8 @@ import { readFile, writeFile, mkdir, lstat, realpath, cp } from 'node:fs/promise
 import path from 'node:path';
 import { createHash, randomUUID } from 'node:crypto';
 import { validatePack, validateMemory, validateContract, invariant, composeBrief, tokensToCSS, checkCSS } from './core.mjs';
+import {composeReactContext} from './react.mjs';
+import {loadReactConnection,reactConnection} from './react-node.mjs';
 
 export const readJSON = async file => JSON.parse(await readFile(file,'utf8'));
 export const canonical = value => Array.isArray(value)?'['+value.map(canonical).join(',')+']':value&&typeof value==='object'?'{'+Object.keys(value).sort().map(k=>JSON.stringify(k)+':'+canonical(value[k])).join(',')+'}':JSON.stringify(value);
@@ -89,6 +91,7 @@ export async function initialize(project, packPath, bundleRoot, client='both') {
   await writeNew(path.join(directory,'DESIGN_RULES.md'),await readFile(path.join(bundleRoot,'DESIGN_RULES.md'),'utf8'));
   await writeNew(path.join(directory,'references/hardwire.md'),await readFile(path.join(bundleRoot,'references/hardwire.md'),'utf8'));
   await writeNew(path.join(directory,'references/functional-minimalism.md'),await readFile(path.join(bundleRoot,'references/functional-minimalism.md'),'utf8'));
+  await writeNew(path.join(directory,'references/object-first.md'),await readFile(path.join(bundleRoot,'references/object-first.md'),'utf8'));
   const block='For UI design and implementation, read `.design-harness/WORKFLOW.md`, the pinned `.design-harness/pack.json`, and accepted decisions in `.design-harness/memory.json`. Start from a screen contract. Use minimum reading, maximum clarity. Render and exercise the result before delivery. Preserve current user instructions and project-specific visual identity.';
   for(const name of client==='both'?['AGENTS.md','CLAUDE.md']:[client==='codex'?'AGENTS.md':'CLAUDE.md']) await appendInstructions(path.join(project,name),block);
   return {project:path.resolve(project),pack:pack.id,digest:config.packDigest,client};
@@ -112,10 +115,18 @@ export async function remember(project, decision) {
   await writeFile(path.join(base,'memory.json'),JSON.stringify(next,null,2)+'\n'); return record;
 }
 
-export async function brief(project, contract, options={}) {const {pack,memory}=await loadProject(project);return composeBrief(pack,contract,memory,options);}
+export async function connectReact(project,ui){
+  await loadProject(project);
+  const connection=await reactConnection(project,ui);
+  const target=await safeDestination(project,'.design-harness/react.json');
+  await writeNew(target,JSON.stringify(connection,null,2)+'\n');
+  return {written:target,ui:connection.ui,inventory:connection.inventory,verification:'declared-context-only',next:'Regenerate your brief. Inspect installed APIs, typecheck and render in the consuming application.'};
+}
+export async function brief(project, contract, options={}) {const {pack,memory}=await loadProject(project);const connection=await loadReactConnection(project);return composeBrief(pack,contract,memory,options)+(connection?'\n'+composeReactContext(connection):'');}
 export async function checkProject(project, cssFiles=[]) {
   const {pack}=await loadProject(project);
   const findings=await verifySources(pack,project);
+  try{await loadReactConnection(project);}catch(error){findings.push({severity:'error',code:'react-connection',message:error.message});}
   for(const file of cssFiles) findings.push(...checkCSS(pack,await readFile(file,'utf8'),file));
   return {status:findings.some(x=>x.severity==='error')?'fail':'pass',findings,renderedVerification:'not-run'};
 }

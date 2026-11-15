@@ -1,4 +1,14 @@
-# Functional Minimalism verification · 14 November 2026
+# Functional Minimalism verification
+
+## Foundation update · 15 November 2026
+
+- 37 unit/CLI tests pass, including all 13 adapter declaration matchers, UI selection, selective context, manifest preservation, config drift, symlink refusal and surface-policy failures.
+- Static build and source checks pass. New source adds no npm/runtime dependency.
+- Preinstalled Chromium/Playwright ran 25 workshop assertions at actual 390px and 1440px, with zero browser exceptions. Invoice confirmation preserves supplier, amount, destination and consequence. A DOM fixture verifies feature/control collection and excludes a hidden feature. See [captured summary](verification-source-2026-11-15.json).
+- The React adapters provide declared-stack context. Real consuming applications for every library/version have not been compiled or browser-certified. The appliance is a planning contract, not a running fourth demo.
+- No model/token benchmark or participant usability study has been run. Publication/access restrictions from the 14 November record below remain unresolved.
+
+## Prior release evidence · 14 November 2026
 
 ## Verified source
 

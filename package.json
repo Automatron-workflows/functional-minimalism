@@ -15,7 +15,8 @@
   "exports": {
     ".": "./src/core.mjs",
     "./browser": "./src/browser.mjs",
-    "./node": "./src/node.mjs"
+    "./node": "./src/node.mjs",
+    "./react": "./src/react.mjs"
   },
   "scripts": {
     "test": "node --test test/*.test.mjs",

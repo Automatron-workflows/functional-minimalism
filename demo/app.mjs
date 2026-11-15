@@ -46,7 +46,7 @@ function render(){
  const showBaseline=mode==='before'&&['ready','confirmation','preview','editing'].includes(state);
  scene.innerHTML=appHeader()+(showBaseline?`<div class="baseline-intro"><h3 data-copy="explanation">${baseline[flow][0]}</h3><p data-copy="explanation">${baseline[flow][1]}</p></div>`:'')+content+(showBaseline?`<p class="baseline-explanation" data-copy="explanation">${baseline[flow][2]}</p>`:'');
 }
-function closeDialog(){const dialog=document.querySelector('dialog');if(dialog){dialog.close();dialog.remove();}if(['confirmation','preview','editing'].includes(state))state='ready';if(lastFocus?.isConnected)lastFocus.focus();}
+function closeDialog(){const dialog=document.querySelector('dialog');if(!dialog)return;dialog.close();dialog.remove();if(['confirmation','preview','editing'].includes(state))state='ready';if(lastFocus?.isConnected)lastFocus.focus();lastFocus=null;}
 function openDialog(props,kind='flow'){
  closeDialog(); lastFocus=document.activeElement;
  const parent=kind==='flow'?scene:document.body;

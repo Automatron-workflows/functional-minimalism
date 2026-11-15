@@ -2,11 +2,11 @@
 
 **Better UI. Fewer retries.**
 
-Functional minimalism for AI-built interfaces. An Automatron project, alongside Hardwire.
+Functional minimalism for is a design harness for AI-built interfaces.
 
 ## Why
 
-Repeated redesigns cost time and tokens. Functional Minimalism puts useful design defaults, your actual design system, and accepted decisions into the first brief. The goal is a better first draft with fewer corrective prompts.
+Repeated redesigns cost time and tokens. Functional Minimalism puts a good design in place by default using useful design defaults, design systems, and accepted heurstics. The goal is a better first design concept with fewer corrective prompts.
 
 [Functional minimalism](references/functional-minimalism.md) is our practical philosophy, inspired by Dieter Rams's principles. Reduce the effort needed to understand and act. Preserve labels, meaningful content, prices, permissions and recovery. Each product keeps its own character.
 

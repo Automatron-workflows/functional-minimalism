@@ -3,9 +3,10 @@ import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 const html=await readFile(new URL('../demo/index.html',import.meta.url),'utf8');
 const css=await readFile(new URL('../demo/brand.css',import.meta.url),'utf8');
-test('landing film keeps four named model drafts and one composed result',()=>{
- assert.equal((html.match(/<figure class="draft"/g)||[]).length,4);
- assert.equal((html.match(/<figure class="result"/g)||[]).length,1);
+test('landing film keeps four named model layers and one composed result',()=>{
+ assert.equal((html.match(/<figure class="before"/g)||[]).length,4);
+ assert.equal((html.match(/<figure class="after"/g)||[]).length,1);
+ assert.equal((html.match(/<li class="model"/g)||[]).length,4);
  for(const name of ['Claude','ChatGPT · Codex','Kimi','DeepSeek']) assert.ok(html.includes(name),`${name} label missing`);
  assert.match(html,/not actual model outputs/);
  assert.match(html,/No real payment occurs/);
@@ -21,13 +22,18 @@ test('landing stage stays silent and keeps playback controls',()=>{
  assert.equal((html.match(/<div class="transport"/g)||[]).length,1);
 });
 test('composed result uses brand token classes, not raw colors',()=>{
- const start=html.indexOf('<figure class="result"');
+ const start=html.indexOf('<figure class="after"');
  const result=html.slice(start,html.indexOf('</figure>',start));
  assert.match(result,/class="result-window"/);
  assert.match(result,/class="result-chrome"/);
  assert.match(result,/class="result-rule"/);
  assert.match(result,/class="paper-sheet"/);
  assert.ok(!/#[0-9a-f]{3,8}\b/i.test(result),'raw color in composed result');
+});
+test('source screens switch without ghosting',()=>{
+ const rule=css.match(/\.before\s*\{[^}]*\}/)?.[0]??'';
+ assert.ok(rule.length>0,'before layer rule missing');
+ assert.ok(!/transition/.test(rule),'before layers must not crossfade');
 });
 test('brand css keeps raw colors inside the token block',()=>{
  const root=css.match(/:root\s*\{[\s\S]*?\}/)?.[0]??'';

@@ -167,7 +167,7 @@ main {
 .film[data-model="deepseek"] .model[data-model="deepseek"] .dot { opacity: 1; }
 .model[data-done="true"] { color: var(--ink); }
 .model[data-done="true"] .mark { color: var(--accent); }
-.model[data-done="true"] .dot { opacity: 1; }
+.model[data-done="true"] .dot { opacity: 0.5; }
 .film[data-settled="true"] .model { color: var(--ink); }
 .film[data-settled="true"] .model .mark { color: var(--accent); }
 

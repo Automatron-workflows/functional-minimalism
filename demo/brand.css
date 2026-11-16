@@ -13,8 +13,6 @@
   --paper-muted: #64675c;
   --paper-quiet: #5c6055;
   --window: #161917;
-  --window-chrome: #474d45;
-  --window-rule: #262b26;
   --onaccent: #1a1d19;
   --control-size: 44px;
   --surface-hover: #1d211d;
@@ -72,26 +70,21 @@ button:disabled { cursor: default; opacity: 0.55; }
 .wordmark {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
   color: var(--ink);
-  font-size: 17px;
-  font-weight: 500;
-  letter-spacing: -0.6px;
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.8px;
   text-decoration: none;
 }
-.wordmark img { width: 28px; height: 28px; display: block; }
 .set-up {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
   padding: 8px 0;
   color: var(--muted);
-  font-size: 12px;
-  transition: color 0.25s ease;
+  font-size: 13px;
+  transition: color 0.2s ease;
 }
-.set-up span { color: var(--accent); font-size: 12px; transition: transform 0.3s ease; }
 .set-up:hover { color: var(--ink); }
-.set-up:hover span { transform: translate(2px, -2px); }
 
 /* Film: four model drafts, one harness result. */
 main {
@@ -107,7 +100,7 @@ main {
 }
 .stage {
   display: grid;
-  grid-template-columns: 150px minmax(0, 900px);
+  grid-template-columns: 136px minmax(0, 900px);
   column-gap: clamp(28px, 4vw, 48px);
   row-gap: 0;
   align-items: center;
@@ -129,22 +122,10 @@ main {
   align-items: center;
   gap: 10px;
   min-height: var(--control-size);
-  color: var(--quiet);
+  color: var(--subtle);
   font-size: 13px;
   letter-spacing: -0.2px;
 }
-.model .mark {
-  width: 18px;
-  height: 18px;
-  flex: none;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.7;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  color: var(--quiet);
-}
-.model[data-model="kimi"] .mark { fill: currentColor; stroke: none; }
 .model .dot {
   width: 5px;
   height: 5px;
@@ -157,19 +138,13 @@ main {
 .film[data-model="chatgpt"] .model[data-model="chatgpt"],
 .film[data-model="kimi"] .model[data-model="kimi"],
 .film[data-model="deepseek"] .model[data-model="deepseek"] { color: var(--ink); }
-.film[data-model="claude"] .model[data-model="claude"] .mark,
-.film[data-model="chatgpt"] .model[data-model="chatgpt"] .mark,
-.film[data-model="kimi"] .model[data-model="kimi"] .mark,
-.film[data-model="deepseek"] .model[data-model="deepseek"] .mark { color: var(--accent); }
 .film[data-model="claude"] .model[data-model="claude"] .dot,
 .film[data-model="chatgpt"] .model[data-model="chatgpt"] .dot,
 .film[data-model="kimi"] .model[data-model="kimi"] .dot,
 .film[data-model="deepseek"] .model[data-model="deepseek"] .dot { opacity: 1; }
 .model[data-done="true"] { color: var(--ink); }
-.model[data-done="true"] .mark { color: var(--accent); }
 .model[data-done="true"] .dot { opacity: 0.5; }
 .film[data-settled="true"] .model { color: var(--ink); }
-.film[data-settled="true"] .model .mark { color: var(--accent); }
 
 .frame {
   position: relative;
@@ -212,8 +187,6 @@ main {
 
 /* The composed screen: one object, one decision. */
 .result-window { fill: var(--window); }
-.result-chrome { fill: var(--window-chrome); }
-.result-rule { stroke: var(--window-rule); }
 .paper-sheet { fill: var(--paper); }
 .invoice-name { fill: var(--paper-ink); font-size: 32px; font-weight: 500; letter-spacing: -0.6px; }
 .invoice-number { fill: var(--paper-muted); font-family: var(--font-mono); font-size: 12px; letter-spacing: 1px; }
@@ -229,13 +202,6 @@ main {
 .invoice-destination { fill: var(--paper-muted); font-family: var(--font-mono); font-size: 14px; letter-spacing: 0.5px; }
 .approve rect { fill: var(--accent); }
 .approve text { fill: var(--onaccent); font-size: 18px; font-weight: 600; letter-spacing: 0.1px; }
-.approve path {
-  fill: none;
-  stroke: var(--onaccent);
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
 
 /* Loop fade */
 .film.restarting .stage { opacity: 0.08; transition: opacity 1s ease; }
@@ -468,8 +434,8 @@ dialog.workshop {
 
 @media (max-width: 860px) {
   .stage { grid-template-columns: 1fr; gap: 24px; max-width: 900px; }
-  .models { width: 100%; max-width: 320px; margin: 0 auto; gap: 2px; }
-  .model { min-height: 36px; justify-content: center; }
+  .models { width: max-content; margin: 0 auto; gap: 2px; }
+  .model { min-height: 36px; }
   .frame { width: 100%; max-width: 900px; margin: 0 auto; }
   .stage > .transport { grid-column: 1; grid-row: auto; }
   main { padding: 22px 0 28px; }
@@ -478,12 +444,11 @@ dialog.workshop {
 @media (max-width: 640px) {
   .wrap { padding: 0 20px; }
   .header { height: 72px; }
-  .wordmark { gap: 7px; font-size: 15px; letter-spacing: -0.35px; }
-  .wordmark img { width: 24px; height: 24px; }
+  .wordmark { font-size: 16px; letter-spacing: -0.6px; }
   .set-up { font-size: 11px; }
   main { padding: 14px 0 22px; }
   .stage { gap: 20px; }
-  .models { max-width: 300px; gap: 0; }
+  .models { gap: 0; }
   .model { min-height: 34px; font-size: 12px; }
   .transport { padding-top: 14px; }
   .foot { padding-bottom: 14px; }

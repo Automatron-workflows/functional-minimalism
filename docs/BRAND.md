@@ -31,7 +31,7 @@ Both are Automatron projects. They work independently.
 
 ## Visual identity
 
-- A plain lowercase wordmark and a bracket/minus mark: keep the useful structure, subtract the excess.
+- A plain lowercase wordmark on the page; the bracket/minus mark is used for the browser icon.
 - Midnight canvas, warm ivory, restrained copper accents. These belong to the demonstration, not every consuming application.
 - System sans-serif for the product and page. Authored source drafts may use their own model-like typography while they remain subordinate. Copper is reserved for the functional action inside the composed screen. No remote fonts.
 - The landing film is a silent comparison: model names sit under each other in a stable rail, each authored model-default draft appears at full size, and each wipes into the same composed review. The source changes; the result carries the single copper action. Visible model names identify the authored sources; the information control states they are not actual outputs.

@@ -15,6 +15,11 @@ test('landing film keeps four named model layers and one composed result',()=>{
  assert.match(html,/class="invoice-total">€1,210.00/);
  assert.match(html,/Review payment/);
 });
+test('header and controls stay free of decorative badges and arrows',()=>{
+ assert.ok(!html.includes('<a class="wordmark" href="./" aria-label="Functional Minimalism home"><img'),'wordmark must be plain text');
+ assert.ok(!/[↗→↓]/.test(html.split('<div class="frame">')[0]),'header and rail must not use decorative arrows');
+ assert.ok(!html.includes('class="mark"'),'rail must not use decorative model icons');
+});
 test('landing stage stays silent and keeps playback controls',()=>{
  assert.ok(!html.includes('<section class="hero"'));
  assert.ok(!html.includes('class="caption"'));
@@ -31,8 +36,8 @@ test('composed result uses brand token classes, not raw colors',()=>{
  const start=html.indexOf('<figure class="after"');
  const result=html.slice(start,html.indexOf('</figure>',start));
  assert.match(result,/class="result-window"/);
- assert.match(result,/class="result-chrome"/);
- assert.match(result,/class="result-rule"/);
+ assert.ok(!result.includes('result-chrome'),'composed screen must not have fake window dots');
+ assert.ok(!result.includes('result-rule'),'composed screen must not have a header rule');
  assert.match(result,/class="paper-sheet"/);
  assert.ok(!/#[0-9a-f]{3,8}\b/i.test(result),'raw color in composed result');
 });

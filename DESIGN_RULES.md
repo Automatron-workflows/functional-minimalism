@@ -38,6 +38,7 @@ Use this profile for a short product explanation or capability demonstration whe
 - Keep the composed result identical across sources. The source changes; the result does not.
 - Fill the rail as each source completes, so the harness's progress is visible without a caption.
 - Reserve the accent for the result's single primary action. Do not use it to decorate the source drafts.
+- Keep the header, rail and primary action plain text. Do not add logo badges, rail icons, fake window chrome or button arrows to the composed result.
 - Disclose authored sources and simulations in the information control. A source mark on stage is not enough disclosure.
 
 ## Functional interface profile

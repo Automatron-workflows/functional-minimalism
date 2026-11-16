@@ -33,7 +33,7 @@ Both are Automatron projects. They work independently.
 
 - A plain lowercase wordmark and a bracket/minus mark: keep the useful structure, subtract the excess.
 - Midnight canvas, warm ivory, restrained copper accents. These belong to the demonstration, not every consuming application.
-- System sans-serif for utility, serif italic for the short outcome line. No remote fonts.
+- System sans-serif throughout. Copper is reserved for the functional action inside the composed screen. No remote fonts.
 - Short visual comparisons, one shared playback control, and optional details. Motion connects decisions to results; pause, replay and reduced motion are always available.
 
 ## Claims

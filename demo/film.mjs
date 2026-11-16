@@ -1,5 +1,6 @@
 import {filmFrame,mayAdvance,duration} from '../src/timeline.mjs';
 const film=document.querySelector('.film'),play=document.querySelector('#play');
+const models=[...document.querySelectorAll('.model')];
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');
 const icons={
  pause:'<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 5v10M13 5v10"/></svg>',
@@ -14,6 +15,7 @@ function draw(){
  film.dataset.settled=String(frame.settled);
  film.style.setProperty('--wipe-inset',`${(1-frame.wipe)*100}%`);
  film.classList.toggle('restarting',frame.fading);
+ models.forEach((model,index)=>{model.dataset.done=String(index<frame.done);});
  const label=playing?'Pause illustration':'Play illustration';
  play.setAttribute('aria-label',label);
  play.title=label;
@@ -44,4 +46,4 @@ document.querySelectorAll('select').forEach(select=>select.addEventListener('cha
 document.querySelector('#copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(command());document.querySelector('#copy-status').textContent='Copied. Run inside the extracted source folder.';}catch{const range=document.createRange();range.selectNodeContents(document.querySelector('#command'));const selection=getSelection();selection.removeAllRanges();selection.addRange(range);document.querySelector('#copy-status').textContent='Commands selected. Use your browser’s Copy command.';}});
 updateCommand();sync();
 // Read-only diagnostics for browser review; not model or usability measurements.
-window.minimalismFilm={snapshot:()=>{const frame=filmFrame(elapsed);return {elapsed,playing,stage:frame.stage,model:frame.model,wipe:frame.wipe,settled:frame.settled,fading:frame.fading,running:canRun(),reducedMotion:reduced.matches};}};
+window.minimalismFilm={snapshot:()=>{const frame=filmFrame(elapsed);return {elapsed,playing,stage:frame.stage,model:frame.model,wipe:frame.wipe,done:frame.done,settled:frame.settled,fading:frame.fading,running:canRun(),reducedMotion:reduced.matches};}};

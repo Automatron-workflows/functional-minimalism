@@ -8,6 +8,7 @@ test('illustration timing cycles each model through the wipe, then settles',()=>
  assert.equal(opening.model,'claude');
  assert.equal(opening.wipe,0);
  assert.equal(opening.settled,false);
+ assert.equal(opening.done,0);
  assert.equal(opening.fading,false);
  const wiping=filmFrame(1850);
  assert.equal(wiping.stage,'compose');
@@ -16,6 +17,7 @@ test('illustration timing cycles each model through the wipe, then settles',()=>
  assert.equal(filmFrame(2300).wipe,1);
  assert.equal(filmFrame(2600).model,'chatgpt');
  assert.equal(filmFrame(2600).wipe,0);
+ assert.equal(filmFrame(2600).done,1);
  assert.equal(filmFrame(5200).model,'kimi');
  assert.equal(filmFrame(7800).model,'deepseek');
  const settled=filmFrame(10400);
@@ -23,6 +25,7 @@ test('illustration timing cycles each model through the wipe, then settles',()=>
  assert.equal(settled.model,'all');
  assert.equal(settled.wipe,1);
  assert.equal(settled.settled,true);
+ assert.equal(settled.done,4);
  assert.equal(filmFrame(duration-1100).fading,true);
  const restarted=filmFrame(duration);
  assert.equal(restarted.stage,'source');

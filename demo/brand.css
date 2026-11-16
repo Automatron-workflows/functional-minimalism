@@ -165,9 +165,11 @@ main {
 .film[data-model="chatgpt"] .model[data-model="chatgpt"] .dot,
 .film[data-model="kimi"] .model[data-model="kimi"] .dot,
 .film[data-model="deepseek"] .model[data-model="deepseek"] .dot { opacity: 1; }
+.model[data-done="true"] { color: var(--ink); }
+.model[data-done="true"] .mark { color: var(--accent); }
+.model[data-done="true"] .dot { opacity: 1; }
 .film[data-settled="true"] .model { color: var(--ink); }
 .film[data-settled="true"] .model .mark { color: var(--accent); }
-.film[data-settled="true"] .model .dot { opacity: 0; }
 
 .frame {
   position: relative;
@@ -191,6 +193,17 @@ main {
 .film[data-model="deepseek"] .before[data-model="deepseek"] { opacity: 1; }
 .film[data-settled="true"] .before { opacity: 0; }
 .after { clip-path: inset(0 var(--wipe-inset, 100%) 0 0); }
+.scan {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--wipe, 0) * 100%);
+  width: 1px;
+  background: var(--accent);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.film[data-stage="compose"] .scan { opacity: 1; }
 .before svg, .after svg { display: block; width: 100%; height: 100%; }
 
 /* The composed screen: one object, one decision. */

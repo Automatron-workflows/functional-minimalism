@@ -11,6 +11,7 @@ export function filmFrame(milliseconds){
  const index=settled?models.length-1:Math.min(Math.floor(t/cycle),models.length-1);
  const local=settled?cycle:t%cycle;
  const wipe=settled?1:local<wipeStart?0:Math.min((local-wipeStart)/(wipeEnd-wipeStart),1);
- return {stage:settled?'remember':local<wipeStart?'source':'compose',model:settled?'all':models[index],wipe,settled,fading:t>=duration-1100};
+ const done=settled?models.length:index;
+ return {stage:settled?'remember':local<wipeStart?'source':'compose',model:settled?'all':models[index],wipe,done,settled,fading:t>=duration-1100};
 }
 export function mayAdvance({playing,hidden,visible,dialogOpen}){return playing&&!hidden&&visible&&!dialogOpen;}

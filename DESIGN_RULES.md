@@ -34,8 +34,9 @@ Use this profile for a short product explanation or capability demonstration whe
 ### Silent comparison
 
 - Let the source objects and the result carry the explanation. Do not add a headline, captions, numbered cards or tutorial copy above the stage when the sequence is self-explanatory.
-- Keep source names under each other in a stable rail. Show one source at a time at full size. Replace it with the result through a wipe or comparable reveal; never ghost two source screens through each other.
+- Keep source names under each other in a stable rail. Show one source at a time at full size. Replace it with the result through a visible scan or wipe that shows the harness acting; never ghost two source screens through each other.
 - Keep the composed result identical across sources. The source changes; the result does not.
+- Fill the rail as each source completes, so the harness's progress is visible without a caption.
 - Reserve the accent for the result's single primary action. Do not use it to decorate the source drafts.
 - Disclose authored sources and simulations in the information control. A source mark on stage is not enough disclosure.
 

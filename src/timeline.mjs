@@ -1,6 +1,6 @@
 // Pure illustration timing. A stage is never evidence that a model built a screen.
 export const duration=12000;
-const draftAt=[420,1120,1820];
+const draftAt=[320,820,1320,1820];
 const composeAt=2620;
 const resultAt=3220;
 const holdAt=4620;

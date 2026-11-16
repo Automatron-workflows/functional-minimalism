@@ -2,7 +2,7 @@
   "schema": "design-harness.pack/1",
   "id": "studio",
   "name": "Studio reference",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "source": {"kind": "synthetic", "reference": "Authored Automatron demonstration system; not Alps or a third-party brand", "capturedAt": "2026-11-13"},
   "principles": [
     "Minimum reading, maximum clarity. Remove repetitive explanation before content, controls, or consequences.",
@@ -13,6 +13,10 @@
     "For a cinematic demonstration, make motion explain the trigger and outcome. Provide pause and replay for loops, honor reduced motion, and suspend hidden playback.",
     "Keep unfamiliar actions labelled. Preserve keyboard access, visible focus, readable contrast, and reduced-motion alternatives.",
     "This reference system uses a dark editorial shell, warm accent, and strong typographic contrast. Other brands retain their own direction."
+  ],
+  "patterns": [
+    {"id":"document-review","object":"Invoice","structure":["document preview","supplier","amount","due","destination","consequence","one primary action"],"rules":["Make the document the dominant object and keep the decision facts beside it.","Use scale, spacing and alignment instead of dividers, decorative summary cards or repeated totals.","Reserve the accent for the single primary action.","Keep supplier, amount, due date, destination and consequence visible at the decision point."]},
+    {"id":"silent-comparison","object":"Comparison","structure":["stacked source drafts","one composed result"],"rules":["Let the sources and result carry the explanation; no headline, captions or tutorial copy in the stage.","Subordinate the sources through scale, color and opacity once the result appears, not through labels.","Use one accent for the result's primary action; keep source drafts in their own generic palettes.","Disclose authored sources and simulations in optional details."]}
   ],
   "tokens": {
     "color.canvas": {"type":"color","value":"#101214"},
@@ -53,6 +57,7 @@
     {"name":"Status","source":"demo/components.mjs","export":"Status","variants":["default","success"],"states":["default"],"rules":["Pair color with a text status."]},
     {"name":"TaskRow","source":"demo/components.mjs","export":"TaskRow","variants":["default","complete"],"states":["default","complete","focus"],"rules":["Use a labelled native checkbox.","Retain owner and due date."]},
     {"name":"Receipt","source":"demo/components.mjs","export":"Receipt","variants":["default"],"states":["default"],"rules":["Show itemization and totals.","All demonstration values are fixtures."]},
+    {"name":"PaymentSummary","source":"demo/components.mjs","export":"PaymentSummary","variants":["default"],"states":["default"],"rules":["Show supplier, amount, due date, destination and consequence at the decision point.","Keep one primary action. Do not add a second summary card that repeats the same facts.","Keep the consequence visible in the confirmation state."]},
     {"name":"EmptyState","source":"demo/components.mjs","export":"EmptyState","variants":["empty","error","success"],"states":["empty","error","success"],"rules":["State what happened and provide a meaningful recovery action."]}
   ]
 }

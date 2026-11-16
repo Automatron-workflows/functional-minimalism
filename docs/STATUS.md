@@ -8,14 +8,15 @@ The original product plan remains a proposal. This file tracks the implemented s
 | One-command first-screen setup and doctor | Implemented; compact brief by default |
 | Functional Minimalism brand, illustrative workflow film and setup panel | Implemented; source served in Chromium at 390px and 1440px |
 | Versioned packs, semantic tokens, alias validation | Implemented |
-| Ten mapped HTML reference components | Implemented |
+| Eleven mapped HTML reference components | Implemented |
+| Pack composition patterns and contract binding | Implemented; document review and silent comparison |
 | Three screen contracts and portable briefs | Implemented |
 | Codex / Claude project instruction files | Implemented; host must load them |
 | Scoped accepted/proposed/rejected decision memory | Implemented; workshop adds local acceptance and brief download |
 | Pack pinning and drift detection | Implemented |
 | Normalized token-map import with provenance | Implemented |
 | Local source/export checks and lexical CSS checks | Implemented; limitations documented |
-| DOM collection and state/viewport evidence audit | Implemented |
+| DOM collection and state/viewport evidence audit | Implemented; essential facts checked in ready and confirmation |
 | Three interactive fixture flows and static build | Implemented; direct starter brief copy/download added |
 | Local Chrome behavioral verification runner | Actual-width iframe runner implemented; GitHub CI passes 26 assertions each at 390px and 1440px |
 | Live Figma / Code Connect importer | Pending |

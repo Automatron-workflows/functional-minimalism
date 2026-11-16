@@ -34,6 +34,7 @@ Both are Automatron projects. They work independently.
 - A plain lowercase wordmark and a bracket/minus mark: keep the useful structure, subtract the excess.
 - Midnight canvas, warm ivory, restrained copper accents. These belong to the demonstration, not every consuming application.
 - System sans-serif throughout. Copper is reserved for the functional action inside the composed screen. No remote fonts.
+- The landing film is a silent comparison: several authored model-default drafts of one invoice resolve into one composed review. Drafts remain visually subordinate; the result carries the single copper action. Visible model names identify the authored sources; the information control states they are not actual outputs.
 - Short visual comparisons, one shared playback control, and optional details. Motion connects decisions to results; pause, replay and reduced motion are always available.
 
 ## Claims
@@ -42,4 +43,4 @@ Say: built to reduce repeated design corrections, designed for better first draf
 
 Measure before claiming: saved minutes, fewer model tokens, reduced cost, better usability, first-pass success rates. Context bytes are not model tokens, and a shorter brief does not establish an end-to-end saving. The harness itself adds context.
 
-The landing film is an authored illustration. The workshop uses fictional data and real local checks. A live Figma importer, Alps source pack and cross-model studies remain pending.
+The landing film names common model defaults to make the comparison legible. The drafts are authored illustrations, not actual model outputs. No cross-model study was run. The workshop uses fictional data and real local checks. A live Figma importer and Alps source pack remain pending.

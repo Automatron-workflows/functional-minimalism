@@ -97,7 +97,7 @@ main {
   gap: clamp(24px, 4vw, 56px);
   align-items: center;
 }
-.drafts { display: grid; gap: clamp(9px, 1.2vw, 14px); min-width: 0; }
+.drafts { display: grid; gap: 10px; min-width: 0; }
 
 .draft {
   margin: 0;
@@ -122,8 +122,8 @@ main {
 
 .film[data-stage="compose"] .draft[data-ready="true"],
 .film[data-stage="remember"] .draft[data-ready="true"] {
-  opacity: 0.36;
-  filter: saturate(0.55) brightness(0.9);
+  opacity: 0.4;
+  filter: saturate(0.6) brightness(0.92);
   transform: scale(0.99);
 }
 

@@ -31,6 +31,13 @@ Use this profile for a short product explanation or capability demonstration whe
 8. Put optional technical context behind a discoverable information control. Retain brief visible disclosure if the scene could otherwise be mistaken for a live action or measured performance.
 9. Keep icon controls recognizable and named for assistive technology. Verify focus, keyboard activation, touch access and the information control on mobile.
 
+### Silent comparison
+
+- Let the source objects and the result carry the explanation. Do not add a headline, captions, numbered cards or tutorial copy above the stage when the sequence is self-explanatory.
+- If several sources are shown, keep them distinct in their own generic palettes. Once the result appears, subordinate them through scale, color and opacity, not labels.
+- Reserve the accent for the result's single primary action. Do not use it to decorate the source drafts.
+- Disclose authored sources and simulations in the information control. A source mark on stage is not enough disclosure.
+
 ## Functional interface profile
 
 Apply the same restraint to forms, editors, financial tasks and operational tools through composition and direct interaction. Preserve the information needed to use them.
@@ -41,6 +48,14 @@ Apply the same restraint to forms, editors, financial tasks and operational tool
 | Payment | Amount, currency, recipient, relevant terms and explicit confirmation. | Nonessential history and technical diagnostics. |
 | Settings | Understandable preference names, current values and save or undo behavior. | Advanced explanations and audit history. |
 | Workspace | The objects being managed, meaningful status and relevant editing controls. | Background rationale and secondary configuration. |
+
+### Document review
+
+- Make the document the dominant object. Keep the decision facts beside it rather than repeating them in a summary card.
+- Use scale, spacing and alignment instead of dividers, repeated totals or decorative wrappers.
+- Reserve the accent for the single primary action.
+- At confirmation, keep supplier, amount, due date, destination and consequence visible. A confirmation that drops one of these is incomplete.
+- Use spacing and type hierarchy to separate regions. A divider is a last resort, not a default.
 
 Do not trade reading for guessing, extra navigation or lost context. An unfamiliar icon needs a visible label. An editorial product still needs its content. Dense data can belong in a clear table rather than a sparse decorative layout.
 

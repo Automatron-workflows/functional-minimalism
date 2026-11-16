@@ -12,7 +12,7 @@
     "Remove repeated headings, numbered wrappers, helper paragraphs, and implementation labels already explained by the visual. Avoid em dashes and en dashes in product copy.",
     "For a cinematic demonstration, make motion explain the trigger and outcome. Provide pause and replay for loops, honor reduced motion, and suspend hidden playback.",
     "Keep unfamiliar actions labelled. Preserve keyboard access, visible focus, readable contrast, and reduced-motion alternatives.",
-    "This reference system uses a dark editorial shell, warm accent, and strong typographic contrast. Other brands retain their own direction."
+    "This reference system uses a dark editorial shell, a single accent, and strong typographic contrast. Other brands retain their own direction."
   ],
   "patterns": [
     {"id":"document-review","object":"Invoice","structure":["document preview","supplier","amount","due","destination","consequence","one primary action"],"rules":["Make the document the dominant object and keep the decision facts beside it.","Use scale, spacing and alignment instead of dividers, decorative summary cards or repeated totals.","Reserve the accent for the single primary action.","Keep supplier, amount, due date, destination and consequence visible at the decision point."]},

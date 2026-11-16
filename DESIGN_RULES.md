@@ -21,7 +21,7 @@ Accepted by Matthias on 13 November 2026 following the Hardwire silent demo. The
 
 Use this profile for a short product explanation or capability demonstration where the visual sequence is the main content.
 
-1. Start with a simple wordmark, one concise headline and the demonstration. Hardwire's dark presentation is the approved reference for this profile.
+1. Start with a simple wordmark and the demonstration. Add one concise headline only when the comparison cannot be identified without it. Hardwire's dark presentation is the approved reference for this profile.
 2. Show one coherent comparison. Use a few recognizable examples only when they clarify that the capability spans several situations. Three is a reference choice, not a required grid.
 3. Let the source object and final state identify the example. Google sign in, a payment card and a settings switch worked in Hardwire. Use equally specific objects for another product.
 4. Replace text driven tutorial panels with observable changes. Avoid numbered cards, navigation lists, code call labels and repeated success captions on the landing view.

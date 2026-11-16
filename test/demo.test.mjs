@@ -21,6 +21,12 @@ test('landing stage stays silent and keeps playback controls',()=>{
  assert.match(html,/class="sr-only">Functional Minimalism/);
  assert.equal((html.match(/<div class="transport"/g)||[]).length,1);
 });
+test('the result never composites the source',()=>{
+ const start=html.indexOf('<figure class="after"');
+ const afterRule=css.match(/\.after\s*\{[^}]*\}/)?.[0]??'';
+ assert.ok(afterRule.length>0,'after layer rule missing');
+ assert.ok(!/clip-path|transition/.test(afterRule),'result must cut, not merge');
+});
 test('composed result uses brand token classes, not raw colors',()=>{
  const start=html.indexOf('<figure class="after"');
  const result=html.slice(start,html.indexOf('</figure>',start));

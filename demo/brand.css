@@ -192,7 +192,11 @@ main {
 .film[data-model="kimi"] .before[data-model="kimi"],
 .film[data-model="deepseek"] .before[data-model="deepseek"] { opacity: 1; }
 .film[data-settled="true"] .before { opacity: 0; }
-.after { clip-path: inset(0 var(--wipe-inset, 100%) 0 0); }
+.after { opacity: 0; }
+.film[data-stage="result"] .after,
+.film[data-stage="remember"] .after { opacity: 1; }
+.film[data-stage="result"] .before,
+.film[data-stage="remember"] .before { opacity: 0; }
 .scan {
   position: absolute;
   top: 0;

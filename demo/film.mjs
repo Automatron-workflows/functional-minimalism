@@ -13,7 +13,7 @@ function draw(){
  film.dataset.stage=frame.stage;
  film.dataset.model=frame.model;
  film.dataset.settled=String(frame.settled);
- film.style.setProperty('--wipe-inset',`${(1-frame.wipe)*100}%`);
+ film.style.setProperty('--wipe',String(frame.wipe));
  film.classList.toggle('restarting',frame.fading);
  models.forEach((model,index)=>{model.dataset.done=String(index<frame.done);});
  const label=playing?'Pause illustration':'Play illustration';

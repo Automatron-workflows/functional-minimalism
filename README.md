@@ -75,9 +75,9 @@ npm run build
 npm run dev
 ```
 
-Open **http://127.0.0.1:4178/demo/**. The landing illustration shows four model-default drafts, each adapted to the same invoice-review rules in its own composition and palette. Why explains the purpose; Set up gives the exact commands and downloadable source. Try the harness opens film discovery, a simulated invoice confirmation, and project tasks. Inspect runs real DOM checks against the fixture contracts. Design memory lets you accept a scoped correction and download another screen’s brief to see which decisions carry forward. That memory is local to the demo browser; it does not write to your project or agent.
+Open **http://127.0.0.1:4178/demo/**. The landing comparison shows four model-default drafts and their adapted invoice-review results. Select a model, then drag the image or use the before/after switch to compare. Why explains the purpose; Set up gives the exact commands and downloadable source. Try the harness opens film discovery, a simulated invoice confirmation, and project tasks. Inspect runs real DOM checks against the fixture contracts. Design memory lets you accept a scoped correction and download another screen’s brief to see which decisions carry forward. That memory is local to the demo browser; it does not write to your project or agent.
 
-After `npm run build`, open **dist/Functional_Minimalism_Preview.html** directly in a browser: a self-contained preview with the workshop and source ZIP embedded. **dist/Functional_Minimalism_Workshop.html** is the separate offline workshop. The film and Before/With harness comparisons are authored illustrations, not measured model outputs or user research. No real payment occurs.
+After `npm run build`, open **dist/Functional_Minimalism_Preview.html** directly in a browser: a self-contained preview with the workshop and source ZIP embedded. **dist/Functional_Minimalism_Workshop.html** is the separate offline workshop. The landing comparison and Before/With harness examples are authored illustrations, not measured model outputs or user research. No real payment occurs.
 
 ## Time and token usage
 

@@ -84,7 +84,7 @@ button:disabled { cursor: default; opacity: 0.55; }
 }
 .set-up:hover { color: var(--ink); }
 
-/* Film: four model drafts, one harness result. */
+/* Manual before/after comparison */
 main {
   flex: 1;
   display: flex;
@@ -99,20 +99,17 @@ main {
 .stage {
   display: grid;
   grid-template-columns: 136px minmax(0, 900px);
+  grid-template-rows: auto auto;
   column-gap: clamp(28px, 4vw, 48px);
-  row-gap: 0;
   align-items: center;
   justify-content: center;
   max-width: 1100px;
   margin: 0 auto;
 }
 .models {
-  list-style: none;
   display: grid;
   gap: 6px;
   align-content: center;
-  margin: 0;
-  padding: 0;
   min-width: 0;
 }
 .model {
@@ -120,10 +117,17 @@ main {
   flex-direction: column;
   align-items: flex-start;
   gap: 5px;
+  width: 100%;
   min-height: 0;
+  padding: 0;
+  border: 0;
+  background: none;
   color: var(--subtle);
+  font: inherit;
   font-size: 12.5px;
   letter-spacing: -0.2px;
+  text-align: left;
+  cursor: pointer;
 }
 .model .thumb {
   display: block;
@@ -131,35 +135,12 @@ main {
   height: auto;
   border-radius: 4px;
   opacity: 0.45;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.2s ease;
 }
-.model .label { display: flex; align-items: center; gap: 7px; }
-.model .dot {
-  width: 5px;
-  height: 5px;
-  flex: none;
-  border-radius: 50%;
-  background: var(--accent);
-  opacity: 0;
-}
-.film[data-model="claude"] .model[data-model="claude"],
-.film[data-model="chatgpt"] .model[data-model="chatgpt"],
-.film[data-model="kimi"] .model[data-model="kimi"],
-.film[data-model="deepseek"] .model[data-model="deepseek"] { color: var(--ink); }
-.film[data-model="claude"] .model[data-model="claude"] .dot,
-.film[data-model="chatgpt"] .model[data-model="chatgpt"] .dot,
-.film[data-model="kimi"] .model[data-model="kimi"] .dot,
-.film[data-model="deepseek"] .model[data-model="deepseek"] .dot { opacity: 1; }
-.film[data-model="claude"] .model[data-model="claude"] .thumb,
-.film[data-model="chatgpt"] .model[data-model="chatgpt"] .thumb,
-.film[data-model="kimi"] .model[data-model="kimi"] .thumb,
-.film[data-model="deepseek"] .model[data-model="deepseek"] .thumb { opacity: 1; }
-.model[data-done="true"] { color: var(--ink); }
-.model[data-done="true"] .dot { opacity: 0.5; }
-.model[data-done="true"] .thumb { opacity: 1; }
-.film[data-settled="true"] .model { color: var(--ink); }
-.film[data-settled="true"] .model .dot { opacity: 0; }
-
+.model .label { display: block; }
+.model[aria-pressed="true"] { color: var(--ink); }
+.model[aria-pressed="true"] .thumb { opacity: 1; }
+.model:hover .thumb { opacity: 0.75; }
 .frame {
   position: relative;
   min-width: 0;
@@ -169,6 +150,8 @@ main {
   border-radius: 10px;
   background: var(--window);
   box-shadow: var(--shadow-result);
+  cursor: ew-resize;
+  touch-action: none;
 }
 .before, .after {
   position: absolute;
@@ -178,79 +161,64 @@ main {
   height: 100%;
   margin: 0;
 }
-.before { opacity: 0; }
-.film[data-model="claude"] .before[data-model="claude"],
-.film[data-model="chatgpt"] .before[data-model="chatgpt"],
-.film[data-model="kimi"] .before[data-model="kimi"],
-.film[data-model="deepseek"] .before[data-model="deepseek"] { opacity: 1; }
-.film[data-settled="true"] .before { opacity: 0; }
-.after { opacity: 0; }
-.film[data-stage="result"][data-model="claude"] .after[data-model="claude"],
-.film[data-stage="result"][data-model="chatgpt"] .after[data-model="chatgpt"],
-.film[data-stage="result"][data-model="kimi"] .after[data-model="kimi"],
-.film[data-stage="result"][data-model="deepseek"] .after[data-model="deepseek"] { opacity: 1; }
-.film[data-stage="result"] .before,
-.film[data-stage="remember"] .before { opacity: 0; }
-.film[data-settled="true"] .after {
-  width: 50%;
-  height: 50%;
-  opacity: 1;
-}
-.film[data-settled="true"] .after[data-model="claude"] { top: 0; left: 0; }
-.film[data-settled="true"] .after[data-model="chatgpt"] { top: 0; left: 50%; }
-.film[data-settled="true"] .after[data-model="kimi"] { top: 50%; left: 0; }
-.film[data-settled="true"] .after[data-model="deepseek"] { top: 50%; left: 50%; }
-.scan {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: calc(var(--wipe, 0) * 100%);
-  width: 1px;
-  background: var(--accent);
-  opacity: 0;
-  transition: opacity 0.25s ease;
-}
-.film[data-stage="compose"] .scan { opacity: 1; }
+.before, .after { opacity: 0; }
+.film[data-view="before"][data-model="claude"] .before[data-model="claude"],
+.film[data-view="before"][data-model="chatgpt"] .before[data-model="chatgpt"],
+.film[data-view="before"][data-model="kimi"] .before[data-model="kimi"],
+.film[data-view="before"][data-model="deepseek"] .before[data-model="deepseek"] { opacity: 1; }
+.film[data-view="after"][data-model="claude"] .after[data-model="claude"],
+.film[data-view="after"][data-model="chatgpt"] .after[data-model="chatgpt"],
+.film[data-view="after"][data-model="kimi"] .after[data-model="kimi"],
+.film[data-view="after"][data-model="deepseek"] .after[data-model="deepseek"] { opacity: 1; }
 .before svg, .after svg { display: block; width: 100%; height: 100%; }
-
-/* Loop fade */
-.film.restarting .stage { opacity: 0.08; transition: opacity 1s ease; }
-.film:not(.restarting) .stage { opacity: 1; transition: opacity 0.7s ease; }
-
-.noscript { max-width: 420px; margin: 22px auto 0; color: var(--muted); font-size: 13px; line-height: 1.6; text-align: center; }
-
-/* Transport */
-.stage > .transport { grid-column: 2; grid-row: 2; }
-.transport {
+.compare {
+  grid-column: 2;
+  grid-row: 2;
   display: flex;
+  align-items: center;
   justify-content: center;
-  gap: 6px;
-  padding: 18px 0 0;
+  gap: 14px;
+  padding-top: 18px;
 }
-.transport .icon {
-  display: grid;
-  place-items: center;
-  width: var(--control-size);
+.compare-label {
+  color: var(--subtle);
+  font-size: 10px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+.switch {
+  position: relative;
+  width: 60px;
   height: var(--control-size);
   min-height: var(--control-size);
   padding: 0;
-  border: 1px solid transparent;
+  border: 0;
+  background: none;
+}
+.switch::before {
+  content: "";
+  position: absolute;
+  top: 7px;
+  left: 3px;
+  right: 3px;
+  height: 30px;
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  background: var(--surface);
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.switch .knob {
+  position: absolute;
+  top: 11px;
+  left: 6px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
-  color: var(--control);
-  transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+  background: var(--muted);
+  transition: transform 0.2s ease, background 0.2s ease;
 }
-.transport .icon:hover { color: var(--ink); border-color: var(--line); background: var(--control-bg); }
-.transport .icon:active { transform: scale(0.95); }
-.transport .icon svg {
-  width: 15px;
-  height: 15px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-.transport .icon span { font-size: 14px; line-height: 1; letter-spacing: 1px; }
+.switch[aria-checked="true"]::before { border-color: var(--accent); background: var(--accent); }
+.switch[aria-checked="true"] .knob { transform: translateX(26px); background: var(--onaccent); }
 
 /* Footer */
 .foot {
@@ -447,9 +415,8 @@ dialog.workshop {
   .models { grid-template-columns: repeat(4, minmax(0, 1fr)); width: 100%; max-width: 360px; margin: 0 auto; gap: 6px; }
   .model { min-height: 0; }
   .model .label { font-size: 9px; gap: 4px; line-height: 1.2; }
-  .model .dot { width: 4px; height: 4px; }
   .frame { width: 100%; max-width: 900px; margin: 0 auto; }
-  .stage > .transport { grid-column: 1; grid-row: auto; }
+  .compare { grid-column: 1; grid-row: auto; }
   main { justify-content: flex-start; padding: 22px 0 28px; }
 }
 
@@ -461,7 +428,6 @@ dialog.workshop {
   main { padding: 14px 0 22px; }
   .stage { gap: 20px; }
   .models { max-width: 340px; gap: 4px; }
-  .transport { padding-top: 14px; }
   .foot { padding-bottom: 14px; }
   dialog { padding: 22px; border-radius: 14px; }
   .dialog-head h2 { font-size: 26px; }
@@ -476,7 +442,6 @@ dialog.workshop {
 @media (min-width: 861px) and (max-height: 820px) {
   .header { height: 72px; }
   main { padding: 6px 0 10px; }
-  .transport { padding-top: 10px; }
   .foot { padding-bottom: 12px; }
 }
 

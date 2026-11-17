@@ -6,7 +6,7 @@ const css=await readFile(new URL('../demo/brand.css',import.meta.url),'utf8');
 test('landing film keeps four named sources and four adapted results',()=>{
  assert.equal((html.match(/<figure class="before"/g)||[]).length,4);
  assert.equal((html.match(/<figure class="after"/g)||[]).length,4);
- assert.equal((html.match(/<li class="model"/g)||[]).length,4);
+ assert.equal((html.match(/<button class="model"/g)||[]).length,4);
  for(const name of ['Claude','ChatGPT · Codex','Kimi','DeepSeek']) assert.ok(html.includes(name),`${name} label missing`);
  assert.match(html,/not actual model outputs/);
  assert.match(html,/No real payment occurs/);
@@ -29,18 +29,19 @@ test('header and controls stay free of decorative badges and arrows',()=>{
  assert.ok(!/[↗→↓]/.test(html.split('<div class="frame">')[0]),'header and rail must not use decorative arrows');
  assert.ok(!html.includes('class="mark"'),'rail and sources must not use decorative model icons');
 });
-test('landing stage stays silent and keeps playback controls',()=>{
+test('landing stage stays silent and provides a manual comparison',()=>{
  assert.ok(!html.includes('<section class="hero"'));
  assert.ok(!html.includes('class="caption"'));
  assert.match(html,/class="sr-only">Functional Minimalism/);
- assert.equal((html.match(/<div class="transport"/g)||[]).length,1);
+ assert.equal((html.match(/class="switch"/g)||[]).length,1);
+ assert.equal((html.match(/role="switch"/g)||[]).length,1);
+ assert.match(html,/data-view="before"/);
+ assert.ok(!html.includes('class="transport"'));
 });
-test('the result never composites the source',()=>{
- const afterRule=css.match(/\.after\s*\{[^}]*\}/)?.[0]??'';
- const beforeRule=css.match(/\.before\s*\{[^}]*\}/)?.[0]??'';
- assert.ok(afterRule.length>0&&beforeRule.length>0,'layer rules missing');
- assert.ok(!/clip-path|transition/.test(afterRule),'result must cut, not merge');
- assert.ok(!/transition/.test(beforeRule),'before layers must not crossfade');
+test('manual comparison switches whole before and after states',()=>{
+ assert.match(css,/\.film\[data-view="before"\]\[data-model="claude"\] \.before\[data-model="claude"\]/);
+ assert.match(css,/\.film\[data-view="after"\]\[data-model="claude"\] \.after\[data-model="claude"\]/);
+ assert.ok(!/clip-path/.test(css),'states must switch whole, not clip');
 });
 test('brand css keeps raw colors inside the token block',()=>{
  const root=css.match(/:root\s*\{[\s\S]*?\}/)?.[0]??'';

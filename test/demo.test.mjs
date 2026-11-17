@@ -33,8 +33,8 @@ test('landing stage stays silent and provides a manual comparison',()=>{
  assert.ok(!html.includes('<section class="hero"'));
  assert.ok(!html.includes('class="caption"'));
  assert.match(html,/class="sr-only">Functional Minimalism/);
- assert.equal((html.match(/class="switch"/g)||[]).length,1);
- assert.equal((html.match(/role="switch"/g)||[]).length,1);
+ assert.equal((html.match(/class="state"/g)||[]).length,2);
+ assert.ok(html.includes('role="group" aria-label="Comparison state"'));
  assert.match(html,/data-view="before"/);
  assert.ok(!html.includes('class="transport"'));
 });

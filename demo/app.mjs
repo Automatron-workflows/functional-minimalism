@@ -60,3 +60,70 @@ function preview(id){
 }
 function reviewPayment(){
  openDialog({title:'Confirm demo payment',content:'<p class="dialog-copy" data-copy="content" data-essential="supplier">North Studio · Invoice 0042</p><p class="dialog-amount" data-copy="content" data-essential="amount">€1,210.00</p><p class="dialog-destination" data-copy="content" data-essential="due">Due 20 November 2026</p><p class="dialog-destination" data-copy="content" data-essential="destination">Destination: North Studio · •••• 4421</p><p class="dialog-copy" data-copy="consequence" data-essential="consequence">This simulates payment only. No money will move.</p>',actions:Button({label:'Cancel',action:'close-dialog',variant:'secondary'})+Button({label:'Confirm simulation',action:'confirm-payment',primary:true})});state='confirmation';
+}
+function newTask(){
+ const dialog=openDialog({title:'A little more progress.',content:`<form id="task-form">${Field({label:'Task name',name:'taskName',placeholder:'What needs to happen?'})}<p class="form-error" role="alert" id="task-error"></p><div class="dialog-actions">${Button({label:'Add task',action:'add-task',iconName:'plus',primary:true})}</div></form>`});state='editing';dialog.querySelector('input').focus();
+ dialog.querySelector('form').addEventListener('submit',event=>{event.preventDefault();addTask();});
+}
+function addTask(){const input=document.querySelector('[name="taskName"]');const title=input.value.trim();if(!title){document.querySelector('#task-error').textContent='Give the task a name.';input.setAttribute('aria-invalid','true');input.setAttribute('aria-describedby','task-error');input.focus();return;}tasks.push({id:crypto.randomUUID(),title,owner:'YOU',date:'Today',done:false});closeDialog();taskFilter='all';state='ready';render();announce('Task added');scene.querySelector('[data-action="new-task"]').focus();}
+function inspect(){const snapshot=collectSnapshot(scene,{screen:flow,state});const report=auditSnapshot(pack,contracts[flow],snapshot);const words=Object.values(snapshot.words).reduce((a,b)=>a+b,0);const content=`<div class="inspector"><div class="inspect-stats"><div><strong>${words}</strong><span>visible words</span></div><div><strong>${snapshot.words.explanation}</strong><span>explanatory words</span></div><div><strong>${snapshot.components.length}</strong><span>mapped instances</span></div></div><p class="dialog-copy">${report.status==='pass'?'No blocking findings in this snapshot.':'This snapshot has blocking findings.'}</p>${report.findings.length?`<ul class="findings">${report.findings.map(f=>`<li>${escape(f.message)}</li>`).join('')}</ul>`:''}<label class="state-select">Preview a state<select id="state-select">${contracts[flow].states.map(s=>`<option value="${s}" ${s===state?'selected':''}>${s[0].toUpperCase()+s.slice(1)}</option>`).join('')}</select></label><p class="consequence">Checks use the same library as the CLI. This snapshot does not verify usability, visual quality, or complete accessibility. Studio is an authored reference system, not Alps.</p></div>`;
+ openDialog({title:'Behind the interface',content,actions:Button({label:'Show state',action:'show-state',variant:'secondary'})},'shell');
+}
+function memoryPanel(message=''){
+ const accepted=demoMemory.decisions.filter(d=>d.status==='accepted');
+ openDialog({title:'Keep the useful judgment.',content:`<p class="dialog-copy">Accept a correction, then inspect another screen’s brief. Project decisions travel with you; screen decisions stay scoped.</p><form id="memory-form">${Field({label:'Design decision',name:'decision',placeholder:'Keep unfamiliar actions visibly labelled.'})}<label class="state-select">Applies to<select id="memory-scope"><option value="project">All three demo screens</option><option value="screen">This screen only</option></select></label><div class="dialog-actions">${Button({label:'Accept decision',action:'accept-memory',primary:true})}</div></form><p class="consequence" id="memory-status" role="status">${escape(message||`${accepted.length} accepted decisions. Demo memory stays in this browser; it does not update your projects or agent.`)}</p>${accepted.length?`<ul class="findings">${accepted.map(d=>`<li>${escape(d.rule)} <small>(${escape(d.scope==='project'?'all screens':d.target.split('/')[1])})</small></li>`).join('')}</ul>`:''}<label class="state-select">Screen brief<select id="brief-screen">${Object.keys(contracts).map(id=>`<option value="${id}" ${id===flow?'selected':''}>${id}</option>`).join('')}</select></label>`,actions:Button({label:'Download brief',action:'download-brief',variant:'secondary'})+Button({label:'Clear demo memory',action:'clear-memory',variant:'ghost'})},'shell');
+ document.querySelector('#memory-form').addEventListener('submit',event=>{event.preventDefault();acceptMemory();});
+}
+function acceptMemory(){const input=document.querySelector('[name="decision"]'),rule=input.value.trim();if(!rule){input.setAttribute('aria-invalid','true');document.querySelector('#memory-status').textContent='Write the decision you want to keep.';input.focus();return;}const scope=document.querySelector('#memory-scope').value;const target=scope==='project'?contracts[flow].project:`${contracts[flow].project}/${flow}`;demoMemory=validateMemory({...demoMemory,decisions:[...demoMemory.decisions,{id:crypto.randomUUID(),scope,target,status:'accepted',rule,reason:'Explicitly accepted in the local workshop.',createdAt:new Date().toISOString()}]});const persisted=saveDemoMemory();memoryPanel(persisted?'Decision saved in this browser. Download a brief to inspect its scope.':'Decision kept for this session only. Browser storage is unavailable.');}
+function downloadBrief(){const screen=document.querySelector('#brief-screen').value;const url=URL.createObjectURL(new Blob([composeBrief(pack,contracts[screen],demoMemory,{compact:true})],{type:'text/markdown'}));const link=document.createElement('a');link.href=url;link.download=`${screen}-brief.md`;link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+function briefPanel(){
+ const brief=composeStarterBrief(pack,contracts[flow],demoMemory);
+ openDialog({title:'Your next screen starts here.',content:`<p class="brief-summary"><strong>${escape(contracts[flow].goal)}</strong><br/>Your components, required states, and accepted decisions in one brief.</p><pre class="guide-code">node bin/functional-minimalism.mjs setup ../my-app --template ${flow} --client both</pre><pre class="guide-code brief-preview" id="screen-brief" tabindex="0">${escape(brief)}</pre><p class="consequence" id="brief-status" role="status">For the my-app starter. Set up installs the referenced components; this export includes applicable demo decisions without saving them to your project.</p>`,actions:Button({label:'Copy brief',action:'copy-screen-brief',primary:true})+Button({label:'Download .md',action:'download-screen-brief',variant:'secondary'})},'shell');
+}
+async function copyScreenBrief(){
+ const text=composeStarterBrief(pack,contracts[flow],demoMemory);
+ try{await navigator.clipboard.writeText(text);document.querySelector('#brief-status').textContent='Copied. Paste into your coding agent after setting up the project.';}
+ catch{const range=document.createRange();range.selectNodeContents(document.querySelector('#screen-brief'));const selection=getSelection();selection.removeAllRanges();selection.addRange(range);document.querySelector('#brief-status').textContent='Brief selected. Use your browser’s Copy command.';}
+}
+function downloadScreenBrief(){
+ const url=URL.createObjectURL(new Blob([composeStarterBrief(pack,contracts[flow],demoMemory)],{type:'text/markdown'}));
+ const link=document.createElement('a');link.href=url;link.download=`${flow}-brief.md`;link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+ document.querySelector('#brief-status').textContent='Brief downloaded. Run Set up to install the referenced components.';
+}
+function guide(){openDialog({title:'Bring the judgment with you.',content:'<p class="dialog-copy">Install the project rules once. Start each screen with your design system, the task, and the decisions you’ve already made.</p><pre class="guide-code">node bin/functional-minimalism.mjs setup ./my-app\nnode bin/functional-minimalism.mjs brief \\\n  --project ./my-app</pre><p class="consequence">Run from the downloaded source folder. No package is published to npm. Works with Codex and Claude instruction files; other agents can read the same brief.</p><div class="guide-links"><a href="../README.md">Read the guide ↗</a><a href="../packs/studio/pack.json">View the design pack ↗</a></div>'},'shell');}
+function changeFlow(next){closeDialog();flow=next;state='ready';render();announce(`${next} example`);}
+function setState(next){closeDialog();state=next;render();if(next==='confirmation')reviewPayment();if(next==='preview')preview('still');if(next==='editing')newTask();}
+document.addEventListener('click',event=>{
+ const button=event.target.closest('button');if(!button||button.disabled)return;
+ if(button.dataset.flow){changeFlow(button.dataset.flow);return;}
+ if(button.dataset.mode){closeDialog();mode=button.dataset.mode;state='ready';render();return;}
+ if(button.dataset.shell){const action=button.dataset.shell;if(action==='brief')briefPanel();if(action==='inspect')inspect();if(action==='guide')guide();if(action==='memory')memoryPanel();if(action==='reset'){closeDialog();tasks=initialTasks();saved.clear();mood='all';taskFilter='all';state='ready';render();announce('Example reset');}return;}
+ const action=button.dataset.action;if(!action)return;
+ if(action==='copy-screen-brief')copyScreenBrief();
+ else if(action==='download-screen-brief')downloadScreenBrief();
+ else if(action==='accept-memory')acceptMemory();
+ else if(action==='download-brief')downloadBrief();
+ else if(action==='clear-memory'){demoMemory={schema:'design-harness.memory/1',decisions:[]};const persisted=saveDemoMemory();memoryPanel(persisted?'Demo memory cleared.':'Session memory cleared. Browser storage is unavailable.');}
+ else if(action==='close-dialog')closeDialog();
+ else if(action==='mood'){mood=button.dataset.value;render();scene.querySelector(`[data-value="${mood}"]`).focus();}
+ else if(action==='task-filter'){taskFilter=button.dataset.value;render();scene.querySelector(`[data-value="${taskFilter}"]`).focus();}
+ else if(action.startsWith('play:'))preview(action.split(':')[1]);
+ else if(action.startsWith('save:')){const id=action.split(':')[1];saved.has(id)?saved.delete(id):saved.add(id);render();scene.querySelector(`[data-action="save:${id}"]`)?.focus();announce(saved.has(id)?'Film saved':'Film removed');}
+ else if(action.startsWith('save-dialog:')){const id=action.split(':')[1];saved.add(id);button.querySelector('span').textContent='Saved';const underlying=scene.querySelector(`[data-action="save:${id}"]`);underlying?.setAttribute('aria-pressed','true');underlying?.setAttribute('aria-label','Remove saved film');announce('Film saved');}
+ else if(action==='review-payment')reviewPayment();
+ else if(action==='confirm-payment'){closeDialog();state='success';render();announce('Payment simulated. No money moved.');scene.querySelector('[data-primary]')?.focus();}
+ else if(action==='new-task')newTask();
+ else if(action==='add-task')addTask();
+ else if(action==='retry'){closeDialog();state='ready';mood='all';render();announce('Ready');scene.querySelector('[data-primary]')?.focus();}
+ else if(action==='show-state'){const next=document.querySelector('#state-select').value;setState(next);}
+});
+document.addEventListener('change',event=>{if(event.target.matches('[data-task]')){const id=event.target.dataset.task;const task=tasks.find(t=>t.id===id);task.done=event.target.checked;render();scene.querySelector(`[data-task="${id}"]`)?.focus();announce(task.done?'Task complete':'Task reopened');}});
+document.addEventListener('visibilitychange',()=>document.documentElement.classList.toggle('page-hidden',document.hidden));
+window.designHarness={pack,contracts,get state(){return {flow,mode,state,mood,taskFilter};},starterBrief:()=>composeStarterBrief(pack,contracts[flow],demoMemory),snapshot:()=>collectSnapshot(scene,{screen:flow,state}),audit:()=>auditSnapshot(pack,contracts[flow],collectSnapshot(scene,{screen:flow,state})),brief:()=>composeBrief(pack,contracts[flow],demoMemory,{compact:true}),setState,changeFlow};
+const requestedFlow=new URLSearchParams(location.search).get('flow');
+if(Object.hasOwn(contracts,requestedFlow))flow=requestedFlow;
+render();
+if(new URLSearchParams(location.search).has('selftest') || window.frameElement?.hasAttribute('data-selftest')){
+ const {runBrowserTests}=await import('./self-test.mjs');const result=await runBrowserTests();
+ const output=document.createElement('script');output.id='harness-test-results';output.type='application/json';output.textContent=JSON.stringify(result);document.body.append(output);
+}

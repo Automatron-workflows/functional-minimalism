@@ -166,6 +166,7 @@ export function composeBrief(pack, contract, memory={schema:'design-harness.memo
     `Goal: ${contract.goal}\nObject: ${contract.object}\nPrimary action: ${contract.primaryAction}\nComposition: ${contract.composition}${pattern?`\nPattern: ${pattern.id} (${pattern.object})`:''}`,
     `## Preserve\n${contract.essential.map(x=>`- ${x}`).join('\n')}`,
     ...(surfaceBrief(contract)?[`## Interface decisions\n${surfaceBrief(contract)}`]:[]),
+    ...(pattern?[`## Composition pattern\n${pattern.structure.map(x=>`- ${x}`).join('\n')}\n${pattern.rules.map(x=>`- ${x}`).join('\n')}`]:[]),
     `## Design judgment\n${pack.principles.map(x=>`- ${x}`).join('\n')}`,
     `## Components\n${components.map(c=>`- ${c.name}: ${c.source} → ${c.export}; variants: ${c.variants.join(', ')}. ${c.rules.join(' ')}`).join('\n')}`,
     `## Accepted decisions\n${decisions.length?decisions.map(d=>`- [${d.scope}:${d.target}] ${d.rule} Reason: ${d.reason}`).join('\n'):'No accepted scoped decisions yet.'}`,
@@ -192,6 +193,7 @@ export function auditSnapshot(pack, contract, snapshot) {
     else {
       const visible=[...new Set(snapshot.features)];
       for(const id of visible){const feature=contract.surface.features.find(f=>f.id===id);if(!feature||feature.placement==='omit')add('error','unplanned-feature',`Visible feature is outside the accepted task: ${id}`);}
+      if(snapshot.state==='ready')for(const f of contract.surface.features.filter(f=>f.placement==='primary'))if(!visible.includes(f.id))add('error','missing-task-feature',`Primary task feature missing: ${f.id}`);
       if(visible.length>(contract.surface.maxVisibleFeatures??Infinity))add('warning','feature-budget','Review competing visible features without hiding required task information');
     }
     for(const c of contract.surface.controls.filter(c=>c.states.includes(snapshot.state)))if(!snapshot.controls.some(control=>control.id===c.id))add('error','missing-task-control',`Required control missing: ${c.id}`);

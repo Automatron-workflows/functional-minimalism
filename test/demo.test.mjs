@@ -3,16 +3,31 @@ import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 const html=await readFile(new URL('../demo/index.html',import.meta.url),'utf8');
 const css=await readFile(new URL('../demo/brand.css',import.meta.url),'utf8');
-test('landing film keeps four named model drafts and one composed result',()=>{
- assert.equal((html.match(/<figure class="draft"/g)||[]).length,4);
- assert.equal((html.match(/<figure class="result"/g)||[]).length,1);
+test('landing film keeps four named sources and four adapted results',()=>{
+ assert.equal((html.match(/<figure class="before"/g)||[]).length,4);
+ assert.equal((html.match(/<figure class="after"/g)||[]).length,4);
+ assert.equal((html.match(/<li class="model"/g)||[]).length,4);
  for(const name of ['Claude','ChatGPT · Codex','Kimi','DeepSeek']) assert.ok(html.includes(name),`${name} label missing`);
  assert.match(html,/not actual model outputs/);
  assert.match(html,/No real payment occurs/);
  assert.ok(!html.includes('<figcaption'));
- assert.equal((html.match(/class="approve"/g)||[]).length,1);
- assert.match(html,/class="invoice-total">€1,210.00/);
- assert.match(html,/Review payment/);
+ assert.equal((html.match(/class="approve"/g)||[]).length,4);
+});
+test('each adapted result keeps the same facts and one action',()=>{
+ const afters=[...html.matchAll(/<figure class="after"[\s\S]*?<\/figure>/g)].map(m=>m[0]);
+ assert.equal(afters.length,4);
+ for(const after of afters){
+  assert.match(after,/€1,210\.00/);
+  assert.match(after,/Review payment/);
+  assert.match(after,/Due 20 Nov 2026/);
+  assert.match(after,/To •••• 4421/);
+  assert.equal((after.match(/class="approve"/g)||[]).length,1);
+ }
+});
+test('header and controls stay free of decorative badges and arrows',()=>{
+ assert.ok(!html.includes('<a class="wordmark" href="./" aria-label="Functional Minimalism home"><img'),'wordmark must be plain text');
+ assert.ok(!/[↗→↓]/.test(html.split('<div class="frame">')[0]),'header and rail must not use decorative arrows');
+ assert.ok(!html.includes('class="mark"'),'rail and sources must not use decorative model icons');
 });
 test('landing stage stays silent and keeps playback controls',()=>{
  assert.ok(!html.includes('<section class="hero"'));
@@ -20,14 +35,12 @@ test('landing stage stays silent and keeps playback controls',()=>{
  assert.match(html,/class="sr-only">Functional Minimalism/);
  assert.equal((html.match(/<div class="transport"/g)||[]).length,1);
 });
-test('composed result uses brand token classes, not raw colors',()=>{
- const start=html.indexOf('<figure class="result"');
- const result=html.slice(start,html.indexOf('</figure>',start));
- assert.match(result,/class="result-window"/);
- assert.match(result,/class="result-chrome"/);
- assert.match(result,/class="result-rule"/);
- assert.match(result,/class="paper-sheet"/);
- assert.ok(!/#[0-9a-f]{3,8}\b/i.test(result),'raw color in composed result');
+test('the result never composites the source',()=>{
+ const afterRule=css.match(/\.after\s*\{[^}]*\}/)?.[0]??'';
+ const beforeRule=css.match(/\.before\s*\{[^}]*\}/)?.[0]??'';
+ assert.ok(afterRule.length>0&&beforeRule.length>0,'layer rules missing');
+ assert.ok(!/clip-path|transition/.test(afterRule),'result must cut, not merge');
+ assert.ok(!/transition/.test(beforeRule),'before layers must not crossfade');
 });
 test('brand css keeps raw colors inside the token block',()=>{
  const root=css.match(/:root\s*\{[\s\S]*?\}/)?.[0]??'';

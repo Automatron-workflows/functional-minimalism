@@ -6,10 +6,10 @@ The original product plan remains a proposal. This file tracks the implemented s
 | --- | --- |
 | Functional minimalism guidance with Dieter Rams reference | Implemented; human review guidance |
 | One-command first-screen setup and doctor | Implemented; compact brief by default |
-| Functional Minimalism brand, illustrative workflow film and setup panel | Implemented; source served in Chromium at 390px and 1440px |
+| Functional Minimalism brand, manual before/after comparison and setup panel | Implemented; source served in Chromium at 390px and 1440px |
 | Versioned packs, semantic tokens, alias validation | Implemented |
 | Eleven mapped HTML reference components | Implemented |
-| Pack composition patterns and contract binding | Implemented; document review and silent comparison |
+| Pack composition patterns and contract binding | Implemented; document review and manual comparison |
 | Three screen contracts and portable briefs | Implemented |
 | Codex / Claude project instruction files | Implemented; host must load them |
 | Scoped accepted/proposed/rejected decision memory | Implemented; workshop adds local acceptance and brief download |

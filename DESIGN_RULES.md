@@ -33,15 +33,13 @@ Use this profile for a short product explanation or capability demonstration whe
 8. Put optional technical context behind a discoverable information control. Retain brief visible disclosure if the scene could otherwise be mistaken for a live action or measured performance.
 9. Keep icon controls recognizable and named for assistive technology. Verify focus, keyboard activation, touch access and the information control on mobile.
 
-### Silent comparison
+### Manual comparison
 
-- Let the source objects and the result carry the explanation. Do not add a headline, captions, numbered cards or tutorial copy above the stage when the sequence is self-explanatory.
-- Keep source names under each other in a stable rail. Show one source at a time at full size. Sweep a scan across the source, then cut to the result. Two source screens are never composited on screen; a half-and-half frame is a merge defect, not a transition.
+- Let the selected source and its adapted result carry the explanation. Do not add a headline, captions or tutorial copy above the stage when the pair is self-explanatory.
+- Keep model result thumbnails under each other in a stable rail. Selecting one updates the before/after pair.
+- Provide a visible before/after control labelled Before and After. Support pointer drag and keyboard; do not autoplay the comparison.
 - Keep the task, structure and essential facts identical across sources. Preserve each source's composition, palette and typography; do not collapse every source into one default theme.
-- Fill the rail as each source completes, so the harness's progress is visible without a caption.
-- Show all adapted results together at the end so the shared rules and distinct characters are visible.
-- Reserve each result's own accent for its single primary action. Do not use it to decorate the source drafts.
-- Keep the header, rail and primary action plain text. Do not add logo badges, rail icons, fake window chrome or button arrows to the composed result.
+- Reserve each result's own accent for its single action. Keep the header, rail and action free of logo badges, rail icons, fake window chrome and button arrows.
 - Disclose authored sources and simulations in the information control. A source name on stage is not enough disclosure.
 
 ## Functional interface profile

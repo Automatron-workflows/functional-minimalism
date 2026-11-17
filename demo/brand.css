@@ -10,8 +10,6 @@
   --accent-bright: #edc8a3;
   --paper: #efeadd;
   --paper-ink: #20251f;
-  --paper-muted: #64675c;
-  --paper-quiet: #5c6055;
   --window: #161917;
   --onaccent: #1a1d19;
   --control-size: 44px;
@@ -169,10 +167,22 @@ main {
 .film[data-model="deepseek"] .before[data-model="deepseek"] { opacity: 1; }
 .film[data-settled="true"] .before { opacity: 0; }
 .after { opacity: 0; }
-.film[data-stage="result"] .after,
-.film[data-stage="remember"] .after { opacity: 1; }
+.film[data-stage="result"][data-model="claude"] .after[data-model="claude"],
+.film[data-stage="result"][data-model="chatgpt"] .after[data-model="chatgpt"],
+.film[data-stage="result"][data-model="kimi"] .after[data-model="kimi"],
+.film[data-stage="result"][data-model="deepseek"] .after[data-model="deepseek"] { opacity: 1; }
 .film[data-stage="result"] .before,
 .film[data-stage="remember"] .before { opacity: 0; }
+.film[data-settled="true"] .after {
+  inset: auto;
+  width: 50%;
+  height: 50%;
+  opacity: 1;
+}
+.film[data-settled="true"] .after[data-model="claude"] { top: 0; left: 0; }
+.film[data-settled="true"] .after[data-model="chatgpt"] { top: 0; left: 50%; }
+.film[data-settled="true"] .after[data-model="kimi"] { top: 50%; left: 0; }
+.film[data-settled="true"] .after[data-model="deepseek"] { top: 50%; left: 50%; }
 .scan {
   position: absolute;
   top: 0;
@@ -185,24 +195,6 @@ main {
 }
 .film[data-stage="compose"] .scan { opacity: 1; }
 .before svg, .after svg { display: block; width: 100%; height: 100%; }
-
-/* The composed screen: one object, one decision. */
-.result-window { fill: var(--window); }
-.paper-sheet { fill: var(--paper); }
-.invoice-name { fill: var(--paper-ink); font-size: 32px; font-weight: 500; letter-spacing: -0.6px; }
-.invoice-number { fill: var(--paper-muted); font-family: var(--font-mono); font-size: 12px; letter-spacing: 1px; }
-.invoice-scope { fill: var(--paper-muted); font-size: 17px; }
-.invoice-total {
-  fill: var(--paper-ink);
-  font-size: 84px;
-  font-weight: 500;
-  letter-spacing: -4px;
-  font-variant-numeric: tabular-nums;
-}
-.invoice-due { fill: var(--paper-quiet); font-size: 18px; }
-.invoice-destination { fill: var(--paper-muted); font-family: var(--font-mono); font-size: 14px; letter-spacing: 0.5px; }
-.approve rect { fill: var(--accent); }
-.approve text { fill: var(--onaccent); font-size: 18px; font-weight: 600; letter-spacing: 0.1px; }
 
 /* Loop fade */
 .film.restarting .stage { opacity: 0.08; transition: opacity 1s ease; }
@@ -439,7 +431,7 @@ dialog.workshop {
   .model { min-height: 36px; }
   .frame { width: 100%; max-width: 900px; margin: 0 auto; }
   .stage > .transport { grid-column: 1; grid-row: auto; }
-  main { padding: 22px 0 28px; }
+  main { justify-content: flex-start; padding: 22px 0 28px; }
 }
 
 @media (max-width: 640px) {

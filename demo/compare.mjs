@@ -1,7 +1,7 @@
 // Manual before/after comparison. No autoplay, no model calls, no real payment.
 const film=document.querySelector('.film');
 const modelButtons=[...document.querySelectorAll('.model')];
-const toggle=document.querySelector('#view');
+const viewButtons=[...document.querySelectorAll('.state')];
 const stageFrame=document.querySelector('.frame');
 let selected='claude',view='before';
 function setModel(model){
@@ -12,10 +12,10 @@ function setModel(model){
 function setView(next){
  view=next==='after'?'after':'before';
  film.dataset.view=view;
- toggle.setAttribute('aria-checked',String(view==='after'));
+ viewButtons.forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.view===view)));
 }
 modelButtons.forEach(button=>button.addEventListener('click',()=>setModel(button.dataset.model)));
-toggle.addEventListener('click',()=>setView(view==='before'?'after':'before'));
+viewButtons.forEach(button=>button.addEventListener('click',()=>setView(button.dataset.view)));
 let startX=null;
 stageFrame.addEventListener('pointerdown',event=>{startX=event.clientX;stageFrame.setPointerCapture(event.pointerId);});
 stageFrame.addEventListener('pointermove',event=>{if(startX===null)return;const delta=event.clientX-startX;if(delta>40){setView('after');startX=null;}else if(delta<-40){setView('before');startX=null;}});

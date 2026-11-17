@@ -34,7 +34,7 @@ Both are Automatron projects. They work independently.
 - A plain lowercase wordmark on the page; the bracket/minus mark is used for the browser icon.
 - Midnight canvas, warm ivory, restrained copper accents. These belong to the demonstration, not every consuming application.
 - System sans-serif for the product and page. Authored source drafts may use their own model-like typography while they remain subordinate. Copper is reserved for the functional action inside the composed screen. No remote fonts.
-- The landing comparison is manual: model result thumbnails sit under each other in a stable rail, selecting one updates a before/after pair, and dragging the image or using the switch reveals that model's adapted review while keeping its composition, palette and typography. Each result has one accent action. The landing shell's copper belongs to the page, not the adapted results. Visible model names identify the authored sources; the information control states they are not actual outputs.
+- The landing comparison is manual: model result thumbnails sit under each other in a stable rail, selecting one updates a before/after pair, and dragging the image or using the Before and After control reveals that model's adapted review while keeping its composition, palette and typography. Each result has one accent action. The landing shell's copper belongs to the page, not the adapted results. Visible model names identify the authored sources; the information control states they are not actual outputs.
 - Short visual comparisons, one manual before/after control, and optional details. The comparison does not autoplay; the viewer sets the split.
 
 ## Claims

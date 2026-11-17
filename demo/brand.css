@@ -117,13 +117,23 @@ main {
 }
 .model {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  min-height: var(--control-size);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  min-height: 0;
   color: var(--subtle);
-  font-size: 13px;
+  font-size: 12.5px;
   letter-spacing: -0.2px;
 }
+.model .thumb {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  opacity: 0.45;
+  transition: opacity 0.3s ease;
+}
+.model .label { display: flex; align-items: center; gap: 7px; }
 .model .dot {
   width: 5px;
   height: 5px;
@@ -140,8 +150,13 @@ main {
 .film[data-model="chatgpt"] .model[data-model="chatgpt"] .dot,
 .film[data-model="kimi"] .model[data-model="kimi"] .dot,
 .film[data-model="deepseek"] .model[data-model="deepseek"] .dot { opacity: 1; }
+.film[data-model="claude"] .model[data-model="claude"] .thumb,
+.film[data-model="chatgpt"] .model[data-model="chatgpt"] .thumb,
+.film[data-model="kimi"] .model[data-model="kimi"] .thumb,
+.film[data-model="deepseek"] .model[data-model="deepseek"] .thumb { opacity: 1; }
 .model[data-done="true"] { color: var(--ink); }
 .model[data-done="true"] .dot { opacity: 0.5; }
+.model[data-done="true"] .thumb { opacity: 1; }
 .film[data-settled="true"] .model { color: var(--ink); }
 .film[data-settled="true"] .model .dot { opacity: 0; }
 
@@ -429,8 +444,10 @@ dialog.workshop {
 
 @media (max-width: 860px) {
   .stage { grid-template-columns: 1fr; gap: 24px; max-width: 900px; }
-  .models { width: max-content; margin: 0 auto; gap: 2px; }
-  .model { min-height: 36px; }
+  .models { grid-template-columns: repeat(4, minmax(0, 1fr)); width: 100%; max-width: 360px; margin: 0 auto; gap: 6px; }
+  .model { min-height: 0; }
+  .model .label { font-size: 9px; gap: 4px; line-height: 1.2; }
+  .model .dot { width: 4px; height: 4px; }
   .frame { width: 100%; max-width: 900px; margin: 0 auto; }
   .stage > .transport { grid-column: 1; grid-row: auto; }
   main { justify-content: flex-start; padding: 22px 0 28px; }
@@ -443,8 +460,7 @@ dialog.workshop {
   .set-up { font-size: 11px; }
   main { padding: 14px 0 22px; }
   .stage { gap: 20px; }
-  .models { gap: 0; }
-  .model { min-height: 34px; font-size: 12px; }
+  .models { max-width: 340px; gap: 4px; }
   .transport { padding-top: 14px; }
   .foot { padding-bottom: 14px; }
   dialog { padding: 22px; border-radius: 14px; }

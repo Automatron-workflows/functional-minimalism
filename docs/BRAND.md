@@ -34,7 +34,7 @@ Both are Automatron projects. They work independently.
 - A plain lowercase wordmark on the page; the bracket/minus mark is used for the browser icon.
 - Midnight canvas, warm ivory, restrained copper accents. These belong to the demonstration, not every consuming application.
 - System sans-serif for the product and page. Authored source drafts may use their own model-like typography while they remain subordinate. Copper is reserved for the functional action inside the composed screen. No remote fonts.
-- The landing film is a silent comparison: model names sit under each other in a stable rail, each authored model-default draft appears at full size, and each wipes into an adapted review that follows the same rules while keeping that model's palette and typography; each result has one accent action. The landing shell's copper belongs to the page, not the adapted results. Visible model names identify the authored sources; the information control states they are not actual outputs.
+- The landing film is a silent comparison: model names sit under each other in a stable rail, each authored model-default draft appears at full size, and each wipes into an adapted review that follows the same rules while keeping that model's composition, palette and typography; each result has one accent action. The landing shell's copper belongs to the page, not the adapted results. Visible model names identify the authored sources; the information control states they are not actual outputs.
 - Short visual comparisons, one shared playback control, and optional details. Motion connects decisions to results; pause, replay and reduced motion are always available.
 
 ## Claims

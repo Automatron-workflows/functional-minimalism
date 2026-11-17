@@ -37,8 +37,10 @@ test('landing stage stays silent and keeps playback controls',()=>{
 });
 test('the result never composites the source',()=>{
  const afterRule=css.match(/\.after\s*\{[^}]*\}/)?.[0]??'';
- assert.ok(afterRule.length>0,'after layer rule missing');
+ const beforeRule=css.match(/\.before\s*\{[^}]*\}/)?.[0]??'';
+ assert.ok(afterRule.length>0&&beforeRule.length>0,'layer rules missing');
  assert.ok(!/clip-path|transition/.test(afterRule),'result must cut, not merge');
+ assert.ok(!/transition/.test(beforeRule),'before layers must not crossfade');
 });
 test('brand css keeps raw colors inside the token block',()=>{
  const root=css.match(/:root\s*\{[\s\S]*?\}/)?.[0]??'';

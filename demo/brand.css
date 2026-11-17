@@ -157,7 +157,10 @@ main {
 }
 .before, .after {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   margin: 0;
 }
 .before { opacity: 0; }
@@ -174,7 +177,6 @@ main {
 .film[data-stage="result"] .before,
 .film[data-stage="remember"] .before { opacity: 0; }
 .film[data-settled="true"] .after {
-  inset: auto;
   width: 50%;
   height: 50%;
   opacity: 1;

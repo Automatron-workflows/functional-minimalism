@@ -34,7 +34,7 @@ export async function buildStandalone(){
  script+=`\nconst __zip=Uint8Array.from(atob(${JSON.stringify(zip.toString('base64'))}),c=>c.charCodeAt(0));const __zipURL=URL.createObjectURL(new Blob([__zip],{type:'application/zip'}));document.querySelector('[data-source]').href=__zipURL;document.querySelector('[data-source]').download='functional-minimalism-source.zip';`;
  script+=`\nconst __guideURL=URL.createObjectURL(new Blob([${JSON.stringify(await read('README.md'))}],{type:'text/plain'}));document.querySelectorAll('a[href="../README.md"]').forEach(a=>{a.href=__guideURL;a.download='README.md';});`;
  let html=await read('demo/index.html');
- html=html.replace('<link rel="stylesheet" href="./brand.css">',()=>'<style>'+css+'</style>').replaceAll('./mark.svg',mark);
- html=html.replace('<script type="module" src="./film.mjs"></script>',()=>'<script type="module">'+script.replace(/<\/script/gi,'<\\/script')+'</script>');
+ html=html.replace(/<link rel="stylesheet" href="\.\/brand\.css[^"]*">/,()=>'<style>'+css+'</style>').replaceAll('./mark.svg',mark);
+ html=html.replace(/<script type="module" src="\.\/film\.mjs[^"]*"><\/script>/,()=>'<script type="module">'+script.replace(/<\/script/gi,'<\\/script')+'</script>');
  const output=path.join(root,'dist/Functional_Minimalism_Preview.html');await writeFile(output,html);return output;
 }

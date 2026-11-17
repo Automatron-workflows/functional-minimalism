@@ -35,7 +35,7 @@ Use this profile for a short product explanation or capability demonstration whe
 
 - Let the source objects and the result carry the explanation. Do not add a headline, captions, numbered cards or tutorial copy above the stage when the sequence is self-explanatory.
 - Keep source names under each other in a stable rail. Show one source at a time at full size. Sweep a scan across the source, then cut to the result. Two source screens are never composited on screen; a half-and-half frame is a merge defect, not a transition.
-- Keep the task, structure and essential facts identical across sources. Preserve each source's palette and typography; do not collapse every source into one default theme.
+- Keep the task, structure and essential facts identical across sources. Preserve each source's composition, palette and typography; do not collapse every source into one default theme.
 - Fill the rail as each source completes, so the harness's progress is visible without a caption.
 - Show all adapted results together at the end so the shared rules and distinct characters are visible.
 - Reserve each result's own accent for its single primary action. Do not use it to decorate the source drafts.

@@ -1,6 +1,6 @@
 import {filmFrame,mayAdvance,duration} from '../src/timeline.mjs';
 const film=document.querySelector('.film'),play=document.querySelector('#play');
-const models=[...document.querySelectorAll('.model')];
+const modelRows=[...document.querySelectorAll('.model')];
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');
 const icons={
  pause:'<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 5v10M13 5v10"/></svg>',
@@ -15,7 +15,7 @@ function draw(){
  film.dataset.settled=String(frame.settled);
  film.style.setProperty('--wipe',String(frame.wipe));
  film.classList.toggle('restarting',frame.fading);
- models.forEach((model,index)=>{model.dataset.done=String(index<frame.done);});
+ modelRows.forEach((model,index)=>{model.dataset.done=String(index<frame.done);});
  const label=playing?'Pause illustration':'Play illustration';
  play.setAttribute('aria-label',label);
  play.title=label;

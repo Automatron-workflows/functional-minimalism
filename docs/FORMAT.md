@@ -4,7 +4,7 @@ All formats are UTF-8 JSON. Runtime validators in `src/core.mjs` are authoritati
 
 ## Pack — `design-harness.pack/1`
 
-Required: `id` (lowercase slug), `name`, semantic `version`, `source`, nonempty `principles`, `tokens`, and `components`.
+Required: `id` (lowercase slug), `name`, semantic `version`, `source`, nonempty `principles`, `tokens`, and `components`. Optional `patterns` records reusable composition judgment.
 
 `source` records `kind` (`synthetic`, `repository`, `figma`, or `export`) and `reference`. Include capture time and source revision when available. Never label inferred properties as verified.
 
@@ -25,11 +25,13 @@ Types: color (hex, transparent, currentColor), dimension (0 or nonnegative px/re
 
 Each component records a unique `name`, relative `source` file, named `export`, unique `variants`, supported `states`, and `rules`. The current reference implementation emits semantic HTML. The format can point at React or other component files, but v0.1 does not parse or enforce their prop types.
 
+Optional `patterns` records composition judgment that is too specific for a single component: a unique `id`, the `object` being composed, a nonempty `structure` list, and nonempty `rules`. A screen contract can name one pattern with the `pattern` field. `composeBrief` includes the pattern's structure and rules; an unknown pattern id fails brief generation. Patterns are guidance for the agent and human review, not automatic aesthetic checks.
+
 Figma integration path: use approved Figma structured context/variable exports; map tokens to the normalized map; map component/variant IDs to actual repository imports; preserve Figma URLs and revision references; review inferred states and responsive behavior. `import-tokens` records the source and creates a new pack. It does not contact Figma, discover credentials, or write to Figma.
 
 ## Screen — `design-harness.screen/1`
 
-Required fields: `id`, `project`, `goal`, `object`, `primaryAction`, `composition`, unique `essential` information IDs, unique `states` containing ready, viewport widths, component names, and `maxPrimaryActions`. `explanationBudget` is advisory. `consequential: true` requires a confirmation state and consequence information.
+Required fields: `id`, `project`, `goal`, `object`, `primaryAction`, `composition`, unique `essential` information IDs, unique `states` containing ready, viewport widths, component names, and `maxPrimaryActions`. `explanationBudget` is advisory. Optional `pattern` names a composition pattern from the pack. `consequential: true` requires a confirmation state and consequence information.
 
 Annotate a rendered flow:
 
@@ -39,7 +41,7 @@ Annotate a rendered flow:
         data-primary data-copy="control">Review payment</button>
 ```
 
-`data-copy` categories: content, control, explanation, consequence. Untagged visible text remains `unclassified`; it is not silently excluded. Essential information must be visible in the ready state. The state map must be adapted to the task; not every flow needs every possible state.
+`data-copy` categories: content, control, explanation, consequence. Untagged visible text remains `unclassified`; it is not silently excluded. Essential information must be visible in the ready state. For a consequential flow, the confirmation state must also show every essential fact, including consequence. The state map must be adapted to the task; not every flow needs every possible state.
 
 ## Evidence — `design-harness.evidence/1`
 

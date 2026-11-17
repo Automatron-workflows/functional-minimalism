@@ -23,6 +23,15 @@ export function validatePack(pack) {
     names.push(component.name);
   }
   invariant(unique(names), 'Duplicate component name');
+  const patterns = pack.patterns ?? [];
+  invariant(Array.isArray(patterns), 'Pack patterns must be an array');
+  const patternNames = [];
+  for (const pattern of patterns) {
+    invariant(object(pattern) && keyPattern.test(pattern.id ?? ''), 'Invalid pattern id');
+    invariant(text(pattern.object) && strings(pattern.structure) && pattern.structure.length && strings(pattern.rules) && pattern.rules.length, `${pattern.id}: pattern object, structure and rules required`);
+    patternNames.push(pattern.id);
+  }
+  invariant(unique(patternNames), 'Duplicate pattern id');
   resolveTokens(pack.tokens);
   return pack;
 }
@@ -74,6 +83,7 @@ export function validateContract(contract) {
   invariant(strings(contract.components) && unique(contract.components), 'Component names required');
   invariant(Number.isInteger(contract.maxPrimaryActions) && contract.maxPrimaryActions >= 1, 'Primary-action limit required');
   if(contract.explanationBudget!==undefined)invariant(Number.isInteger(contract.explanationBudget)&&contract.explanationBudget>=0,'Explanation budget must be a nonnegative integer');
+  if(contract.pattern!==undefined)invariant(keyPattern.test(contract.pattern),'Screen pattern must be a lowercase slug');
   if(contract.consequential) invariant(contract.states.includes('confirmation') && contract.essential.includes('consequence'), 'Consequential actions require confirmation and consequence information');
   if(contract.essentialByState!==undefined){
     invariant(object(contract.essentialByState),'State information must be an object');
@@ -138,26 +148,28 @@ export function selectDecisions(memory, context) {
 export function composeBrief(pack, contract, memory={schema:'design-harness.memory/1',decisions:[]}, options={}) {
   validatePack(pack); validateContract(contract);
   const components=contract.components.map(name=>{ const c=pack.components.find(c=>c.name===name); invariant(c, `Unknown contract component: ${name}`); return c; });
+  const pattern=contract.pattern?(pack.patterns??[]).find(p=>p.id===contract.pattern):null;
+  invariant(!contract.pattern||pattern,`Unknown contract pattern: ${contract.pattern}`);
   const decisions=selectDecisions(memory,{pack:pack.id,project:contract.project,screen:contract.id});
   if(options.compact)return [
     `# ${contract.id} | ${pack.id}@${pack.version}`,
-    `Task: ${contract.goal}\nObject: ${contract.object}\nAction: ${contract.primaryAction}\nLayout: ${contract.composition}`,
+    `Task: ${contract.goal}\nObject: ${contract.object}\nAction: ${contract.primaryAction}\nLayout: ${contract.composition}${pattern?`\nPattern: ${pattern.id} (${pattern.object})`:''}`,
     `Preserve: ${contract.essential.join('; ')}`,
     ...(surfaceBrief(contract)?[surfaceBrief(contract)]:[]),
-    `Rules:\n${pack.principles.join('\n')}`,
+    `Rules:\n${[...pack.principles,...(pattern?.rules??[])].join('\n')}`,
     `Components:\n${components.map(c=>`${c.name}=${c.source}#${c.export} [${c.variants.join('|')}] ${c.rules.join(' ')}`).join('\n')}`,
     `Accepted:\n${decisions.length?decisions.map(d=>`${d.scope}:${d.target}: ${d.rule} (${d.reason})`).join('\n'):'None.'}`,
     `Verify: ${contract.viewports.join('/')}px; ${contract.states.join(', ')}. Exercise the task, keyboard, focus, contrast, enlarged text and reduced motion. Capture evidence; repair up to three passes, then report limits. Current instructions and task requirements override older preferences. Preserve function, access and consequences.`
   ].join('\n\n')+'\n';
   return [
     `# ${contract.id} · ${pack.name} ${pack.version}`,
-    `Goal: ${contract.goal}\nObject: ${contract.object}\nPrimary action: ${contract.primaryAction}\nComposition: ${contract.composition}`,
+    `Goal: ${contract.goal}\nObject: ${contract.object}\nPrimary action: ${contract.primaryAction}\nComposition: ${contract.composition}${pattern?`\nPattern: ${pattern.id} (${pattern.object})`:''}`,
     `## Preserve\n${contract.essential.map(x=>`- ${x}`).join('\n')}`,
     ...(surfaceBrief(contract)?[`## Interface decisions\n${surfaceBrief(contract)}`]:[]),
     `## Design judgment\n${pack.principles.map(x=>`- ${x}`).join('\n')}`,
     `## Components\n${components.map(c=>`- ${c.name}: ${c.source} → ${c.export}; variants: ${c.variants.join(', ')}. ${c.rules.join(' ')}`).join('\n')}`,
     `## Accepted decisions\n${decisions.length?decisions.map(d=>`- [${d.scope}:${d.target}] ${d.rule} Reason: ${d.reason}`).join('\n'):'No accepted scoped decisions yet.'}`,
-    `## Evidence before delivery\nRender ${contract.viewports.join(', ')}px widths. Exercise: ${contract.states.join(', ')}. Keep essential information visible in ready state. Check keyboard, focus, contrast, enlarged text, and reduced motion. Record actual evidence; a model opinion is not a test.`,
+    `## Evidence before delivery\nRender ${contract.viewports.join(', ')}px widths. Exercise: ${contract.states.join(', ')}. Keep essential information visible in ready and confirmation states. Check keyboard, focus, contrast, enlarged text, and reduced motion. Record actual evidence; a model opinion is not a test.`,
     '## Work loop\nBuild → render → interact → inspect → repair. At most three repair passes before reporting unresolved findings. Current user instructions and the screen contract take priority over older taste preferences. Never trade function, accessibility, or consequences for fewer words.',
   ].join('\n\n')+'\n';
 }
@@ -173,14 +185,13 @@ export function auditSnapshot(pack, contract, snapshot) {
   if(snapshot.scrollWidth>snapshot.width+2) add('error','horizontal-overflow',`Content overflows ${snapshot.width}px viewport by ${snapshot.scrollWidth-snapshot.width}px`);
   if(snapshot.primaryActions>contract.maxPrimaryActions) add('warning','competing-actions',`${snapshot.primaryActions} equally primary actions; expected at most ${contract.maxPrimaryActions}`);
   if(snapshot.state==='ready' && !snapshot.primaryActions) add('error','missing-primary','The ready state has no primary action');
-  if(snapshot.state==='ready') for(const id of contract.essential) if(!snapshot.essential.includes(id)) add('error','missing-information',`Essential information is not visible: ${id}`);
+  if(['ready','confirmation'].includes(snapshot.state)) for(const id of contract.essential) if(!snapshot.essential.includes(id)) add('error','missing-information',`Essential information is not visible: ${id}`);
   for(const id of contract.essentialByState?.[snapshot.state]??[])if(!snapshot.essential.includes(id))add('error','missing-state-information',`${snapshot.state} must preserve ${id}`);
   if(contract.surface){
     if(!strings(snapshot.features))add('error','missing-feature-evidence','Capture data-feature markers before auditing the surface');
     else {
       const visible=[...new Set(snapshot.features)];
       for(const id of visible){const feature=contract.surface.features.find(f=>f.id===id);if(!feature||feature.placement==='omit')add('error','unplanned-feature',`Visible feature is outside the accepted task: ${id}`);}
-      if(snapshot.state==='ready')for(const f of contract.surface.features.filter(f=>f.placement==='primary'))if(!visible.includes(f.id))add('error','missing-task-feature',`Primary task feature missing: ${f.id}`);
       if(visible.length>(contract.surface.maxVisibleFeatures??Infinity))add('warning','feature-budget','Review competing visible features without hiding required task information');
     }
     for(const c of contract.surface.controls.filter(c=>c.states.includes(snapshot.state)))if(!snapshot.controls.some(control=>control.id===c.id))add('error','missing-task-control',`Required control missing: ${c.id}`);

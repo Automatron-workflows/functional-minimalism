@@ -23,7 +23,7 @@ Refinement accepted from Matthias on 15 November 2026: treat an interface as a u
 
 Use this profile for a short product explanation or capability demonstration where the visual sequence is the main content.
 
-1. Start with a simple wordmark, one concise headline and the demonstration. Hardwire's dark presentation is the approved reference for this profile.
+1. Start with a simple wordmark and the demonstration. Add one concise headline only when the comparison cannot be identified without it. Hardwire's dark presentation is the approved reference for this profile.
 2. Show one coherent comparison. Use a few recognizable examples only when they clarify that the capability spans several situations. Three is a reference choice, not a required grid.
 3. Let the source object and final state identify the example. Google sign in, a payment card and a settings switch worked in Hardwire. Use equally specific objects for another product.
 4. Replace text driven tutorial panels with observable changes. Avoid numbered cards, navigation lists, code call labels and repeated success captions on the landing view.
@@ -32,6 +32,13 @@ Use this profile for a short product explanation or capability demonstration whe
 7. A silent illustrative loop may start automatically. Keep pause and replay available, prevent flashing, support reduced motion and suspend work while hidden. Never autoplay consequential application actions.
 8. Put optional technical context behind a discoverable information control. Retain brief visible disclosure if the scene could otherwise be mistaken for a live action or measured performance.
 9. Keep icon controls recognizable and named for assistive technology. Verify focus, keyboard activation, touch access and the information control on mobile.
+
+### Silent comparison
+
+- Let the source objects and the result carry the explanation. Do not add a headline, captions, numbered cards or tutorial copy above the stage when the sequence is self-explanatory.
+- If several sources are shown, keep them distinct in their own generic palettes. Once the result appears, subordinate them through scale, color and opacity, not labels.
+- Reserve the accent for the result's single primary action. Do not use it to decorate the source drafts.
+- Disclose authored sources and simulations in the information control. A source mark on stage is not enough disclosure.
 
 ## Functional interface profile
 
@@ -43,6 +50,14 @@ Apply the same restraint to forms, editors, financial tasks and operational tool
 | Payment | Amount, currency, recipient, relevant terms and explicit confirmation. | Nonessential history and technical diagnostics. |
 | Settings | Understandable preference names, current values and save or undo behavior. | Advanced explanations and audit history. |
 | Workspace | The objects being managed, meaningful status and relevant editing controls. | Background rationale and secondary configuration. |
+
+### Document review
+
+- Make the document the dominant object. Keep the decision facts beside it rather than repeating them in a summary card.
+- Use scale, spacing and alignment instead of dividers, repeated totals or decorative wrappers.
+- Reserve the accent for the single primary action.
+- At confirmation, keep supplier, amount, due date, destination and consequence visible. A confirmation that drops one of these is incomplete.
+- Use spacing and type hierarchy to separate regions. A divider is a last resort, not a default.
 
 Do not trade reading for guessing, extra navigation or lost context. An unfamiliar icon needs a visible label. An editorial product still needs its content. Dense data can belong in a clear table rather than a sparse decorative layout.
 

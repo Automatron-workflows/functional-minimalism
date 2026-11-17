@@ -1,21 +1,182 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="A design harness built to save time and tokens with better, minimal UI from the first draft. Inspired by Dieter Rams."><meta name="color-scheme" content="dark"><meta property="og:title" content="Functional Minimalism · Better UI. Fewer retries."><meta property="og:description" content="Better minimal interfaces from the first draft. Your design system, focused briefs, and accepted decisions in every build."><meta property="og:type" content="website"><title>Functional Minimalism · Better UI. Fewer retries.</title><link rel="icon" href="./mark.svg"><link rel="stylesheet" href="./brand.css"></head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="A local design harness for coding agents. Four common model drafts resolve into one focused invoice review. Inspired by Dieter Rams."><meta name="color-scheme" content="dark"><meta name="theme-color" content="#101211"><meta property="og:title" content="Functional Minimalism · A design harness for coding agents"><meta property="og:description" content="Design packs, focused briefs and accepted decisions give coding agents a clearer first draft. A silent illustrated comparison."><meta property="og:type" content="website"><title>Functional Minimalism · A design harness for coding agents</title><link rel="icon" href="./mark.svg"><link rel="stylesheet" href="./brand.css"></head>
 <body><a class="skip" href="#demo">Skip to demonstration</a><div class="wrap">
-<header class="header"><a class="wordmark" href="./" aria-label="Functional Minimalism home"><img src="./mark.svg" alt="">functional minimalism</a><nav class="nav" aria-label="Main"><button class="text" data-open="why">Why</button><button class="button" data-open="setup">Set up <span aria-hidden="true">↗</span></button></nav></header>
-<main><section class="hero"><div><p class="eyebrow">An Automatron design harness</p><h1>Better UI.<br><em>Fewer retries.</em></h1></div><div class="hero-summary"><p>A design harness built to save time and tokens with better, minimal UI from the first draft.</p><button class="button primary" data-open="workshop">Try the harness <span aria-hidden="true">↗</span></button></div></section>
-<section class="film" id="demo" data-stage="remember" aria-label="Illustrated design workflow" tabindex="-1">
-<div class="film-top"><div class="system"><div class="system-sample" aria-hidden="true"><span>Aa</span><i class="swatch"></i><i class="swatch"></i><i class="swatch"></i></div><span>Your system</span></div><div class="version" role="group" aria-label="Illustrated version"><button data-version="before" aria-pressed="false">Starting over</button><button data-version="after" aria-pressed="true">With harness</button></div></div>
-<div class="thread" aria-hidden="true"></div>
-<div class="screens film-static" role="img" aria-label="Three authored examples share a design system. Film discovery puts the poster and preview first. An invoice keeps the recipient, amount and due date visible. A project keeps tasks and their status. Duplicate introductions disappear; useful information stays.">
-<article class="screen discovery" data-ready="true"><div class="screen-label">Discover <span>↗</span></div><h2>Tonight, somewhere else.</h2><p class="noise">Welcome to your discovery dashboard. Browse our curated film recommendations below and choose a film to preview.</p><div class="poster"><div class="movie-meta"><div><strong>The Quiet Earth</strong><small>2026 · 1h 42m · Drama</small></div><span class="visual-button">▷ Preview</span></div></div></article>
-<article class="screen invoice" data-ready="true"><div class="screen-label">Invoice <span>034</span></div><p class="noise">Review the invoice details below, then continue to the payment confirmation step.</p><div class="invoice-top"><span class="avatar">N</span><span>North Studio</span></div><div class="invoice-total">€1,240.00</div><div class="invoice-date">Due 24 Nov 2026</div><div class="invoice-line"><span>Brand direction</span><span>€1,240.00</span></div><span class="visual-button invoice-action">Review payment →</span></article>
-<article class="screen tasks" data-ready="true"><div class="screen-label">Project <span>3 tasks</span></div><h2>A quieter launch.</h2><p class="noise">Welcome to your project workspace. Manage your tasks and track the status of your team's work here.</p><div class="task"><span class="check done">✓</span><span>Set the direction</span><small>Done</small></div><div class="task"><span class="check"></span><span>Build the first screen</span><small>Today</small></div><div class="task"><span class="check"></span><span>Review on mobile</span><small>Tomorrow</small></div><div class="task-actions"><span>1 of 3 complete</span><span class="visual-button">+ Add task</span></div></article>
+<header class="header"><a class="wordmark" href="./" aria-label="Functional Minimalism home"><img src="./mark.svg" alt="">functional minimalism</a><button class="set-up" type="button" data-open="setup">Set up <span aria-hidden="true">↗</span></button></header>
+<main>
+<h1 class="sr-only">Functional Minimalism</h1>
+<section class="film" id="demo" data-stage="source" aria-label="Four cluttered model-default drafts, labelled Claude, ChatGPT and Codex, Kimi and DeepSeek, resolve into one focused invoice review with a single Review payment action" tabindex="-1">
+<div class="stage">
+<div class="drafts" aria-hidden="true">
+<figure class="draft" data-ready="false">
+<svg viewBox="0 0 440 136" focusable="false">
+<defs><clipPath id="d-claude"><rect x="6" y="6" width="428" height="124" rx="10"/></clipPath></defs>
+<g clip-path="url(#d-claude)">
+<rect x="6" y="6" width="428" height="124" fill="#f4efe6"/>
+<rect x="6" y="6" width="428" height="26" fill="#faf6ef"/>
+<path d="M6 32H434" stroke="#e2d7c8"/>
+<g stroke="#c96442" stroke-width="1.4" stroke-linecap="round"><path d="M19 13.5v11M13.5 19h11M15.1 15.1l7.8 7.8M22.9 15.1l-7.8 7.8"/></g>
+<text x="31" y="22.5" fill="#2b2622" font-size="8.5" font-weight="600">Claude</text>
+<rect x="370" y="12" width="58" height="14" rx="7" fill="#ece2d4"/>
+<text x="399" y="21.5" text-anchor="middle" fill="#74675a" font-size="6">Share</text>
+<text x="18" y="48" fill="#a08f7c" font-size="5" letter-spacing=".8">PAYMENT SUMMARY</text>
+<text x="18" y="65" fill="#2b2622" font-family="Georgia, serif" font-size="15">Invoice 0042</text>
+<g fill="#8c8175" font-size="4.8"><text x="18" y="76">Here is a summary of the payment details and the</text><text x="18" y="83">supplier information you asked me to review.</text><text x="18" y="90">Tell me if you want the full invoice breakdown.</text></g>
+<text x="18" y="101" fill="#a08f7c" font-size="5">Thinking about the payment details…</text>
+<rect x="18" y="106" width="240" height="18" rx="9" fill="#fff" stroke="#e2d7c8"/>
+<text x="28" y="117.5" fill="#a08f7c" font-size="5.5">Ask about this invoice</text>
+<circle cx="248" cy="115" r="5.5" fill="#c96442"/>
+<path d="M245 115h6m-2-2 2 2-2 2" fill="none" stroke="#fff" stroke-width=".9" stroke-linecap="round" stroke-linejoin="round"/>
+<g>
+<rect x="282" y="42" width="140" height="78" rx="6" fill="#fff" stroke="#e5dacc"/>
+<text x="292" y="56" fill="#8c8175" font-size="5" letter-spacing=".5">VENDOR</text>
+<text x="292" y="67" fill="#2b2622" font-size="7.5" font-weight="600">North Studio</text>
+<text x="292" y="85" fill="#2b2622" font-size="14" font-weight="600">€1,210.00</text>
+<text x="292" y="96" fill="#8c8175" font-size="5.5">Due 20 Nov 2026</text>
+<rect x="292" y="102" width="120" height="14" rx="4" fill="#c96442"/>
+<text x="352" y="111.5" text-anchor="middle" fill="#fff" font-size="5.5" font-weight="600">Approve payment</text>
+</g>
+</g>
+<rect x="6" y="6" width="428" height="124" rx="10" fill="none" stroke="#d9cbbb"/>
+</svg>
+</figure>
+<figure class="draft" data-ready="false">
+<svg viewBox="0 0 440 136" focusable="false">
+<defs><clipPath id="d-chatgpt"><rect x="6" y="6" width="428" height="124" rx="10"/></clipPath></defs>
+<g clip-path="url(#d-chatgpt)">
+<rect x="6" y="6" width="428" height="124" fill="#f7f7f5"/>
+<rect x="6" y="6" width="428" height="26" fill="#fff"/>
+<path d="M6 32H434" stroke="#e4e4e0"/>
+<circle cx="19" cy="19" r="5.5" fill="#10a37f"/>
+<g stroke="#fff" stroke-width=".9" stroke-linecap="round"><path d="M19 14.8v8.4M14.8 19h8.4M16 16l6 6M22 16l-6 6"/></g>
+<text x="31" y="22.5" fill="#202123" font-size="8" font-weight="600">ChatGPT · Codex</text>
+<rect x="358" y="12" width="70" height="14" rx="7" fill="#10a37f"/>
+<text x="393" y="21.5" text-anchor="middle" fill="#fff" font-size="6">Share</text>
+<text x="18" y="48" fill="#10a37f" font-size="5" letter-spacing=".7">AI-POWERED INVOICING</text>
+<text x="18" y="64" fill="#202123" font-size="12.5" font-weight="600">Review invoice 0042</text>
+<text x="18" y="77" fill="#202123" font-size="12.5" font-weight="600">with AI</text>
+<g fill="#6b6b66" font-size="4.8"><text x="18" y="87">Generate a complete payment experience with AI-</text><text x="18" y="94">powered insights, smart approvals and checkout.</text></g>
+<rect x="18" y="101" width="88" height="16" rx="8" fill="#10a37f"/>
+<text x="62" y="111.5" text-anchor="middle" fill="#fff" font-size="5.5" font-weight="600">Pay €1,210.00</text>
+<rect x="112" y="101" width="60" height="16" rx="8" fill="#fff" stroke="#d9d9d4"/>
+<text x="142" y="111.5" text-anchor="middle" fill="#202123" font-size="5.5">Ask AI</text>
+<g>
+<rect x="262" y="42" width="160" height="78" rx="4" fill="#202123"/>
+<g fill="#565869"><circle cx="270" cy="50" r="1.5"/><circle cx="276" cy="50" r="1.5"/><circle cx="282" cy="50" r="1.5"/></g>
+<g fill="#4a4d5e"><rect x="270" y="62" width="100" height="3" rx="1.5"/><rect x="270" y="70" width="120" height="3" rx="1.5"/><rect x="270" y="78" width="80" height="3" rx="1.5"/><rect x="270" y="86" width="110" height="3" rx="1.5"/></g>
+<rect x="270" y="70" width="120" height="3" rx="1.5" fill="#10a37f" opacity=".75"/>
+<rect x="350" y="98" width="60" height="14" rx="7" fill="#2f3136"/>
+<text x="380" y="107.5" text-anchor="middle" fill="#b9bcc9" font-size="5">Generated</text>
+</g>
+</g>
+<rect x="6" y="6" width="428" height="124" rx="10" fill="none" stroke="#dfdfda"/>
+</svg>
+</figure>
+<figure class="draft" data-ready="false">
+<svg viewBox="0 0 440 136" focusable="false">
+<defs>
+<linearGradient id="d-kimi-bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#edf6ff"/><stop offset="1" stop-color="#cfe6ff"/></linearGradient>
+<clipPath id="d-kimi"><rect x="6" y="6" width="428" height="124" rx="10"/></clipPath>
+</defs>
+<g clip-path="url(#d-kimi)">
+<rect x="6" y="6" width="428" height="124" fill="url(#d-kimi-bg)"/>
+<rect x="6" y="6" width="428" height="26" fill="#fff" fill-opacity=".72"/>
+<path d="M6 32H434" stroke="#c9def5"/>
+<path d="M19 13l1.7 4.3L25 19l-4.3 1.7L19 25l-1.7-4.3L13 19l4.3-1.7Z" fill="#2f7cf6"/>
+<text x="31" y="22.5" fill="#123a6b" font-size="9" font-weight="600">Kimi</text>
+<rect x="368" y="12" width="60" height="14" rx="7" fill="#2f7cf6"/>
+<text x="398" y="21.5" text-anchor="middle" fill="#fff" font-size="6">New chat</text>
+<rect x="18" y="40" width="190" height="17" rx="8.5" fill="#2f7cf6"/>
+<text x="28" y="51" fill="#fff" font-size="5.5">Review the North Studio invoice</text>
+<g>
+<rect x="18" y="62" width="236" height="32" rx="8" fill="#fff" stroke="#d7e6f8"/>
+<text x="28" y="74" fill="#123a6b" font-size="6.5">I can help with that.</text>
+<g fill="#54759e" font-size="4.6"><text x="28" y="81">I can help with that. The invoice is due on</text><text x="28" y="88">20 November and the total is €1,210.00.</text></g>
+</g>
+<rect x="18" y="104" width="236" height="18" rx="9" fill="#fff" stroke="#c9def5"/>
+<text x="28" y="115.5" fill="#7b9bc4" font-size="5.5">Ask Kimi</text>
+<circle cx="246" cy="113" r="5.5" fill="#2f7cf6"/>
+<path d="M243 113h6m-2-2 2 2-2 2" fill="none" stroke="#fff" stroke-width=".9" stroke-linecap="round" stroke-linejoin="round"/>
+<g>
+<rect x="268" y="42" width="154" height="74" rx="8" fill="#fff" stroke="#d7e6f8"/>
+<text x="278" y="55" fill="#7b9bc4" font-size="5" letter-spacing=".5">AMOUNT</text>
+<text x="278" y="73" fill="#123a6b" font-size="14" font-weight="600">€1,210.00</text>
+<text x="278" y="85" fill="#7b9bc4" font-size="5.5">Due 20 Nov 2026</text>
+<rect x="278" y="94" width="134" height="14" rx="7" fill="#2f7cf6"/>
+<text x="345" y="103.5" text-anchor="middle" fill="#fff" font-size="5.5" font-weight="600">Pay invoice</text>
+</g>
+</g>
+<rect x="6" y="6" width="428" height="124" rx="10" fill="none" stroke="#bdd7f2"/>
+</svg>
+</figure>
+<figure class="draft" data-ready="false">
+<svg viewBox="0 0 440 136" focusable="false">
+<defs>
+<linearGradient id="d-deepseek-bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0b1530"/><stop offset="1" stop-color="#13224a"/></linearGradient>
+<clipPath id="d-deepseek"><rect x="6" y="6" width="428" height="124" rx="10"/></clipPath>
+</defs>
+<g clip-path="url(#d-deepseek)">
+<rect x="6" y="6" width="428" height="124" fill="url(#d-deepseek-bg)"/>
+<rect x="6" y="6" width="428" height="26" fill="#0d1835"/>
+<path d="M6 32H434" stroke="#1e2f5c"/>
+<path d="M13 20c3-4 6 4 9 0s4-2 6 0" fill="none" stroke="#65d6ff" stroke-width="1.4" stroke-linecap="round"/>
+<text x="31" y="22.5" fill="#e8eeff" font-size="9" font-weight="600">DeepSeek</text>
+<rect x="366" y="12" width="62" height="14" rx="7" fill="#1b2a5e" stroke="#2f4a8a"/>
+<text x="397" y="21.5" text-anchor="middle" fill="#9db4e8" font-size="6">API</text>
+<g>
+<rect x="18" y="40" width="124" height="30" rx="4" fill="#111f45" stroke="#24407a"/>
+<text x="27" y="51" fill="#7f9bd0" font-size="5" letter-spacing=".4">TOTAL</text>
+<text x="27" y="63" fill="#e8eeff" font-size="7.5" font-weight="600">€1,210.00</text>
+<rect x="158" y="40" width="124" height="30" rx="4" fill="#111f45" stroke="#24407a"/>
+<text x="167" y="51" fill="#7f9bd0" font-size="5" letter-spacing=".4">DUE</text>
+<text x="167" y="63" fill="#e8eeff" font-size="7.5" font-weight="600">20 Nov 2026</text>
+<rect x="298" y="40" width="124" height="30" rx="4" fill="#111f45" stroke="#24407a"/>
+<text x="307" y="51" fill="#7f9bd0" font-size="5" letter-spacing=".4">STATUS</text>
+<text x="307" y="63" fill="#e8eeff" font-size="7.5" font-weight="600">Pending</text>
+</g>
+<g>
+<rect x="18" y="78" width="200" height="46" rx="4" fill="#0d1835" stroke="#24407a"/>
+<path d="M28 112 50 102 72 106 94 94 116 98 138 88 160 92 182 82 204 86" fill="none" stroke="#65d6ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M28 112 50 102 72 106 94 94 116 98 138 88 160 92 182 82 204 86V120H28Z" fill="#65d6ff" opacity=".07"/>
+<rect x="228" y="78" width="194" height="46" rx="4" fill="#0d1835" stroke="#24407a"/>
+<text x="236" y="91" fill="#cdd9f5" font-size="6" font-weight="600">North Studio</text>
+<text x="414" y="91" text-anchor="end" fill="#e8eeff" font-size="6">€1,210.00</text>
+<text x="236" y="102" fill="#7f9bd0" font-size="5">Brand direction</text>
+<text x="236" y="113" fill="#7f9bd0" font-size="5">Due 20 Nov 2026</text>
+<rect x="352" y="98" width="62" height="15" rx="7.5" fill="#4d6bfe"/>
+<text x="383" y="108" text-anchor="middle" fill="#fff" font-size="5.5" font-weight="600">Pay invoice</text>
+</g>
+</g>
+<rect x="6" y="6" width="428" height="124" rx="10" fill="none" stroke="#22386e"/>
+</svg>
+</figure>
 </div>
-<div class="film-bottom"><p class="caption" id="caption">Carry the judgment forward.</p><div class="transport"><button class="icon" id="play" aria-label="Pause illustration" title="Pause illustration"><span aria-hidden="true">Ⅱ</span></button><button class="icon" id="replay" aria-label="Replay illustration" title="Replay illustration"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 6a7 7 0 1 1-1 7M4 2v5h5"/></svg></button></div></div>
-</section></main>
-<footer class="foot"><span>Automatron / Functional Minimalism <span class="subtle">· v0.3</span><br><span class="subtle">Illustrated workflow · fictional data</span></span><a href="https://github.com/Automatron-workflows/functional-minimalism" target="_blank" rel="noreferrer">GitHub ↗</a><a href="https://www.vitsoe.com/gb/about/good-design" target="_blank" rel="noreferrer">Inspired by Dieter Rams ↗</a></footer>
+<figure class="result" data-ready="false">
+<svg viewBox="0 0 640 460" role="img" aria-label="Invoice review: North Studio invoice 0042, 1,210 euro, due 20 November 2026, to account ending 4421, with one Review payment action.">
+<defs><clipPath id="r-clip"><rect x="6" y="6" width="628" height="448" rx="14"/></clipPath></defs>
+<g clip-path="url(#r-clip)">
+<rect x="6" y="6" width="628" height="448" class="result-window"/>
+<g class="result-chrome"><circle cx="26" cy="28" r="2.2"/><circle cx="35" cy="28" r="2.2"/><circle cx="44" cy="28" r="2.2"/></g>
+<path d="M6 50H634" class="result-rule"/>
+<rect x="40" y="78" width="560" height="250" rx="5" class="paper-sheet"/>
+<text x="72" y="122" class="invoice-name">North Studio</text>
+<text x="568" y="122" text-anchor="end" class="invoice-number">INVOICE 0042</text>
+<text x="72" y="146" class="invoice-scope">Brand direction</text>
+<text x="72" y="240" class="invoice-total">€1,210.00</text>
+<text x="72" y="268" class="invoice-due">Due 20 Nov 2026</text>
+<text x="568" y="268" text-anchor="end" class="invoice-destination">To •••• 4421</text>
+<g class="approve"><rect x="348" y="360" width="252" height="54" rx="7"/><text x="376" y="393">Review payment</text><path d="M548 387h18m-6-6 6 6-6 6"/></g>
+</g>
+<rect x="6" y="6" width="628" height="448" rx="14" class="result-border"/>
+</svg>
+</figure>
 </div>
-<dialog id="why" aria-labelledby="why-title"><div class="dialog-head"><h2 id="why-title">Start closer.<br>Spend less fixing.</h2><button class="icon" data-close aria-label="Close explanation">×</button></div><div class="reasons"><section><h3>Why</h3><p>Repeated redesigns cost time and tokens. Put your design system and functional-minimalism rules into the first brief, then keep the decisions you accept.</p></section><section><h3>What</h3><p>Functional Minimalism is a local design harness: your system, a clear task, accepted decisions, and checks. Functional minimalism is its philosophy: less effort to understand and act.</p></section><section><h3>How</h3><p>Connect a design pack. Brief the screen. Build with your coding agent. Render, review, and retain accepted corrections.</p></section></div><p>Inspired by <a href="https://www.vitsoe.com/gb/about/good-design" target="_blank" rel="noreferrer">Dieter Rams’s design principles</a>. Keep useful labels, information, and consequences. Each product keeps its own character.</p><p><a href="https://github.com/Automatron-workflows/functional-minimalism" target="_blank" rel="noreferrer">Explore the source on GitHub ↗</a></p><p class="subtle">Fewer retries are the goal; time and token savings have not been benchmarked. The film is an illustration. The workshop runs local fixtures and real checks. Live Figma import and an Alps pack are not connected.</p><div class="dialog-footer"><button class="button primary" data-next="setup">Set up Functional Minimalism →</button></div></dialog>
+<noscript><p class="noscript">Enable JavaScript to see the illustrated comparison. The guide and source are on GitHub.</p></noscript>
+<div class="transport"><button class="icon" id="play" type="button" aria-label="Pause illustration" title="Pause illustration"><span aria-hidden="true">Ⅱ</span></button><button class="icon" id="replay" type="button" aria-label="Replay illustration" title="Replay illustration"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 6a7 7 0 1 1-1 7M4 2v5h5"/></svg></button></div>
+</section>
+</main>
+<footer class="foot"><div class="demo-info"><button id="info" class="info-button" type="button" aria-label="About this illustration" aria-expanded="false" aria-controls="demo-details" title="About this illustration"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.5"/><path d="M10 9v5"/><circle cx="10" cy="6" r=".9" class="info-dot"/></svg></button><div id="demo-details" class="demo-details" hidden><p>Illustrated workflow with fictional data. The four drafts are authored illustrations of common Claude, ChatGPT, Codex, Kimi and DeepSeek defaults, not actual model outputs, a live agent run or measured speed. No real payment occurs.</p><p>The workshop runs local fixtures and real checks. Inspired by <a href="https://www.vitsoe.com/gb/about/good-design" target="_blank" rel="noreferrer">Dieter Rams’s design principles</a>.</p><button class="panel-link" type="button" data-open="why">Why Functional Minimalism</button></div></div><a class="github" href="https://github.com/Automatron-workflows/functional-minimalism" target="_blank" rel="noreferrer" aria-label="Functional Minimalism on GitHub" title="GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.09.68-.22.68-.49 0-.24-.01-.88-.01-1.73-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.63.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.9 1.57 2.36 1.12 2.94.85.09-.66.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.36 9.36 0 0 1 12 6.84c.85 0 1.71.12 2.51.35 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.48-.01 2.82 0 .27.18.59.69.49A10.23 10.23 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg></a></footer>
+</div>
+<dialog id="why" aria-labelledby="why-title"><div class="dialog-head"><h2 id="why-title">Start closer.<br>Spend less fixing.</h2><button class="icon" data-close aria-label="Close explanation">×</button></div><div class="reasons"><section><h3>System</h3><p>Type, color and components come from your project, not a generic default.</p></section><section><h3>Brief</h3><p>One task, one object, one primary action. Surplus explanation leaves the first draft.</p></section><section><h3>Memory</h3><p>Only the corrections you accept return on the next screen.</p></section></div><p>Functional Minimalism is a local design harness for coding agents. Inspired by <a href="https://www.vitsoe.com/gb/about/good-design" target="_blank" rel="noreferrer">Dieter Rams’s design principles</a>. The film is an illustration; the workshop runs local fixtures and real checks.</p><p><a href="https://github.com/Automatron-workflows/functional-minimalism" target="_blank" rel="noreferrer">Explore the source on GitHub ↗</a></p><div class="dialog-footer"><button class="button primary" data-next="setup">Set up Functional Minimalism →</button><button class="text" data-next="workshop">Try the workshop ↗</button></div></dialog>
 <dialog id="setup" aria-labelledby="setup-title"><div class="dialog-head"><h2 id="setup-title">Start with one screen.</h2><button class="icon" data-close aria-label="Close setup">×</button></div><p>Download and extract the source. Requires Node 18.16 or newer; no npm install or API keys.</p><div class="setup-fields"><label>First screen<select id="template"><option value="discovery">Film discovery</option><option value="invoice">Invoice review</option><option value="project">Project tasks</option></select></label><label>Coding agent<select id="client"><option value="both">Codex + Claude</option><option value="codex">Codex</option><option value="claude">Claude</option></select></label></div><pre class="command"><code id="command"></code></pre><div class="dialog-footer"><a class="button primary" href="../functional-minimalism-source.zip" download data-source>Download source ↓</a><button class="button" id="copy">Copy commands</button></div><div class="dialog-status" id="copy-status" role="status"></div><ol class="setup-steps"><li>Run these commands inside the extracted folder. Replace <code>../my-app</code> with a new project path.</li><li>Open that project in your agent. Ask it to build from <code>.design-harness/START_HERE.md</code>.</li><li>Render the result, test the task, and record the corrections you accept.</li></ol><p class="subtle">This starter installs the Studio reference system and a compact screen brief. For an existing product, map its own components using <code>init --pack</code>; see <a href="../README.md">the guide</a>. Nothing calls a model or generates a finished app automatically.</p></dialog>
 <dialog class="workshop" id="workshop" aria-labelledby="workshop-title"><div class="dialog-head"><h2 id="workshop-title">Functional Minimalism / Workshop</h2><button class="icon" data-close aria-label="Close workshop">×</button></div><iframe title="Interactive Functional Minimalism examples" data-src="./workshop.html"></iframe></dialog>
 <script type="module" src="./film.mjs"></script></body></html>

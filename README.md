@@ -2,23 +2,23 @@
 
 **Better UI. Fewer retries.**
 
-Functional minimalism for AI-built interfaces. An Automatron project, alongside Hardwire.
+Functional Minimalism is a design harness for AI-built interfaces.
 
 ## Why
 
-Repeated redesigns cost time and tokens. Functional Minimalism puts useful design defaults, your actual design system, and accepted decisions into the first brief. The goal is a better first draft with fewer corrective prompts.
+Repeated redesigns cost time and tokens. Functional Minimalism puts a good design in place by default using useful design defaults, design systems, and accepted heuristics. The goal is a better first design concept with fewer corrective prompts.
 
 [Functional minimalism](references/functional-minimalism.md) is our practical philosophy, inspired by Dieter Rams's principles. Reduce the effort needed to understand and act. Preserve labels, meaningful content, prices, permissions and recovery. Each product keeps its own character.
 
 ## What
 
-A local design harness with versioned design packs, screen contracts, scoped design memory, and source/rendered-evidence checks. Your coding agent performs the design, browser work and repair; Functional Minimalism supplies context and checks. No model calls, credentials, npm dependencies or telemetry.
+A local design harness with versioned design packs, composition patterns, screen contracts, scoped design memory, and source/rendered-evidence checks. Your coding agent performs the design, browser work and repair; Functional Minimalism supplies context and checks. No model calls, credentials, npm dependencies or telemetry.
 
 **v0.3.0** includes a branded illustrated demo, three working fixture flows, and one-command first-screen setup. Studio is an explicit reference system, not Alps. Nothing is published to npm.
 
 [Source](https://github.com/Automatron-workflows/functional-minimalism) · [Contribute](CONTRIBUTING.md) · [Run a paired experiment](docs/EXPERIMENT.md)
 
-Deployment: the [hosted demo](https://functional-minimalism.higgsfield.app) is deployed, but its hosting gateway currently requires Higgsfield sign-in. Anonymous launch acceptance is blocked. GitHub Pages still awaits a source push. See [verification](docs/VERIFICATION.md) for the exact checks and remaining limits. The offline preview works without an account.
+The [public demo](https://automatron-workflows.github.io/functional-minimalism/) is hosted on GitHub Pages and opens without an account. Its route continues into `/demo/`. The source ZIP is also available from the workshop and offline preview. The separate Higgsfield draft is not part of this public release.
 
 ## Try the harness in a minute
 
@@ -89,7 +89,7 @@ npm run build
 npm run dev
 ```
 
-Open **http://127.0.0.1:4178/demo/**. The landing illustration shows a system shaping three interfaces. Why explains the purpose; Set up gives the exact commands and downloadable source. Try the harness opens film discovery, a simulated invoice confirmation, and project tasks. Inspect runs real DOM checks against the fixture contracts. Design memory lets you accept a scoped correction and download another screen’s brief to see which decisions carry forward. That memory is local to the demo browser; it does not write to your project or agent.
+Open **http://127.0.0.1:4178/demo/**. The landing illustration shows four model-default drafts of one invoice resolving into a single focused review. Why explains the purpose; Set up gives the exact commands and downloadable source. Try the harness opens film discovery, a simulated invoice confirmation, and project tasks. Inspect runs real DOM checks against the fixture contracts. Design memory lets you accept a scoped correction and download another screen’s brief to see which decisions carry forward. That memory is local to the demo browser; it does not write to your project or agent.
 
 After `npm run build`, open **dist/Functional_Minimalism_Preview.html** directly in a browser: a self-contained preview with the workshop and source ZIP embedded. **dist/Functional_Minimalism_Workshop.html** is the separate offline workshop. The film and Before/With harness comparisons are authored illustrations, not measured model outputs or user research. No real payment occurs.
 

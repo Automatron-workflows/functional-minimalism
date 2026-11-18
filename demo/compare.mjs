@@ -1,8 +1,8 @@
 // Prompt lab and recorded-run comparison. No server, no telemetry, no stored
 // key unless the visitor asks for it.
-import {PROVIDERS,buildBaselineMessages,buildHarnessMessages,contentOnlyHTML,extractHTML,sanitizeHTML,requestProvider,listProviderModels} from '../src/lab.mjs';
-import {measureDocument,measureSummary} from './measure.mjs';
-import {composeBrief,validatePack,validateContract} from '../src/core.mjs';
+import {PROVIDERS,buildBaselineMessages,buildHarnessMessages,contentOnlyHTML,extractHTML,sanitizeHTML,requestProvider,listProviderModels} from '../src/lab.mjs?v=2026-11-18-7';
+import {measureDocument,measureSummary} from './measure.mjs?v=2026-11-18-7';
+import {composeBrief,validatePack,validateContract} from '../src/core.mjs?v=2026-11-18-7';
 
 const $=(selector,root=document)=>root.querySelector(selector);
 const $$=(selector,root=document)=>[...root.querySelectorAll(selector)];

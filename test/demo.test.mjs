@@ -9,7 +9,7 @@ const presets=JSON.parse(await readFile(new URL('../demo/presets.json',import.me
 const index=JSON.parse(await readFile(new URL('../demo/runs/index.json',import.meta.url),'utf8'));
 const runFiles=await Promise.all(index.runs.map(row=>readFile(new URL(`../demo/runs/${row.id}.json`,import.meta.url),'utf8').then(JSON.parse)));
 
-test('landing leads with a recorded comparison and an editable prompt lab',()=>{
+test('landing leads with an editable prompt and a recorded comparison',()=>{
  assert.match(html,/id="prompt"/);
  assert.match(html,/Review invoice 0042/);
  assert.match(html,/id="run"/);
@@ -19,8 +19,8 @@ test('landing leads with a recorded comparison and an editable prompt lab',()=>{
  assert.match(html,/data-view="after"/);
  assert.match(html,/role="group" aria-label="Recorded models"/);
  assert.match(html,/id="connect"/);
- assert.ok(html.indexOf('id="frame"')<html.indexOf('id="prompt-form"'),'the comparison must precede the prompt form');
- assert.ok(html.indexOf('id="run-meta"')<html.indexOf('id="measure-grid"'),'measurements must sit inside run details');
+ assert.ok(html.indexOf('id="prompt-form"')<html.indexOf('id="frame"'),'the prompt form must precede the comparison');
+ assert.ok(html.indexOf('id="run-meta"')<html.indexOf('id="measure-grid"'),'measurements follow the run details');
  assert.ok(!html.includes('<figure class="before"'),'the authored SVG comparison must be gone');
  assert.ok(!html.includes('not actual model outputs'),'the page must not claim authored illustrations');
 });

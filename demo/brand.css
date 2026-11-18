@@ -105,6 +105,15 @@ main {
   max-width: 1100px;
   margin: 0 auto;
 }
+.lab-intro { margin-bottom: 16px; }
+.lab-kicker {
+  margin: 0 0 10px;
+  color: var(--accent);
+  font-size: 11px;
+  line-height: 1.4;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
 .prompt {
   padding: 14px;
   border: 1px solid var(--line);

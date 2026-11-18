@@ -1,7 +1,7 @@
 // Four recorded or live designs. Before is the model's first draft. After is the
 // same model with the Functional Minimalism brief, Atelier system and gallery.
-import {PROVIDERS,buildBaselineMessages,buildHarnessMessages,contentOnlyHTML,extractHTML,sanitizeHTML,requestProvider,listProviderModels} from '../src/lab.mjs?v=2026-11-18-13';
-import {composeBrief,validatePack,validateContract} from '../src/core.mjs?v=2026-11-18-13';
+import {PROVIDERS,buildBaselineMessages,buildHarnessMessages,contentOnlyHTML,extractHTML,sanitizeHTML,requestProvider,listProviderModels} from '../src/lab.mjs?v=2026-11-18-14';
+import {composeBrief,validatePack,validateContract} from '../src/core.mjs?v=2026-11-18-14';
 
 const $=(selector,root=document)=>root.querySelector(selector);
 const $$=(selector,root=document)=>[...root.querySelectorAll(selector)];
@@ -293,7 +293,7 @@ function syncProviderFields(){
  $('#key-link').href=provider.keyURL;$('#key-link').textContent=provider.label;
  $('#provider-docs').href=provider.docs;
  $('#api-key').placeholder=`Paste a ${provider.label} key`;
- $('#free-row').hidden=provider.id!=='openrouter';
+
  $('#connect-help').firstChild.textContent='Create a key at ';
 }
 function prepareConnect(){

@@ -83,7 +83,7 @@ function liveThumb(run){
  wrap.append(render);liveThumbs.set(run.model.id,wrap);return wrap;
 }
 
-async function fetchJSON(url){const response=await fetch(url);if(!response.ok)throw new Error(`${url} returned ${response.status}`);return response.json();}
+async function fetchJSON(url){const response=await fetch(url,{cache:'no-store'});if(!response.ok)throw new Error(`${url} returned ${response.status}`);return response.json();}
 async function loadData(){
  if(globalThis.__labData){
   const embedded=globalThis.__labData;

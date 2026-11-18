@@ -1,5 +1,5 @@
 const gallery=document.querySelector('#gallery');
-const data=await fetch('./templates.json').then(response=>response.json());
+const data=await fetch('./templates.json',{cache:'no-store'}).then(response=>response.json());
 document.querySelector('#version').textContent=`v${data.version}`;
 document.querySelector('#approval').textContent=`Approved ${data.approvedAt}`;
 const tokens=data.tokens;

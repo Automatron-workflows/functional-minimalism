@@ -23,7 +23,7 @@
       "approvedBy": "Matthias Mandiau",
       "approvedAt": "2026-11-18",
       "license": "MIT",
-      "html": "<!-- Wrap the approved page in .page and .layout. -->\n<div class=\"page\">\n  <header class=\"brand-line\">BRAND LINE</header>\n  <main class=\"layout\">\n    <article class=\"document\">INVOICE DOCUMENT</article>\n    <aside class=\"summary\">SUMMARY RAIL</aside>\n  </main>\n</div>",
+      "html": "<div class=\"page\">\n  <!-- put the brand line here -->\n  <main class=\"layout\">\n    <!-- put the invoice document here -->\n    <!-- put the summary rail here -->\n  </main>\n</div>",
       "css": ".page{max-width:1120px;margin:0 auto;padding:48px;box-sizing:border-box}.layout{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:64px;align-items:start}@media(max-width:760px){.page{padding:32px 24px}.layout{grid-template-columns:1fr;gap:32px}.summary{order:-1}}",
       "rules": [
         "Use the page shell for every screen. The summary must never touch the viewport edge.",
@@ -51,7 +51,7 @@
       "approvedBy": "Matthias Mandiau",
       "approvedAt": "2026-11-18",
       "license": "MIT",
-      "html": "<article class=\"document\" id=\"invoice-details\"><header class=\"doc-head\"><div><p class=\"label\">Supplier document</p><h1>Invoice 0042</h1><p class=\"muted\">Issued 6 November 2026</p></div><div class=\"doc-meta\"><p class=\"label\">Due date</p><p>20 November 2026</p></div></header>LINE ITEMS AND TOTAL</article>",
+      "html": "<article class=\"document\" id=\"invoice-details\"><header class=\"doc-head\"><div><p class=\"label\">Supplier document</p><h1>Invoice 0042</h1><p class=\"muted\">Issued 6 November 2026</p></div><div class=\"doc-meta\"><p class=\"label\">Due date</p><p>20 November 2026</p></div></header><!-- line items and total --></article>",
       "css": ".document{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 50px rgba(27,26,23,.06);padding:48px;min-width:0}.doc-head{display:flex;justify-content:space-between;gap:32px;align-items:flex-start;padding-bottom:24px;border-bottom:1px solid var(--line)}.doc-head h1{margin:4px 0 0;font-family:var(--display);font-size:40px;font-weight:500;letter-spacing:-.03em;line-height:1.05}.doc-meta{text-align:right}.doc-meta p{margin:4px 0 0;font-size:14px}@media(max-width:760px){.document{padding:24px}.doc-head{flex-direction:column;gap:16px}.doc-meta{text-align:left}}",
       "rules": [
         "Use one white document, 14px radius, 1px border and one soft shadow.",

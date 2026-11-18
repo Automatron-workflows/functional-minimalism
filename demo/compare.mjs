@@ -106,9 +106,7 @@ async function loadData(){
  for(const item of presetsDoc.presets)contracts[item.id]=validateContract(await fetchJSON(item.contract));
  const settled=await Promise.allSettled(index.runs.map(row=>fetchJSON(`./runs/${row.id}.json`)));
  const runs=settled.filter(result=>result.status==='fulfilled').map(result=>result.value);
- let rules='';
- try{const response=await fetch('../DESIGN_RULES.md');if(response.ok)rules=await response.text();}catch{}
- return {index,presets:presetsDoc,pack,contracts,runs,rules};
+ return {index,presets:presetsDoc,pack,contracts,runs};
 }
 
 function setPrompt(value,{dirty=false}={}){state.prompt=value;state.dirty=dirty;prompt.value=value;renderRunButton();renderSource();}
@@ -419,15 +417,6 @@ function briefFor(promptText){
   try{return composeBrief(data.pack,data.contracts[item.id],emptyMemory,{compact:true});}catch{}
  }
  return genericBrief(promptText);
-}
-function rulesForCurrentPrompt(){
- if(!data.rules)return'';
- const general=data.rules.split('## Cinematic demo profile')[0].trim();
- if(state.presetId==='invoice'&&!state.dirty){
-  const review=data.rules.split('### Document review')[1]?.split('## Review gates')[0]?.trim();
-  return review?`${general}\n\n### Document review\n${review}`:general;
- }
- return general;
 }
 function guidanceForCurrentPrompt(){
  const item=preset();

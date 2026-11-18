@@ -31,7 +31,6 @@ async function labData(){
   const file=path.resolve(root,'demo',preset.contract);
   contracts[preset.id]=JSON.parse(await readFile(file,'utf8'));
  }
- const rules=await read('DESIGN_RULES.md');
  const runs=[];
  for(const row of index.runs){
   const run=JSON.parse(await read(`demo/runs/${row.id}.json`));
@@ -42,7 +41,7 @@ async function labData(){
   }
   runs.push(run);
  }
- return {index,presets,pack,contracts,runs,rules};
+ return {index,presets,pack,contracts,runs};
 }
 
 function stripModule(code){return code.replace(/^import .*;\n/gm,'').replace(/^export /gm,'');}

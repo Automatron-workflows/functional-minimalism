@@ -31,6 +31,18 @@ flowchart TD
 | Review | Find concrete functional regressions and record evidence | Source checks, browser snapshots, state/viewport audit; visual and usability review remain separate |
 | Memory | Preserve only accepted corrections in the relevant scope | Global, pack, project and screen scopes; explicit supersession |
 
+## Prompt-lab demonstration
+
+The landing page is a demonstration layer, not part of the harness runtime.
+
+- **Recorded mode** reads `demo/runs/index.json`, four run JSON files and their rendered screenshots. Each run stores the model, prompt, first-draft HTML, harness-pass HTML and measured output at 1280px and 390px.
+- **First draft** is a single provider call with a neutral output contract. It receives no brief, design pack or Functional Minimalism rules.
+- **Harness pass** is a second call with the same model. It receives the compact brief produced by `composeBrief`, invoice task guidance, the Functional Minimalism principles and a content-only outline of the first draft. CSS is deliberately omitted so the pass rebuilds composition instead of copying the draft.
+- **Live mode** is bring-your-own-key. The browser calls OpenAI, Anthropic or OpenRouter directly; there is no proxy. With OpenRouter, up to four free models run the same two passes with a concurrency of two. Partial results and per-model failures are shown.
+- **Rendered measures** are a heuristic: visible words, paragraph words, controls, unnamed controls, clipped controls, action-labelled controls, headings, horizontal overflow and required facts. They are not the CLI audit and do not certify usability or accessibility.
+
+The lab does not run a coding agent, a repair loop or a controlled experiment. Recorded runs are single samples; see [the experiment](EXPERIMENT.md) for a real paired study.
+
 ## React integration
 
 Run from the downloaded harness source:

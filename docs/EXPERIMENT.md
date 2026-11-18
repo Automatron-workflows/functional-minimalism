@@ -17,3 +17,5 @@ Stop only when the same functional checks pass and a reviewer accepts the result
 Repeat across the discovery and project examples. Preserve raw outputs and failed runs. Report the sample size and model settings. A single attractive screenshot is not evidence of a general saving.
 
 `npm run measure:context` compares the UTF-8 size of full and compact generated briefs. It is a deterministic context-size check only; it does not estimate model tokens or measure model quality, time, cost, or first-pass success.
+
+The [prompt lab](LAB.md) is a quick demonstration, not this experiment. It runs two provider calls per model and renders the result, but it does not run a coding agent, a repair loop, equal acceptance checks or a controlled sample. Use it to see the intended difference and to choose prompts; use this experiment to make claims.

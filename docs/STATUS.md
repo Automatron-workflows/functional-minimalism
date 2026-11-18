@@ -21,8 +21,8 @@ The original product plan remains a proposal. This file tracks the implemented s
 | State-specific essential information | Implemented; invoice confirmation now declares required information |
 | React stack adapters | 13 context adapters; manifest/config detection, explicit UI selection, brief composition and drift checks |
 | React version/build compatibility matrix | Not run; adapters do not certify installed API compatibility |
-| Three interactive fixture flows and static build | Implemented; direct starter brief copy/download added |
-| Local Chrome behavioral verification runner | Actual-width iframe runner implemented; GitHub CI passes 26 assertions each at 390px and 1440px |
+| Four recorded model runs, three interactive fixture flows and static build | Implemented; direct starter brief copy/download added |
+| Local Chrome behavioral verification runner | Actual-width iframe runner implemented; GitHub CI passes 26 workshop and 8 prompt-lab assertions each at 390px and 1440px |
 | Live Figma / Code Connect importer | Pending |
 | Alps design pack | Pending actual source |
 | Harness runtime model calls | None; the optional prompt lab calls the provider the visitor connects, with no server |

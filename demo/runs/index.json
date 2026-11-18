@@ -1,6 +1,6 @@
 {
   "schema": "functional-minimalism.lab-index/1",
-  "generatedAt": "2026-11-18T08:29:25.656Z",
+  "generatedAt": "2026-11-18T09:34:31.942Z",
   "models": [
     {
       "id": "beam-free",
@@ -47,7 +47,7 @@
       "provider": "OpenCode Go",
       "via": "Free",
       "free": true,
-      "createdAt": "2026-11-17T17:07:11.234Z",
+      "createdAt": "2026-11-18T09:02:33.569Z",
       "screenshots": {
         "before": "./runs/invoice-beam-free-before.png",
         "after": "./runs/invoice-beam-free-after.png"
@@ -55,13 +55,13 @@
       "measures": {
         "desktop": {
           "width": 1280,
-          "words": 205,
-          "paragraphWords": 95,
-          "controls": 3,
+          "words": 187,
+          "paragraphWords": 20,
+          "controls": 2,
           "unnamed": 0,
           "clipped": 0,
           "actionControls": 1,
-          "headings": 1,
+          "headings": 6,
           "overflowX": false,
           "facts": [
             {
@@ -93,13 +93,13 @@
         },
         "mobile": {
           "width": 390,
-          "words": 205,
-          "paragraphWords": 95,
-          "controls": 3,
+          "words": 187,
+          "paragraphWords": 20,
+          "controls": 2,
           "unnamed": 0,
           "clipped": 0,
           "actionControls": 1,
-          "headings": 1,
+          "headings": 6,
           "overflowX": false,
           "facts": [
             {
@@ -140,7 +140,7 @@
       "provider": "OpenCode Go",
       "via": "Frontier",
       "free": false,
-      "createdAt": "2026-11-18T08:29:25.621Z",
+      "createdAt": "2026-11-18T09:34:31.908Z",
       "screenshots": {
         "before": "./runs/invoice-claude-haiku-5-5-before.png",
         "after": "./runs/invoice-claude-haiku-5-5-after.png"
@@ -148,13 +148,13 @@
       "measures": {
         "desktop": {
           "width": 1280,
-          "words": 173,
-          "paragraphWords": 20,
-          "controls": 6,
+          "words": 186,
+          "paragraphWords": 34,
+          "controls": 2,
           "unnamed": 0,
           "clipped": 0,
-          "actionControls": 1,
-          "headings": 5,
+          "actionControls": 0,
+          "headings": 7,
           "overflowX": false,
           "facts": [
             {
@@ -186,13 +186,13 @@
         },
         "mobile": {
           "width": 390,
-          "words": 173,
-          "paragraphWords": 20,
-          "controls": 6,
+          "words": 182,
+          "paragraphWords": 34,
+          "controls": 2,
           "unnamed": 0,
           "clipped": 0,
-          "actionControls": 1,
-          "headings": 5,
+          "actionControls": 0,
+          "headings": 7,
           "overflowX": false,
           "facts": [
             {
@@ -233,7 +233,7 @@
       "provider": "OpenCode Go",
       "via": "Free",
       "free": true,
-      "createdAt": "2026-11-17T17:05:44.791Z",
+      "createdAt": "2026-11-18T09:17:29.451Z",
       "screenshots": {
         "before": "./runs/invoice-longcat-2-5-free-before.png",
         "after": "./runs/invoice-longcat-2-5-free-after.png"
@@ -241,13 +241,13 @@
       "measures": {
         "desktop": {
           "width": 1280,
-          "words": 284,
-          "paragraphWords": 20,
-          "controls": 9,
+          "words": 211,
+          "paragraphWords": 56,
+          "controls": 1,
           "unnamed": 0,
           "clipped": 0,
-          "actionControls": 1,
-          "headings": 3,
+          "actionControls": 0,
+          "headings": 2,
           "overflowX": false,
           "facts": [
             {
@@ -279,13 +279,13 @@
         },
         "mobile": {
           "width": 390,
-          "words": 273,
-          "paragraphWords": 20,
-          "controls": 4,
+          "words": 211,
+          "paragraphWords": 56,
+          "controls": 1,
           "unnamed": 0,
           "clipped": 0,
-          "actionControls": 1,
-          "headings": 3,
+          "actionControls": 0,
+          "headings": 2,
           "overflowX": false,
           "facts": [
             {
@@ -326,7 +326,7 @@
       "provider": "OpenCode Go",
       "via": "Open model",
       "free": false,
-      "createdAt": "2026-11-17T17:22:41.757Z",
+      "createdAt": "2026-11-18T09:33:04.427Z",
       "screenshots": {
         "before": "./runs/invoice-qwen3-8-flash-before.png",
         "after": "./runs/invoice-qwen3-8-flash-after.png"
@@ -334,13 +334,13 @@
       "measures": {
         "desktop": {
           "width": 1280,
-          "words": 271,
-          "paragraphWords": 51,
-          "controls": 10,
+          "words": 100,
+          "paragraphWords": 0,
+          "controls": 0,
           "unnamed": 0,
           "clipped": 0,
-          "actionControls": 2,
-          "headings": 5,
+          "actionControls": 0,
+          "headings": 0,
           "overflowX": false,
           "facts": [
             {
@@ -372,13 +372,13 @@
         },
         "mobile": {
           "width": 390,
-          "words": 264,
-          "paragraphWords": 51,
-          "controls": 6,
+          "words": 100,
+          "paragraphWords": 0,
+          "controls": 0,
           "unnamed": 0,
           "clipped": 0,
-          "actionControls": 2,
-          "headings": 5,
+          "actionControls": 0,
+          "headings": 0,
           "overflowX": false,
           "facts": [
             {

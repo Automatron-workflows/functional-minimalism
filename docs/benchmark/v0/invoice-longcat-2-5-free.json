@@ -1,0 +1,208 @@
+{
+  "schema": "functional-minimalism.lab-run/1",
+  "id": "invoice-longcat-2-5-free",
+  "preset": "invoice",
+  "presetLabel": "Invoice review",
+  "prompt": "Review invoice 0042 from North Studio for €1,210.00, due 20 November 2026. The payment would leave account ending 4421. I want to check the supplier, amount and due date, then review the payment before anything happens. Use fictional data. No real payment.",
+  "createdAt": "2026-11-17T17:05:44.791Z",
+  "model": {
+    "id": "longcat-2.5-free",
+    "label": "LongCat 2.5",
+    "provider": "OpenCode Go",
+    "via": "Free",
+    "free": true
+  },
+  "harness": {
+    "pack": "studio@0.2.0",
+    "brief": true,
+    "conditions": [
+      "model default",
+      "same model with harness brief"
+    ]
+  },
+  "conditions": {
+    "before": {
+      "label": "Model default",
+      "html": "<!DOCTYPE html>\n<html lang=\"en\">\n<head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'none'; img-src data:; style-src 'unsafe-inline'; font-src data:; script-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'\">\n\n\n<title>Review Payment — Invoice 0042 · North Studio</title>\n<style>\n  :root{\n    --ink:#0f1f33;\n    --ink-2:#33465e;\n    --muted:#6b7c93;\n    --line:#e3e8ef;\n    --bg:#f4f6fa;\n    --card:#ffffff;\n    --navy:#12294a;\n    --navy-2:#1b3a66;\n    --green:#0e7a4d;\n    --green-bg:#e7f6ef;\n    --amber:#8a5a00;\n    --amber-bg:#fdf3dd;\n    --blue:#1d5fd0;\n    --blue-bg:#eaf1fd;\n    --radius:14px;\n  }\n  *{margin:0;padding:0;box-sizing:border-box;}\n  html,body{height:100%;}\n  body{\n    font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,\"Helvetica Neue\",Arial,sans-serif;\n    background:var(--bg);\n    color:var(--ink);\n    -webkit-font-smoothing:antialiased;\n    font-variant-numeric:tabular-nums;\n  }\n\n  /* ---------- Top bar ---------- */\n  .topbar{\n    background:linear-gradient(135deg,var(--navy) 0%,var(--navy-2) 100%);\n    color:#fff;\n  }\n  .topbar-inner{\n    max-width:1180px;margin:0 auto;padding:16px 24px;\n    display:flex;align-items:center;gap:28px;flex-wrap:wrap;\n  }\n  .brand{display:flex;align-items:center;gap:12px;}\n  .brand-mark{\n    width:38px;height:38px;border-radius:10px;flex:none;\n    background:rgba(255,255,255,.12);\n    border:1px solid rgba(255,255,255,.25);\n    display:flex;align-items:center;justify-content:center;\n  }\n  .brand-name{font-size:17px;font-weight:700;letter-spacing:.2px;}\n  .brand-sub{font-size:11.5px;color:#b9c8de;letter-spacing:.4px;text-transform:uppercase;margin-top:2px;}\n  .topnav{display:flex;gap:4px;margin-left:8px;}\n  .topnav a{\n    color:#c9d6ea;text-decoration:none;font-size:13.5px;font-weight:500;\n    padding:8px 12px;border-radius:8px;white-space:nowrap;\n  }\n  .topnav a.active{background:rgba(255,255,255,.14);color:#fff;}\n  .top-user{margin-left:auto;display:flex;align-items:center;gap:10px;font-size:13px;color:#c9d6ea;}\n  .avatar{\n    width:32px;height:32px;border-radius:50%;\n    background:#3f6db3;color:#fff;font-size:12px;font-weight:700;\n    display:flex;align-items:center;justify-content:center;\n  }\n\n  /* ---------- Page shell ---------- */\n  .wrap{max-width:1180px;margin:0 auto;padding:28px 24px 64px;}\n  .page-head{margin-bottom:20px;}\n  .crumb{font-size:12.5px;color:var(--muted);margin-bottom:8px;}\n  .crumb a{color:var(--blue);text-decoration:none;}\n  .page-head h1{font-size:24px;font-weight:700;letter-spacing:-.2px;}\n  .page-head p{margin-top:6px;color:var(--ink-2);font-size:14px;}\n\n  /* ---------- Stepper ---------- */\n  .stepper{\n    display:flex;align-items:center;gap:0;margin:22px 0 26px;\n    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);\n    padding:16px 22px;\n  }\n  .step{display:flex;align-items:center;gap:10px;flex:1;min-width:0;}\n  .step-dot{\n    width:26px;height:26px;border-radius:50%;flex:none;\n    display:flex;align-items:center;justify-content:center;\n    font-size:12.5px;font-weight:700;\n    border:2px solid var(--line);color:var(--muted);background:#fff;\n  }\n  .step.done .step-dot{background:var(--green);border-color:var(--green);color:#fff;}\n  .step.now .step-dot{border-color:var(--blue);color:var(--blue);}\n  .step-label{font-size:13px;font-weight:600;color:var(--muted);white-space:nowrap;}\n  .step.done .step-label{color:var(--ink);}\n  .step.now .step-label{color:var(--blue);}\n  .step-bar{flex:1;height:2px;background:var(--line);margin:0 12px;min-width:16px;}\n  .step-bar.fill{background:var(--green);}\n\n  /* ---------- Layout ---------- */\n  .grid{display:grid;grid-template-columns:1fr 400px;gap:24px;align-items:start;}\n  .card{\n    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);\n    box-shadow:0 1px 2px rgba(15,31,51,.04);\n  }\n  .card-head{\n    padding:18px 22px;border-bottom:1px solid var(--line);\n    display:flex;align-items:center;justify-content:space-between;gap:12px;\n  }\n  .card-head h2{font-size:15.5px;font-weight:700;}\n  .card-body{padding:22px;}\n  .badge{\n    display:inline-flex;align-items:center;gap:6px;\n    font-size:11.5px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;\n    padding:5px 10px;border-radius:999px;\n  }\n  .badge.amber{background:var(--amber-bg);color:var(--amber);}\n  .badge.green{background:var(--green-bg);color:var(--green);}\n  .badge.blue{background:var(--blue-bg);color:var(--blue);}\n  .dot{width:7px;height:7px;border-radius:50%;background:currentColor;}\n\n  /* ---------- Invoice summary ---------- */\n  .supplier-row{display:flex;gap:14px;align-items:flex-start;margin-bottom:20px;}\n  .supplier-logo{\n    width:48px;height:48px;border-radius:12px;flex:none;\n    background:linear-gradient(135deg,#24456e,#3d6ea8);\n    color:#fff;display:flex;align-items:center;justify-content:center;\n    font-weight:800;font-size:15px;\n  }\n  .supplier-name{font-size:16px;font-weight:700;}\n  .supplier-meta{font-size:13px;color:var(--muted);margin-top:3px;line-height:1.5;}\n  .amount-block{\n    background:#f8fafc;border:1px solid var(--line);border-radius:12px;\n    padding:16px 18px;margin-bottom:18px;\n  }\n  .amount-label{font-size:11.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);}\n  .amount-value{font-size:30px;font-weight:800;letter-spacing:-.5px;margin-top:4px;}\n  .due-chip{\n    display:inline-flex;align-items:center;gap:6px;margin-top:10px;\n    font-size:12.5px;font-weight:600;color:var(--ink-2);\n    background:#fff;border:1px solid var(--line);border-radius:8px;padding:6px 10px;\n  }\n  .kv{display:flex;justify-content:space-between;gap:16px;padding:9px 0;font-size:13.5px;border-bottom:1px dashed var(--line);}\n  .kv:last-child{border-bottom:none;}\n  .kv .k{color:var(--muted);}\n  .kv .v{font-weight:600;text-align:right;}\n  .lines{margin-top:16px;}\n  .lines-title{font-size:11.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}\n  .line-item{display:flex;justify-content:space-between;gap:14px;padding:8px 0;font-size:13.5px;border-bottom:1px solid #f0f3f8;}\n  .line-item:last-child{border-bottom:none;}\n  .line-item .desc{color:var(--ink-2);}\n  .line-item .qty{color:var(--muted);font-size:12px;margin-left:6px;}\n  .line-item .amt{font-weight:600;white-space:nowrap;}\n  .totals{margin-top:14px;border-top:1px solid var(--line);padding-top:12px;}\n  .tot-row{display:flex;justify-content:space-between;font-size:13px;color:var(--ink-2);padding:3px 0;}\n  .tot-row.grand{font-size:16px;font-weight:800;color:var(--ink);padding-top:8px;margin-top:4px;border-top:1px dashed var(--line);}\n\n  /* ---------- Review panel ---------- */\n  .review-card{position:sticky;top:20px;}\n  .review-status{\n    display:flex;align-items:center;gap:10px;\n    background:var(--amber-bg);border:1px solid #f0dfb2;\n    border-radius:10px;padding:11px 14px;margin-bottom:18px;\n    font-size:13px;font-weight:600;color:var(--amber);\n  }\n  .check-list{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}\n  .check-item{\n    display:flex;gap:11px;align-items:flex-start;\n    border:1px solid var(--line);border-radius:10px;padding:11px 13px;background:#fbfcfe;\n  }\n  .check-ico{\n    width:20px;height:20px;border-radius:50%;flex:none;margin-top:1px;\n    background:var(--green);display:flex;align-items:center;justify-content:center;\n  }\n  .check-item .ct{font-size:13.5px;font-weight:700;}\n  .check-item .cd{font-size:12.5px;color:var(--muted);margin-top:2px;line-height:1.45;}\n  .pay-block{border-top:1px solid var(--line);padding-top:16px;}\n  .pay-row{display:flex;justify-content:space-between;font-size:13.5px;padding:5px 0;}\n  .pay-row .k{color:var(--muted);}\n  .pay-row .v{font-weight:600;}\n  .pay-row.total{font-size:15px;font-weight:800;padding-top:10px;margin-top:6px;border-top:1px dashed var(--line);}\n  .acct-pill{\n    display:flex;align-items:center;gap:10px;\n    border:1px solid var(--line);border-radius:10px;padding:10px 13px;margin-bottom:16px;background:#fbfcfe;\n  }\n  .acct-ico{\n    width:32px;height:24px;border-radius:5px;flex:none;\n    background:linear-gradient(135deg,#2a4a75,#4a76ad);\n    position:relative;overflow:hidden;\n  }\n  .acct-ico::after{content:\"\";position:absolute;left:0;right:0;top:7px;height:4px;background:rgba(255,255,255,.55);}\n  .acct-name{font-size:13px;font-weight:700;}\n  .acct-num{font-size:12px;color:var(--muted);}\n  .btn{\n    display:flex;align-items:center;justify-content:center;gap:9px;\n    width:100%;border:none;border-radius:11px;cursor:pointer;\n    font-family:inherit;font-size:14.5px;font-weight:700;padding:14px 18px;text-decoration:none;\n  }\n  .btn-primary{background:var(--blue);color:#fff;margin-top:16px;box-shadow:0 4px 12px rgba(29,95,208,.22);}\n  .btn-ghost{background:#fff;color:var(--ink-2);border:1px solid var(--line);margin-top:10px;font-weight:600;}\n  .safe-note{\n    display:flex;gap:9px;align-items:flex-start;\n    margin-top:14px;font-size:12px;color:var(--muted);line-height:1.5;\n  }\n  .safe-note svg{flex:none;margin-top:1px;}\n  .review-foot{margin-top:14px;text-align:center;font-size:12px;color:var(--muted);}\n\n  footer{\n    border-top:1px solid var(--line);background:#fff;\n  }\n  .foot-inner{\n    max-width:1180px;margin:0 auto;padding:18px 24px;\n    display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;\n    font-size:12px;color:var(--muted);\n  }\n\n  /* ---------- Responsive ---------- */\n  @media (max-width:960px){\n    .grid{grid-template-columns:1fr;}\n    .review-card{position:static;}\n    .topnav{display:none;}\n  }\n  @media (max-width:640px){\n    .wrap{padding:20px 14px 48px;}\n    .topbar-inner{padding:14px 16px;gap:14px;}\n    .top-user span.hide-s{display:none;}\n    .stepper{padding:14px 16px;overflow-x:auto;}\n    .step-label{display:none;}\n    .step.now .step-label{display:block;}\n    .step-bar{margin:0 8px;}\n    .amount-value{font-size:26px;}\n    .card-body{padding:18px 16px;}\n    .kv{flex-direction:column;gap:2px;}\n    .kv .v{text-align:left;}\n    .foot-inner{flex-direction:column;gap:6px;}\n  }\n</style>\n</head>\n<body>\n\n<!-- ======= Top bar ======= -->\n<header class=\"topbar\">\n  <div class=\"topbar-inner\">\n    <div class=\"brand\">\n      <div class=\"brand-mark\">\n        <svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" fill=\"none\">\n          <path d=\"M3 16V8l7-5 7 5v8\" stroke=\"#fff\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n          <path d=\"M1.5 16.5h17\" stroke=\"#fff\" stroke-width=\"1.8\" stroke-linecap=\"round\"/>\n        </svg>\n      </div>\n      <div>\n        <div class=\"brand-name\">Meridian Bank</div>\n        <div class=\"brand-sub\">Business Banking</div>\n      </div>\n    </div>\n    <nav class=\"topnav\">\n      <a href=\"#\">Dashboard</a>\n      <a href=\"#\" class=\"active\">Payments</a>\n      <a href=\"#\">Accounts</a>\n      <a href=\"#\">Suppliers</a>\n      <a href=\"#\">History</a>\n    </nav>\n    <div class=\"top-user\">\n      <span class=\"hide-s\">Café Lumen Ltd.</span>\n      <div class=\"avatar\">CL</div>\n    </div>\n  </div>\n</header>\n\n<!-- ======= Page ======= -->\n<main class=\"wrap\">\n\n  <div class=\"page-head\">\n    <div class=\"crumb\"><a href=\"#\">Payments</a> &nbsp;/&nbsp; <a href=\"#\">Scheduled payment</a> &nbsp;/&nbsp; Review</div>\n    <h1>Review payment before confirming</h1>\n    <p>Invoice 0042 from North Studio. Check the supplier, amount and due date — nothing will be paid until you confirm.</p>\n  </div>\n\n  <!-- Stepper -->\n  <div class=\"stepper\">\n    <div class=\"step done\">\n      <div class=\"step-dot\">\n        <svg width=\"12\" height=\"12\" viewBox=\"0 0 12 12\" fill=\"none\"><path d=\"M2 6.2L4.8 9 10 3.2\" stroke=\"#fff\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>\n      </div>\n      <div class=\"step-label\">Payment details</div>\n    </div>\n    <div class=\"step-bar fill\"></div>\n    <div class=\"step now\">\n      <div class=\"step-dot\">2</div>\n      <div class=\"step-label\">Review &amp; confirm</div>\n    </div>\n    <div class=\"step-bar\"></div>\n    <div class=\"step\">\n      <div class=\"step-dot\">3</div>\n      <div class=\"step-label\">Confirmation</div>\n    </div>\n  </div>\n\n  <div class=\"grid\">\n\n    <!-- ======= Left: invoice ======= -->\n    <section class=\"card\">\n      <div class=\"card-head\">\n        <h2>Invoice summary</h2>\n        <span class=\"badge amber\"><span class=\"dot\"></span>Awaiting confirmation</span>\n      </div>\n      <div class=\"card-body\">\n\n        <div class=\"supplier-row\">\n          <div class=\"supplier-logo\">NS</div>\n          <div>\n            <div class=\"supplier-name\">North Studio</div>\n            <div class=\"supplier-meta\">\n              14 Harbour Lane, Bristol BS1 5QA<br>\n              VAT IE6384421N · Supplier since 2023\n            </div>\n          </div>\n        </div>\n\n        <div class=\"amount-block\">\n          <div class=\"amount-label\">Amount due</div>\n          <div class=\"amount-value\">€1,210.00</div>\n          <div class=\"due-chip\">\n            <svg width=\"13\" height=\"13\" viewBox=\"0 0 14 14\" fill=\"none\">\n              <rect x=\"1.5\" y=\"2.5\" width=\"11\" height=\"10\" rx=\"2\" stroke=\"#33465e\" stroke-width=\"1.3\"/>\n              <path d=\"M1.5 5.5h11M4.5 1v2.5M9.5 1v2.5\" stroke=\"#33465e\" stroke-width=\"1.3\" stroke-linecap=\"round\"/>\n            </svg>\n            Due 20 November 2026\n          </div>\n        </div>\n\n        <div class=\"kv\"><span class=\"k\">Invoice number</span><span class=\"v\">0042</span></div>\n        <div class=\"kv\"><span class=\"k\">Issue date</span><span class=\"v\">18 October 2026</span></div>\n        <div class=\"kv\"><span class=\"k\">Payment reference</span><span class=\"v\">NORTH-INV-0042</span></div>\n        <div class=\"kv\"><span class=\"k\">Payment method</span><span class=\"v\">SEPA credit transfer</span></div>\n\n        <div class=\"lines\">\n          <div class=\"lines-title\">Line items</div>\n          <div class=\"line-item\">\n            <span class=\"desc\">Brand identity design — phase 2<span class=\"qty\">× 1</span></span>\n            <span class=\"amt\">€800.00</span>\n          </div>\n          <div class=\"line-item\">\n            <span class=\"desc\">Illustration set, 12 assets<span class=\"qty\">× 1</span></span>\n            <span class=\"amt\">€200.00</span>\n          </div>\n        </div>\n\n        <div class=\"totals\">\n          <div class=\"tot-row\"><span>Subtotal</span><span>€1,000.00</span></div>\n          <div class=\"tot-row\"><span>VAT (21%)</span><span>€210.00</span></div>\n          <div class=\"tot-row grand\"><span>Total due</span><span>€1,210.00</span></div>\n        </div>\n\n      </div>\n    </section>\n\n    <!-- ======= Right: review & confirm ======= -->\n    <aside class=\"card review-card\">\n      <div class=\"card-head\">\n        <h2>Review this payment</h2>\n        <span class=\"badge blue\"><span class=\"dot\"></span>Step 2 of 3</span>\n      </div>\n      <div class=\"card-body\">\n\n        <div class=\"review-status\">\n          <svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\">\n            <circle cx=\"8\" cy=\"8\" r=\"6.5\" stroke=\"#8a5a00\" stroke-width=\"1.5\"/>\n            <path d=\"M8 4.8v3.7\" stroke=\"#8a5a00\" stroke-width=\"1.7\" stroke-linecap=\"round\"/>\n            <circle cx=\"8\" cy=\"11.2\" r=\"0.9\" fill=\"#8a5a00\"/>\n          </svg>\n          Not paid yet — nothing has left account ••4421.\n        </div>\n\n        <div class=\"check-list\">\n          <div class=\"check-item\">\n            <div class=\"check-ico\">\n              <svg width=\"11\" height=\"11\" viewBox=\"0 0 12 12\" fill=\"none\"><path d=\"M2 6.2L4.8 9 10 3.2\" stroke=\"#fff\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>\n            </div>\n            <div>\n              <div class=\"ct\">Supplier checked</div>\n              <div class=\"cd\">North Studio matches your saved supplier and their bank details are unchanged.</div>\n            </div>\n          </div>\n          <div class=\"check-item\">\n            <div class=\"check-ico\">\n              <svg width=\"11\" height=\"11\" viewBox=\"0 0 12 12\" fill=\"none\"><path d=\"M2 6.2L4.8 9 10 3.2\" stroke=\"#fff\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>\n            </div>\n            <div>\n              <div class=\"ct\">Amount checked</div>\n              <div class=\"cd\">€1,210.00 matches invoice 0042 exactly — €1,000.00 + €210.00 VAT. No duplicates found.</div>\n            </div>\n          </div>\n          <div class=\"check-item\">\n            <div class=\"check-ico\">\n              <svg width=\"11\" height=\"11\" viewBox=\"0 0 12 12\" fill=\"none\"><path d=\"M2 6.2L4.8 9 10 3.2\" stroke=\"#fff\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>\n            </div>\n            <div>\n              <div class=\"ct\">Due date checked</div>\n              <div class=\"cd\">Due 20 November 2026 — paying today avoids any late fee. Early payment is fine.</div>\n            </div>\n          </div>\n          <div class=\"check-item\">\n            <div class=\"check-ico\">\n              <svg width=\"11\" height=\"11\" viewBox=\"0 0 12 12\" fill=\"none\"><path d=\"M2 6.2L4.8 9 10 3.2\" stroke=\"#fff\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>\n            </div>\n            <div>\n              <div class=\"ct\">Account checked</div>\n              <div class=\"cd\">Business Current ••4421 has €18,432.75 available — comfortably covers this payment.</div>\n            </div>\n          </div>\n        </div>\n\n        <div class=\"acct-pill\">\n          <div class=\"acct-ico\"></div>\n          <div>\n            <div class=\"acct-name\">Business Current Account</div>\n            <div class=\"acct-num\">IE29 MELB 9900 0000 4421 &nbsp;·&nbsp; ending 4421</div>\n          </div>\n        </div>\n\n        <div class=\"pay-block\">\n          <div class=\"pay-row\"><span class=\"k\">Pay to</span><span class=\"v\">North Studio</span></div>\n          <div class=\"pay-row\"><span class=\"k\">Amount</span><span class=\"v\">€1,210.00</span></div>\n          <div class=\"pay-row\"><span class=\"k\">Transfer fee</span><span class=\"v\">€0.00</span></div>\n          <div class=\"pay-row\"><span class=\"k\">Arrival</span><span class=\"v\">Within 1 business day</span></div>\n          <div class=\"pay-row total\"><span>Debit from ••4421</span><span>€1,210.00</span></div>\n        </div>\n\n        <button class=\"btn btn-primary\" type=\"button\">\n          <svg width=\"15\" height=\"15\" viewBox=\"0 0 16 16\" fill=\"none\">\n            <rect x=\"2.5\" y=\"7\" width=\"11\" height=\"7\" rx=\"1.5\" stroke=\"#fff\" stroke-width=\"1.4\"/>\n            <path d=\"M5 7V5a3 3 0 0 1 6 0v2\" stroke=\"#fff\" stroke-width=\"1.4\"/>\n          </svg>\n          Confirm payment of €1,210.00\n        </button>\n        <a class=\"btn btn-ghost\" href=\"#\">Cancel and go back</a>\n\n        <div class=\"safe-note\">\n          <svg width=\"14\" height=\"14\" viewBox=\"0 0 14 14\" fill=\"none\">\n            <path d=\"M7 1l5 2v3.5c0 3-2.1 5-5 5.5-2.9-.5-5-2.5-5-5.5V3l5-2z\" stroke=\"#6b7c93\" stroke-width=\"1.2\" stroke-linejoin=\"round\"/>\n          </svg>\n          <span>This is a review step only. The payment will be scheduled only after you press confirm and complete sign-in. You can cancel any time before that.</span>\n        </div>\n\n        <div class=\"review-foot\">Demo data — no real payment is made.</div>\n\n      </div>\n    </aside>\n\n  </div>\n</main>\n\n<footer>\n  <div class=\"foot-inner\">\n    <span>Meridian Bank plc (fictional demo) · 12 Exchange Square, Dublin 2</span>\n    <span>Secure review session · Expires in 14:32</span>\n  </div>\n</footer>\n\n</body>\n</html>",
+      "elapsedMs": 97525,
+      "usage": {
+        "input": 181,
+        "output": 7458,
+        "total": 7639,
+        "cost": 0
+      },
+      "finishReason": "stop",
+      "measures": {
+        "desktop": {
+          "width": 1280,
+          "words": 284,
+          "paragraphWords": 20,
+          "controls": 9,
+          "unnamed": 0,
+          "clipped": 0,
+          "actionControls": 1,
+          "headings": 3,
+          "overflowX": false,
+          "facts": [
+            {
+              "id": "supplier",
+              "label": "North Studio",
+              "visible": true
+            },
+            {
+              "id": "amount",
+              "label": "€1,210.00",
+              "visible": true
+            },
+            {
+              "id": "due",
+              "label": "20 November 2026",
+              "visible": true
+            },
+            {
+              "id": "destination",
+              "label": "Account ending 4421",
+              "visible": true
+            },
+            {
+              "id": "consequence",
+              "label": "No payment / simulation note",
+              "visible": true
+            }
+          ]
+        },
+        "mobile": {
+          "width": 390,
+          "words": 273,
+          "paragraphWords": 20,
+          "controls": 4,
+          "unnamed": 0,
+          "clipped": 0,
+          "actionControls": 1,
+          "headings": 3,
+          "overflowX": false,
+          "facts": [
+            {
+              "id": "supplier",
+              "label": "North Studio",
+              "visible": true
+            },
+            {
+              "id": "amount",
+              "label": "€1,210.00",
+              "visible": true
+            },
+            {
+              "id": "due",
+              "label": "20 November 2026",
+              "visible": true
+            },
+            {
+              "id": "destination",
+              "label": "Account ending 4421",
+              "visible": true
+            },
+            {
+              "id": "consequence",
+              "label": "No payment / simulation note",
+              "visible": true
+            }
+          ]
+        }
+      },
+      "screenshot": "./runs/invoice-longcat-2-5-free-before.png"
+    },
+    "after": {
+      "label": "With harness",
+      "html": "<!DOCTYPE html>\n<html lang=\"en\">\n<head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'none'; img-src data:; style-src 'unsafe-inline'; font-src data:; script-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'\">\n\n\n<title>Review payment · Invoice 0042 · Meridian Bank</title>\n<style>\n  :root{\n    --bg:#0a1017;\n    --shell:#0d141d;\n    --panel:#111b29;\n    --panel-2:#0e1622;\n    --line:#223448;\n    --line-soft:#1a2939;\n    --ink:#e9f0f8;\n    --muted:#93a6bc;\n    --faint:#6b7f97;\n    --accent:#3ecf8e;\n    --accent-ink:#04180d;\n    --radius:14px;\n  }\n  *{box-sizing:border-box}\n  html,body{margin:0;padding:0}\n  body{\n    background:var(--bg);\n    color:var(--ink);\n    font-family:ui-sans-serif,system-ui,-apple-system,\"Segoe UI\",Roboto,\"Helvetica Neue\",Arial,sans-serif;\n    font-size:16px;\n    line-height:1.5;\n    -webkit-font-smoothing:antialiased;\n    font-variant-numeric:tabular-nums;\n    min-height:100vh;\n    display:flex;\n    flex-direction:column;\n  }\n  a{color:inherit}\n  :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}\n\n  /* ---------- Header ---------- */\n  .topbar{\n    display:flex;align-items:center;gap:28px;\n    padding:0 24px;height:60px;\n    background:var(--shell);\n    border-bottom:1px solid var(--line-soft);\n    flex:0 0 auto;\n  }\n  .brand{display:flex;align-items:center;gap:11px;flex:0 0 auto}\n  .brand .mark{\n    width:32px;height:32px;border-radius:9px;\n    background:#152232;border:1px solid var(--line);\n    display:flex;align-items:center;justify-content:center;\n  }\n  .brand-text{display:flex;flex-direction:column;line-height:1.15}\n  .brand-text strong{font-size:.95rem;font-weight:700;letter-spacing:.01em}\n  .brand-text small{font-size:.72rem;color:var(--faint)}\n  .mainnav{display:flex;gap:4px;margin-left:8px}\n  .mainnav a{\n    text-decoration:none;color:var(--muted);\n    font-size:.86rem;padding:8px 12px;border-radius:8px;\n  }\n  .mainnav a:hover{color:var(--ink);background:#152232}\n  .biz{margin-left:auto;display:flex;align-items:center;gap:10px}\n  .biz-name{font-size:.86rem;color:var(--muted)}\n  .biz-badge{\n    width:30px;height:30px;border-radius:50%;\n    background:#1b2c40;border:1px solid var(--line);\n    color:var(--ink);font-size:.72rem;font-weight:700;\n    display:flex;align-items:center;justify-content:center;\n    letter-spacing:.02em;\n  }\n\n  /* ---------- Main ---------- */\n  .wrap{\n    width:100%;max-width:1200px;margin:0 auto;\n    padding:22px 24px 40px;flex:1 0 auto;\n  }\n  .crumbs{\n    display:flex;align-items:center;gap:8px;\n    font-size:.8rem;color:var(--faint);margin-bottom:14px;\n  }\n  .crumbs a{text-decoration:none;color:var(--muted)}\n  .crumbs a:hover{color:var(--ink);text-decoration:underline}\n  .crumbs .sep{color:#3a4c63}\n  .crumbs .here{color:var(--muted)}\n\n  .intro{display:flex;align-items:baseline;gap:20px;flex-wrap:wrap;margin-bottom:20px}\n  h1{\n    font-size:clamp(1.5rem,2.4vw,1.9rem);\n    font-weight:750;letter-spacing:-.015em;margin:0;\n  }\n  .intro p{margin:0;color:var(--muted);font-size:.95rem;max-width:52ch}\n\n  .layout{\n    display:grid;\n    grid-template-columns:minmax(0,7fr) minmax(0,5fr);\n    gap:24px;align-items:start;\n  }\n\n  /* ---------- Document ---------- */\n  .doc{\n    background:var(--panel);\n    border:1px solid var(--line);\n    border-radius:var(--radius);\n    padding:26px 28px 24px;\n  }\n  .doc-head{\n    display:flex;justify-content:space-between;align-items:flex-start;\n    gap:18px;flex-wrap:wrap;\n    padding-bottom:18px;border-bottom:1px solid var(--line-soft);\n  }\n  .doc-supplier{display:flex;gap:14px;align-items:flex-start}\n  .avatar{\n    width:44px;height:44px;border-radius:11px;flex:0 0 auto;\n    background:#1b2c40;border:1px solid var(--line);\n    display:flex;align-items:center;justify-content:center;\n    font-weight:700;font-size:.9rem;letter-spacing:.03em;\n  }\n  .supplier-name{font-size:1.2rem;font-weight:700;letter-spacing:-.01em}\n  .supplier-meta{color:var(--faint);font-size:.82rem;margin-top:3px;line-height:1.45}\n  .doc-ref{text-align:right}\n  .doc-ref .label{\n    display:block;font-size:.7rem;text-transform:uppercase;\n    letter-spacing:.1em;color:var(--faint);\n  }\n  .doc-ref .value{font-size:1.25rem;font-weight:700;margin-top:2px}\n\n  .doc-meta{\n    display:grid;grid-template-columns:repeat(2,minmax(0,1fr));\n    gap:10px 24px;margin:16px 0 4px;\n  }\n  .doc-meta > div{display:flex;justify-content:space-between;gap:12px;font-size:.86rem}\n  .doc-meta dt{color:var(--faint)}\n  .doc-meta dd{margin:0;color:var(--muted);text-align:right;overflow-wrap:anywhere}\n\n  .doc-lines{margin-top:14px;border-top:1px solid var(--line-soft)}\n  .line{\n    display:flex;justify-content:space-between;align-items:baseline;gap:16px;\n    padding:12px 0;border-bottom:1px solid var(--line-soft);\n    font-size:.92rem;\n  }\n  .line em{font-style:normal;color:var(--faint);font-size:.8rem;margin-left:6px}\n  .line .amt{white-space:nowrap;font-weight:600}\n\n  .doc-totals{margin-top:14px}\n  .doc-totals > div{\n    display:flex;justify-content:space-between;gap:16px;\n    padding:7px 0;font-size:.9rem;color:var(--muted);\n  }\n  .doc-totals .grand{\n    border-top:1px solid var(--line);\n    margin-top:8px;padding-top:14px;\n    color:var(--ink);font-weight:700;font-size:1.05rem;\n  }\n\n  /* ---------- Summary panel ---------- */\n  .panel{\n    background:var(--panel-2);\n    border:1px solid var(--line);\n    border-radius:var(--radius);\n    padding:24px 24px 20px;\n    display:flex;flex-direction:column;gap:16px;\n  }\n  .panel h2{\n    margin:0;font-size:.78rem;font-weight:700;\n    text-transform:uppercase;letter-spacing:.11em;color:var(--faint);\n  }\n  .facts{margin:0;display:flex;flex-direction:column}\n  .facts > div{\n    display:flex;justify-content:space-between;align-items:baseline;gap:16px;\n    padding:11px 0;border-bottom:1px solid var(--line-soft);\n  }\n  .facts dt{color:var(--muted);font-size:.82rem;flex:0 0 auto}\n  .facts dd{\n    margin:0;text-align:right;font-weight:600;font-size:.95rem;\n    overflow-wrap:anywhere;\n  }\n  .facts dd small{display:block;color:var(--faint);font-weight:400;font-size:.78rem;margin-top:2px}\n  .facts .amount dd{\n    font-size:clamp(2.1rem,3.2vw,3rem);\n    font-weight:750;letter-spacing:-.02em;line-height:1.05;\n  }\n  .facts .amount dt{padding-top:8px}\n  .facts .sub{\n    display:flex;justify-content:space-between;gap:16px;\n    padding:9px 0 0;font-size:.8rem;color:var(--faint);\n  }\n  .facts .sub span:last-child{color:var(--muted)}\n\n  .note{\n    display:flex;gap:10px;align-items:flex-start;\n    margin:0;font-size:.82rem;color:var(--muted);line-height:1.5;\n  }\n  .note svg{flex:0 0 auto;margin-top:2px}\n\n  .primary{\n    display:flex;align-items:center;justify-content:center;gap:9px;\n    width:100%;padding:15px 18px;\n    background:var(--accent);color:var(--accent-ink);\n    border:1px solid var(--accent);border-radius:11px;\n    font-size:1rem;font-weight:700;font-family:inherit;\n    cursor:pointer;letter-spacing:.005em;\n    transition:filter .15s ease;\n  }\n  .primary:hover{filter:brightness(1.08)}\n  .primary:active{filter:brightness(.95)}\n\n  .ghost{\n    text-align:center;font-size:.86rem;color:var(--muted);\n    text-decoration:none;padding:2px 0;\n  }\n  .ghost:hover{color:var(--ink);text-decoration:underline}\n\n  .demo{\n    margin:0;text-align:center;font-size:.74rem;color:var(--faint);\n  }\n\n  /* ---------- Footer ---------- */\n  footer{\n    flex:0 0 auto;\n    border-top:1px solid var(--line-soft);\n    background:var(--shell);\n  }\n  .foot{\n    max-width:1200px;margin:0 auto;padding:14px 24px;\n    display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;\n    font-size:.76rem;color:var(--faint);\n  }\n\n  /* ---------- Responsive ---------- */\n  @media (max-width:960px){\n    .layout{grid-template-columns:1fr}\n    .panel{order:-1}\n  }\n  @media (max-width:720px){\n    .mainnav{display:none}\n    .biz-name{display:none}\n    .topbar{gap:14px}\n    .wrap{padding:18px 16px 32px}\n    .doc{padding:20px 18px}\n    .doc-meta{grid-template-columns:1fr}\n    .doc-meta > div{align-items:baseline}\n    .doc-head{flex-direction:column}\n    .doc-ref{text-align:left}\n    .intro{gap:6px}\n    .intro p{font-size:.88rem}\n    .foot{flex-direction:column;gap:4px}\n  }\n  @media (prefers-reduced-motion: reduce){\n    *{transition:none !important}\n  }\n</style>\n</head>\n<body>\n\n<header class=\"topbar\">\n  <div class=\"brand\">\n    <span class=\"mark\" aria-hidden=\"true\">\n      <svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" fill=\"none\"><path d=\"M3 16V8l7-5 7 5v8\" stroke=\"#fff\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M1.5 16.5h17\" stroke=\"#fff\" stroke-width=\"1.8\" stroke-linecap=\"round\"/></svg>\n    </span>\n    <span class=\"brand-text\"><strong>Meridian Bank</strong><small>Business Banking</small></span>\n  </div>\n  <nav class=\"mainnav\" aria-label=\"Primary\">\n    <a href=\"#\">Dashboard</a>\n    <a href=\"#\">Payments</a>\n    <a href=\"#\">Accounts</a>\n    <a href=\"#\">Suppliers</a>\n    <a href=\"#\">History</a>\n  </nav>\n  <div class=\"biz\">\n    <span class=\"biz-name\">Café Lumen Ltd.</span>\n    <span class=\"biz-badge\" aria-hidden=\"true\">CL</span>\n  </div>\n</header>\n\n<main class=\"wrap\">\n\n  <nav class=\"crumbs\" aria-label=\"Breadcrumb\">\n    <a href=\"#\">Payments</a><span class=\"sep\" aria-hidden=\"true\">/</span>\n    <a href=\"#\">Scheduled payment</a><span class=\"sep\" aria-hidden=\"true\">/</span>\n    <span class=\"here\" aria-current=\"page\">Review</span>\n  </nav>\n\n  <div class=\"intro\">\n    <h1>Review payment</h1>\n    <p>Invoice 0042 from North Studio. Check the supplier, amount and due date before you confirm.</p>\n  </div>\n\n  <div class=\"layout\">\n\n    <section class=\"doc\" aria-label=\"Invoice 0042 document\">\n      <div class=\"doc-head\">\n        <div class=\"doc-supplier\">\n          <span class=\"avatar\" aria-hidden=\"true\">NS</span>\n          <div>\n            <div class=\"supplier-name\">North Studio</div>\n            <div class=\"supplier-meta\">14 Harbour Lane, Bristol BS1 5QA<br>VAT IE6384421N · Supplier since 2023</div>\n          </div>\n        </div>\n        <div class=\"doc-ref\">\n          <span class=\"label\">Invoice</span>\n          <span class=\"value\">0042</span>\n        </div>\n      </div>\n\n      <dl class=\"doc-meta\">\n        <div><dt>Invoice number</dt><dd>0042</dd></div>\n        <div><dt>Issue date</dt><dd>18 October 2026</dd></div>\n        <div><dt>Payment reference</dt><dd>NORTH-INV-0042</dd></div>\n        <div><dt>Payment method</dt><dd>SEPA credit transfer</dd></div>\n      </dl>\n\n      <div class=\"doc-lines\">\n        <div class=\"line\"><span>Brand identity design — phase 2<em>× 1</em></span><span class=\"amt\">€800.00</span></div>\n        <div class=\"line\"><span>Illustration set, 12 assets<em>× 1</em></span><span class=\"amt\">€200.00</span></div>\n      </div>\n\n      <div class=\"doc-totals\">\n        <div><span>Subtotal</span><span>€1,000.00</span></div>\n        <div><span>VAT (21%)</span><span>€210.00</span></div>\n        <div class=\"grand\"><span>Total due</span><span>€1,210.00</span></div>\n      </div>\n    </section>\n\n    <aside class=\"panel\" aria-label=\"Payment summary\">\n      <h2>Payment summary</h2>\n\n      <dl class=\"facts\">\n        <div><dt>Pay to</dt><dd>North Studio</dd></div>\n        <div class=\"amount\"><dt>Amount</dt><dd>€1,210.00</dd></div>\n        <div><dt>Due</dt><dd>20 November 2026</dd></div>\n        <div><dt>From account</dt><dd>Business Current Account<small>IE29 MELB 9900 0000 4421 · ending 4421</small></dd></div>\n      </dl>\n\n      <div class=\"facts\" style=\"border-bottom:none\">\n        <div class=\"sub\"><span>Arrival</span><span>Within 1 business day</span></div>\n        <div class=\"sub\"><span>Transfer fee</span><span>€0.00</span></div>\n      </div>\n\n      <p class=\"note\">\n        <svg width=\"14\" height=\"14\" viewBox=\"0 0 16 16\" fill=\"none\" aria-hidden=\"true\"><rect x=\"2.5\" y=\"7\" width=\"11\" height=\"7\" rx=\"1.5\" stroke=\"#93a6bc\" stroke-width=\"1.4\"/><path d=\"M5 7V5a3 3 0 0 1 6 0v2\" stroke=\"#93a6bc\" stroke-width=\"1.4\"/></svg>\n        <span>Review only. Nothing leaves account ••4421 until you confirm and complete sign-in. You can cancel any time before that.</span>\n      </p>\n\n      <button type=\"button\" class=\"primary\" data-primary>\n        <svg width=\"15\" height=\"15\" viewBox=\"0 0 16 16\" fill=\"none\" aria-hidden=\"true\"><rect x=\"2.5\" y=\"7\" width=\"11\" height=\"7\" rx=\"1.5\" stroke=\"currentColor\" stroke-width=\"1.5\"/><path d=\"M5 7V5a3 3 0 0 1 6 0v2\" stroke=\"currentColor\" stroke-width=\"1.5\"/></svg>\n        Review payment\n      </button>\n\n      <a class=\"ghost\" href=\"#\">Cancel and go back</a>\n      <p class=\"demo\">Demo data · No real payment is made.</p>\n    </aside>\n\n  </div>\n</main>\n\n<footer>\n  <div class=\"foot\">\n    <span>Meridian Bank plc (fictional demo) · 12 Exchange Square, Dublin 2</span>\n    <span>Secure review session · Expires in 14:32</span>\n  </div>\n</footer>\n\n</body>\n</html>",
+      "elapsedMs": 159881,
+      "usage": {
+        "input": 3194,
+        "output": 10883,
+        "total": 14077,
+        "cost": 0
+      },
+      "finishReason": "stop",
+      "measures": {
+        "desktop": {
+          "width": 1280,
+          "words": 173,
+          "paragraphWords": 42,
+          "controls": 9,
+          "unnamed": 0,
+          "clipped": 0,
+          "actionControls": 1,
+          "headings": 2,
+          "overflowX": false,
+          "facts": [
+            {
+              "id": "supplier",
+              "label": "North Studio",
+              "visible": true
+            },
+            {
+              "id": "amount",
+              "label": "€1,210.00",
+              "visible": true
+            },
+            {
+              "id": "due",
+              "label": "20 November 2026",
+              "visible": true
+            },
+            {
+              "id": "destination",
+              "label": "Account ending 4421",
+              "visible": true
+            },
+            {
+              "id": "consequence",
+              "label": "No payment / simulation note",
+              "visible": true
+            }
+          ]
+        },
+        "mobile": {
+          "width": 390,
+          "words": 165,
+          "paragraphWords": 42,
+          "controls": 4,
+          "unnamed": 0,
+          "clipped": 0,
+          "actionControls": 1,
+          "headings": 2,
+          "overflowX": false,
+          "facts": [
+            {
+              "id": "supplier",
+              "label": "North Studio",
+              "visible": true
+            },
+            {
+              "id": "amount",
+              "label": "€1,210.00",
+              "visible": true
+            },
+            {
+              "id": "due",
+              "label": "20 November 2026",
+              "visible": true
+            },
+            {
+              "id": "destination",
+              "label": "Account ending 4421",
+              "visible": true
+            },
+            {
+              "id": "consequence",
+              "label": "No payment / simulation note",
+              "visible": true
+            }
+          ]
+        }
+      },
+      "screenshot": "./runs/invoice-longcat-2-5-free-after.png"
+    }
+  },
+  "limitations": "A single recorded run. The harness pass receives the brief and rules; it does not run a coding-agent repair loop or a usability study."
+}

@@ -33,6 +33,7 @@ const ingest=!!(ingestBefore&&ingestAfter);
 const modelFilter=args.includes('--models')?args[args.indexOf('--models')+1].split(',').map(s=>s.trim()).filter(Boolean):null;
 const presetFilter=args.includes('--presets')?args[args.indexOf('--presets')+1].split(',').map(s=>s.trim()).filter(Boolean):null;
 const maxTokens=Number(process.env.LAB_MAX_TOKENS??32000);
+const requestTimeout=Number(process.env.LAB_REQUEST_TIMEOUT??300000);
 const temperature=0.3;
 
 const MODELS=[
@@ -52,8 +53,9 @@ for(const candidate of chromeCandidates){if(await access(candidate).then(()=>tru
 if(!chrome){console.error('Chrome not found. Set CHROME_BIN to a Chrome executable. No browser was downloaded.');process.exit(1);}
 if(!token){console.error('Set OPENCODE_API_KEY or OPENCODE_TOKEN. The key is only read from the environment.');process.exit(1);}
 
-const pack=validatePack(await readJSON(path.join(root,'packs/studio/pack.json')));
+const pack=validatePack(await readJSON(path.join(root,'packs/atelier/pack.json')));
 const presets=await readJSON(path.join(root,'demo/presets.json'));
+let gallery=null;try{gallery=await readJSON(path.join(root,'gallery/templates.json'));}catch{}
 const measurementSource=(await readFile(path.join(root,'demo/measure.mjs'),'utf8')).replace(/^export /gm,'');
 const emptyMemory={schema:'design-harness.memory/1',decisions:[]};
 const workRoot=await mkdtemp(path.join(os.tmpdir(),'functional-minimalism-lab-'));
@@ -80,12 +82,12 @@ async function callOpenCode(model,messages,session){
   for(let attempt=1;attempt<=2;attempt++){
     const started=Date.now();
     const controller=new AbortController();
-    const timeout=setTimeout(()=>controller.abort(),300000);
+    const timeout=setTimeout(()=>controller.abort(),requestTimeout);
     try{
       const response=await fetch(`${model.base}/chat/completions`,{
         method:'POST',
         headers:{'content-type':'application/json',authorization:`Bearer ${token}`,'x-opencode-session':session},
-        body:JSON.stringify({model:model.id,messages:openCodeMessages(messages),max_tokens:maxTokens,temperature,stream:false,...(model.id==='hy4-flash-free'?{reasoning_effort:'low'}:{})}),
+        body:JSON.stringify({model:model.id,messages:openCodeMessages(messages),max_tokens:maxTokens,temperature,stream:false,...(model.id==='hy4-flash-free'||model.id.includes('qwen')?{reasoning_effort:'low'}:{})}),
         signal:controller.signal
       });
       const text=await response.text();
@@ -158,6 +160,8 @@ try{
     preset.contractData=await readJSON(contractPath);
     const contract=contractFor(preset);
     const brief=composeBrief(pack,contract,emptyMemory,{compact:true});
+    const fixtureText=preset.fixture?await readFile(path.resolve(root,'demo',preset.fixture),'utf8'):null;
+    const request=`${preset.prompt}${fixtureText?`\n\nUse this fictional data exactly. Do not invent or change facts:\n\`\`\`json\n${fixtureText.trim()}\n\`\`\``:''}`;
     for(const model of MODELS){
       const id=runSlug({preset:preset.id,model:model.id});
       const runFile=path.join(outDir,`${id}.json`);
@@ -177,10 +181,10 @@ try{
           harness={text:await readFile(ingestAfter,'utf8'),elapsedMs:null,usage:null,finishReason:null};
         }else{
           console.log('  baseline');
-          baseline=await callOpenCode(model,buildBaselineMessages(preset.prompt),`${session}-before`);
+          baseline=await callOpenCode(model,buildBaselineMessages(request),`${session}-before`);
           const beforePrompt=contentOnlyHTML(sanitizeHTML(extractHTML(baseline.text)));
           console.log(`  harness (${baseline.elapsedMs}ms, ${baseline.text.length} chars)`);
-          harness=await callOpenCode(model,buildHarnessMessages({prompt:preset.prompt,beforeHTML:beforePrompt,brief,guidance:preset.guidance,outline:true}),`${session}-after`);
+          harness=await callOpenCode(model,buildHarnessMessages({prompt:request,beforeHTML:beforePrompt,brief,guidance:preset.guidance,style:preset.style,gallery,outline:true}),`${session}-after`);
         }
         const beforeHTML=sanitizeHTML(extractHTML(baseline.text));
         const afterHTML=sanitizeHTML(extractHTML(harness.text));
@@ -195,9 +199,10 @@ try{
           preset:preset.id,
           presetLabel:preset.label,
           prompt:preset.prompt,
+          fixture:preset.fixture??null,
           createdAt:new Date().toISOString(),
           model:{id:model.id,label:model.label,provider:model.provider,via:model.via,free:model.free},
-          harness:{pack:`${pack.id}@${pack.version}`,brief:true,conditions:['model default','same model with harness brief']},
+          harness:{pack:`${pack.id}@${pack.version}`,gallery:gallery?.version??null,brief:true,conditions:['model default','same model with harness brief']},
           conditions:{
             before:{label:'Model default',html:beforeHTML,elapsedMs:baseline.elapsedMs,usage:compactUsage(baseline.usage),finishReason:baseline.finishReason,measures:beforeMeasures,screenshot:`./runs/${id}-before.png`},
             after:{label:'With harness',html:afterHTML,elapsedMs:harness.elapsedMs,usage:compactUsage(harness.usage),finishReason:harness.finishReason,measures:afterMeasures,screenshot:`./runs/${id}-after.png`}

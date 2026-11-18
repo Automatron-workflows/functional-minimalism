@@ -107,7 +107,7 @@ export function buildBaselineMessages(prompt) {
   };
 }
 
-export function buildHarnessMessages({ prompt, beforeHTML, brief, rules, pack, guidance, outline }) {
+export function buildHarnessMessages({ prompt, beforeHTML, brief, rules, pack, guidance, style, gallery, outline }) {
   const parts = [
     'You are applying Functional Minimalism, a design harness for AI-built interfaces, to a model-generated screen.',
     'Rebuild the same screen so it follows the rules and brief below. Preserve every factual detail, label, value, permission, consequence and recovery path from the user request and the current HTML. Do not invent data. Keep the product\'s own character, palette and typography; do not replace them with a generic theme.',
@@ -116,6 +116,12 @@ export function buildHarnessMessages({ prompt, beforeHTML, brief, rules, pack, g
   ];
   if (outline) parts.push('The current HTML is a content and structure outline. Its presentational CSS is intentionally omitted; rebuild the visual design from the brief and the model\'s existing character.');
   if (guidance?.length) parts.push(`## Task guidance\n${guidance.map(item => `- ${item}`).join('\n')}`);
+  if (style?.length) parts.push(`## Visual system\n${style.map(item => `- ${item}`).join('\n')}`);
+  if (gallery?.components?.length) {
+    const tokens = gallery.tokens ? Object.entries(gallery.tokens).map(([key, value]) => `${key}: ${value}`).join('; ') : '';
+    const components = gallery.components.map(component => `### ${component.name} (${component.category})\nCSS: ${component.css}\nHTML: ${component.html}\nRules: ${component.rules.join(' ')}`).join('\n\n');
+    parts.push(`## Approved component gallery\nUse these exact components, structures and styles. Do not invent a new visual language. Reuse the approved tokens: ${tokens}.\n\n${components}`);
+  }
   if (rules) parts.push(`## Design rules\n${String(rules).trim()}`);
   if (brief) parts.push(`## Screen brief\n${String(brief).trim()}`);
   if (pack?.principles?.length) parts.push(`## Pack principles\n${pack.principles.map(item => `- ${item}`).join('\n')}`);

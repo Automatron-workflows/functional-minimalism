@@ -35,11 +35,13 @@ flowchart TD
 
 The landing page is a demonstration layer, not part of the harness runtime.
 
-- **Recorded mode** reads `demo/runs/index.json`, four run JSON files and their rendered screenshots. Each run stores the model, prompt, first-draft HTML, harness-pass HTML and measured output at 1280px and 390px.
-- **First draft** is a single provider call with a neutral output contract. It receives no brief, design pack or Functional Minimalism rules.
-- **Harness pass** is a second call with the same model. It receives the compact brief produced by `composeBrief`, invoice task guidance, the Functional Minimalism principles and a content-only outline of the first draft. CSS is deliberately omitted so the pass rebuilds composition instead of copying the draft.
-- **Live mode** is bring-your-own-key. The browser calls OpenAI, Anthropic or OpenRouter directly; there is no proxy. With OpenRouter, up to four free models run the same two passes with a concurrency of two. Partial results and per-model failures are shown.
-- **Rendered measures** are a heuristic: visible words, paragraph words, controls, unnamed controls, clipped controls, action-labelled controls, headings, horizontal overflow and required facts. They are not the CLI audit and do not certify usability or accessibility.
+- **Recorded mode** reads `demo/runs/index.json`, four run JSON files and their rendered screenshots. Each run stores the model, prompt, first-draft HTML, harness-pass HTML and measured output at 1280px and 390px. LongCat 2.5 is the approved default; the other three runs are the benchmark.
+- **First draft** is a single provider call with a neutral output contract and the invoice fixture. It receives no brief, design pack or Functional Minimalism rules.
+- **Harness pass** is a second call with the same model. It receives the Atelier compact brief from `composeBrief`, invoice task guidance, the explicit Atelier visual system, the approved component gallery and a content-only outline of the first draft. CSS is deliberately omitted so the pass rebuilds composition instead of copying the draft.
+- **Approved gallery** is `gallery/templates.json`: manually reviewed HTML/CSS components with approval, provenance and MIT license. The live pass includes it; the hosted `/gallery/` page renders it. A downloaded proposal must be reviewed before it is merged.
+- **Live mode** is bring-your-own-key. The browser calls OpenAI, Anthropic or OpenRouter directly; there is no proxy. One design is generated from the approved gallery. The result is rendered in a sandboxed iframe.
+- **Rendered measures** are a heuristic: visible words, paragraph words, controls, unnamed controls, clipped controls, action-labelled controls, headings, horizontal overflow, required facts, type/colour/radius counts, coverage, contrast, filled actions and visibility. The craft score is a separate transparent heuristic in `src/craft.mjs`.
+- **Benchmark** is `npm run benchmark:lab`: it measures the archived v0 runs and the current v1 runs, writes `docs/BENCHMARK.md` and `docs/benchmark.json`, and compares before/after deltas. It is not a beauty model or a human study.
 
 The lab does not run a coding agent, a repair loop or a controlled experiment. Recorded runs are single samples; see [the experiment](EXPERIMENT.md) for a real paired study.
 

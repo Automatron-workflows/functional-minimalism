@@ -1,0 +1,179 @@
+{
+  "schema": "design-harness.pack/1",
+  "id": "atelier",
+  "name": "Atelier reference",
+  "version": "1.0.0",
+  "source": {
+    "kind": "synthetic",
+    "reference": "Authored editorial reference system for the prompt lab; not a third-party brand or a copy of a proprietary design system",
+    "capturedAt": "2026-11-18"
+  },
+  "principles": [
+    "Art-directed restraint: compose like a design-led studio, not an enterprise dashboard.",
+    "One hero number, one primary action, one accent.",
+    "Warm paper canvas, white document, precise rules, generous whitespace.",
+    "Display serif for the amount and brand; system sans for the interface.",
+    "Remove explanatory copy; labels, values and consequences carry the screen.",
+    "Use an 8px spacing scale and at most six type sizes.",
+    "No gradients, glass, neon, emoji, decorative icons or fake window chrome.",
+    "Preserve every fact, label, value and consequence from the input data."
+  ],
+  "patterns": [
+    {
+      "id": "document-review",
+      "object": "Invoice",
+      "structure": [
+        "brand line",
+        "invoice document",
+        "line items",
+        "total",
+        "summary rail",
+        "amount",
+        "due date",
+        "destination",
+        "consequence",
+        "one primary action"
+      ],
+      "rules": [
+        "Use a warm canvas and a white document; the page is not a dashboard.",
+        "The amount is the largest element. The invoice number is a reference, not the hero.",
+        "Use two columns at 1280: document left, summary right, 64px gap. Use one column at 390.",
+        "Wrap the page in a centered container with max-width 1120px, margin 0 auto and 48px horizontal padding. Use 24px horizontal padding at 390; the summary must never touch the viewport edge.",
+        "Use the accent only for the primary action and one small status.",
+        "Remove checklists, AI summaries, marketing copy, feature tours and repeated totals.",
+        "Keep one enabled primary action visible in the first 800px and at most one quiet secondary link.",
+        "Use 14px body text, 11px uppercase labels, and a 72px amount with tabular numerals.",
+        "Use spacing and a 1px line, not heavy dividers; one soft shadow on the document."
+      ]
+    }
+  ],
+  "tokens": {
+    "color.canvas": { "type": "color", "value": "#F4F0E8" },
+    "color.surface": { "type": "color", "value": "#FFFFFF" },
+    "color.raised": { "type": "color", "value": "#FBF8F2" },
+    "color.text": { "type": "color", "value": "#171614" },
+    "color.muted": { "type": "color", "value": "#6D6860" },
+    "color.line": { "type": "color", "value": "#E5DED2" },
+    "color.accent": { "type": "color", "value": "#1F5B46" },
+    "color.onaccent": { "type": "color", "value": "#FFFFFF" },
+    "color.focus": { "type": "color", "value": "{color.accent}" },
+    "color.success": { "type": "color", "value": "#2F7A5C" },
+    "color.danger": { "type": "color", "value": "#B4452F" },
+    "color.terracotta": { "type": "color", "value": "#B45309" },
+    "color.paper": { "type": "color", "value": "#FFFDF9" },
+    "color.ink": { "type": "color", "value": "#1B1A17" },
+    "color.paperline": { "type": "color", "value": "#E3DCCF" },
+    "color.overlay": { "type": "color", "value": "#171614cc" },
+    "color.scrim": { "type": "color", "value": "#17161466" },
+    "color.shadow": { "type": "color", "value": "#1B1A1714" },
+    "font.body": { "type": "font", "value": "Inter, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif" },
+    "font.display": { "type": "font", "value": "Iowan Old Style, Palatino, Palatino Linotype, Georgia, serif" },
+    "font.mono": { "type": "font", "value": "SFMono-Regular, Consolas, monospace" },
+    "radius.small": { "type": "dimension", "value": "8px" },
+    "radius.medium": { "type": "dimension", "value": "14px" },
+    "radius.large": { "type": "dimension", "value": "24px" },
+    "space.unit": { "type": "dimension", "value": "8px" },
+    "motion.quick": { "type": "duration", "value": "180ms" },
+    "motion.reveal": { "type": "duration", "value": "420ms" }
+  },
+  "components": [
+    {
+      "name": "Button",
+      "source": "demo/components.mjs",
+      "export": "Button",
+      "variants": ["primary", "secondary", "light", "ghost"],
+      "states": ["default", "hover", "focus", "disabled"],
+      "rules": [
+        "Primary is deep green, 48px high, 8px radius. Only one per screen.",
+        "Secondary is a quiet text link or a 1px outline. Do not turn it into a second filled button."
+      ]
+    },
+    {
+      "name": "IconButton",
+      "source": "demo/components.mjs",
+      "export": "IconButton",
+      "variants": ["default"],
+      "states": ["default", "pressed", "focus"],
+      "rules": ["Provide an accessible name and a 44px target.", "Only use for familiar actions."]
+    },
+    {
+      "name": "SegmentedControl",
+      "source": "demo/components.mjs",
+      "export": "SegmentedControl",
+      "variants": ["default"],
+      "states": ["default", "selected", "focus"],
+      "rules": ["Name the group and expose aria-pressed.", "The selected state is a subtle filled surface, not a second primary."]
+    },
+    {
+      "name": "Poster",
+      "source": "demo/components.mjs",
+      "export": "Poster",
+      "variants": ["featured", "compact"],
+      "states": ["default", "saved"],
+      "rules": ["Keep title and metadata readable.", "Use CSS art, not external images."]
+    },
+    {
+      "name": "Field",
+      "source": "demo/components.mjs",
+      "export": "Field",
+      "variants": ["default"],
+      "states": ["default", "focus", "invalid"],
+      "rules": ["Keep a visible associated label.", "Show the error below the field."]
+    },
+    {
+      "name": "Dialog",
+      "source": "demo/components.mjs",
+      "export": "Dialog",
+      "variants": ["default"],
+      "states": ["open", "closed"],
+      "rules": ["Use native dialog.showModal(), Escape dismissal, and restore focus.", "Keep the facts and consequence visible."]
+    },
+    {
+      "name": "Status",
+      "source": "demo/components.mjs",
+      "export": "Status",
+      "variants": ["default", "success"],
+      "states": ["default"],
+      "rules": ["Use an 11px uppercase pill and pair color with text.", "Use the accent at most once."]
+    },
+    {
+      "name": "TaskRow",
+      "source": "demo/components.mjs",
+      "export": "TaskRow",
+      "variants": ["default", "complete"],
+      "states": ["default", "complete", "focus"],
+      "rules": ["Use a labelled native checkbox.", "Retain owner and due date."]
+    },
+    {
+      "name": "Receipt",
+      "source": "demo/components.mjs",
+      "export": "Receipt",
+      "variants": ["default"],
+      "states": ["default"],
+      "rules": [
+        "Use a white document, 14px radius, a 1px line and one soft shadow.",
+        "Use tabular numerals, clear line items and a total. Do not repeat the total in a second summary card."
+      ]
+    },
+    {
+      "name": "PaymentSummary",
+      "source": "demo/components.mjs",
+      "export": "PaymentSummary",
+      "variants": ["default"],
+      "states": ["default"],
+      "rules": [
+        "The amount is a 72px display serif with tabular numerals; it is the hero.",
+        "Show supplier, amount, due date, destination and consequence once.",
+        "Keep one enabled primary action. Do not add a checklist or a second summary card."
+      ]
+    },
+    {
+      "name": "EmptyState",
+      "source": "demo/components.mjs",
+      "export": "EmptyState",
+      "variants": ["empty", "error", "success"],
+      "states": ["empty", "error", "success"],
+      "rules": ["State what happened and provide one meaningful recovery action."]
+    }
+  ]
+}

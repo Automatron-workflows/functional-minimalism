@@ -9,7 +9,7 @@ export function createServer(){return http.createServer(async(req,res)=>{
   const url=new URL(req.url,'http://localhost');const pathname=decodeURIComponent(url.pathname);
   if(pathname==='/'){res.writeHead(302,{Location:'/demo/'});res.end();return;}
   if(pathname.split('/').some(p=>p.startsWith('.')||p.includes('\\'))){res.writeHead(403);res.end();return;}
-  if(!/^\/(demo|src|packs|examples|docs|references)\//.test(pathname)&&pathname!=='/README.md'&&pathname!=='/functional-minimalism-source.zip'){res.writeHead(404);res.end();return;}
+  if(!/^\/(demo|src|packs|examples|docs|references|gallery)\//.test(pathname)&&pathname!=='/README.md'&&pathname!=='/functional-minimalism-source.zip'){res.writeHead(404);res.end();return;}
   let target=pathname==='/functional-minimalism-source.zip'?path.join(root,'dist/functional-minimalism-source.zip'):path.resolve(root,'.'+pathname);if(pathname.endsWith('/'))target=path.join(target,'index.html');
   const resolved=await realpath(target);if(!resolved.startsWith(root+path.sep)){res.writeHead(403);res.end();return;}
   const info=await stat(resolved);if(!info.isFile()){res.writeHead(404);res.end();return;}

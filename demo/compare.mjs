@@ -13,7 +13,7 @@ const fmtMs=value=>Number.isFinite(value)?(value<1000?`${value}ms`:`${(value/100
 const truncate=(value,length=120)=>{const text=String(value??'').replace(/\s+/g,' ').trim();return text.length>length?`${text.slice(0,length-1)}…`:text;};
 const emptyMemory={schema:'design-harness.memory/1',decisions:[]};
 const STORE_KEY='functional-minimalism.lab.connection.v1';
-const state={presetId:'invoice',modelId:null,prompt:'',dirty:false,view:'before',run:null,live:null,liveRuns:[],liveTargets:[],liveStatus:new Map(),busy:false,connection:null,measureView:'desktop',abort:null,exportRun:null};
+const state={presetId:'invoice',modelId:null,prompt:'',dirty:false,view:'after',run:null,live:null,liveRuns:[],liveTargets:[],liveStatus:new Map(),busy:false,connection:null,measureView:'desktop',abort:null,exportRun:null};
 const liveThumbs=new Map();
 let data=null;
 let modelsForPreset=[];
@@ -21,7 +21,8 @@ let modelsForPreset=[];
 const prompt=$('#prompt'),frame=$('#frame'),models=$('#models'),source=$('#source'),runButton=$('#run'),runLabel=$('#run-label'),runStatus=$('#run-status'),liveModel=$('#live-model');
 const shotBefore=$('#shot-before'),shotAfter=$('#shot-after'),liveBefore=$('#live-before'),liveAfter=$('#live-after');
 const frameEmpty=$('#frame-empty'),frameLoading=$('#frame-loading'),loadingLabel=$('#loading-label'),cancelButton=$('#cancel');
-const measureGrid=$('#measure-grid'),metaList=$('#meta-list'),metaLimits=$('#meta-limits'),downloadRunButton=$('#download-run'),showRecordedButton=$('#show-recorded');
+const measureGrid=$('#measure-grid'),metaList=$('#meta-list'),metaLimits=$('#meta-limits'),downloadRunButton=$('#download-run'),approveRunButton=$('#approve-run'),showRecordedButton=$('#show-recorded');
+const fixtureNote=$('#fixture-note'),benchmarkNote=$('#benchmark-note'),benchmarkV1=$('#benchmark-v1'),benchmarkApproved=$('#benchmark-approved'),benchmarkV0=$('#benchmark-v0'),benchmarkCount=$('#benchmark-count'),benchmarkTotal=$('#benchmark-total');
 const headerConnect=$('#header-connect');
 
 function readStore(storage){try{const raw=storage.getItem(STORE_KEY);return raw?JSON.parse(raw):null;}catch{return null;}}
@@ -41,6 +42,8 @@ function modelLabel(id){const model=state.connection?.models?.find(item=>item.id
 function runFor(presetId,modelId){return data?.runs.find(item=>item.preset===presetId&&item.model.id===modelId)??null;}
 function defaultModelForPreset(presetId){
  const runs=(data?.runs??[]).filter(item=>item.preset===presetId);
+ const approved=data?.presets.presets.find(item=>item.id===presetId)?.approvedModel;
+ if(approved&&runs.some(run=>run.model.id===approved))return approved;
  const current=runs.find(item=>item.model.id===state.modelId);
  return current?.model.id??runs[0]?.model.id??null;
 }
@@ -55,24 +58,11 @@ function freeModelsFor(connection){
 }
 function liveTargetsFor(connection){
  if(!connection)return[];
- const free=freeModelsFor(connection);
- if(free.length){
-  const families=[/deepseek/i,/qwen/i,/gemma/i,/llama/i,/nemotron/i,/glm/i,/ernie/i,/dots/i,/cohere/i,/liquid/i,/mistral/i];
-  const selected=free.find(model=>model.id===connection.model);
-  const picked=selected?[selected]:[];
-  for(const family of families){
-   const model=free.find(candidate=>family.test(candidate.id)&&!picked.includes(candidate));
-   if(model)picked.push(model);
-   if(picked.length>=4)break;
-  }
-  for(const model of free){
-   if(picked.length>=4)break;
-   if(!picked.includes(model))picked.push(model);
-  }
-  return picked;
- }
  const selected=connection.models?.find(model=>model.id===connection.model);
- return [{id:connection.model,label:selected?.label??connection.model,free:!!selected?.free}];
+ if(selected)return [{id:selected.id,label:selected.label,free:!!selected.free}];
+ const free=freeModelsFor(connection);
+ const model=free[0];
+ return model?[{id:model.id,label:model.label,free:true}]:[{id:connection.model,label:connection.model,free:false}];
 }
 async function mapLimit(items,limit,worker){
  const results=new Array(items.length);let index=0;
@@ -97,56 +87,64 @@ async function fetchJSON(url){const response=await fetch(url);if(!response.ok)th
 async function loadData(){
  if(globalThis.__labData){
   const embedded=globalThis.__labData;
-  return {index:embedded.index,presets:embedded.presets,pack:validatePack(embedded.pack),contracts:embedded.contracts,runs:embedded.runs,rules:embedded.rules??''};
+  return {index:embedded.index,presets:embedded.presets,pack:validatePack(embedded.pack),contracts:embedded.contracts,fixtures:embedded.fixtures??{},runs:embedded.runs,benchmark:embedded.benchmark??null,gallery:embedded.gallery??null};
  }
  const index=await fetchJSON('./runs/index.json');
  const presetsDoc=await fetchJSON('./presets.json');
- const pack=validatePack(await fetchJSON('../packs/studio/pack.json'));
- const contracts={};
- for(const item of presetsDoc.presets)contracts[item.id]=validateContract(await fetchJSON(item.contract));
+ const pack=validatePack(await fetchJSON('../packs/atelier/pack.json'));
+ const contracts={},fixtures={};
+ for(const item of presetsDoc.presets){
+  contracts[item.id]=validateContract(await fetchJSON(item.contract));
+  if(item.fixture)fixtures[item.id]=await fetchJSON(item.fixture);
+ }
  const settled=await Promise.allSettled(index.runs.map(row=>fetchJSON(`./runs/${row.id}.json`)));
  const runs=settled.filter(result=>result.status==='fulfilled').map(result=>result.value);
- return {index,presets:presetsDoc,pack,contracts,runs};
+ let benchmark=null,gallery=null;
+ try{benchmark=await fetchJSON('../docs/benchmark.json');}catch{}
+ try{gallery=await fetchJSON('../gallery/templates.json');}catch{}
+ return {index,presets:presetsDoc,pack,contracts,fixtures,runs,benchmark,gallery};
 }
 
-function setPrompt(value,{dirty=false}={}){state.prompt=value;state.dirty=dirty;prompt.value=value;renderRunButton();renderSource();}
+function setPrompt(value,{dirty=false}={}){state.prompt=value;state.dirty=dirty;prompt.value=value;renderFixtureNote();renderRunButton();renderSource();}
+function renderFixtureNote(){if(fixtureNote)fixtureNote.hidden=state.dirty||!preset()?.fixture;}
 function renderPresetButtons(){for(const button of $$('[data-preset]'))button.setAttribute('aria-pressed',String(button.dataset.preset===state.presetId));}
 function renderRunButton(){
- const free=state.connection?.provider==='openrouter'?freeModelsFor(state.connection).length:0;
- const label=free>=4?'Generate 4 designs':free>1?'Generate designs':state.dirty?'Run this prompt':state.connection?'Run comparison':'Generate 4 designs';
- runLabel.textContent=state.busy?'Generating…':label;
+ runLabel.textContent=state.busy?'Generating…':state.dirty?'Run this prompt':'Generate design';
  runButton.disabled=state.busy;
  runButton.setAttribute('aria-busy',String(state.busy));
- runButton.title=free>1?`Generate ${Math.min(4,free)} free designs with OpenRouter models`:state.connection?'Run the prompt in this browser':'Connect a model to run your prompt';
+ runButton.title=state.connection?'Generate one design with the approved Atelier gallery':'Connect a model to generate a design';
 }
 function renderLiveModelLine(){
  liveModel.replaceChildren();
  if(state.connection){
-  const free=freeModelsFor(state.connection).length;
-  if(state.connection.provider==='openrouter'&&free>1){
-   const strong=document.createElement('strong');strong.textContent=`${Math.min(4,free)} free models`;
-   const change=document.createElement('button');change.type='button';change.className='connect-link';change.textContent='Change';
-   change.addEventListener('click',()=>openDialog('connect'));
-   liveModel.append('Run with ',strong,' · ',change);
-  }else{
-   const strong=document.createElement('strong');strong.textContent=modelLabel(state.connection.model);
-   const change=document.createElement('button');change.type='button';change.className='connect-link';change.textContent='Change';
-   change.addEventListener('click',()=>openDialog('connect'));
-   liveModel.append('Run with ',strong,' · ',change);
-  }
+  const strong=document.createElement('strong');strong.textContent=modelLabel(state.connection.model);
+  const change=document.createElement('button');change.type='button';change.className='connect-link';change.textContent='Change';
+  change.addEventListener('click',()=>openDialog('connect'));
+  liveModel.append('Run with ',strong,' · ',change);
  }else{
   const button=document.createElement('button');button.type='button';button.className='connect-link';button.textContent='Connect a model';
   button.addEventListener('click',()=>openDialog('connect'));
-  liveModel.append(button,' to generate four free designs.');
+  liveModel.append(button,' to generate one design with the approved gallery.');
  }
  headerConnect.textContent=state.connection?'Model connected':'Connect a model';
  headerConnect.classList.toggle('is-connected',!!state.connection);
 }
+function renderBenchmark(){
+ const summary=data?.benchmark?.summary;
+ if(!summary){benchmarkNote.hidden=true;return;}
+ benchmarkNote.hidden=false;
+ benchmarkV1.textContent=summary.v1After??'–';
+ const approvedId=preset()?.approvedModel;
+ const approvedRecord=data?.benchmark?.records?.find(record=>record.model.id===approvedId);
+ benchmarkApproved.textContent=approvedRecord?.v1?.after?.score?.score??'–';
+ benchmarkV0.textContent=summary.v0After??'–';
+ benchmarkCount.textContent=summary.improved??'–';
+ benchmarkTotal.textContent=summary.total??'–';
+}
 function renderSource(){
  if(state.live){
-  const count=state.liveRuns.length||1;
   const free=state.live.model.free?' · Free':'';
-  source.textContent=`Live · ${state.live.model.label} · ${count} design${count===1?'':'s'}${free}`;
+  source.textContent=`Live · ${state.live.model.label} · approved gallery${free}`;
   return;
  }
  if(!state.run){source.textContent='No run selected';return;}
@@ -179,19 +177,22 @@ function renderModels(){
  if(!modelsForPreset.length){
   const message=document.createElement('p');message.className='rail-empty';message.textContent='No recorded runs for this prompt.';models.append(message);return;
  }
- for(const model of modelsForPreset){
-  const run=runFor(state.presetId,model.id);
-  if(!run)continue;
+ const approvedId=preset()?.approvedModel??modelsForPreset[0]?.id;
+ const model=modelsForPreset.find(item=>item.id===approvedId)??modelsForPreset[0];
+ const run=runFor(state.presetId,model.id);
+ if(run){
   const button=document.createElement('button');button.type='button';button.className='model';button.dataset.model=model.id;
   button.setAttribute('aria-pressed',String(model.id===state.modelId));
-  button.setAttribute('aria-label',`Compare ${model.label}`);
+  button.setAttribute('aria-label','Compare the approved Atelier template');
   const thumb=document.createElement('img');thumb.className='thumb';thumb.src=run.conditions.after.screenshot;thumb.alt='';
-  const label=document.createElement('span');label.className='label';label.textContent=model.label;
-  const meta=document.createElement('span');meta.className='meta';meta.textContent=`${model.provider} · ${model.via??'recorded'}`;
+  const label=document.createElement('span');label.className='label';label.textContent='Atelier · approved';
+  const meta=document.createElement('span');meta.className='meta';meta.textContent=`${model.label} · ${model.via??'recorded'}`;
   button.append(thumb,label,meta);
   button.addEventListener('click',()=>selectModel(model.id));
   models.append(button);
  }
+ const benchmark=document.createElement('a');benchmark.className='rail-link';benchmark.href='../docs/BENCHMARK.md';benchmark.target='_blank';benchmark.rel='noreferrer';benchmark.textContent='Benchmark · 4 models';
+ models.append(benchmark);
 }
 function renderMeasureViewButtons(){for(const button of $$('[data-measure-view]'))button.setAttribute('aria-pressed',String(button.dataset.measureView===state.measureView));}
 function renderMeasures(){
@@ -260,11 +261,13 @@ function renderMeta(run){
  addMetaRow('First draft',`${fmtMs(before.elapsedMs)}${before.usage?.input!=null&&before.usage?.output!=null?` · ${fmtNumber(before.usage.input)} in / ${fmtNumber(before.usage.output)} out`:''}`);
  addMetaRow('Harness pass',`${fmtMs(after.elapsedMs)}${after.usage?.input!=null&&after.usage?.output!=null?` · ${fmtNumber(after.usage.input)} in / ${fmtNumber(after.usage.output)} out`:''}`);
  addMetaRow('Pack',run.harness?.pack??'Studio reference');
+ addMetaRow('Gallery',run.harness?.gallery?`Approved components v${run.harness.gallery}`:'Recorded Atelier v1');
  addMetaRow('Prompt',truncate(run.prompt,400));
  if(run.note)addMetaRow('Note',run.note);
  if(before.finishReason==='length'||after.finishReason==='length')addMetaRow('Warning','The provider stopped at its output limit. The rendered HTML may be incomplete.');
  metaLimits.textContent=run.limitations??'One run. Results vary by model, prompt and sampling. This is not a benchmark.';
  downloadRunButton.disabled=!run;
+ approveRunButton.disabled=!run;
  showRecordedButton.hidden=!live;
 }
 function applyView(){frame.dataset.view=state.view;for(const button of $$('[data-view]'))button.setAttribute('aria-pressed',String(button.dataset.view===state.view));}
@@ -308,7 +311,7 @@ function selectPreset(id,{announce=true}={}){
  if(!item)return;
  state.presetId=id;state.live=null;state.dirty=false;state.prompt=item.prompt;prompt.value=item.prompt;
  state.modelId=defaultModelForPreset(id);
- renderPresetButtons();renderModels();renderLiveModelLine();renderRunButton();renderSource();
+ renderPresetButtons();renderModels();renderLiveModelLine();renderFixtureNote();renderRunButton();renderSource();
  loadRunFor(id,state.modelId);
  if(announce)runStatus.textContent=`${item.label} prompt loaded.`;
 }
@@ -427,6 +430,12 @@ function factsForCurrentPrompt(){
  const item=preset();
  return item&&!state.dirty&&state.prompt.trim()===item.prompt.trim()?item.facts??[]:[];
 }
+function requestForPrompt(promptText){
+ const item=preset();
+ const fixture=data?.fixtures?.[item?.id];
+ if(!fixture||state.dirty)return promptText;
+ return `${promptText}\n\nUse this fictional data exactly. Do not invent or change facts:\n\`\`\`json\n${JSON.stringify(fixture,null,2)}\n\`\`\``;
+}
 function measureHTML(html,width,facts){
  return new Promise(resolve=>{
   const iframe=document.createElement('iframe');
@@ -452,18 +461,19 @@ async function generateOne(target,promptText,connection,rootController){
  const timer=setTimeout(()=>local.abort(),180000);
  const maxTokens=connection.provider==='openrouter'?32000:16000;
  const reasoningEffort=connection.provider==='openrouter'?'low':null;
+ const request=requestForPrompt(promptText);
  try{
   setStatus(target.id,'baseline');
-  const baseline=await requestProvider(connection.provider,{key:connection.key,model:target.id,messages:buildBaselineMessages(promptText),maxTokens,temperature:0.3,reasoningEffort,signal:local.signal});
+  const baseline=await requestProvider(connection.provider,{key:connection.key,model:target.id,messages:buildBaselineMessages(request),maxTokens,temperature:0.3,reasoningEffort,signal:local.signal});
   const beforeHTML=sanitizeHTML(extractHTML(baseline.text));
   setStatus(target.id,'harness');
-  const harness=await requestProvider(connection.provider,{key:connection.key,model:target.id,messages:buildHarnessMessages({prompt:promptText,beforeHTML:contentOnlyHTML(beforeHTML),brief:briefFor(promptText),guidance:guidanceForCurrentPrompt(),outline:true}),maxTokens,temperature:0.3,reasoningEffort,signal:local.signal});
+  const harness=await requestProvider(connection.provider,{key:connection.key,model:target.id,messages:buildHarnessMessages({prompt:request,beforeHTML:contentOnlyHTML(beforeHTML),brief:briefFor(promptText),guidance:guidanceForCurrentPrompt(),style:preset()?.style,gallery:data.gallery,outline:true}),maxTokens,temperature:0.3,reasoningEffort,signal:local.signal});
   const afterHTML=sanitizeHTML(extractHTML(harness.text));
   setStatus(target.id,'measuring');
   const facts=factsForCurrentPrompt();
   const [beforeDesktop,beforeMobile,afterDesktop,afterMobile]=await Promise.all([measureHTML(beforeHTML,1280,facts),measureHTML(beforeHTML,390,facts),measureHTML(afterHTML,1280,facts),measureHTML(afterHTML,390,facts)]);
   const item=preset();
-  const run={schema:'functional-minimalism.lab-run/1',id:`live-${target.id}-${Date.now()}`,preset:state.presetId,presetLabel:item?.label??'Custom prompt',prompt:promptText,createdAt:new Date().toISOString(),model:{id:target.id,label:target.label??modelLabel(target.id),provider:PROVIDERS[connection.provider]?.label??connection.provider,via:'Live browser call',free:!!target.free},harness:{pack:`${data.pack.id}@${data.pack.version}`,brief:true},conditions:{before:{label:'Model default',html:beforeHTML,elapsedMs:baseline.elapsedMs??null,usage:baseline.usage??null,finishReason:baseline.finishReason,measures:{desktop:beforeDesktop,mobile:beforeMobile},screenshot:null},after:{label:'With harness',html:afterHTML,elapsedMs:harness.elapsedMs??null,usage:harness.usage??null,finishReason:harness.finishReason,measures:{desktop:afterDesktop,mobile:afterMobile},screenshot:null}},limitations:'A single live run. The harness pass receives the brief and rules; it does not run a coding-agent repair loop. Results vary by model, prompt and sampling. This is not a benchmark.'};
+  const run={schema:'functional-minimalism.lab-run/1',id:`live-${target.id}-${Date.now()}`,preset:state.presetId,presetLabel:item?.label??'Custom prompt',prompt:promptText,fixture:item?.fixture??null,createdAt:new Date().toISOString(),model:{id:target.id,label:target.label??modelLabel(target.id),provider:PROVIDERS[connection.provider]?.label??connection.provider,via:'Live browser call',free:!!target.free},harness:{pack:`${data.pack.id}@${data.pack.version}`,gallery:data.gallery?.version??null,brief:true},conditions:{before:{label:'Model default',html:beforeHTML,elapsedMs:baseline.elapsedMs??null,usage:baseline.usage??null,finishReason:baseline.finishReason,measures:{desktop:beforeDesktop,mobile:beforeMobile},screenshot:null},after:{label:'With harness',html:afterHTML,elapsedMs:harness.elapsedMs??null,usage:harness.usage??null,finishReason:harness.finishReason,measures:{desktop:afterDesktop,mobile:afterMobile},screenshot:null}},limitations:'A single live run. The harness pass receives the brief, rules and approved Atelier gallery; it does not run a coding-agent repair loop. Results vary by model, prompt and sampling. This is not a benchmark.'};
   state.liveStatus.set(target.id,'done');
   state.liveRuns.push(run);
   if(!state.live)showLive(run);
@@ -479,7 +489,7 @@ async function generateOne(target,promptText,connection,rootController){
 }
 async function runComparison(){
  if(state.busy)return;
- if(!state.connection){runStatus.textContent='Connect a model to generate four designs.';openDialog('connect');return;}
+ if(!state.connection){runStatus.textContent='Connect a model to generate a design.';openDialog('connect');return;}
  const promptText=prompt.value.trim();
  if(!promptText){runStatus.textContent='Write a prompt first.';prompt.focus();return;}
  state.prompt=promptText;
@@ -487,25 +497,25 @@ async function runComparison(){
  state.dirty=!!item&&promptText!==item.prompt.trim();
  const connection=state.connection;
  const targets=liveTargetsFor(connection);
- if(!targets.length){runStatus.textContent='No models are available for this key.';return;}
+ if(!targets.length){runStatus.textContent='No model is available for this key.';return;}
  const previous={run:state.run,live:state.live,liveRuns:state.liveRuns,liveTargets:state.liveTargets};
  state.liveRuns=[];state.liveTargets=targets;state.live=null;state.liveStatus=new Map(targets.map(target=>[target.id,'queued']));liveThumbs.clear();
  const controller=new AbortController();state.abort=controller;
- setBusy(true,`Generating ${targets.length} design${targets.length===1?'':'s'}`);
- runStatus.textContent=targets.length>1?`Generating ${targets.length} designs. Each free model drafts the screen, then applies the same harness brief.`:`Generating one design with ${modelLabel(targets[0].id)}.`;
+ setBusy(true,'Generating your design');
+ runStatus.textContent=`Generating one design with ${modelLabel(targets[0].id)}. The first draft has no harness context; the second uses the approved Atelier gallery.`;
  renderModels();
  try{
-  const results=await mapLimit(targets,2,async target=>{
+  const results=await mapLimit(targets,1,async target=>{
    const run=await generateOne(target,promptText,connection,controller);
-   loadingLabel.textContent=`${state.liveRuns.length} of ${targets.length} designs ready`;
-   runStatus.textContent=`${state.liveRuns.length} of ${targets.length} designs ready.`;
+   loadingLabel.textContent='Design ready';
+   runStatus.textContent='Design ready. The first draft is under Before; the approved gallery result is under After.';
    return run;
   });
   const successes=results.filter(result=>result.status==='fulfilled').length;
   if(successes){
    state.view='after';applyView();renderModels();renderSource();updateURL();
    if(!state.live&&state.liveRuns[0])showLive(state.liveRuns[0]);
-   runStatus.textContent=controller.signal.aborted?`Cancelled. Keeping ${successes} of ${targets.length} finished designs.`:`${successes} of ${targets.length} designs ready. Select a model to compare.`;
+   runStatus.textContent=controller.signal.aborted?'Cancelled. Keeping the finished design.':'Design ready. The first draft is under Before; the approved gallery result is under After.';
   }else{
    state.liveRuns=previous.liveRuns;state.liveTargets=previous.liveTargets;state.live=previous.live;liveThumbs.clear();
    if(previous.live)showLive(previous.live);else if(previous.run)showRun(previous.run);else frameEmpty.hidden=false;
@@ -523,12 +533,22 @@ function downloadRun(){
  const link=document.createElement('a');link.href=url;link.download=`${run.preset??'screen'}-${run.model.id}-${state.live?'live':'recorded'}.json`;link.click();
  setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
+function approveRun(){
+ const run=currentRunForExport();if(!run)return;
+ const approvedAt=new Date().toISOString();
+ const proposal={schema:'functional-minimalism.gallery-proposal/1',approvedAt,model:run.model,prompt:run.prompt,fixture:run.fixture??null,harness:run.harness,measures:run.conditions.after.measures,html:run.conditions.after.html,note:'Review this render, extract reusable components, then merge them into gallery/templates.json with approval metadata.'};
+ try{const key='functional-minimalism.gallery.approvals.v1';const existing=JSON.parse(localStorage.getItem(key)??'[]');existing.push({...proposal,html:undefined});localStorage.setItem(key,JSON.stringify(existing));}catch{/* Storage can be unavailable. */}
+ const url=URL.createObjectURL(new Blob([JSON.stringify(proposal,null,2)],{type:'application/json'}));
+ const link=document.createElement('a');link.href=url;link.download=`gallery-proposal-${run.model.id}.json`;link.click();
+ setTimeout(()=>URL.revokeObjectURL(url),1000);
+ runStatus.textContent='Design saved in this browser. The downloaded proposal can be reviewed and merged into the hosted gallery.';
+}
 
 function wire(){
  prompt.addEventListener('input',()=>{
   state.prompt=prompt.value;
   const item=preset();state.dirty=!item||prompt.value.trim()!==item.prompt.trim();
-  renderRunButton();renderSource();
+  renderFixtureNote();renderRunButton();renderSource();
   if(state.dirty)runStatus.textContent='Your prompt has not been run. The recorded example stays visible until you run it with a connected model.';
   else runStatus.textContent='';
  });
@@ -541,6 +561,7 @@ function wire(){
  for(const button of $$('[data-next]'))button.addEventListener('click',()=>{closeDialog(button.closest('dialog'));openDialog(button.dataset.next);});
  for(const dialog of $$('dialog'))dialog.addEventListener('click',event=>{if(event.target===dialog)closeDialog(dialog);});
  downloadRunButton.addEventListener('click',downloadRun);
+ approveRunButton.addEventListener('click',approveRun);
  showRecordedButton.addEventListener('click',()=>{
   const item=preset();state.live=null;state.liveRuns=[];state.liveTargets=[];state.liveStatus.clear();liveThumbs.clear();state.dirty=false;state.prompt=item?.prompt??'';prompt.value=state.prompt;
   selectPreset(state.presetId,{announce:false});runStatus.textContent='Back to the recorded examples.';
@@ -585,11 +606,16 @@ function runSelfTest(){
  const before=state.run?.conditions.before.measures.desktop,after=state.run?.conditions.after.measures.desktop;
  check('measured words present',Number.isFinite(before?.words)&&Number.isFinite(after?.words));
  check('four recorded models',modelsForPreset.length>=4,`${modelsForPreset.length} models`);
+ check('approved template selected',state.run?.model.id===preset()?.approvedModel,state.run?.model.id??'none');
+ check('one approved rail card',document.querySelectorAll('#models .model').length===1);
+ check('benchmark note visible',!document.querySelector('#benchmark-note')?.hidden);
+ check('gallery link present',!!document.querySelector('a[href="../gallery/"]'));
  const originalModel=state.modelId;
  const other=modelsForPreset.find(model=>model.id!==state.modelId);
  if(other){selectModel(other.id,{announce:false});check('model switch loads a run',state.run?.model.id===other.id,state.run?.id??'none');selectModel(originalModel,{announce:false});}
  state.view='after';applyView();check('after view selected',frame.dataset.view==='after');
  state.view='before';applyView();check('before view selected',frame.dataset.view==='before');
+ state.view='after';applyView();
  const passed=results.filter(result=>result.pass).length,failed=results.length-passed;
  const output=document.createElement('script');output.id='lab-test-results';output.type='application/json';output.textContent=JSON.stringify({width:innerWidth,passed,failed,results});document.body.append(output);
  if(failed)document.documentElement.dataset.labTest='fail';
@@ -601,16 +627,15 @@ async function boot(){
   frameEmpty.hidden=false;frameEmpty.querySelector('p').textContent=`The recorded runs could not load: ${error.message}`;runButton.disabled=true;source.textContent='No runs loaded.';renderLiveModelLine();return;
  }
  state.runs=data.runs;
- const params=new URLSearchParams(location.search);
- const requestedPreset=params.get('preset');
+ const params=new URLSearchParams(location.search); const requestedPreset=params.get('preset');
  if(data.presets.presets.some(item=>item.id===requestedPreset))state.presetId=requestedPreset;
  const item=preset();
  state.prompt=item?.prompt??data.runs[0]?.prompt??'';
  prompt.value=state.prompt;
  state.modelId=params.get('model')??defaultModelForPreset(state.presetId);
- if(params.get('view')==='after')state.view='after';
+ state.view=params.get('view')==='before'?'before':'after';
  wire();
- renderPresetButtons();renderModels();renderLiveModelLine();renderRunButton();renderSource();renderMeasureViewButtons();applyView();
+ renderPresetButtons();renderModels();renderLiveModelLine();renderFixtureNote();renderRunButton();renderSource();renderMeasureViewButtons();applyView();renderBenchmark();
  loadRunFor(state.presetId,state.modelId);
  if(!state.run&&data.runs[0])showRun(data.runs[0]);
  if(params.has('selftest')||window.frameElement?.hasAttribute('data-selftest'))runSelfTest();

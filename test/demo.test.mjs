@@ -19,6 +19,10 @@ test('landing leads with an editable prompt and a recorded comparison',()=>{
  assert.match(html,/data-view="after"/);
  assert.match(html,/role="group" aria-label="Recorded models"/);
  assert.match(html,/id="connect"/);
+ assert.match(html,/Generate design/);
+ assert.match(html,/Approve this design/);
+ assert.match(html,/id="benchmark-note"/);
+ assert.match(html,/href="\.\.\/gallery\/"/);
  assert.ok(html.indexOf('id="prompt-form"')<html.indexOf('id="frame"'),'the prompt form must precede the comparison');
  assert.ok(html.indexOf('id="run-meta"')<html.indexOf('id="measure-grid"'),'measurements follow the run details');
  assert.ok(!html.includes('<figure class="before"'),'the authored SVG comparison must be gone');
@@ -28,10 +32,12 @@ test('landing leads with an editable prompt and a recorded comparison',()=>{
 test('the recorded set has four real model runs, each with a harness pass',()=>{
  assert.equal(presets.presets.length,1);
  assert.equal(presets.presets[0].id,'invoice');
+ assert.equal(presets.presets[0].approvedModel,'longcat-2.5-free');
  assert.ok(index.runs.length>=4,`expected at least 4 runs, got ${index.runs.length}`);
  assert.equal(new Set(index.runs.map(row=>row.model)).size,index.runs.length);
  for(const run of runFiles){
   assert.equal(run.schema,'functional-minimalism.lab-run/1');
+  assert.equal(run.harness.pack,'atelier@1.0.0');
   assert.ok(run.prompt.includes('North Studio'));
   for(const side of ['before','after']){
    const condition=run.conditions[side];

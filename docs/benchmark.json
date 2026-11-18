@@ -1,0 +1,3063 @@
+{
+  "schema": "functional-minimalism.lab-benchmark/1",
+  "generatedAt": "2026-11-18T09:38:15.725Z",
+  "sample": {
+    "models": 4,
+    "runsPerVersion": 4,
+    "viewport": [
+      1280,
+      390
+    ],
+    "prompt": "Review invoice 0042 from North Studio for €1,210.00, due 20 November 2026. The payment would leave account ending 4421. I want to check the supplier, amount and due date, then review the payment before anything happens. Use fictional data. No real payment."
+  },
+  "harness": {
+    "v0": "studio@0.2.0, generic rules",
+    "v1": "atelier@1.0.0, explicit visual system, invoice fixture, page container, text budget"
+  },
+  "records": [
+    {
+      "model": {
+        "id": "beam-free",
+        "label": "Beam",
+        "provider": "OpenCode Go",
+        "via": "Free",
+        "free": true
+      },
+      "v0": {
+        "before": {
+          "desktop": {
+            "width": 1280,
+            "words": 205,
+            "paragraphWords": 95,
+            "controls": 3,
+            "unnamed": 0,
+            "clipped": 0,
+            "actionControls": 2,
+            "headings": 1,
+            "overflowX": false,
+            "facts": [
+              {
+                "id": "supplier",
+                "label": "North Studio",
+                "visible": true
+              },
+              {
+                "id": "amount",
+                "label": "€1,210.00",
+                "visible": true
+              },
+              {
+                "id": "due",
+                "label": "20 November 2026",
+                "visible": true
+              },
+              {
+                "id": "destination",
+                "label": "Account ending 4421",
+                "visible": true
+              },
+              {
+                "id": "consequence",
+                "label": "No payment / simulation note",
+                "visible": true
+              }
+            ],
+            "typeSizes": 9,
+            "fontFamilies": 2,
+            "uniqueColors": 14,
+            "uniqueRadii": 4,
+            "maxFont": 26,
+            "bodyFont": 16,
+            "fontRatio": 1.63,
+            "coverage": 0.205,
+            "lowContrast": 9,
+            "filledActions": 2,
+            "primaryVisible": false,
+            "disabledPrimary": 0,
+            "shadowCount": 7,
+            "headingList": [
+              "Review payment"
+            ]
+          },
+          "mobile": {
+            "width": 390,
+            "words": 205,
+            "paragraphWords": 95,
+            "controls": 3,
+            "unnamed": 0,
+            "clipped": 0,
+            "actionControls": 2,
+            "headings": 1,
+            "overflowX": false,
+            "facts": [
+              {
+                "id": "supplier",
+                "label": "North Studio",
+                "visible": true
+              },
+              {
+                "id": "amount",
+                "label": "€1,210.00",
+                "visible": true
+              },
+              {
+                "id": "due",
+                "label": "20 November 2026",
+                "visible": true
+              },
+              {
+                "id": "destination",
+                "label": "Account ending 4421",
+                "visible": true
+              },
+              {
+                "id": "consequence",
+                "label": "No payment / simulation note",
+                "visible": true
+              }
+            ],
+            "typeSizes": 9,
+            "fontFamilies": 2,
+            "uniqueColors": 14,
+            "uniqueRadii": 4,
+            "maxFont": 22,
+            "bodyFont": 16,
+            "fontRatio": 1.38,
+            "coverage": 0.342,
+            "lowContrast": 9,
+            "filledActions": 2,
+            "primaryVisible": false,
+            "disabledPrimary": 0,
+            "shadowCount": 7,
+            "headingList": [
+              "Review payment"
+            ]
+          },
+          "score": {
+            "score": 43.7,
+            "breakdown": [
+              {
+                "key": "text",
+                "label": "text",
+                "value": 0.292,
+                "weight": 15,
+                "points": 4.4
+              },
+              {
+                "key": "paragraph",
+                "label": "paragraph",
+                "value": 0,
+                "weight": 5,
+                "points": 0
+              },
+              {
+                "key": "action",
+                "label": "action",
+                "value": 0,
+                "weight": 20,
+                "points": 0
+              },
+              {
+                "key": "hierarchy",
+                "label": "hierarchy",
+                "value": 0.56,
+                "weight": 15,
+                "points": 8.4
+              },
+              {
+                "key": "cohesion",
+                "label": "cohesion",
+                "value": 0.66,
+                "weight": 15,
+                "points": 9.9
+              },
+              {
+                "key": "whitespace",
+                "label": "whitespace",
+                "value": 1,
+                "weight": 10,
+                "points": 10
+              },
+              {
+                "key": "responsive",
+                "label": "responsive",
+                "value": 1,
+                "weight": 10,
+                "points": 10
+              },
+              {
+                "key": "facts",
+                "label": "facts",
+                "value": 1,
+                "weight": 5,
+                "points": 5
+              },
+              {
+                "key": "contrast",
+                "label": "contrast",
+                "value": 0.2,
+                "weight": 5,
+                "points": 1
+              }
+            ],
+            "penalties": [
+              {
+                "code": "text-heavy",
+                "points": 5
+              }
+            ],
+            "note": "Craft heuristic, not a beauty model or usability study."
+          }
+        },
+        "after": {
+          "desktop": {
+            "width": 1280,
+            "words": 152,
+            "paragraphWords": 59,
+            "controls": 3,
+            "unnamed": 0,
+            "clipped": 0,
+            "actionControls": 2,
+            "headings": 6,
+            "overflowX": false,
+            "facts": [
+              {
+                "id": "supplier",
+                "label": "North Studio",
+                "visible": true
+              },
+              {
+                "id": "amount",
+                "label": "€1,210.00",
+                "visible": true
+              },
+              {
+                "id": "due",
+                "label": "20 November 2026",
+                "visible": true
+              },
+              {
+                "id": "destination",
+                "label": "Account ending 4421",
+                "visible": true
+              },
+              {
+                "id": "consequence",
+                "label": "No payment / simulation note",
+                "visible": true
+              }
+            ],
+            "typeSizes": 9,
+            "fontFamilies": 1,
+            "uniqueColors": 6,
+            "uniqueRadii": 2,
+            "maxFont": 56,
+            "bodyFont": 16,
+            "fontRatio": 3.5,
+            "coverage": 0.47,
+            "lowContrast": 0,
+            "filledActions": 1,
+            "primaryVisible": false,
+            "disabledPrimary": 0,
+            "shadowCount": 0,
+            "headingList": [
+              "Review payment",
+              "INV-0042",
+              "Supplier",
+              "Line items",
+              "Invoice details",
+              "Payment summary"
+            ]
+          },
+          "mobile": {
+            "width": 390,
+            "words": 152,
+            "paragraphWords": 59,
+            "controls": 3,
+            "unnamed": 0,
+            "clipped": 0,
+            "actionControls": 2,
+            "headings": 6,
+            "overflowX": false,
+            "facts": [
+              {
+                "id": "supplier",
+                "label": "North Studio",
+                "visible": true
+              },
+              {
+                "id": "amount",
+                "label": "€1,210.00",
+                "visible": true
+              },
+              {
+                "id": "due",
+                "label": "20 November 2026",
+                "visible": true
+              },
+              {
+                "id": "destination",
+                "label": "Account ending 4421",
+                "visible": true
+              },
+              {
+                "id": "consequence",
+                "label": "No payment / simulation note",
+                "visible": true
+              }
+            ],
+            "typeSizes": 9,
+            "fontFamilies": 1,
+            "uniqueColors": 6,
+            "uniqueRadii": 2,
+            "maxFont": 36,
+            "bodyFont": 16,
+            "fontRatio": 2.25,
+            "coverage": 0.476,
+            "lowContrast": 0,
+            "filledActions": 1,
+            "primaryVisible": false,
+            "disabledPrimary": 0,
+            "shadowCount": 0,
+            "headingList": [
+              "Review payment",
+              "INV-0042",
+              "Supplier",
+              "Line items",
+              "Invoice details",
+              "Payment summary"
+            ]
+          },
+          "score": {
+            "score": 66.1,
+            "breakdown": [
+              {
+                "key": "text",
+                "label": "text",
+                "value": 0.733,
+                "weight": 15,
+                "points": 11
+              },
+              {
+                "key": "paragraph",
+                "label": "paragraph",
+                "value": 0.375,
+                "weight": 5,
+                "points": 1.9
+              },
+              {
+                "key": "action",
+                "label": "action",
+                "value": 0,
+                "weight": 20,
+                "points": 0
+              },
+              {
+                "key": "hierarchy",
+                "label": "hierarchy",
+                "value": 0.805,
+                "weight": 15,
+                "points": 12.1
+              },
+              {
+                "key": "cohesion",
+                "label": "cohesion",
+                "value": 0.94,
+                "weight": 15,
+                "points": 14.1
+              },
+              {
+                "key": "whitespace",
+                "label": "whitespace",
+                "value": 0.7,
+                "weight": 10,
+                "points": 7
+              },
+              {
+                "key": "responsive",
+                "label": "responsive",
+                "value": 1,
+                "weight": 10,
+                "points": 10
+              },
+              {
+                "key": "facts",
+                "label": "facts",
+                "value": 1,
+                "weight": 5,
+                "points": 5
+              },
+              {
+                "key": "contrast",
+                "label": "contrast",
+                "value": 1,
+                "weight": 5,
+                "points": 5
+              }
+            ],
+            "penalties": [],
+            "note": "Craft heuristic, not a beauty model or usability study."
+          }
+        }
+      },
+      "v1": {
+        "before": {
+          "desktop": {
+            "width": 1280,
+            "words": 187,
+            "paragraphWords": 20,
+            "controls": 2,
+            "unnamed": 0,
+            "clipped": 0,
+            "actionControls": 2,
+            "headings": 6,
+            "overflowX": false,
+            "facts": [
+              {
+                "id": "supplier",
+                "label": "North Studio",
+                "visible": true
+              },
+              {
+                "id": "amount",
+                "label": "€1,210.00",
+                "visible": true
+              },
+              {
+                "id": "due",
+                "label": "20 November 2026",
+                "visible": true
+              },
+              {
+                "id": "destination",
+                "label": "Account ending 4421",
+                "visible": true
+              },
+              {
+                "id": "consequence",
+                "label": "No payment / simulation note",
+                "visible": true
+              }
+            ],
+            "typeSizes": 5,
+            "fontFamilies": 1,
+            "uniqueColors": 13,
+            "uniqueRadii": 2,
+            "maxFont": 36,
+            "bodyFont": 16,
+            "fontRatio": 2.25,
+            "coverage": 0.389,
+            "lowContrast": 1,
+            "filledActions": 2,
+            "primaryVisible": true,
+            "disabledPrimary": 0,
+            "shadowCount": 5,
+            "headingList": [
+              "North Studio — Invoice 0042",
+              "Invoice details",
+              "Supplier and customer",
+              "Line items",
+              "Details to check",
+              "Payment review"
+            ]
+          },
+          "mobile": {
+            "width": 390,
+            "words": 187,
+            "paragraphWords": 20,
+            "controls": 2,
+            "unnamed": 0,
+            "clipped": 0,
+            "actionControls": 2,
+            "headings": 6,
+            "overflowX": false,
+            "facts": [
+              {
+                "id": "supplier",
+                "label": "North Studio",
+                "visible": true
+              },
+              {
+                "id": "amount",
+                "label": "€1,210.00",
+                "visible": true
+              },
+              {
+                "id": "due",
+                "label": "20 November 2026",
+                "visible": true
+              },
+              {
+                "id": "destination",
+                "label": "Account ending 4421",
+                "visible": true
+              },
+              {
+                "id": "consequence",
+                "label": "No payment / simulation note",
+                "visible": true
+              }
+            ],
+            "typeSizes": 5,
+            "fontFamilies": 1,
+            "uniqueColors": 13,
+            "uniqueRadii": 2,
+            "maxFont": 24,
+            "bodyFont": 16,
+            "fontRatio": 1.5,
+            "coverage": 0.511,
+            "lowContrast": 1,
+            "filledActions": 2,
+            "primaryVisible": true,
+            "disabledPrimary": 0,
+            "shadowCount": 5,
+            "headingList": [
+              "North Studio — Invoice 0042",
+              "Invoice details",
+              "Supplier and customer",
+              "Line items",
+              "Details to check",
+              "Payment review"
+            ]
+          },
+          "score": {
+            "score": 71.2,
+            "breakdown": [
+              {
+                "key": "text",
+                "label": "text",
+                "value": 0.442,
+                "weight": 15,
+                "points": 6.6
+              },
+              {
+                "key": "paragraph",
+                "label": "paragraph",
+                "value": 1,
+                "weight": 5,
+                "points": 5
+              },
+              {
+                "key": "action",
+                "label": "action",
+                "value": 0.5,
+                "weight": 20,
+                "points": 10
+              },
+              {
+                "key": "hierarchy",
+                "label": "hierarchy",
+                "value": 0.63,
+                "weight": 15,
+                "points": 9.4
+              },
+              {
+                "key": "cohesion",
+                "label": "cohesion",
+                "value": 0.78,
+                "weight": 15,
+                "points": 11.7
+              },
+              {
+                "key": "whitespace",
+                "label": "whitespace",
+                "value": 1,
+                "weight": 10,
+                "points": 10
+              },
+              {
+                "key": "responsive",
+                "label": "responsive",
+                "value": 1,
+                "weight": 10,
+                "points": 10
+              },
+              {
+                "key": "facts",
+                "label": "facts",
+                "value": 1,
+                "weight": 5,
+                "points": 5
+              },
+              {
+                "key": "contrast",
+                "label": "contrast",
+                "value": 0.7,
+                "weight": 5,
+                "points": 3.5
+              }
+            ],
+            "penalties": [],
+            "note": "Craft heuristic, not a beauty model or usability study."
+          }
+        },
+        "after": {
+          "desktop": {
+            "width": 1280,
+            "words": 117,
+            "paragraphWords": 44,
+            "controls": 2,
+            "unnamed": 0,
+            "clipped": 0,
+            "actionControls": 2,
+            "headings": 4,
+            "overflowX": false,
+            "facts": [
+              {
+                "id": "supplier",
+                "label": "North Studio",
+                "visible": true
+              },
+              {
+                "id": "amount",
+                "label": "€1,210.00",
+                "visible": true
+              },
+              {
+                "id": "due",
+                "label": "20 November 2026",
+                "visible": true
+              },
+              {
+                "id": "destination",
+                "label": "Account ending 4421",
+                "visible": true
+              },
+              {
+                "id": "consequence",
+                "label": "No payment / simulation note",
+                "visible": true
+              }
+            ],
+            "typeSizes": 7,
+            "fontFamilies": 3,
+            "uniqueColors": 5,
+            "uniqueRadii": 1,
+            "maxFont": 72,
+            "bodyFont": 14,
+            "fontRatio": 5.14,
+            "coverage": 0.277,
+            "lowContrast": 0,
+            "filledActions": 1,
+            "primaryVisible": true,
+            "disabledPrimary": 0,
+            "shadowCount": 1,
+            "headingList": [
+              "North Studio — Invoice 0042",
+              "Line items",
+              "Customer",
+              "Payment review"
+            ]
+          },
+          "mobile": {
+            "width": 390,
+            "words": 117,
+            "paragraphWords": 44,
+            "controls": 2,
+            "unnamed": 0,
+            "clipped": 0,
+            "actionControls": 2,
+            "headings": 4,
+            "overflowX": false,
+            "facts": [
+              {
+                "id": "supplier",
+                "label": "North Studio",
+                "visible": true
+              },
+              {
+                "id": "amount",
+                "label": "€1,210.00",
+                "visible": true
+              },
+              {
+                "id": "due",
+                "label": "20 November 2026",
+                "visible": true
+              },
+              {
+                "id": "destination",
+                "label": "Account ending 4421",
+                "visible": true
+              },
+              {
+                "id": "consequence",
+                "label": "No payment / simulation note",
+                "visible": true
+              }
+            ],
+            "typeSizes": 7,
+            "fontFamilies": 3,
+            "uniqueColors": 5,
+            "uniqueRadii": 1,
+            "maxFont": 72,
+            "bodyFont": 14,
+            "fontRatio": 5.14,
+            "coverage": 0.48,
+            "lowContrast": 0,
+            "filledActions": 1,
+            "primaryVisible": true,
+            "disabledPrimary": 0,
+            "shadowCount": 1,
+            "headingList": [
+              "North Studio — Invoice 0042",
+              "Line items",
+              "Customer",
+              "Payment review"
+            ]
+          },
+          "score": {
+            "score": 97.3,
+            "breakdown": [
+              {
+                "key": "text",
+                "label": "text",
+                "value": 1,
+                "weight": 15,
+                "points": 15
+              },
+              {
+                "key": "paragraph",
+                "label": "paragraph",
+                "value": 0.643,
+                "weight": 5,
+                "points": 3.2
+              },
+              {
+                "key": "action",
+                "label": "action",
+                "value": 1,
+                "weight": 20,
+                "points": 20
+              },
+              {
+                "key": "hierarchy",
+                "label": "hierarchy",
+                "value": 1,
+                "weight": 15,
+                "points": 15
+              },
+              {
+                "key": "cohesion",
+                "label": "cohesion",
+                "value": 0.94,
+                "weight": 15,
+                "points": 14.1
+              },
+              {
+                "key": "whitespace",
+                "label": "whitespace",
+                "value": 1,
+                "weight": 10,
+                "points": 10
+              },
+              {
+                "key": "responsive",
+                "label": "responsive",
+                "value": 1,
+                "weight": 10,
+                "points": 10
+              },
+              {
+                "key": "facts",
+                "label": "facts",
+                "value": 1,
+                "weight": 5,
+                "points": 5
+              },
+              {
+                "key": "contrast",
+                "label": "contrast",
+                "value": 1,
+                "weight": 5,
+                "points": 5
+              }
+            ],
+            "penalties": [],
+            "note": "Craft heuristic, not a beauty model or usability study."
+          }
+        }
+      }
+    },
+    {
+      "model": {
+        "id": "claude-haiku-5-5",
+        "label": "Claude Haiku 5.5",
+        "provider": "OpenCode Go",
+        "via": "Frontier",
+        "free": false
+      },
+      "v0": {
+        "before": {
+          "desktop": {
+            "width": 1280,
+            "words": 173,
+            "paragraphWords": 20,
+            "controls": 6,
+            "unnamed": 0,
+            "clipped": 0,
+            "actionControls": 1,
+            "headings": 5,
+            "overflowX": false,
+            "facts": [
+              {
+                "id": "supplier",
+                "label": "North Studio",
+                "visible": true
+              },
+              {
+                "id": "amount",
+                "label": "€1,210.00",
+                "visible": true
+              },
+              {
+                "id": "due",
+                "label": "20 November 2026",
+                "visible": true
+              },
+              {
+                "id": "destination",
+                "label": "Account ending 4421",
+                "visible": true
+              },
+              {
+                "id": "consequence",
+                "label": "No payment / simulation note",
+                "visible": true
+              }
+            ],
+            "typeSizes": 7,
+            "fontFamilies": 1,
+            "uniqueColors": 8,
+            "uniqueRadii": 2,
+            "maxFont": 34,
+            "bodyFont": 15,
+            "fontRatio": 2.27,
+            "coverage": 0.389,
+            "lowContrast": 1,
+            "filledActions": 1,
+            "primaryVisible": false,
+            "disabledPrimary": 0,
+            "shadowCount": 0,
+            "headingList": [
+              "Invoice 0042",
+              "Line items",
+              "Amount",
+              "Pay from",
+              "Review checklist"
+            ]
+          },
+          "mobile": {
+            "width": 390,
+            "words": 173,
+            "paragraphWords": 20,
+            "controls": 6,
+            "unnamed": 0,
+            "clipped": 0,
+            "actionControls": 1,
+            "headings": 5,
+            "overflowX": false,
+            "facts": [
+              {
+                "id": "supplier",
+                "label": "North Studio",
+                "visible": true
+              },
+              {
+                "id": "amount",
+                "label": "€1,210.00",
+                "visible": true
+              },
+              {
+                "id": "due",
+                "label": "20 November 2026",
+                "visible": true
+              },
+              {
+                "id": "destination",
+                "label": "Account ending 4421",
+                "visible": true
+              },
+              {
+                "id": "consequence",
+                "label": "No payment / simulation note",
+                "visible": true
+              }
+            ],
+            "typeSizes": 7,
+            "fontFamilies": 1,
+            "uniqueColors": 8,
+            "uniqueRadii": 2,
+            "maxFont": 28,
+            "bodyFont": 15,
+            "fontRatio": 1.87,
+            "coverage": 0.604,
+            "lowContrast": 1,
+            "filledActions": 1,
+            "primaryVisible": false,
+            "disabledPrimary": 0,
+            "shadowCount": 0,
+            "headingList": [
+              "Invoice 0042",
+              "Line items",
+              "Amount",
+              "Pay from",
+              "Review checklist"
+            ]
+          },
+          "score": {
+            "score": 69.3,
+            "breakdown": [
+              {
+                "key": "text",
+                "label": "text",
+                "value": 0.558,
+                "weight": 15,
+                "points": 8.4
+              },
+              {
+                "key": "paragraph",
+                "label": "paragraph",
+                "value": 1,
+                "weight": 5,
+                "points": 5
+              },
+              {
+                "key": "action",
+                "label": "action",
+                "value": 0,
+                "weight": 20,
+                "points": 0
+              },
+              {
+                "key": "hierarchy",
+                "label": "hierarchy",
+                "value": 0.83,
+                "weight": 15,
+                "points": 12.4
+              },
+              {
+                "key": "cohesion",
+                "label": "cohesion",
+                "value": 1,
+                "weight": 15,
+                "points": 15
+              },
+              {
+                "key": "whitespace",
+                "label": "whitespace",
+                "value": 1,
+                "weight": 10,
+                "points": 10
+              },
+              {
+                "key": "responsive",
+                "label": "responsive",
+                "value": 1,
+                "weight": 10,
+                "points": 10
+              },
+              {
+                "key": "facts",
+                "label": "facts",
+                "value": 1,
+                "weight": 5,
+                "points": 5
+              },
+              {
+                "key": "contrast",
+                "label": "contrast",
+                "value": 0.7,
+                "weight": 5,
+                "points": 3.5
+              }
+            ],
+            "penalties": [],
+            "note": "Craft heuristic, not a beauty model or usability study."
+          }
+        },
+        "after": {
+          "desktop": {
+            "width": 1280,
+            "words": 171,
+            "paragraphWords": 20,
+            "controls": 7,
+            "unnamed": 0,
+            "clipped": 0,
+            "actionControls": 2,
+            "headings": 3,
+            "overflowX": false,
+            "facts": [
+              {
+                "id": "supplier",
+                "label": "North Studio",
+                "visible": true
+              },
+              {
+                "id": "amount",
+                "label": "€1,210.00",
+                "visible": true
+              },
+              {
+                "id": "due",
+                "label": "20 November 2026",
+                "visible": true
+              },
+              {
+                "id": "destination",
+                "label": "Account ending 4421",
+                "visible": true
+              },
+              {
+                "id": "consequence",
+                "label": "No payment / simulation note",
+                "visible": true
+              }
+            ],
+            "typeSizes": 7,
+            "fontFamilies": 1,
+            "uniqueColors": 7,
+            "uniqueRadii": 2,
+            "maxFont": 36,
+            "bodyFont": 15,
+            "fontRatio": 2.4,
+            "coverage": 0.415,
+            "lowContrast": 1,
+            "filledActions": 2,
+            "primaryVisible": true,
+            "disabledPrimary": 1,
+            "shadowCount": 0,
+            "headingList": [
+              "Invoice 0042",
+              "Line items",
+              "Checks before review"
+            ]
+          },
+          "mobile": {
+            "width": 390,
+            "words": 171,
+            "paragraphWords": 20,
+            "controls": 7,
+            "unnamed": 0,
+            "clipped": 0,
+            "actionControls": 2,
+            "headings": 3,
+            "overflowX": false,
+            "facts": [
+              {
+                "id": "supplier",
+                "label": "North Studio",
+                "visible": true
+              },
+              {
+                "id": "amount",
+                "label": "€1,210.00",
+                "visible": true
+              },
+              {
+                "id": "due",
+                "label": "20 November 2026",
+                "visible": true
+              },
+              {
+                "id": "destination",
+                "label": "Account ending 4421",
+                "visible": true
+              },
+              {
+                "id": "consequence",
+                "label": "No payment / simulation note",
+                "visible": true
+              }
+            ],
+            "typeSizes": 7,
+            "fontFamilies": 1,
+            "uniqueColors": 7,
+            "uniqueRadii": 2,
+            "maxFont": 30,
+            "bodyFont": 15,
+            "fontRatio": 2,
+            "coverage": 0.581,
+            "lowContrast": 1,
+            "filledActions": 2,
+            "primaryVisible": false,
+            "disabledPrimary": 1,
+            "shadowCount": 0,
+            "headingList": [
+              "Invoice 0042",
+              "Line items",
+              "Checks before review"
+            ]
+          },
+          "score": {
+            "score": 75,
+            "breakdown": [
+              {
+                "key": "text",
+                "label": "text",
+                "value": 0.575,
+                "weight": 15,
+                "points": 8.6
+              },
+              {
+                "key": "paragraph",
+                "label": "paragraph",
+                "value": 1,
+                "weight": 5,
+                "points": 5
+              },
+              {
+                "key": "action",
+                "label": "action",
+                "value": 0.5,
+                "weight": 20,
+                "points": 10
+              },
+              {
+                "key": "hierarchy",
+                "label": "hierarchy",
+                "value": 0.86,
+                "weight": 15,
+                "points": 12.9
+              },
+              {
+                "key": "cohesion",
+                "label": "cohesion",
+                "value": 1,
+                "weight": 15,
+                "points": 15
+              },
+              {
+                "key": "whitespace",
+                "label": "whitespace",
+                "value": 1,
+                "weight": 10,
+                "points": 10
+              },
+              {
+                "key": "responsive",
+                "label": "responsive",
+                "value": 1,
+                "weight": 10,
+                "points": 10
+              },
+              {
+                "key": "facts",
+                "label": "facts",
+                "value": 1,
+                "weight": 5,
+                "points": 5
+              },
+              {
+                "key": "contrast",
+                "label": "contrast",
+                "value": 0.7,
+                "weight": 5,
+                "points": 3.5
+              }
+            ],
+            "penalties": [
+              {
+                "code": "disabled-primary",
+                "points": 5
+              }
+            ],
+            "note": "Craft heuristic, not a beauty model or usability study."
+          }
+        }
+      },
+      "v1": {
+        "before": {
+          "desktop": {
+            "width": 1280,
+            "words": 186,
+            "paragraphWords": 34,
+            "controls": 2,
+            "unnamed": 0,
+            "clipped": 0,
+            "actionControls": 1,
+            "headings": 7,
+            "overflowX": false,
+            "facts": [
+              {
+                "id": "supplier",
+                "label": "North Studio",
+                "visible": true
+              },
+              {
+                "id": "amount",
+                "label": "€1,210.00",
+                "visible": true
+              },
+              {
+                "id": "due",
+                "label": "20 November 2026",
+                "visible": true
+              },
+              {
+                "id": "destination",
+                "label": "Account ending 4421",
+                "visible": true
+              },
+              {
+                "id": "consequence",
+                "label": "No payment / simulation note",
+                "visible": true
+              }
+            ],
+            "typeSizes": 8,
+            "fontFamilies": 1,
+            "uniqueColors": 14,
+            "uniqueRadii": 3,
+            "maxFont": 32,
+            "bodyFont": 16,
+            "fontRatio": 2,
+            "coverage": 0.419,
+            "lowContrast": 1,
+            "filledActions": 1,
+            "primaryVisible": false,
+            "disabledPrimary": 0,
+            "shadowCount": 0,
+            "headingList": [
+              "Review invoice 0042",
+              "Invoice details",
+              "Supplier and customer",
+              "Line items",
+              "Amount due",
+              "Pre-payment checks",
+              "Proposed payment"
+            ]
+          },
+          "mobile": {
+            "width": 390,
+            "words": 182,
+            "paragraphWords": 34,
+            "controls": 2,
+            "unnamed": 0,
+            "clipped": 0,
+            "actionControls": 1,
+            "headings": 7,
+            "overflowX": false,
+            "facts": [
+              {
+                "id": "supplier",
+                "label": "North Studio",
+                "visible": true
+              },
+              {
+                "id": "amount",
+                "label": "€1,210.00",
+                "visible": true
+              },
+              {
+                "id": "due",
+                "label": "20 November 2026",
+                "visible": true
+              },
+              {
+                "id": "destination",
+                "label": "Account ending 4421",
+                "visible": true
+              },
+              {
+                "id": "consequence",
+                "label": "No payment / simulation note",
+                "visible": true
+              }
+            ],
+            "typeSizes": 8,
+            "fontFamilies": 1,
+            "uniqueColors": 14,
+            "uniqueRadii": 3,
+            "maxFont": 28,
+            "bodyFont": 16,
+            "fontRatio": 1.75,
+            "coverage": 0.526,
+            "lowContrast": 1,
+            "filledActions": 1,
+            "primaryVisible": false,
+            "disabledPrimary": 0,
+            "shadowCount": 0,
+            "headingList": [
+              "Review invoice 0042",
+              "Invoice details",
+              "Supplier and customer",
+              "Line items",
+              "Amount due",
+              "Pre-payment checks",
+              "Proposed payment"
+            ]
+          },
+          "score": {
+            "score": 60.8,
+            "breakdown": [
+              {
+                "key": "text",
+                "label": "text",
+                "value": 0.45,
+                "weight": 15,
+                "points": 6.7
+              },
+              {
+                "key": "paragraph",
+                "label": "paragraph",
+                "value": 0.821,
+                "weight": 5,
+                "points": 4.1
+              },
+              {
+                "key": "action",
+                "label": "action",
+                "value": 0,
+                "weight": 20,
+                "points": 0
+              },
+              {
+                "key": "hierarchy",
+                "label": "hierarchy",
+                "value": 0.572,
+                "weight": 15,
+                "points": 8.6
+              },
+              {
+                "key": "cohesion",
+                "label": "cohesion",
+                "value": 0.86,
+                "weight": 15,
+                "points": 12.9
+              },
+              {
+                "key": "whitespace",
+                "label": "whitespace",
+                "value": 1,
+                "weight": 10,
+                "points": 10
+              },
+              {
+                "key": "responsive",
+                "label": "responsive",
+                "value": 1,
+                "weight": 10,
+                "points": 10
+              },
+              {
+                "key": "facts",
+                "label": "facts",
+                "value": 1,
+                "weight": 5,
+                "points": 5
+              },
+              {
+                "key": "contrast",
+                "label": "contrast",
+                "value": 0.7,
+                "weight": 5,
+                "points": 3.5
+              }
+            ],
+            "penalties": [],
+            "note": "Craft heuristic, not a beauty model or usability study."
+          }
+        },
+        "after": {
+          "desktop": {
+            "width": 1280,
+            "words": 126,
+            "paragraphWords": 40,
+            "controls": 2,
+            "unnamed": 0,
+            "clipped": 0,
+            "actionControls": 2,
+            "headings": 5,
+            "overflowX": false,
+            "facts": [
+              {
+                "id": "supplier",
+                "label": "North Studio",
+                "visible": true
+              },
+              {
+                "id": "amount",
+                "label": "€1,210.00",
+                "visible": true
+              },
+              {
+                "id": "due",
+                "label": "20 November 2026",
+                "visible": true
+              },
+              {
+                "id": "destination",
+                "label": "Account ending 4421",
+                "visible": true
+              },
+              {
+                "id": "consequence",
+                "label": "No payment / simulation note",
+                "visible": true
+              }
+            ],
+            "typeSizes": 6,
+            "fontFamilies": 2,
+            "uniqueColors": 5,
+            "uniqueRadii": 1,
+            "maxFont": 72,
+            "bodyFont": 14,
+            "fontRatio": 5.14,
+            "coverage": 0.303,
+            "lowContrast": 0,
+            "filledActions": 1,
+            "primaryVisible": true,
+            "disabledPrimary": 0,
+            "shadowCount": 1,
+            "headingList": [
+              "Review invoice 0042",
+              "Supplier",
+              "Customer",
+              "Line items",
+              "Amount due"
+            ]
+          },
+          "mobile": {
+            "width": 390,
+            "words": 121,
+            "paragraphWords": 40,
+            "controls": 2,
+            "unnamed": 0,
+            "clipped": 0,
+            "actionControls": 2,
+            "headings": 5,
+            "overflowX": false,
+            "facts": [
+              {
+                "id": "supplier",
+                "label": "North Studio",
+                "visible": true
+              },
+              {
+                "id": "amount",
+                "label": "€1,210.00",
+                "visible": true
+              },
+              {
+                "id": "due",
+                "label": "20 November 2026",
+                "visible": true
+              },
+              {
+                "id": "destination",
+                "label": "Account ending 4421",
+                "visible": true
+              },
+              {
+                "id": "consequence",
+                "label": "No payment / simulation note",
+                "visible": true
+              }
+            ],
+            "typeSizes": 5,
+            "fontFamilies": 2,
+            "uniqueColors": 5,
+            "uniqueRadii": 1,
+            "maxFont": 72,
+            "bodyFont": 14,
+            "fontRatio": 5.14,
+            "coverage": 0.436,
+            "lowContrast": 0,
+            "filledActions": 1,
+            "primaryVisible": true,
+            "disabledPrimary": 0,
+            "shadowCount": 1,
+            "headingList": [
+              "Review invoice 0042",
+              "Supplier",
+              "Customer",
+              "Line items",
+              "Amount due"
+            ]
+          },
+          "score": {
+            "score": 97.9,
+            "breakdown": [
+              {
+                "key": "text",
+                "label": "text",
+                "value": 0.95,
+                "weight": 15,
+                "points": 14.3
+              },
+              {
+                "key": "paragraph",
+                "label": "paragraph",
+                "value": 0.714,
+                "weight": 5,
+                "points": 3.6
+              },
+              {
+                "key": "action",
+                "label": "action",
+                "value": 1,
+                "weight": 20,
+                "points": 20
+              },
+              {
+                "key": "hierarchy",
+                "label": "hierarchy",
+                "value": 1,
+                "weight": 15,
+                "points": 15
+              },
+              {
+                "key": "cohesion",
+                "label": "cohesion",
+                "value": 1,
+                "weight": 15,
+                "points": 15
+              },
+              {
+                "key": "whitespace",
+                "label": "whitespace",
+                "value": 1,
+                "weight": 10,
+                "points": 10
+              },
+              {
+                "key": "responsive",
+                "label": "responsive",
+                "value": 1,
+                "weight": 10,
+                "points": 10
+              },
+              {
+                "key": "facts",
+                "label": "facts",
+                "value": 1,
+                "weight": 5,
+                "points": 5
+              },
+              {
+                "key": "contrast",
+                "label": "contrast",
+                "value": 1,
+                "weight": 5,
+                "points": 5
+              }
+            ],
+            "penalties": [],
+            "note": "Craft heuristic, not a beauty model or usability study."
+          }
+        }
+      }
+    },
+    {
+      "model": {
+        "id": "longcat-2.5-free",
+        "label": "LongCat 2.5",
+        "provider": "OpenCode Go",
+        "via": "Free",
+        "free": true
+      },
+      "v0": {
+        "before": {
+          "desktop": {
+            "width": 1280,
+            "words": 284,
+            "paragraphWords": 20,
+            "controls": 9,
+            "unnamed": 0,
+            "clipped": 0,
+            "actionControls": 2,
+            "headings": 3,
+            "overflowX": false,
+            "facts": [
+              {
+                "id": "supplier",
+                "label": "North Studio",
+                "visible": true
+              },
+              {
+                "id": "amount",
+                "label": "€1,210.00",
+                "visible": true
+              },
+              {
+                "id": "due",
+                "label": "20 November 2026",
+                "visible": true
+              },
+              {
+                "id": "destination",
+                "label": "Account ending 4421",
+                "visible": true
+              },
+              {
+                "id": "consequence",
+                "label": "No payment / simulation note",
+                "visible": true
+              }
+            ],
+            "typeSizes": 8,
+            "fontFamilies": 1,
+            "uniqueColors": 14,
+            "uniqueRadii": 6,
+            "maxFont": 30,
+            "bodyFont": 16,
+            "fontRatio": 1.88,
+            "coverage": 0.261,
+            "lowContrast": 34,
+            "filledActions": 2,
+            "primaryVisible": false,
+            "disabledPrimary": 0,
+            "shadowCount": 3,
+            "headingList": [
+              "Review payment before confirming",
+              "Invoice summary",
+              "Review this payment"
+            ]
+          },
+          "mobile": {
+            "width": 390,
+            "words": 273,
+            "paragraphWords": 20,
+            "controls": 4,
+            "unnamed": 0,
+            "clipped": 0,
+            "actionControls": 2,
+            "headings": 3,
+            "overflowX": false,
+            "facts": [
+              {
+                "id": "supplier",
+                "label": "North Studio",
+                "visible": true
+              },
+              {
+                "id": "amount",
+                "label": "€1,210.00",
+                "visible": true
+              },
+              {
+                "id": "due",
+                "label": "20 November 2026",
+                "visible": true
+              },
+              {
+                "id": "destination",
+                "label": "Account ending 4421",
+                "visible": true
+              },
+              {
+                "id": "consequence",
+                "label": "No payment / simulation note",
+                "visible": true
+              }
+            ],
+            "typeSizes": 8,
+            "fontFamilies": 1,
+            "uniqueColors": 13,
+            "uniqueRadii": 6,
+            "maxFont": 26,
+            "bodyFont": 16,
+            "fontRatio": 1.63,
+            "coverage": 0.43,
+            "lowContrast": 27,
+            "filledActions": 2,
+            "primaryVisible": false,
+            "disabledPrimary": 0,
+            "shadowCount": 3,
+            "headingList": [
+              "Review payment before confirming",
+              "Invoice summary",
+              "Review this payment"
+            ]
+          },
+          "score": {
+            "score": 47,
+            "breakdown": [
+              {
+                "key": "text",
+                "label": "text",
+                "value": 0,
+                "weight": 15,
+                "points": 0
+              },
+              {
+                "key": "paragraph",
+                "label": "paragraph",
+                "value": 1,
+                "weight": 5,
+                "points": 5
+              },
+              {
+                "key": "action",
+                "label": "action",
+                "value": 0,
+                "weight": 20,
+                "points": 0
+              },
+              {
+                "key": "hierarchy",
+                "label": "hierarchy",
+                "value": 0.739,
+                "weight": 15,
+                "points": 11.1
+              },
+              {
+                "key": "cohesion",
+                "label": "cohesion",
+                "value": 0.66,
+                "weight": 15,
+                "points": 9.9
+              },
+              {
+                "key": "whitespace",
+                "label": "whitespace",
+                "value": 1,
+                "weight": 10,
+                "points": 10
+              },
+              {
+                "key": "responsive",
+                "label": "responsive",
+                "value": 1,
+                "weight": 10,
+                "points": 10
+              },
+              {
+                "key": "facts",
+                "label": "facts",
+                "value": 1,
+                "weight": 5,
+                "points": 5
+              },
+              {
+                "key": "contrast",
+                "label": "contrast",
+                "value": 0.2,
+                "weight": 5,
+                "points": 1
+              }
+            ],
+            "penalties": [
+              {
+                "code": "text-heavy",
+                "points": 5
+              }
+            ],
+            "note": "Craft heuristic, not a beauty model or usability study."
+          }
+        },
+        "after": {
+          "desktop": {
+            "width": 1280,
+            "words": 173,
+            "paragraphWords": 42,
+            "controls": 9,
+            "unnamed": 0,
+            "clipped": 0,
+            "actionControls": 2,
+            "headings": 2,
+            "overflowX": false,
+            "facts": [
+              {
+                "id": "supplier",
+                "label": "North Studio",
+                "visible": true
+              },
+              {
+                "id": "amount",
+                "label": "€1,210.00",
+                "visible": true
+              },
+              {
+                "id": "due",
+                "label": "20 November 2026",
+                "visible": true
+              },
+              {
+                "id": "destination",
+                "label": "Account ending 4421",
+                "visible": true
+              },
+              {
+                "id": "consequence",
+                "label": "No payment / simulation note",
+                "visible": true
+              }
+            ],
+            "typeSizes": 11,
+            "fontFamilies": 1,
+            "uniqueColors": 9,
+            "uniqueRadii": 2,
+            "maxFont": 41,
+            "bodyFont": 16,
+            "fontRatio": 2.56,
+            "coverage": 0.211,
+            "lowContrast": 13,
+            "filledActions": 1,
+            "primaryVisible": true,
+            "disabledPrimary": 0,
+            "shadowCount": 0,
+            "headingList": [
+              "Review payment",
+              "Payment summary"
+            ]
+          },
+          "mobile": {
+            "width": 390,
+            "words": 165,
+            "paragraphWords": 42,
+            "controls": 4,
+            "unnamed": 0,
+            "clipped": 0,
+            "actionControls": 2,
+            "headings": 2,
+            "overflowX": false,
+            "facts": [
+              {
+                "id": "supplier",
+                "label": "North Studio",
+                "visible": true
+              },
+              {
+                "id": "amount",
+                "label": "€1,210.00",
+                "visible": true
+              },
+              {
+                "id": "due",
+                "label": "20 November 2026",
+                "visible": true
+              },
+              {
+                "id": "destination",
+                "label": "Account ending 4421",
+                "visible": true
+              },
+              {
+                "id": "consequence",
+                "label": "No payment / simulation note",
+                "visible": true
+              }
+            ],
+            "typeSizes": 11,
+            "fontFamilies": 1,
+            "uniqueColors": 9,
+            "uniqueRadii": 1,
+            "maxFont": 34,
+            "bodyFont": 16,
+            "fontRatio": 2.13,
+            "coverage": 0.37,
+            "lowContrast": 13,
+            "filledActions": 1,
+            "primaryVisible": true,
+            "disabledPrimary": 0,
+            "shadowCount": 0,
+            "headingList": [
+              "Review payment",
+              "Payment summary"
+            ]
+          },
+          "score": {
+            "score": 84.5,
+            "breakdown": [
+              {
+                "key": "text",
+                "label": "text",
+                "value": 0.558,
+                "weight": 15,
+                "points": 8.4
+              },
+              {
+                "key": "paragraph",
+                "label": "paragraph",
+                "value": 0.679,
+                "weight": 5,
+                "points": 3.4
+              },
+              {
+                "key": "action",
+                "label": "action",
+                "value": 1,
+                "weight": 20,
+                "points": 20
+              },
+              {
+                "key": "hierarchy",
+                "label": "hierarchy",
+                "value": 0.897,
+                "weight": 15,
+                "points": 13.5
+              },
+              {
+                "key": "cohesion",
+                "label": "cohesion",
+                "value": 0.88,
+                "weight": 15,
+                "points": 13.2
+              },
+              {
+                "key": "whitespace",
+                "label": "whitespace",
+                "value": 1,
+                "weight": 10,
+                "points": 10
+              },
+              {
+                "key": "responsive",
+                "label": "responsive",
+                "value": 1,
+                "weight": 10,
+                "points": 10
+              },
+              {
+                "key": "facts",
+                "label": "facts",
+                "value": 1,
+                "weight": 5,
+                "points": 5
+              },
+              {
+                "key": "contrast",
+                "label": "contrast",
+                "value": 0.2,
+                "weight": 5,
+                "points": 1
+              }
+            ],
+            "penalties": [],
+            "note": "Craft heuristic, not a beauty model or usability study."
+          }
+        }
+      },
+      "v1": {
+        "before": {
+          "desktop": {
+            "width": 1280,
+            "words": 211,
+            "paragraphWords": 56,
+            "controls": 1,
+            "unnamed": 0,
+            "clipped": 0,
+            "actionControls": 0,
+            "headings": 2,
+            "overflowX": false,
+            "facts": [
+              {
+                "id": "supplier",
+                "label": "North Studio",
+                "visible": true
+              },
+              {
+                "id": "amount",
+                "label": "€1,210.00",
+                "visible": true
+              },
+              {
+                "id": "due",
+                "label": "20 November 2026",
+                "visible": true
+              },
+              {
+                "id": "destination",
+                "label": "Account ending 4421",
+                "visible": true
+              },
+              {
+                "id": "consequence",
+                "label": "No payment / simulation note",
+                "visible": true
+              }
+            ],
+            "typeSizes": 10,
+            "fontFamilies": 2,
+            "uniqueColors": 25,
+            "uniqueRadii": 2,
+            "maxFont": 34,
+            "bodyFont": 16,
+            "fontRatio": 2.13,
+            "coverage": 0.303,
+            "lowContrast": 11,
+            "filledActions": 0,
+            "primaryVisible": false,
+            "disabledPrimary": 0,
+            "shadowCount": 4,
+            "headingList": [
+              "Invoice 0042",
+              "Before you proceed"
+            ]
+          },
+          "mobile": {
+            "width": 390,
+            "words": 211,
+            "paragraphWords": 56,
+            "controls": 1,
+            "unnamed": 0,
+            "clipped": 0,
+            "actionControls": 0,
+            "headings": 2,
+            "overflowX": false,
+            "facts": [
+              {
+                "id": "supplier",
+                "label": "North Studio",
+                "visible": true
+              },
+              {
+                "id": "amount",
+                "label": "€1,210.00",
+                "visible": true
+              },
+              {
+                "id": "due",
+                "label": "20 November 2026",
+                "visible": true
+              },
+              {
+                "id": "destination",
+                "label": "Account ending 4421",
+                "visible": true
+              },
+              {
+                "id": "consequence",
+                "label": "No payment / simulation note",
+                "visible": true
+              }
+            ],
+            "typeSizes": 10,
+            "fontFamilies": 2,
+            "uniqueColors": 25,
+            "uniqueRadii": 2,
+            "maxFont": 30,
+            "bodyFont": 16,
+            "fontRatio": 1.88,
+            "coverage": 0.456,
+            "lowContrast": 11,
+            "filledActions": 0,
+            "primaryVisible": false,
+            "disabledPrimary": 0,
+            "shadowCount": 4,
+            "headingList": [
+              "Invoice 0042",
+              "Before you proceed"
+            ]
+          },
+          "score": {
+            "score": 49.5,
+            "breakdown": [
+              {
+                "key": "text",
+                "label": "text",
+                "value": 0.242,
+                "weight": 15,
+                "points": 3.6
+              },
+              {
+                "key": "paragraph",
+                "label": "paragraph",
+                "value": 0.429,
+                "weight": 5,
+                "points": 2.1
+              },
+              {
+                "key": "action",
+                "label": "action",
+                "value": 0,
+                "weight": 20,
+                "points": 0
+              },
+              {
+                "key": "hierarchy",
+                "label": "hierarchy",
+                "value": 0.797,
+                "weight": 15,
+                "points": 12
+              },
+              {
+                "key": "cohesion",
+                "label": "cohesion",
+                "value": 0.72,
+                "weight": 15,
+                "points": 10.8
+              },
+              {
+                "key": "whitespace",
+                "label": "whitespace",
+                "value": 1,
+                "weight": 10,
+                "points": 10
+              },
+              {
+                "key": "responsive",
+                "label": "responsive",
+                "value": 1,
+                "weight": 10,
+                "points": 10
+              },
+              {
+                "key": "facts",
+                "label": "facts",
+                "value": 1,
+                "weight": 5,
+                "points": 5
+              },
+              {
+                "key": "contrast",
+                "label": "contrast",
+                "value": 0.2,
+                "weight": 5,
+                "points": 1
+              }
+            ],
+            "penalties": [
+              {
+                "code": "text-heavy",
+                "points": 5
+              }
+            ],
+            "note": "Craft heuristic, not a beauty model or usability study."
+          }
+        },
+        "after": {
+          "desktop": {
+            "width": 1280,
+            "words": 130,
+            "paragraphWords": 32,
+            "controls": 2,
+            "unnamed": 0,
+            "clipped": 0,
+            "actionControls": 2,
+            "headings": 1,
+            "overflowX": false,
+            "facts": [
+              {
+                "id": "supplier",
+                "label": "North Studio",
+                "visible": true
+              },
+              {
+                "id": "amount",
+                "label": "€1,210.00",
+                "visible": true
+              },
+              {
+                "id": "due",
+                "label": "20 November 2026",
+                "visible": true
+              },
+              {
+                "id": "destination",
+                "label": "Account ending 4421",
+                "visible": true
+              },
+              {
+                "id": "consequence",
+                "label": "No payment / simulation note",
+                "visible": true
+              }
+            ],
+            "typeSizes": 6,
+            "fontFamilies": 2,
+            "uniqueColors": 5,
+            "uniqueRadii": 1,
+            "maxFont": 72,
+            "bodyFont": 14,
+            "fontRatio": 5.14,
+            "coverage": 0.245,
+            "lowContrast": 0,
+            "filledActions": 1,
+            "primaryVisible": true,
+            "disabledPrimary": 0,
+            "shadowCount": 1,
+            "headingList": [
+              "Invoice 0042"
+            ]
+          },
+          "mobile": {
+            "width": 390,
+            "words": 125,
+            "paragraphWords": 32,
+            "controls": 2,
+            "unnamed": 0,
+            "clipped": 0,
+            "actionControls": 2,
+            "headings": 1,
+            "overflowX": false,
+            "facts": [
+              {
+                "id": "supplier",
+                "label": "North Studio",
+                "visible": true
+              },
+              {
+                "id": "amount",
+                "label": "€1,210.00",
+                "visible": true
+              },
+              {
+                "id": "due",
+                "label": "20 November 2026",
+                "visible": true
+              },
+              {
+                "id": "destination",
+                "label": "Account ending 4421",
+                "visible": true
+              },
+              {
+                "id": "consequence",
+                "label": "No payment / simulation note",
+                "visible": true
+              }
+            ],
+            "typeSizes": 6,
+            "fontFamilies": 2,
+            "uniqueColors": 5,
+            "uniqueRadii": 1,
+            "maxFont": 70,
+            "bodyFont": 14,
+            "fontRatio": 5,
+            "coverage": 0.401,
+            "lowContrast": 0,
+            "filledActions": 1,
+            "primaryVisible": true,
+            "disabledPrimary": 0,
+            "shadowCount": 1,
+            "headingList": [
+              "Invoice 0042"
+            ]
+          },
+          "score": {
+            "score": 96.3,
+            "breakdown": [
+              {
+                "key": "text",
+                "label": "text",
+                "value": 0.917,
+                "weight": 15,
+                "points": 13.8
+              },
+              {
+                "key": "paragraph",
+                "label": "paragraph",
+                "value": 0.857,
+                "weight": 5,
+                "points": 4.3
+              },
+              {
+                "key": "action",
+                "label": "action",
+                "value": 1,
+                "weight": 20,
+                "points": 20
+              },
+              {
+                "key": "hierarchy",
+                "label": "hierarchy",
+                "value": 0.88,
+                "weight": 15,
+                "points": 13.2
+              },
+              {
+                "key": "cohesion",
+                "label": "cohesion",
+                "value": 1,
+                "weight": 15,
+                "points": 15
+              },
+              {
+                "key": "whitespace",
+                "label": "whitespace",
+                "value": 1,
+                "weight": 10,
+                "points": 10
+              },
+              {
+                "key": "responsive",
+                "label": "responsive",
+                "value": 1,
+                "weight": 10,
+                "points": 10
+              },
+              {
+                "key": "facts",
+                "label": "facts",
+                "value": 1,
+                "weight": 5,
+                "points": 5
+              },
+              {
+                "key": "contrast",
+                "label": "contrast",
+                "value": 1,
+                "weight": 5,
+                "points": 5
+              }
+            ],
+            "penalties": [],
+            "note": "Craft heuristic, not a beauty model or usability study."
+          }
+        }
+      }
+    },
+    {
+      "model": {
+        "id": "qwen3.8-flash",
+        "label": "Qwen 3.8 Flash",
+        "provider": "OpenCode Go",
+        "via": "Open model",
+        "free": false
+      },
+      "v0": {
+        "before": {
+          "desktop": {
+            "width": 1280,
+            "words": 271,
+            "paragraphWords": 51,
+            "controls": 10,
+            "unnamed": 0,
+            "clipped": 0,
+            "actionControls": 2,
+            "headings": 5,
+            "overflowX": false,
+            "facts": [
+              {
+                "id": "supplier",
+                "label": "North Studio",
+                "visible": true
+              },
+              {
+                "id": "amount",
+                "label": "€1,210.00",
+                "visible": true
+              },
+              {
+                "id": "due",
+                "label": "20 November 2026",
+                "visible": true
+              },
+              {
+                "id": "destination",
+                "label": "Account ending 4421",
+                "visible": true
+              },
+              {
+                "id": "consequence",
+                "label": "No payment / simulation note",
+                "visible": true
+              }
+            ],
+            "typeSizes": 10,
+            "fontFamilies": 1,
+            "uniqueColors": 15,
+            "uniqueRadii": 3,
+            "maxFont": 34,
+            "bodyFont": 16,
+            "fontRatio": 2.13,
+            "coverage": 0.292,
+            "lowContrast": 5,
+            "filledActions": 2,
+            "primaryVisible": true,
+            "disabledPrimary": 1,
+            "shadowCount": 8,
+            "headingList": [
+              "North Studio — Invoice 0042",
+              "Review checklist",
+              "Invoice details",
+              "Payment review",
+              "Review status"
+            ]
+          },
+          "mobile": {
+            "width": 390,
+            "words": 264,
+            "paragraphWords": 51,
+            "controls": 6,
+            "unnamed": 0,
+            "clipped": 0,
+            "actionControls": 2,
+            "headings": 5,
+            "overflowX": false,
+            "facts": [
+              {
+                "id": "supplier",
+                "label": "North Studio",
+                "visible": true
+              },
+              {
+                "id": "amount",
+                "label": "€1,210.00",
+                "visible": true
+              },
+              {
+                "id": "due",
+                "label": "20 November 2026",
+                "visible": true
+              },
+              {
+                "id": "destination",
+                "label": "Account ending 4421",
+                "visible": true
+              },
+              {
+                "id": "consequence",
+                "label": "No payment / simulation note",
+                "visible": true
+              }
+            ],
+            "typeSizes": 9,
+            "fontFamilies": 1,
+            "uniqueColors": 15,
+            "uniqueRadii": 2,
+            "maxFont": 28,
+            "bodyFont": 16,
+            "fontRatio": 1.75,
+            "coverage": 0.411,
+            "lowContrast": 4,
+            "filledActions": 2,
+            "primaryVisible": false,
+            "disabledPrimary": 1,
+            "shadowCount": 8,
+            "headingList": [
+              "North Studio — Invoice 0042",
+              "Review checklist",
+              "Invoice details",
+              "Payment review",
+              "Review status"
+            ]
+          },
+          "score": {
+            "score": 51.5,
+            "breakdown": [
+              {
+                "key": "text",
+                "label": "text",
+                "value": 0,
+                "weight": 15,
+                "points": 0
+              },
+              {
+                "key": "paragraph",
+                "label": "paragraph",
+                "value": 0.518,
+                "weight": 5,
+                "points": 2.6
+              },
+              {
+                "key": "action",
+                "label": "action",
+                "value": 0.5,
+                "weight": 20,
+                "points": 10
+              },
+              {
+                "key": "hierarchy",
+                "label": "hierarchy",
+                "value": 0.797,
+                "weight": 15,
+                "points": 12
+              },
+              {
+                "key": "cohesion",
+                "label": "cohesion",
+                "value": 0.66,
+                "weight": 15,
+                "points": 9.9
+              },
+              {
+                "key": "whitespace",
+                "label": "whitespace",
+                "value": 1,
+                "weight": 10,
+                "points": 10
+              },
+              {
+                "key": "responsive",
+                "label": "responsive",
+                "value": 1,
+                "weight": 10,
+                "points": 10
+              },
+              {
+                "key": "facts",
+                "label": "facts",
+                "value": 1,
+                "weight": 5,
+                "points": 5
+              },
+              {
+                "key": "contrast",
+                "label": "contrast",
+                "value": 0.4,
+                "weight": 5,
+                "points": 2
+              }
+            ],
+            "penalties": [
+              {
+                "code": "text-heavy",
+                "points": 5
+              },
+              {
+                "code": "disabled-primary",
+                "points": 5
+              }
+            ],
+            "note": "Craft heuristic, not a beauty model or usability study."
+          }
+        },
+        "after": {
+          "desktop": {
+            "width": 1280,
+            "words": 149,
+            "paragraphWords": 26,
+            "controls": 6,
+            "unnamed": 0,
+            "clipped": 0,
+            "actionControls": 1,
+            "headings": 2,
+            "overflowX": false,
+            "facts": [
+              {
+                "id": "supplier",
+                "label": "North Studio",
+                "visible": true
+              },
+              {
+                "id": "amount",
+                "label": "€1,210.00",
+                "visible": true
+              },
+              {
+                "id": "due",
+                "label": "20 November 2026",
+                "visible": true
+              },
+              {
+                "id": "destination",
+                "label": "Account ending 4421",
+                "visible": true
+              },
+              {
+                "id": "consequence",
+                "label": "No payment / simulation note",
+                "visible": true
+              }
+            ],
+            "typeSizes": 9,
+            "fontFamilies": 2,
+            "uniqueColors": 11,
+            "uniqueRadii": 1,
+            "maxFont": 64,
+            "bodyFont": 15,
+            "fontRatio": 4.27,
+            "coverage": 0.442,
+            "lowContrast": 8,
+            "filledActions": 1,
+            "primaryVisible": true,
+            "disabledPrimary": 0,
+            "shadowCount": 2,
+            "headingList": [
+              "North Studio",
+              "Payment review"
+            ]
+          },
+          "mobile": {
+            "width": 390,
+            "words": 149,
+            "paragraphWords": 26,
+            "controls": 6,
+            "unnamed": 0,
+            "clipped": 0,
+            "actionControls": 1,
+            "headings": 2,
+            "overflowX": false,
+            "facts": [
+              {
+                "id": "supplier",
+                "label": "North Studio",
+                "visible": true
+              },
+              {
+                "id": "amount",
+                "label": "€1,210.00",
+                "visible": true
+              },
+              {
+                "id": "due",
+                "label": "20 November 2026",
+                "visible": true
+              },
+              {
+                "id": "destination",
+                "label": "Account ending 4421",
+                "visible": true
+              },
+              {
+                "id": "consequence",
+                "label": "No payment / simulation note",
+                "visible": true
+              }
+            ],
+            "typeSizes": 9,
+            "fontFamilies": 2,
+            "uniqueColors": 11,
+            "uniqueRadii": 1,
+            "maxFont": 44,
+            "bodyFont": 15,
+            "fontRatio": 2.93,
+            "coverage": 0.411,
+            "lowContrast": 8,
+            "filledActions": 1,
+            "primaryVisible": true,
+            "disabledPrimary": 0,
+            "shadowCount": 2,
+            "headingList": [
+              "North Studio",
+              "Payment review"
+            ]
+          },
+          "score": {
+            "score": 90.1,
+            "breakdown": [
+              {
+                "key": "text",
+                "label": "text",
+                "value": 0.758,
+                "weight": 15,
+                "points": 11.4
+              },
+              {
+                "key": "paragraph",
+                "label": "paragraph",
+                "value": 0.964,
+                "weight": 5,
+                "points": 4.8
+              },
+              {
+                "key": "action",
+                "label": "action",
+                "value": 1,
+                "weight": 20,
+                "points": 20
+              },
+              {
+                "key": "hierarchy",
+                "label": "hierarchy",
+                "value": 1,
+                "weight": 15,
+                "points": 15
+              },
+              {
+                "key": "cohesion",
+                "label": "cohesion",
+                "value": 0.86,
+                "weight": 15,
+                "points": 12.9
+              },
+              {
+                "key": "whitespace",
+                "label": "whitespace",
+                "value": 1,
+                "weight": 10,
+                "points": 10
+              },
+              {
+                "key": "responsive",
+                "label": "responsive",
+                "value": 1,
+                "weight": 10,
+                "points": 10
+              },
+              {
+                "key": "facts",
+                "label": "facts",
+                "value": 1,
+                "weight": 5,
+                "points": 5
+              },
+              {
+                "key": "contrast",
+                "label": "contrast",
+                "value": 0.2,
+                "weight": 5,
+                "points": 1
+              }
+            ],
+            "penalties": [],
+            "note": "Craft heuristic, not a beauty model or usability study."
+          }
+        }
+      },
+      "v1": {
+        "before": {
+          "desktop": {
+            "width": 1280,
+            "words": 100,
+            "paragraphWords": 0,
+            "controls": 0,
+            "unnamed": 0,
+            "clipped": 0,
+            "actionControls": 0,
+            "headings": 0,
+            "overflowX": false,
+            "facts": [
+              {
+                "id": "supplier",
+                "label": "North Studio",
+                "visible": true
+              },
+              {
+                "id": "amount",
+                "label": "€1,210.00",
+                "visible": true
+              },
+              {
+                "id": "due",
+                "label": "20 November 2026",
+                "visible": true
+              },
+              {
+                "id": "destination",
+                "label": "Account ending 4421",
+                "visible": true
+              },
+              {
+                "id": "consequence",
+                "label": "No payment / simulation note",
+                "visible": true
+              }
+            ],
+            "typeSizes": 9,
+            "fontFamilies": 1,
+            "uniqueColors": 13,
+            "uniqueRadii": 3,
+            "maxFont": 32,
+            "bodyFont": 16,
+            "fontRatio": 2,
+            "coverage": 0.249,
+            "lowContrast": 12,
+            "filledActions": 0,
+            "primaryVisible": false,
+            "disabledPrimary": 0,
+            "shadowCount": 5,
+            "headingList": []
+          },
+          "mobile": {
+            "width": 390,
+            "words": 100,
+            "paragraphWords": 0,
+            "controls": 0,
+            "unnamed": 0,
+            "clipped": 0,
+            "actionControls": 0,
+            "headings": 0,
+            "overflowX": false,
+            "facts": [
+              {
+                "id": "supplier",
+                "label": "North Studio",
+                "visible": true
+              },
+              {
+                "id": "amount",
+                "label": "€1,210.00",
+                "visible": true
+              },
+              {
+                "id": "due",
+                "label": "20 November 2026",
+                "visible": true
+              },
+              {
+                "id": "destination",
+                "label": "Account ending 4421",
+                "visible": true
+              },
+              {
+                "id": "consequence",
+                "label": "No payment / simulation note",
+                "visible": true
+              }
+            ],
+            "typeSizes": 9,
+            "fontFamilies": 1,
+            "uniqueColors": 13,
+            "uniqueRadii": 3,
+            "maxFont": 26,
+            "bodyFont": 16,
+            "fontRatio": 1.63,
+            "coverage": 0.439,
+            "lowContrast": 12,
+            "filledActions": 0,
+            "primaryVisible": false,
+            "disabledPrimary": 0,
+            "shadowCount": 5,
+            "headingList": []
+          },
+          "score": {
+            "score": 65.4,
+            "breakdown": [
+              {
+                "key": "text",
+                "label": "text",
+                "value": 1,
+                "weight": 15,
+                "points": 15
+              },
+              {
+                "key": "paragraph",
+                "label": "paragraph",
+                "value": 1,
+                "weight": 5,
+                "points": 5
+              },
+              {
+                "key": "action",
+                "label": "action",
+                "value": 0,
+                "weight": 20,
+                "points": 0
+              },
+              {
+                "key": "hierarchy",
+                "label": "hierarchy",
+                "value": 0.572,
+                "weight": 15,
+                "points": 8.6
+              },
+              {
+                "key": "cohesion",
+                "label": "cohesion",
+                "value": 0.72,
+                "weight": 15,
+                "points": 10.8
+              },
+              {
+                "key": "whitespace",
+                "label": "whitespace",
+                "value": 1,
+                "weight": 10,
+                "points": 10
+              },
+              {
+                "key": "responsive",
+                "label": "responsive",
+                "value": 1,
+                "weight": 10,
+                "points": 10
+              },
+              {
+                "key": "facts",
+                "label": "facts",
+                "value": 1,
+                "weight": 5,
+                "points": 5
+              },
+              {
+                "key": "contrast",
+                "label": "contrast",
+                "value": 0.2,
+                "weight": 5,
+                "points": 1
+              }
+            ],
+            "penalties": [],
+            "note": "Craft heuristic, not a beauty model or usability study."
+          }
+        },
+        "after": {
+          "desktop": {
+            "width": 1280,
+            "words": 105,
+            "paragraphWords": 12,
+            "controls": 2,
+            "unnamed": 0,
+            "clipped": 0,
+            "actionControls": 2,
+            "headings": 1,
+            "overflowX": false,
+            "facts": [
+              {
+                "id": "supplier",
+                "label": "North Studio",
+                "visible": true
+              },
+              {
+                "id": "amount",
+                "label": "€1,210.00",
+                "visible": true
+              },
+              {
+                "id": "due",
+                "label": "20 November 2026",
+                "visible": true
+              },
+              {
+                "id": "destination",
+                "label": "Account ending 4421",
+                "visible": true
+              },
+              {
+                "id": "consequence",
+                "label": "No payment / simulation note",
+                "visible": true
+              }
+            ],
+            "typeSizes": 7,
+            "fontFamilies": 2,
+            "uniqueColors": 5,
+            "uniqueRadii": 1,
+            "maxFont": 72,
+            "bodyFont": 14,
+            "fontRatio": 5.14,
+            "coverage": 0.28,
+            "lowContrast": 0,
+            "filledActions": 1,
+            "primaryVisible": true,
+            "disabledPrimary": 0,
+            "shadowCount": 1,
+            "headingList": [
+              "Invoice 0042"
+            ]
+          },
+          "mobile": {
+            "width": 390,
+            "words": 105,
+            "paragraphWords": 12,
+            "controls": 2,
+            "unnamed": 0,
+            "clipped": 0,
+            "actionControls": 2,
+            "headings": 1,
+            "overflowX": false,
+            "facts": [
+              {
+                "id": "supplier",
+                "label": "North Studio",
+                "visible": true
+              },
+              {
+                "id": "amount",
+                "label": "€1,210.00",
+                "visible": true
+              },
+              {
+                "id": "due",
+                "label": "20 November 2026",
+                "visible": true
+              },
+              {
+                "id": "destination",
+                "label": "Account ending 4421",
+                "visible": true
+              },
+              {
+                "id": "consequence",
+                "label": "No payment / simulation note",
+                "visible": true
+              }
+            ],
+            "typeSizes": 7,
+            "fontFamilies": 2,
+            "uniqueColors": 5,
+            "uniqueRadii": 1,
+            "maxFont": 48,
+            "bodyFont": 14,
+            "fontRatio": 3.43,
+            "coverage": 0.417,
+            "lowContrast": 0,
+            "filledActions": 1,
+            "primaryVisible": true,
+            "disabledPrimary": 0,
+            "shadowCount": 1,
+            "headingList": [
+              "Invoice 0042"
+            ]
+          },
+          "score": {
+            "score": 98.2,
+            "breakdown": [
+              {
+                "key": "text",
+                "label": "text",
+                "value": 1,
+                "weight": 15,
+                "points": 15
+              },
+              {
+                "key": "paragraph",
+                "label": "paragraph",
+                "value": 1,
+                "weight": 5,
+                "points": 5
+              },
+              {
+                "key": "action",
+                "label": "action",
+                "value": 1,
+                "weight": 20,
+                "points": 20
+              },
+              {
+                "key": "hierarchy",
+                "label": "hierarchy",
+                "value": 0.88,
+                "weight": 15,
+                "points": 13.2
+              },
+              {
+                "key": "cohesion",
+                "label": "cohesion",
+                "value": 1,
+                "weight": 15,
+                "points": 15
+              },
+              {
+                "key": "whitespace",
+                "label": "whitespace",
+                "value": 1,
+                "weight": 10,
+                "points": 10
+              },
+              {
+                "key": "responsive",
+                "label": "responsive",
+                "value": 1,
+                "weight": 10,
+                "points": 10
+              },
+              {
+                "key": "facts",
+                "label": "facts",
+                "value": 1,
+                "weight": 5,
+                "points": 5
+              },
+              {
+                "key": "contrast",
+                "label": "contrast",
+                "value": 1,
+                "weight": 5,
+                "points": 5
+              }
+            ],
+            "penalties": [],
+            "note": "Craft heuristic, not a beauty model or usability study."
+          }
+        }
+      }
+    }
+  ],
+  "summary": {
+    "v0Before": 52.9,
+    "v0After": 78.9,
+    "v0Delta": 26,
+    "v1Before": 61.7,
+    "v1After": 97.4,
+    "v1Delta": 35.7,
+    "improved": 4,
+    "total": 4
+  },
+  "note": "Craft heuristic, not a beauty model, usability study or the CLI audit. One run per model."
+}

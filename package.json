@@ -25,6 +25,7 @@
     "check": "node scripts/check.mjs",
     "test:browser": "node scripts/browser-test.mjs",
     "generate:runs": "node scripts/generate-lab-runs.mjs",
+    "benchmark:lab": "node scripts/benchmark-lab.mjs",
     "package:source": "node scripts/package.mjs",
     "measure:context": "node scripts/measure-context.mjs"
   },
@@ -43,7 +44,8 @@
     "DESIGN_RULES.md",
     "references",
     "Automatron_Design_Harness_Plan.md",
-    "AGENTS.md"
+    "AGENTS.md",
+    "gallery"
   ],
   "repository": {
     "type": "git",

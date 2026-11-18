@@ -1,0 +1,199 @@
+{
+  "schema": "functional-minimalism.lab-run/1",
+  "id": "invoice-claude-haiku-5-5",
+  "preset": "invoice",
+  "presetLabel": "Invoice review",
+  "prompt": "Review invoice 0042 from North Studio for €1,210.00, due 20 November 2026. The payment would leave account ending 4421. I want to check the supplier, amount and due date, then review the payment before anything happens. Use fictional data. No real payment.",
+  "createdAt": "2026-11-18T08:29:25.621Z",
+  "model": {
+    "id": "claude-haiku-5-5",
+    "label": "Claude Haiku 5.5",
+    "provider": "OpenCode Go",
+    "via": "Frontier",
+    "free": false
+  },
+  "harness": {
+    "pack": "studio@0.2.0",
+    "brief": true,
+    "conditions": [
+      "model default",
+      "same model with harness brief"
+    ]
+  },
+  "conditions": {
+    "before": {
+      "label": "Model default",
+      "html": "<!DOCTYPE html>\n<html lang=\"en\">\n<head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'none'; img-src data:; style-src 'unsafe-inline'; font-src data:; script-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'\">\n\n\n<title>Review Invoice 0042 - North Studio</title>\n<style>\n  :root {\n    --bg: #f4f5f7;\n    --card: #ffffff;\n    --ink: #1d2330;\n    --muted: #5d6676;\n    --line: #dde1e8;\n    --accent: #2b59c3;\n    --accent-ink: #ffffff;\n    --ok: #1e7a4a;\n    --ok-bg: #e6f4ec;\n    --warn: #8a5a00;\n    --warn-bg: #fff5dc;\n  }\n  * { box-sizing: border-box; }\n  html, body { margin: 0; padding: 0; }\n  body {\n    font-family: system-ui, -apple-system, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif;\n    background: var(--bg);\n    color: var(--ink);\n    font-size: 15px;\n    line-height: 1.45;\n    min-height: 100vh;\n  }\n  header.top {\n    background: var(--card);\n    border-bottom: 1px solid var(--line);\n    padding: 14px 24px;\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    gap: 12px;\n    flex-wrap: wrap;\n  }\n  .brand { font-weight: 700; letter-spacing: 0.02em; }\n  .crumbs { color: var(--muted); font-size: 13px; }\n  .badge {\n    display: inline-block;\n    padding: 3px 10px;\n    border-radius: 999px;\n    font-size: 12px;\n    font-weight: 600;\n    background: var(--warn-bg);\n    color: var(--warn);\n  }\n  main {\n    max-width: 1180px;\n    margin: 0 auto;\n    padding: 24px;\n    display: grid;\n    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);\n    gap: 20px;\n    align-items: start;\n  }\n  h1 { font-size: 22px; margin: 0 0 4px; }\n  h2 { font-size: 15px; margin: 0 0 12px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }\n  .card {\n    background: var(--card);\n    border: 1px solid var(--line);\n    border-radius: 10px;\n    padding: 20px;\n    margin-bottom: 20px;\n  }\n  .card:last-child { margin-bottom: 0; }\n  .subtitle { color: var(--muted); margin: 0 0 16px; }\n  .grid-2 {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n    gap: 14px 20px;\n  }\n  .field .label { font-size: 12px; color: var(--muted); margin-bottom: 2px; }\n  .field .value { font-weight: 600; }\n  .field .value.small { font-weight: 400; color: var(--ink); }\n  table {\n    width: 100%;\n    border-collapse: collapse;\n    margin-top: 4px;\n  }\n  th, td {\n    text-align: left;\n    padding: 10px 6px;\n    border-bottom: 1px solid var(--line);\n    font-size: 14px;\n  }\n  th { color: var(--muted); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; }\n  td.num, th.num { text-align: right; white-space: nowrap; }\n  tfoot td { border-bottom: none; }\n  tfoot tr.total td { font-weight: 700; font-size: 16px; padding-top: 14px; }\n  .amount-hero {\n    font-size: 34px;\n    font-weight: 700;\n    letter-spacing: -0.01em;\n    margin: 4px 0 2px;\n  }\n  .due {\n    display: flex;\n    align-items: center;\n    gap: 10px;\n    background: var(--warn-bg);\n    color: var(--warn);\n    border-radius: 8px;\n    padding: 10px 12px;\n    font-weight: 600;\n    margin-top: 12px;\n  }\n  .account {\n    display: flex;\n    align-items: center;\n    gap: 14px;\n    border: 1px solid var(--line);\n    border-radius: 8px;\n    padding: 12px 14px;\n  }\n  .bank-mark {\n    width: 40px; height: 28px;\n    border-radius: 5px;\n    background: linear-gradient(135deg, #2b59c3, #1b3a80);\n    position: relative;\n    flex: 0 0 auto;\n  }\n  .bank-mark::after {\n    content: \"\";\n    position: absolute;\n    left: 8px; right: 8px; top: 9px;\n    height: 3px;\n    background: rgba(255,255,255,0.85);\n    border-radius: 2px;\n    box-shadow: 0 5px 0 rgba(255,255,255,0.85);\n  }\n  .checklist { list-style: none; padding: 0; margin: 0; }\n  .checklist li {\n    border-bottom: 1px solid var(--line);\n  }\n  .checklist li:last-child { border-bottom: none; }\n  .checklist label {\n    display: flex;\n    gap: 12px;\n    align-items: flex-start;\n    padding: 12px 0;\n    cursor: pointer;\n  }\n  .checklist input[type=\"checkbox\"] {\n    width: 18px; height: 18px;\n    margin: 2px 0 0;\n    accent-color: var(--accent);\n    flex: 0 0 auto;\n  }\n  .checklist .hint { display: block; color: var(--muted); font-size: 13px; }\n  .actions { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }\n  button {\n    font: inherit;\n    font-weight: 600;\n    border-radius: 8px;\n    padding: 12px 16px;\n    cursor: pointer;\n    border: 1px solid transparent;\n    width: 100%;\n  }\n  button.primary {\n    background: var(--accent);\n    color: var(--accent-ink);\n  }\n  button.primary:disabled {\n    background: #c7cfdd;\n    color: #f4f6fa;\n    cursor: not-allowed;\n  }\n  button.secondary {\n    background: var(--card);\n    color: var(--ink);\n    border-color: var(--line);\n  }\n  button:focus-visible { outline: 3px solid #9bb6ef; outline-offset: 2px; }\n  .status {\n    margin-top: 14px;\n    padding: 12px 14px;\n    border-radius: 8px;\n    font-size: 14px;\n    background: var(--bg);\n    color: var(--muted);\n    border: 1px dashed var(--line);\n  }\n  .status.done {\n    background: var(--ok-bg);\n    color: var(--ok);\n    border: 1px solid #bfe3cf;\n  }\n  .notice {\n    font-size: 13px;\n    color: var(--muted);\n    margin-top: 12px;\n  }\n  .kv { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; border-bottom: 1px solid var(--line); font-size: 14px; }\n  .kv:last-child { border-bottom: none; }\n  .kv span:first-child { color: var(--muted); }\n  @media (max-width: 900px) {\n    main { grid-template-columns: 1fr; padding: 16px; }\n  }\n  @media (max-width: 480px) {\n    header.top { padding: 12px 16px; }\n    main { padding: 12px; gap: 14px; }\n    .card { padding: 16px; }\n    .grid-2 { grid-template-columns: 1fr; }\n    .amount-hero { font-size: 28px; }\n    th, td { font-size: 13px; padding: 8px 4px; }\n    h1 { font-size: 19px; }\n  }\n</style>\n</head>\n<body>\n\n<header class=\"top\">\n  <div>\n    <div class=\"brand\">Accounts Payable</div>\n    <div class=\"crumbs\">Invoices &rsaquo; North Studio &rsaquo; INV-0042</div>\n  </div>\n  <span class=\"badge\">Awaiting review</span>\n</header>\n\n<main>\n  <section aria-label=\"Invoice details\">\n\n    <div class=\"card\">\n      <h1>Invoice 0042</h1>\n      <p class=\"subtitle\">From North Studio &middot; Fictional sample data</p>\n\n      <div class=\"grid-2\">\n        <div class=\"field\">\n          <div class=\"label\">Supplier</div>\n          <div class=\"value\">North Studio Ltd</div>\n          <div class=\"value small\">14 Example Quay, Riverside Park<br>Sample City, SC1 2AB</div>\n        </div>\n        <div class=\"field\">\n          <div class=\"label\">Supplier reference</div>\n          <div class=\"value\">NS-2026-0917</div>\n          <div class=\"value small\">VAT ID: SAMPLE-GB-000042</div>\n        </div>\n        <div class=\"field\">\n          <div class=\"label\">Invoice date</div>\n          <div class=\"value\">6 October 2026</div>\n        </div>\n        <div class=\"field\">\n          <div class=\"label\">Due date</div>\n          <div class=\"value\">20 November 2026</div>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"card\">\n      <h2>Line items</h2>\n      <table>\n        <thead>\n          <tr>\n            <th>Description</th>\n            <th class=\"num\">Qty</th>\n            <th class=\"num\">Unit</th>\n            <th class=\"num\">Amount</th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr>\n            <td>Brand identity refresh, phase 2</td>\n            <td class=\"num\">1</td>\n            <td class=\"num\">€700.00</td>\n            <td class=\"num\">€700.00</td>\n          </tr>\n          <tr>\n            <td>Print-ready asset package</td>\n            <td class=\"num\">1</td>\n            <td class=\"num\">€300.00</td>\n            <td class=\"num\">€300.00</td>\n          </tr>\n        </tbody>\n        <tfoot>\n          <tr>\n            <td colspan=\"3\">Subtotal (net)</td>\n            <td class=\"num\">€1,000.00</td>\n          </tr>\n          <tr>\n            <td colspan=\"3\">VAT 21%</td>\n            <td class=\"num\">€210.00</td>\n          </tr>\n          <tr class=\"total\">\n            <td colspan=\"3\">Total due</td>\n            <td class=\"num\">€1,210.00</td>\n          </tr>\n        </tfoot>\n      </table>\n    </div>\n\n  </section>\n\n  <aside aria-label=\"Payment review\">\n\n    <div class=\"card\">\n      <h2>Amount</h2>\n      <div class=\"amount-hero\">€1,210.00</div>\n      <div class=\"kv\"><span>Currency</span><span>EUR</span></div>\n      <div class=\"kv\"><span>Payee</span><span>North Studio Ltd</span></div>\n      <div class=\"due\">\n        <span aria-hidden=\"true\">&#9201;</span>\n        <span>Due 20 November 2026</span>\n      </div>\n    </div>\n\n    <div class=\"card\">\n      <h2>Pay from</h2>\n      <div class=\"account\">\n        <div class=\"bank-mark\" aria-hidden=\"true\"></div>\n        <div>\n          <div class=\"value\">Business Current Account</div>\n          <div class=\"value small\">Ending 4421 &middot; Sample Bank</div>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"card\">\n      <h2>Review checklist</h2>\n      <ul class=\"checklist\">\n        <li>\n          <label>\n            <input type=\"checkbox\" class=\"check\">\n            <span>Supplier name and address match our records\n              <span class=\"hint\">North Studio Ltd, 14 Example Quay</span>\n            </span>\n          </label>\n        </li>\n        <li>\n          <label>\n            <input type=\"checkbox\" class=\"check\">\n            <span>Amount matches the approved purchase order\n              <span class=\"hint\">€1,210.00 including VAT</span>\n            </span>\n          </label>\n        </li>\n        <li>\n          <label>\n            <input type=\"checkbox\" class=\"check\">\n            <span>Due date is confirmed\n              <span class=\"hint\">20 November 2026</span>\n            </span>\n          </label>\n        </li>\n        <li>\n          <label>\n            <input type=\"checkbox\" class=\"check\">\n            <span>Source account is correct\n              <span class=\"hint\">Business Current Account ending 4421</span>\n            </span>\n          </label>\n        </li>\n      </ul>\n\n      <div class=\"actions\">\n        <button class=\"primary\" id=\"approve\" type=\"button\" disabled>Record review as complete</button>\n        <button class=\"secondary\" id=\"hold\" type=\"button\">Keep on hold</button>\n      </div>\n\n      <div class=\"status\" id=\"status\" role=\"status\" aria-live=\"polite\">\n        Tick all four checks to record a review. Nothing is paid from this screen.\n      </div>\n      <p class=\"notice\">This is a review only. No payment is sent, scheduled, or authorised here.</p>\n    </div>\n\n  </aside>\n</main>\n\n\n\n</body>\n</html>",
+      "elapsedMs": null,
+      "usage": null,
+      "finishReason": null,
+      "measures": {
+        "desktop": {
+          "width": 1280,
+          "words": 173,
+          "paragraphWords": 20,
+          "controls": 6,
+          "unnamed": 0,
+          "clipped": 0,
+          "actionControls": 1,
+          "headings": 5,
+          "overflowX": false,
+          "facts": [
+            {
+              "id": "supplier",
+              "label": "North Studio",
+              "visible": true
+            },
+            {
+              "id": "amount",
+              "label": "€1,210.00",
+              "visible": true
+            },
+            {
+              "id": "due",
+              "label": "20 November 2026",
+              "visible": true
+            },
+            {
+              "id": "destination",
+              "label": "Account ending 4421",
+              "visible": true
+            },
+            {
+              "id": "consequence",
+              "label": "No payment / simulation note",
+              "visible": true
+            }
+          ]
+        },
+        "mobile": {
+          "width": 390,
+          "words": 173,
+          "paragraphWords": 20,
+          "controls": 6,
+          "unnamed": 0,
+          "clipped": 0,
+          "actionControls": 1,
+          "headings": 5,
+          "overflowX": false,
+          "facts": [
+            {
+              "id": "supplier",
+              "label": "North Studio",
+              "visible": true
+            },
+            {
+              "id": "amount",
+              "label": "€1,210.00",
+              "visible": true
+            },
+            {
+              "id": "due",
+              "label": "20 November 2026",
+              "visible": true
+            },
+            {
+              "id": "destination",
+              "label": "Account ending 4421",
+              "visible": true
+            },
+            {
+              "id": "consequence",
+              "label": "No payment / simulation note",
+              "visible": true
+            }
+          ]
+        }
+      },
+      "screenshot": "./runs/invoice-claude-haiku-5-5-before.png"
+    },
+    "after": {
+      "label": "With harness",
+      "html": "<!DOCTYPE html>\n<html lang=\"en\">\n<head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'none'; img-src data:; style-src 'unsafe-inline'; font-src data:; script-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'\">\n\n\n<title>Review Invoice 0042 - North Studio</title>\n<style>\n  :root {\n    --bg: #f6f3ec;\n    --card: #fffdf8;\n    --ink: #1f1d1a;\n    --muted: #6b6558;\n    --line: #e4dfd3;\n    --accent: #3b5b7a;\n    --accent-ink: #ffffff;\n    --due-bg: #f1e9d6;\n    --due-ink: #6e4d10;\n  }\n  * { box-sizing: border-box; }\n  html, body { margin: 0; padding: 0; }\n  body {\n    font-family: system-ui, -apple-system, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif;\n    background: var(--bg);\n    color: var(--ink);\n    font-size: 15px;\n    line-height: 1.45;\n    min-height: 100vh;\n  }\n  header.top {\n    background: var(--card);\n    border-bottom: 1px solid var(--line);\n    padding: 14px 24px;\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    gap: 12px;\n    flex-wrap: wrap;\n  }\n  .brand { font-weight: 700; letter-spacing: 0.02em; }\n  .crumbs { color: var(--muted); font-size: 13px; }\n  .crumbs a { color: var(--muted); }\n  .badge {\n    display: inline-block;\n    padding: 3px 10px;\n    border-radius: 999px;\n    font-size: 12px;\n    font-weight: 600;\n    background: var(--due-bg);\n    color: var(--due-ink);\n  }\n  main {\n    max-width: 1100px;\n    margin: 0 auto;\n    padding: 28px 24px;\n    display: grid;\n    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);\n    gap: 24px;\n    align-items: start;\n  }\n  h1 { font-size: 22px; margin: 0 0 2px; font-weight: 700; }\n  h2 {\n    font-size: 12px;\n    margin: 0 0 10px;\n    text-transform: uppercase;\n    letter-spacing: 0.06em;\n    color: var(--muted);\n    font-weight: 600;\n  }\n  .card {\n    background: var(--card);\n    border: 1px solid var(--line);\n    border-radius: 10px;\n    padding: 22px;\n  }\n  .card + .card { margin-top: 0; }\n  .muted { color: var(--muted); font-size: 14px; margin: 0; }\n  .amount {\n    font-size: 36px;\n    font-weight: 700;\n    letter-spacing: -0.01em;\n    margin: 18px 0 6px;\n  }\n  .due {\n    display: inline-block;\n    background: var(--due-bg);\n    color: var(--due-ink);\n    border-radius: 8px;\n    padding: 8px 12px;\n    font-weight: 600;\n    font-size: 14px;\n  }\n  .grid-2 {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n    gap: 16px 24px;\n    margin-top: 22px;\n    padding-top: 20px;\n    border-top: 1px solid var(--line);\n  }\n  .label { font-size: 12px; color: var(--muted); margin-bottom: 2px; }\n  .value { font-weight: 600; }\n  .value.small { font-weight: 400; font-size: 14px; color: var(--ink); }\n  table {\n    width: 100%;\n    border-collapse: collapse;\n    margin-top: 6px;\n  }\n  th, td {\n    text-align: left;\n    padding: 10px 6px;\n    border-bottom: 1px solid var(--line);\n    font-size: 14px;\n  }\n  th { color: var(--muted); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; }\n  td.num, th.num { text-align: right; white-space: nowrap; }\n  tfoot td { border-bottom: none; }\n  tfoot tr.total td { font-weight: 700; font-size: 16px; padding-top: 14px; }\n  .kv {\n    display: flex;\n    justify-content: space-between;\n    gap: 12px;\n    padding: 8px 0;\n    border-bottom: 1px solid var(--line);\n    font-size: 14px;\n  }\n  .kv span:first-child { color: var(--muted); }\n  .account { margin-top: 18px; font-size: 14px; }\n  .checklist { list-style: none; padding: 0; margin: 0; }\n  .checklist li { border-bottom: 1px solid var(--line); }\n  .checklist li:last-child { border-bottom: none; }\n  .checklist label {\n    display: flex;\n    gap: 12px;\n    align-items: flex-start;\n    padding: 12px 0;\n    cursor: pointer;\n  }\n  .checklist input[type=\"checkbox\"] {\n    width: 18px; height: 18px;\n    margin: 2px 0 0;\n    accent-color: var(--accent);\n    flex: 0 0 auto;\n  }\n  .checklist .hint { display: block; color: var(--muted); font-size: 13px; }\n  .actions { display: flex; flex-direction: column; gap: 10px; margin-top: 18px; }\n  button {\n    font: inherit;\n    font-weight: 600;\n    border-radius: 8px;\n    padding: 12px 16px;\n    cursor: pointer;\n    border: 1px solid transparent;\n    width: 100%;\n  }\n  button.primary { background: var(--accent); color: var(--accent-ink); }\n  button.primary:disabled { background: #d6d2c6; color: #f6f3ec; cursor: not-allowed; }\n  button.secondary { background: var(--card); color: var(--ink); border-color: var(--line); }\n  button:focus-visible { outline: 3px solid #a9bcd0; outline-offset: 2px; }\n  .status {\n    margin-top: 14px;\n    padding: 12px 14px;\n    border-radius: 8px;\n    font-size: 14px;\n    background: var(--bg);\n    color: var(--muted);\n    border: 1px dashed var(--line);\n  }\n  .status.done {\n    background: #e7efe9;\n    color: #2d5a40;\n    border: 1px solid #c4d8ca;\n  }\n  .notice { font-size: 13px; color: var(--muted); margin: 12px 0 0; }\n  @media (max-width: 900px) {\n    main { grid-template-columns: 1fr; padding: 16px; }\n  }\n  @media (max-width: 480px) {\n    header.top { padding: 12px 16px; }\n    main { padding: 12px; gap: 14px; }\n    .card { padding: 16px; }\n    .grid-2 { grid-template-columns: 1fr; }\n    .amount { font-size: 30px; }\n    th, td { font-size: 13px; padding: 8px 4px; }\n    h1 { font-size: 19px; }\n  }\n</style>\n</head>\n<body>\n\n<header class=\"top\">\n  <div>\n    <div class=\"brand\">Accounts Payable</div>\n    <div class=\"crumbs\"><a href=\"#\">Invoices</a> &rsaquo; North Studio &rsaquo; INV-0042</div>\n  </div>\n  <span class=\"badge\">Awaiting review</span>\n</header>\n\n<main>\n  <section aria-label=\"Invoice details\">\n    <div class=\"card\">\n      <h1>Invoice 0042</h1>\n      <p class=\"muted\">From North Studio &middot; Fictional sample data</p>\n\n      <div class=\"amount\">€1,210.00</div>\n      <span class=\"due\">Due 20 November 2026</span>\n\n      <div class=\"grid-2\">\n        <div>\n          <div class=\"label\">Supplier</div>\n          <div class=\"value\">North Studio Ltd</div>\n          <div class=\"value small\">14 Example Quay, Riverside Park<br>Sample City, SC1 2AB</div>\n        </div>\n        <div>\n          <div class=\"label\">Supplier reference</div>\n          <div class=\"value\">NS-2026-0917</div>\n          <div class=\"value small\">VAT ID: SAMPLE-GB-000042</div>\n        </div>\n        <div>\n          <div class=\"label\">Invoice date</div>\n          <div class=\"value\">6 October 2026</div>\n        </div>\n        <div>\n          <div class=\"label\">Due date</div>\n          <div class=\"value\">20 November 2026</div>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"card\" style=\"margin-top:24px\">\n      <h2>Line items</h2>\n      <table>\n        <thead>\n          <tr>\n            <th>Description</th>\n            <th class=\"num\">Qty</th>\n            <th class=\"num\">Unit</th>\n            <th class=\"num\">Amount</th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr>\n            <td>Brand identity refresh, phase 2</td>\n            <td class=\"num\">1</td>\n            <td class=\"num\">€700.00</td>\n            <td class=\"num\">€700.00</td>\n          </tr>\n          <tr>\n            <td>Print-ready asset package</td>\n            <td class=\"num\">1</td>\n            <td class=\"num\">€300.00</td>\n            <td class=\"num\">€300.00</td>\n          </tr>\n        </tbody>\n        <tfoot>\n          <tr>\n            <td colspan=\"3\">Subtotal (net)</td>\n            <td class=\"num\">€1,000.00</td>\n          </tr>\n          <tr>\n            <td colspan=\"3\">VAT 21%</td>\n            <td class=\"num\">€210.00</td>\n          </tr>\n          <tr class=\"total\">\n            <td colspan=\"3\">Total due</td>\n            <td class=\"num\">€1,210.00</td>\n          </tr>\n        </tfoot>\n      </table>\n    </div>\n  </section>\n\n  <aside aria-label=\"Payment review\">\n    <div class=\"card\">\n      <div class=\"kv\"><span>Payee</span><span>North Studio Ltd</span></div>\n      <div class=\"kv\"><span>Currency</span><span>EUR</span></div>\n      <div class=\"kv\"><span>Pay from</span><span>Business Current Account</span></div>\n      <div class=\"account value small\">Ending 4421 &middot; Sample Bank</div>\n\n      <h2 style=\"margin-top:22px\">Checks before review</h2>\n      <ul class=\"checklist\">\n        <li>\n          <label>\n            <input type=\"checkbox\" class=\"check\">\n            <span>Supplier name and address match our records\n              <span class=\"hint\">North Studio Ltd, 14 Example Quay</span>\n            </span>\n          </label>\n        </li>\n        <li>\n          <label>\n            <input type=\"checkbox\" class=\"check\">\n            <span>Amount matches the approved purchase order\n              <span class=\"hint\">€1,210.00 including VAT</span>\n            </span>\n          </label>\n        </li>\n        <li>\n          <label>\n            <input type=\"checkbox\" class=\"check\">\n            <span>Due date is confirmed\n              <span class=\"hint\">20 November 2026</span>\n            </span>\n          </label>\n        </li>\n        <li>\n          <label>\n            <input type=\"checkbox\" class=\"check\">\n            <span>Source account is correct\n              <span class=\"hint\">Business Current Account ending 4421</span>\n            </span>\n          </label>\n        </li>\n      </ul>\n\n      <div class=\"actions\">\n        <button class=\"primary\" id=\"approve\" type=\"button\" disabled>Review payment</button>\n        <button class=\"secondary\" id=\"hold\" type=\"button\">Keep on hold</button>\n      </div>\n\n      <div class=\"status\" id=\"status\" role=\"status\" aria-live=\"polite\">\n        Tick all four checks to record a review. Nothing is paid from this screen.\n      </div>\n      <p class=\"notice\">This is a review only. No payment is sent, scheduled, or authorised here.</p>\n    </div>\n  </aside>\n</main>\n\n\n\n</body>\n</html>",
+      "elapsedMs": null,
+      "usage": null,
+      "finishReason": null,
+      "measures": {
+        "desktop": {
+          "width": 1280,
+          "words": 171,
+          "paragraphWords": 20,
+          "controls": 7,
+          "unnamed": 0,
+          "clipped": 0,
+          "actionControls": 2,
+          "headings": 3,
+          "overflowX": false,
+          "facts": [
+            {
+              "id": "supplier",
+              "label": "North Studio",
+              "visible": true
+            },
+            {
+              "id": "amount",
+              "label": "€1,210.00",
+              "visible": true
+            },
+            {
+              "id": "due",
+              "label": "20 November 2026",
+              "visible": true
+            },
+            {
+              "id": "destination",
+              "label": "Account ending 4421",
+              "visible": true
+            },
+            {
+              "id": "consequence",
+              "label": "No payment / simulation note",
+              "visible": true
+            }
+          ]
+        },
+        "mobile": {
+          "width": 390,
+          "words": 171,
+          "paragraphWords": 20,
+          "controls": 7,
+          "unnamed": 0,
+          "clipped": 0,
+          "actionControls": 2,
+          "headings": 3,
+          "overflowX": false,
+          "facts": [
+            {
+              "id": "supplier",
+              "label": "North Studio",
+              "visible": true
+            },
+            {
+              "id": "amount",
+              "label": "€1,210.00",
+              "visible": true
+            },
+            {
+              "id": "due",
+              "label": "20 November 2026",
+              "visible": true
+            },
+            {
+              "id": "destination",
+              "label": "Account ending 4421",
+              "visible": true
+            },
+            {
+              "id": "consequence",
+              "label": "No payment / simulation note",
+              "visible": true
+            }
+          ]
+        }
+      },
+      "screenshot": "./runs/invoice-claude-haiku-5-5-after.png"
+    }
+  },
+  "limitations": "A single recorded run. The harness pass receives the brief and rules; it does not run a coding-agent repair loop or a usability study.",
+  "note": "Recovered from an earlier recorded run. Timings and token counts were not captured."
+}

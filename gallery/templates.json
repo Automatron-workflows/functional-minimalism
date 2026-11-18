@@ -1,0 +1,148 @@
+{
+  "schema": "functional-minimalism.component-gallery/1",
+  "version": "1.0.0",
+  "approvedAt": "2026-11-18",
+  "license": "MIT",
+  "source": "Manually reviewed from the Atelier harness output for the North Studio invoice prompt. Synthetic data; no third-party brand assets.",
+  "tokens": {
+    "canvas": "#F4F0E8",
+    "surface": "#FFFFFF",
+    "ink": "#171614",
+    "muted": "#6D6860",
+    "line": "#E5DED2",
+    "accent": "#1F5B46",
+    "onaccent": "#FFFFFF",
+    "display": "Iowan Old Style, Palatino, Palatino Linotype, Georgia, serif",
+    "body": "Inter, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif"
+  },
+  "components": [
+    {
+      "id": "page-shell",
+      "name": "Centered page shell",
+      "category": "layout",
+      "approvedBy": "Matthias Mandiau",
+      "approvedAt": "2026-11-18",
+      "license": "MIT",
+      "html": "<!-- Wrap the approved page in .page and .layout. -->\n<div class=\"page\">\n  <header class=\"brand-line\">BRAND LINE</header>\n  <main class=\"layout\">\n    <article class=\"document\">INVOICE DOCUMENT</article>\n    <aside class=\"summary\">SUMMARY RAIL</aside>\n  </main>\n</div>",
+      "css": ".page{max-width:1120px;margin:0 auto;padding:48px;box-sizing:border-box}.layout{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:64px;align-items:start}@media(max-width:760px){.page{padding:32px 24px}.layout{grid-template-columns:1fr;gap:32px}.summary{order:-1}}",
+      "rules": [
+        "Use the page shell for every screen. The summary must never touch the viewport edge.",
+        "Use 48px gutters at 1280 and 24px at 390. Keep the content centered."
+      ]
+    },
+    {
+      "id": "brand-line",
+      "name": "Brand and review line",
+      "category": "header",
+      "approvedBy": "Matthias Mandiau",
+      "approvedAt": "2026-11-18",
+      "license": "MIT",
+      "html": "<header class=\"brand-line\"><div><p class=\"label\">Payments console</p><p class=\"brand\">North Studio</p></div><p class=\"label\">Invoice 0042 \u00b7 Review only</p></header>",
+      "css": ".brand-line{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;padding:0 0 24px;border-bottom:1px solid var(--line);margin-bottom:48px}.brand{margin:4px 0 0;font-family:var(--display);font-size:28px;line-height:1.1;letter-spacing:-.02em}.brand-line .label{white-space:nowrap}",
+      "rules": [
+        "Keep the brand small and the review state quiet.",
+        "Do not add a logo badge, icon or navigation to an invoice task."
+      ]
+    },
+    {
+      "id": "document",
+      "name": "Invoice document",
+      "category": "surface",
+      "approvedBy": "Matthias Mandiau",
+      "approvedAt": "2026-11-18",
+      "license": "MIT",
+      "html": "<article class=\"document\" id=\"invoice-details\"><header class=\"doc-head\"><div><p class=\"label\">Supplier document</p><h1>Invoice 0042</h1><p class=\"muted\">Issued 6 November 2026</p></div><div class=\"doc-meta\"><p class=\"label\">Due date</p><p>20 November 2026</p></div></header>LINE ITEMS AND TOTAL</article>",
+      "css": ".document{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 50px rgba(27,26,23,.06);padding:48px;min-width:0}.doc-head{display:flex;justify-content:space-between;gap:32px;align-items:flex-start;padding-bottom:24px;border-bottom:1px solid var(--line)}.doc-head h1{margin:4px 0 0;font-family:var(--display);font-size:40px;font-weight:500;letter-spacing:-.03em;line-height:1.05}.doc-meta{text-align:right}.doc-meta p{margin:4px 0 0;font-size:14px}@media(max-width:760px){.document{padding:24px}.doc-head{flex-direction:column;gap:16px}.doc-meta{text-align:left}}",
+      "rules": [
+        "Use one white document, 14px radius, 1px border and one soft shadow.",
+        "The amount is the hero; the invoice number is a reference, not the page title."
+      ]
+    },
+    {
+      "id": "amount",
+      "name": "Hero amount",
+      "category": "typography",
+      "approvedBy": "Matthias Mandiau",
+      "approvedAt": "2026-11-18",
+      "license": "MIT",
+      "html": "<p class=\"label\">Amount to leave account</p><p class=\"amount\">\u20ac1,210.00</p><p class=\"muted\">Includes VAT \u20ac210.00 (21%)</p>",
+      "css": ".amount{margin:8px 0 4px;font-family:var(--display);font-size:72px;font-weight:500;line-height:.95;letter-spacing:-.045em;font-variant-numeric:tabular-nums}@media(max-width:760px){.amount{font-size:56px}}",
+      "rules": [
+        "The amount is the largest element on the screen.",
+        "Use display serif and tabular numerals. Do not repeat the total in a second card."
+      ]
+    },
+    {
+      "id": "summary-rail",
+      "name": "Summary rail",
+      "category": "composition",
+      "approvedBy": "Matthias Mandiau",
+      "approvedAt": "2026-11-18",
+      "license": "MIT",
+      "html": "<aside class=\"summary\"><p class=\"label\">Payment review</p><p class=\"amount\">\u20ac1,210.00</p><dl class=\"facts\"><div><dt>Supplier</dt><dd>North Studio</dd></div><div><dt>Due</dt><dd>20 November 2026</dd></div><div><dt>From</dt><dd>Business Current Account ending 4421</dd></div><div><dt>Destination</dt><dd>North Studio business account</dd></div></dl><p class=\"consequence\">Review only. No payment is sent, scheduled or authorised from this screen.</p><button class=\"primary\" type=\"button\">Review payment</button><a class=\"secondary\" href=\"#invoice-details\">Back to invoice details</a></aside>",
+      "css": ".summary{min-width:0}.facts{margin:24px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.facts div{display:grid;grid-template-columns:120px minmax(0,1fr);gap:16px;padding:12px 0;border-bottom:1px solid var(--line)}.facts div:last-child{border-bottom:0}.facts dt{color:var(--muted);font-size:12px}.facts dd{margin:0;text-align:right;font-size:14px}.consequence{margin:0 0 20px;color:var(--muted);font-size:12px;line-height:1.55}.secondary{display:inline-flex;min-height:44px;align-items:center;margin-top:8px;color:var(--muted);font-size:12px}@media(max-width:760px){.facts div{grid-template-columns:96px minmax(0,1fr)}.facts dd{text-align:left}}",
+      "rules": [
+        "Show supplier, amount, due date, source account, destination and consequence once.",
+        "Keep exactly one enabled primary action. The secondary recovery is a quiet text link.",
+        "Do not add checklists, AI summaries, status pills or a second primary button."
+      ]
+    },
+    {
+      "id": "primary-action",
+      "name": "Primary action",
+      "category": "control",
+      "approvedBy": "Matthias Mandiau",
+      "approvedAt": "2026-11-18",
+      "license": "MIT",
+      "html": "<button class=\"primary\" type=\"button\">Review payment</button>",
+      "css": ".primary{display:inline-flex;width:100%;min-height:48px;align-items:center;justify-content:center;padding:0 20px;border:0;border-radius:8px;background:var(--accent);color:var(--onaccent);font:600 14px/1 var(--body);cursor:pointer}.primary:hover{filter:brightness(1.06)}.primary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}.primary:disabled{opacity:.55;cursor:default}",
+      "rules": [
+        "Use one filled primary action per screen.",
+        "It must be enabled and visible in the first 1280 by 800 view.",
+        "Use a quiet text link for recovery, not a second filled button."
+      ]
+    },
+    {
+      "id": "line-items",
+      "name": "Line items table",
+      "category": "data",
+      "approvedBy": "Matthias Mandiau",
+      "approvedAt": "2026-11-18",
+      "license": "MIT",
+      "html": "<table class=\"items\"><thead><tr><th scope=\"col\">Description</th><th scope=\"col\">Qty</th><th scope=\"col\">Unit price</th><th scope=\"col\">Amount</th></tr></thead><tbody><tr><td>Brand identity refresh, phase 2</td><td>1</td><td>\u20ac700.00</td><td>\u20ac700.00</td></tr><tr><td>Print-ready asset package</td><td>1</td><td>\u20ac300.00</td><td>\u20ac300.00</td></tr></tbody></table>",
+      "css": ".items{width:100%;border-collapse:collapse;margin:24px 0;font-size:14px;font-variant-numeric:tabular-nums}.items th{padding:0 0 8px;border-bottom:1px solid var(--line);color:var(--muted);font-size:11px;font-weight:500;letter-spacing:.06em;text-align:left;text-transform:uppercase}.items td{padding:14px 0;border-bottom:1px solid var(--line)}.items th:first-child,.items td:first-child{width:52%}.items th:not(:first-child),.items td:not(:first-child){text-align:right}",
+      "rules": [
+        "Use the supplied line items exactly; do not invent extra items, discounts or fees.",
+        "Keep the total visible. Do not repeat the total in another card."
+      ]
+    },
+    {
+      "id": "labels",
+      "name": "Label and muted text",
+      "category": "typography",
+      "approvedBy": "Matthias Mandiau",
+      "approvedAt": "2026-11-18",
+      "license": "MIT",
+      "html": "<p class=\"label\">Payment review</p><p class=\"muted\">Includes VAT \u20ac210.00 (21%)</p>",
+      "css": ".label{margin:0;color:var(--muted);font-family:var(--body);font-size:11px;font-weight:500;letter-spacing:.08em;line-height:1.4;text-transform:uppercase}.muted{margin:0;color:var(--muted);font-size:13px;line-height:1.5}",
+      "rules": [
+        "Use labels for orientation, not as repeated headings.",
+        "Keep body copy at 14px and labels at 11px; at most six type sizes."
+      ]
+    },
+    {
+      "id": "status-pill",
+      "name": "Quiet status pill",
+      "category": "feedback",
+      "approvedBy": "Matthias Mandiau",
+      "approvedAt": "2026-11-18",
+      "license": "MIT",
+      "html": "<span class=\"status\">Review only</span>",
+      "css": ".status{display:inline-flex;min-height:28px;align-items:center;padding:0 12px;border-radius:999px;background:rgba(31,91,70,.08);color:var(--accent);font-size:11px;font-weight:600;letter-spacing:.04em;white-space:nowrap}",
+      "rules": [
+        "Use at most one status pill.",
+        "Pair color with text. Do not use a pill for the primary action."
+      ]
+    }
+  ]
+}

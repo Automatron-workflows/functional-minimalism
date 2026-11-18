@@ -25,12 +25,17 @@ async function labData(){
  const read=file=>readFile(path.join(root,file),'utf8');
  const index=JSON.parse(await read('demo/runs/index.json'));
  const presets=JSON.parse(await read('demo/presets.json'));
- const pack=JSON.parse(await read('packs/studio/pack.json'));
- const contracts={};
+ const pack=JSON.parse(await read('packs/atelier/pack.json'));
+ const contracts={},fixtures={};
  for(const preset of presets.presets){
   const file=path.resolve(root,'demo',preset.contract);
   contracts[preset.id]=JSON.parse(await readFile(file,'utf8'));
+  if(preset.fixture)fixtures[preset.id]=JSON.parse(await read(path.join('demo',preset.fixture)));
  }
+ let benchmark=null;
+ try{benchmark=JSON.parse(await read('docs/benchmark.json'));}catch{}
+ let gallery=null;
+ try{gallery=JSON.parse(await read('gallery/templates.json'));}catch{}
  const runs=[];
  for(const row of index.runs){
   const run=JSON.parse(await read(`demo/runs/${row.id}.json`));
@@ -41,7 +46,7 @@ async function labData(){
   }
   runs.push(run);
  }
- return {index,presets,pack,contracts,runs};
+ return {index,presets,pack,contracts,fixtures,runs,benchmark,gallery};
 }
 
 function stripModule(code){return code.replace(/^import .*;\n/gm,'').replace(/^export /gm,'');}
@@ -66,6 +71,7 @@ export async function buildStandalone(){
  script+=`\nconst __guideURL=URL.createObjectURL(new Blob([${JSON.stringify(await read('README.md'))}],{type:'text/plain'}));document.querySelectorAll('a[href="../README.md"]').forEach(a=>{a.href=__guideURL;a.download='README.md';});`;
  let html=await read('demo/index.html');
  html=html.replace(/<link rel="stylesheet" href="\.\/brand\.css[^"]*">/,()=>'<style>'+css+'</style>').replaceAll('./mark.svg',mark);
+ html=html.replaceAll('href="../gallery/"','href="./gallery/"').replaceAll('href="../docs/BENCHMARK.md"','href="./docs/BENCHMARK.md"');
  html=html.replace(/<script type="module" src="\.\/compare\.mjs[^"]*"><\/script>/,()=>'<script type="module">'+script.replace(/<\/script/gi,'<\\/script')+'</script>');
  const output=path.join(root,'dist/Functional_Minimalism_Preview.html');await writeFile(output,html);return output;
 }

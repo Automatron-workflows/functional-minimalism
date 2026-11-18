@@ -1,6 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
 import {buildBaselineMessages,buildHarnessMessages,contentOnlyHTML,extractHTML,parseModels,parseProviderResponse,providerBody,runSlug,sanitizeHTML} from '../src/lab.mjs';
+import {composeBrief,validateContract,validatePack} from '../src/core.mjs';
+import {craftScore} from '../src/craft.mjs';
+
+const atelier=validatePack(JSON.parse(await readFile(new URL('../packs/atelier/pack.json',import.meta.url),'utf8')));
+const invoice=validateContract(JSON.parse(await readFile(new URL('../examples/invoice.screen.json',import.meta.url),'utf8')));
+const gallery=JSON.parse(await readFile(new URL('../gallery/templates.json',import.meta.url),'utf8'));
 
 test('extractHTML takes the document out of fences and commentary',()=>{
  const result=extractHTML('Here is the screen:\n```html\n<!doctype html><html><body><h1>Hello</h1></body></html>\n```\nDone.');
@@ -77,4 +84,33 @@ test('free OpenRouter models are sorted first and marked free',()=>{
 });
 test('run slugs are stable and filename safe',()=>{
  assert.equal(runSlug({preset:'invoice',model:'Qwen 3.8 Flash'}),'invoice-qwen-3-8-flash');
+});
+
+test('the Atelier pack composes the invoice brief with the approved system',()=>{
+ const brief=composeBrief(atelier,invoice,{schema:'design-harness.memory/1',decisions:[]},{compact:true});
+ assert.match(brief,/atelier@1\.0\.0/);
+ assert.match(brief,/Warm paper canvas/);
+ assert.match(brief,/The amount is the largest element/);
+});
+
+test('the approved gallery carries provenance, rules and the core invoice components',()=>{
+ assert.equal(gallery.schema,'functional-minimalism.component-gallery/1');
+ assert.ok(gallery.components.length>=8);
+ for(const component of gallery.components){
+  assert.ok(component.id&&component.name&&component.category);
+  assert.ok(component.html&&component.css);
+  assert.ok(component.rules.length>=1);
+  assert.equal(component.license,'MIT');
+  assert.equal(component.approvedBy,'Matthias Mandiau');
+ }
+ const ids=gallery.components.map(component=>component.id);
+ for(const id of ['page-shell','amount','summary-rail','primary-action','line-items'])assert.ok(ids.includes(id),`${id} missing`);
+});
+
+test('the craft heuristic rewards restraint and a clear action',()=>{
+ const high={desktop:{words:110,paragraphWords:20,filledActions:1,primaryVisible:true,disabledPrimary:0,fontRatio:5,headings:3,uniqueColors:7,fontFamilies:2,typeSizes:6,uniqueRadii:2,shadowCount:1,coverage:.25,facts:[{visible:true}],lowContrast:0,overflowX:false},mobile:{overflowX:false,clipped:0,bodyFont:14}};
+ const low={desktop:{words:260,paragraphWords:90,filledActions:3,primaryVisible:false,disabledPrimary:1,fontRatio:1.2,headings:10,uniqueColors:20,fontFamilies:5,typeSizes:14,uniqueRadii:7,shadowCount:6,coverage:.7,facts:[{visible:false}],lowContrast:8,overflowX:true},mobile:{overflowX:true,clipped:2,bodyFont:11}};
+ const highScore=craftScore(high).score,lowScore=craftScore(low).score;
+ assert.ok(highScore>lowScore+30,`expected a meaningful gap, got ${highScore} vs ${lowScore}`);
+ assert.ok(highScore>=90);
 });

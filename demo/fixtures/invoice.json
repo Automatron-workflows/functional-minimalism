@@ -1,0 +1,39 @@
+{
+  "brand": "North Studio",
+  "document": "Invoice",
+  "number": "0042",
+  "issued": "6 November 2026",
+  "due": "20 November 2026",
+  "currency": "EUR",
+  "supplier": {
+    "name": "North Studio",
+    "address": "14 Example Quay, Riverside Park, Sample City, SC1 2AB",
+    "vat": "SAMPLE-GB-000042",
+    "email": "accounts@northstudio.example"
+  },
+  "customer": {
+    "name": "Meridian Retail Group BV",
+    "address": "Boezemweg 14, 3051 SC Rotterdam, Netherlands",
+    "vat": "NL8641.22.905.B01"
+  },
+  "lineItems": [
+    {
+      "description": "Brand identity refresh, phase 2",
+      "quantity": 1,
+      "unitPrice": "€700.00",
+      "amount": "€700.00"
+    },
+    {
+      "description": "Print-ready asset package",
+      "quantity": 1,
+      "unitPrice": "€300.00",
+      "amount": "€300.00"
+    }
+  ],
+  "subtotal": "€1,000.00",
+  "vat": "€210.00 (21%)",
+  "total": "€1,210.00",
+  "payFrom": "Business Current Account ending 4421",
+  "destination": "North Studio business account",
+  "consequence": "Review only. No payment is sent, scheduled or authorised from this screen."
+}

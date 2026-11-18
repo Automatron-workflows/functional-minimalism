@@ -197,6 +197,7 @@ textarea::placeholder { color: var(--subtle); }
   font-size: 12px;
   line-height: 1.55;
 }
+.fixture-note { margin: 8px 0 0; color: var(--subtle); font-size: 10.5px; line-height: 1.5; }
 
 /* Comparison stage */
 .stage {
@@ -269,6 +270,8 @@ textarea::placeholder { color: var(--subtle); }
   letter-spacing: 0.6px;
 }
 .rail-empty { margin: 0; color: var(--subtle); font-size: 11px; line-height: 1.5; }
+.rail-link { display: inline-flex; min-height: 32px; align-items: center; color: var(--accent); font-size: 11px; line-height: 1.4; text-decoration: underline; text-underline-offset: 3px; }
+.rail-link:hover { color: var(--accent-bright); }
 .frame {
   position: relative;
   min-width: 0;
@@ -443,6 +446,25 @@ textarea::placeholder { color: var(--subtle); }
 .fact-detail { margin-top: 8px; color: var(--muted); font-size: 11px; }
 .fact-detail summary { min-height: 32px; cursor: pointer; }
 .fact-detail ul { margin: 4px 0 0; padding-left: 18px; line-height: 1.6; }
+
+.benchmark-note {
+  margin-top: 24px;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+}
+.benchmark-note h3 {
+  margin: 0 0 6px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.9px;
+  text-transform: uppercase;
+}
+.benchmark-note p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.65; }
+.benchmark-note strong { color: var(--ink); font-weight: 500; }
+.benchmark-note a { color: var(--accent); }
 
 /* Footer */
 .foot {

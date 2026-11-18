@@ -343,11 +343,11 @@ function prepareConnect(){
 function syncProviderFields(){
  const provider=PROVIDERS[$('#provider').value]??PROVIDERS.openrouter;
  $('#key-link').href=provider.keyURL;
- $('#key-link').textContent=`${provider.label} keys`;
+ $('#key-link').textContent=provider.label;
  $('#provider-docs').href=provider.docs;
  $('#api-key').placeholder=`Paste a ${provider.label} key`;
  $('#free-row').hidden=provider.id!=='openrouter';
- $('#connect-help').firstChild.textContent=`Create a key at ${provider.label}. `;
+ $('#connect-help').firstChild.textContent='Create a key at ';
 }
 function syncConnected(){
  const connected=$('#connected'),button=$('#disconnect-button'),select=$('#live-model-select');

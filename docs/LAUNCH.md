@@ -47,9 +47,9 @@ Title: Show HN: Functional Minimalism, reusable design judgment for coding agent
 
 I built a local design harness for a recurring problem: AI-generated interfaces often add explanations and decorative structure before solving the person's task.
 
-This project supplies versioned component maps, a small screen contract, scoped accepted decisions, and deterministic source/rendered-evidence checks. Your agent still performs the design and browser work. The demo is an authored illustration; the workshop runs real local interactions and checks.
+This project supplies versioned component maps, a small screen contract, scoped accepted decisions, and deterministic source/rendered-evidence checks. Your agent still performs the design and browser work. The landing uses recorded model output; the workshop runs real local interactions and checks.
 
-No model calls, account, API key, or npm dependencies are needed to inspect the harness. The source setup supports Codex and Claude instruction files. Other agents can read the generated brief.
+No model calls, account, API key, or npm dependencies are needed to inspect the recorded runs and workshop. Live prompt generation needs a provider key in the browser. The source setup supports Codex and Claude instruction files. Other agents can read the generated brief.
 
 I'm looking for feedback on one experiment: build the same invoice review task with and without the harness, retain recipient/amount/destination/confirmation, and compare corrections, elapsed time, and actual token usage. Raw results matter more than a good-looking screenshot.
 

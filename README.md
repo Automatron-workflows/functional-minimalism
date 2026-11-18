@@ -18,7 +18,7 @@ A local design harness with versioned design packs, composition patterns, screen
 
 [Source](https://github.com/Automatron-workflows/functional-minimalism) · [Contribute](CONTRIBUTING.md) · [Run a paired experiment](docs/EXPERIMENT.md)
 
-The [public demo](https://automatron-workflows.github.io/functional-minimalism/) is hosted on GitHub Pages and opens without an account. Its route continues into `/demo/`. The source ZIP is also available from the workshop and offline preview. The separate Higgsfield draft is not part of this public release.
+The [public demo](https://automatron-workflows.github.io/functional-minimalism/) is hosted on GitHub Pages and opens without an account. Its route continues into `/demo/`. The recorded runs need no key; live prompt generation needs a provider key from OpenAI, Anthropic or OpenRouter. The source ZIP is also available from the workshop and offline preview. The separate Higgsfield draft is not part of this public release.
 
 ## Try the harness in a minute
 

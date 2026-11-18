@@ -1,8 +1,8 @@
 // Prompt lab and recorded-run comparison. No server, no telemetry, no stored
 // key unless the visitor asks for it.
-import {PROVIDERS,buildBaselineMessages,buildHarnessMessages,contentOnlyHTML,extractHTML,sanitizeHTML,requestProvider,listProviderModels} from '../src/lab.mjs?v=2026-11-18-9';
-import {measureDocument,measureSummary} from './measure.mjs?v=2026-11-18-9';
-import {composeBrief,validatePack,validateContract} from '../src/core.mjs?v=2026-11-18-9';
+import {PROVIDERS,buildBaselineMessages,buildHarnessMessages,contentOnlyHTML,extractHTML,sanitizeHTML,requestProvider,listProviderModels} from '../src/lab.mjs?v=2026-11-18-10';
+import {measureDocument,measureSummary} from './measure.mjs?v=2026-11-18-10';
+import {composeBrief,validatePack,validateContract} from '../src/core.mjs?v=2026-11-18-10';
 
 const $=(selector,root=document)=>root.querySelector(selector);
 const $$=(selector,root=document)=>[...root.querySelectorAll(selector)];
@@ -110,7 +110,7 @@ async function detectConnector(){
  try{config=await fetchJSON('./lab-config.json');}catch{}
  const endpoints=[];
  if(config?.endpoint)endpoints.push({kind:'remote',endpoint:String(config.endpoint).replace(/\/$/,'')});
- endpoints.push({kind:'local',endpoint:'/api/lab'});
+ if(['localhost','127.0.0.1','[::1]'].includes(location.hostname))endpoints.push({kind:'local',endpoint:'/api/lab'});
  for(const candidate of endpoints){
   try{
    const response=await fetch(`${candidate.endpoint}/health`,{cache:'no-store'});

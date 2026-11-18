@@ -2,6 +2,8 @@
 
 Generated 2026-11-18 from 4 recorded models. Each model has one run per harness version. The v1 first draft received the invoice fixture; v0 used the natural-language prompt without it. The v1 after pass received the Atelier brief, guidance and explicit visual system; v0 used the earlier Studio rules. Compare the before/after delta within each version, not the raw before scores across versions.
 
+> The demo page now shows four equal cards. "Approved v1" in this report is the reference run used for the benchmark, not a default selected in the page.
+
 ## Craft heuristic
 
 The score is a transparent heuristic out of 100: text restraint (15), paragraph restraint (5), action clarity (20), hierarchy (15), visual cohesion (15), whitespace (10), responsive integrity (10), required facts (5) and contrast (5), with penalties for missing facts, overflow, a disabled primary action and extreme word counts. It measures rendered output at 1280 and 390px. It is not a beauty model, a usability study or the CLI audit.

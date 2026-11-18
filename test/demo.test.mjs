@@ -9,33 +9,21 @@ const presets=JSON.parse(await readFile(new URL('../demo/presets.json',import.me
 const index=JSON.parse(await readFile(new URL('../demo/runs/index.json',import.meta.url),'utf8'));
 const runFiles=await Promise.all(index.runs.map(row=>readFile(new URL(`../demo/runs/${row.id}.json`,import.meta.url),'utf8').then(JSON.parse)));
 
-test('landing leads with an editable prompt and a recorded comparison',()=>{
+test('the page leads with an editable prompt and a four-card grid',()=>{
  assert.match(html,/id="prompt"/);
  assert.match(html,/Review invoice 0042/);
  assert.match(html,/id="run"/);
- assert.match(html,/id="models"/);
- assert.match(html,/id="frame"/);
- assert.match(html,/data-view="before"/);
- assert.match(html,/data-view="after"/);
- assert.match(html,/role="group" aria-label="Recorded models"/);
- assert.match(html,/id="connect"/);
- assert.match(html,/Generate design/);
- assert.match(html,/Approve this design/);
- assert.match(html,/id="benchmark-note"/);
- assert.match(html,/id="benchmark"/);
- assert.match(html,/id="benchmark-grid"/);
- assert.match(lab,/benchmark\.href='#benchmark'/);
- assert.match(html,/href="\.\.\/gallery\/"/);
- assert.ok(html.indexOf('id="prompt-form"')<html.indexOf('id="frame"'),'the prompt form must precede the comparison');
- assert.ok(html.indexOf('id="run-meta"')<html.indexOf('id="measure-grid"'),'measurements follow the run details');
+ assert.match(html,/Generate 4 designs/);
+ assert.match(html,/id="models-grid"/);
+ assert.match(html,/role="status"/);
  assert.ok(!html.includes('<figure class="before"'),'the authored SVG comparison must be gone');
  assert.ok(!html.includes('not actual model outputs'),'the page must not claim authored illustrations');
+ assert.ok(html.indexOf('id="prompt-form"')<html.indexOf('id="models-grid"'),'the prompt must come first');
 });
 
-test('the recorded set has four real model runs, each with a harness pass',()=>{
+test('the four recorded runs contain real before and after model output',()=>{
  assert.equal(presets.presets.length,1);
  assert.equal(presets.presets[0].id,'invoice');
- assert.equal(presets.presets[0].approvedModel,'longcat-2.5-free');
  assert.ok(index.runs.length>=4,`expected at least 4 runs, got ${index.runs.length}`);
  assert.equal(new Set(index.runs.map(row=>row.model)).size,index.runs.length);
  for(const run of runFiles){
@@ -46,11 +34,9 @@ test('the recorded set has four real model runs, each with a harness pass',()=>{
    const condition=run.conditions[side];
    assert.ok(condition.html.length>5000,`${run.id} ${side} HTML is too short`);
    assert.ok(!/<script\b/i.test(condition.html),`${run.id} ${side} keeps a script`);
-   assert.ok(condition.measures.desktop.words>0,`${run.id} ${side} has no desktop measurement`);
-   assert.ok(condition.measures.mobile.width===390,`${run.id} ${side} has no 390px measurement`);
+   assert.ok(condition.screenshot,`${run.id} ${side} has no screenshot`);
   }
   assert.match(run.conditions.before.html,/North Studio/);
-  assert.match(run.conditions.before.html,/1[.,]210/);
   assert.match(run.conditions.after.html,/North Studio/);
   assert.match(run.conditions.after.html,/1[.,]210/);
   assert.match(run.conditions.after.html,/20\s+(?:November|Nov)\s+2026/i);
@@ -58,27 +44,27 @@ test('the recorded set has four real model runs, each with a harness pass',()=>{
  }
 });
 
-test('the four model cards are labelled as free, open or frontier',()=>{
+test('each recorded model has a before and after card',()=>{
  const labels=index.models.map(model=>model.label);
  for(const label of ['Beam','Claude Haiku 5.5','LongCat 2.5','Qwen 3.8 Flash'])assert.ok(labels.includes(label),`${label} missing`);
- assert.ok(index.models.some(model=>model.free),'at least one free model');
- assert.ok(index.models.some(model=>model.via==='Frontier'),'the frontier reference is labelled');
-});
-
-test('the measure table is derived from rendered output, not a claim',()=>{
- assert.match(html,/What changed/);
- assert.match(html,/Measured from the rendered HTML/);
- assert.match(html,/not a usability or accessibility audit/);
- assert.match(css,/\.measure-table/);
- assert.match(css,/\.measure-view/);
+ assert.match(lab,/models-grid/);
+ assert.match(lab,/card-switch/);
+ assert.match(lab,/card-shot/);
+ assert.match(lab,/Before and After on each card/);
 });
 
 test('the prompt lab keeps provider keys out of the repository',()=>{
  assert.match(html,/type="password"/);
  assert.match(html,/Remember on this device/);
- assert.match(html,/The demo has no server/);
+ assert.match(html,/Keys stay in this browser/);
  assert.ok(!/sk-[a-z0-9]{20,}/i.test(html),'no API key in the page');
  assert.ok(!html.includes('OPENCODE_API_KEY'));
+});
+
+test('the page has no benchmark text-file link',()=>{
+ assert.ok(!html.includes('Benchmark · 4 models'),'the old rail benchmark link must be gone');
+ assert.ok(!html.includes('href="../docs/BENCHMARK.md"'),'the demo must not send people to raw Markdown');
+ assert.ok(!html.includes('id="benchmark"'));
 });
 
 test('brand css keeps raw colors inside the token block',()=>{
@@ -88,11 +74,9 @@ test('brand css keeps raw colors inside the token block',()=>{
  assert.ok(!/#[0-9a-f]{3,8}\b|rgba?\(/i.test(rest),'raw color outside brand token block');
 });
 
-test('the prompt input and comparison stay keyboard and touch reachable',()=>{
+test('the model cards stay touch and keyboard reachable',()=>{
  assert.match(html,/class="skip" href="#lab"/);
- assert.match(html,/tabindex="0"/);
- assert.match(lab,/ArrowLeft/);
- assert.match(lab,/ArrowRight/);
+ assert.match(lab,/aria-pressed/);
+ assert.match(css,/\.card-switch button/);
  assert.match(css,/prefers-reduced-motion/);
- assert.match(css,/touch-action: pan-y/);
 });

@@ -19,11 +19,12 @@ GET  /api/lab/health
 POST /api/lab/generate
 ```
 
-Only these models are accepted:
+Only these models are accepted by the local connector:
 
 - `longcat-2.5-free`
 - `beam-free`
 - `hy4-flash-free`
+- `qwen3.8-flash` (open model; low cost, not free)
 
 Requests are capped at 24,000 output tokens and 300 seconds.
 
@@ -54,7 +55,7 @@ Visitors now get the free public connector without a key. The page probes `${end
 
 The Worker:
 
-- allows only the three free models;
+- allows the three free models plus Qwen 3.8 Flash, an open model with a small provider cost;
 - keeps `OPENCODE_TOKEN` as a Worker secret;
 - adds CORS headers so the GitHub Pages lab can call it;
 - limits each IP to 30 requests per hour in the current isolate;

@@ -5,7 +5,8 @@
 const MODELS = [
   { id: 'longcat-2.5-free', label: 'LongCat 2.5', free: true },
   { id: 'beam-free', label: 'Beam', free: true },
-  { id: 'hy4-flash-free', label: 'HY4 Flash', free: true }
+  { id: 'hy4-flash-free', label: 'HY4 Flash', free: true },
+  { id: 'qwen3.8-flash', label: 'Qwen 3.8 Flash', free: false }
 ];
 const OPENCODE_BASE = 'https://opencode.ai/zen/go/v1';
 const ALLOWED_ORIGIN = '*';

@@ -66,7 +66,7 @@ export async function buildStandalone(){
  const embedded=await labData();
  const embeddedJSON=JSON.stringify(embedded).replace(/<\/script/gi,'<\\/script');
  let script=`globalThis.__labData=${embeddedJSON};\n${core}\n${lab}\n${measure}\n${compare}`;
- script+=`\ndocument.querySelector('#workshop iframe').srcdoc=${JSON.stringify(workshop)};`;
+ script+=`\nconst __workshop=document.querySelector('#workshop iframe');if(__workshop)__workshop.srcdoc=${JSON.stringify(workshop)};`;
  script+=`\nconst __zip=Uint8Array.from(atob(${JSON.stringify(zip.toString('base64'))}),c=>c.charCodeAt(0));const __zipURL=URL.createObjectURL(new Blob([__zip],{type:'application/zip'}));document.querySelector('[data-source]').href=__zipURL;document.querySelector('[data-source]').download='functional-minimalism-source.zip';`;
  script+=`\nconst __guideURL=URL.createObjectURL(new Blob([${JSON.stringify(await read('README.md'))}],{type:'text/plain'}));document.querySelectorAll('a[href="../README.md"]').forEach(a=>{a.href=__guideURL;a.download='README.md';});`;
  let html=await read('demo/index.html');

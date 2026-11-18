@@ -1,82 +1,64 @@
-# Prompt lab, approved gallery and benchmark
+# Prompt lab
 
-The landing page compares a model's own first draft with the approved Atelier result. It is a demonstration layer, not the harness runtime. The harness CLI still makes no model calls.
+The lab shows one prompt through four models, with and without the design harness. Nothing else is on the page.
 
-## The default view
+## The page
 
-The page opens on the **approved Atelier template** for the North Studio invoice prompt. The before is the model's own first draft. The after is the harness result, built from:
+1. A prefilled prompt sits at the top. Write anything in it.
+2. **Generate 4 designs** runs four models. Each model makes its own first draft, then a second pass with the Functional Minimalism brief.
+3. Four cards show the results. Every card has a **Before / After** control:
+   - **Before** is that model's first draft, with no harness context.
+   - **After** is the same model applying the Atelier visual system, the invoice fixture, the approved component gallery and the compact brief.
+4. The four recorded cards (Beam, Claude Haiku 5.5, LongCat 2.5, Qwen 3.8 Flash) are available without a key. Live generation replaces them with the four current results.
 
-- the real compact brief from `composeBrief` and `packs/atelier/pack.json`;
-- the invoice task guidance and the Atelier visual system in `demo/presets.json`;
-- the realistic invoice fixture in `demo/fixtures/invoice.json`, supplied to both conditions;
-- a content-only outline of the first draft, so the harness rebuilds composition instead of copying CSS;
-- the manually reviewed component gallery in `gallery/templates.json` for live generation.
+The harness pass receives a content-only outline of the draft, not its CSS, so it rebuilds composition instead of copying it.
 
-The page shows one design, not four competing designs. The four recorded models are kept for the benchmark and are linked from the model rail and the benchmark note.
+## Approved gallery
 
-## Approved component gallery
+`gallery/templates.json` is the manually reviewed MIT dataset of components: page shell, brand line, document, hero amount, summary rail, primary action, line items, labels and status. It is rendered at `/gallery/`. The live harness prompt includes it and requires reuse of its structures and tokens. The gallery is versioned by hand; nothing is trained automatically from an unapproved result.
 
-`gallery/templates.json` is the open, MIT-licensed vocabulary. Each component records its HTML, CSS, rules, approval, date and license. The hosted gallery at `/gallery/` renders the components and reads local approval proposals from the same browser.
+## Free connector
 
-The live harness pass includes the gallery in its prompt. The instruction is explicit: reuse the approved components, structures and tokens; do not invent a new visual language. The gallery is a reviewed starting point, not an automatic training set.
+The page prefers a host-configured free connector over asking every visitor for a key.
 
-The **Approve this design** button in **Run details** stores a local proposal and downloads `gallery-proposal-<model>.json`. A person reviews the proposal, extracts reusable components and merges reviewed components into `gallery/templates.json`. Nothing is learned automatically from an unapproved output. Every gallery revision should be benchmarked before it becomes the default.
+- **Local:** `OPENCODE_API_KEY=... npm run dev` starts `/api/lab`; the page detects it and generates without a browser key.
+- **Public:** deploy `worker/index.mjs` once with `OPENCODE_TOKEN` as a Cloudflare secret, set `demo/lab-config.json` to the Worker URL, and rebuild. Visitors then need no key.
+- **Models:** `longcat-2.5-free`, `beam-free`, `hy4-flash-free` and the open `qwen3.8-flash`. The first three are free; Qwen has a small provider cost.
+- **Fallbacks:** no connector -> the four recorded cards remain and BYOK is available; a failed live card reports its own error.
 
-## Recorded models and benchmark
+See [the connector guide](PUBLIC-CONNECTOR.md).
 
-`demo/runs/` contains four actual v1 runs: Beam (free), LongCat 2.5 (free), Qwen 3.8 Flash (open model) and Claude Haiku 5.5 (frontier reference). LongCat 2.5 is the approved default. The v0 runs are archived in `docs/benchmark/v0/`.
+## Recorded models
+
+| Model | Access |
+| --- | --- |
+| Beam | OpenCode Go, free |
+| Claude Haiku 5.5 | OpenCode Go, frontier reference |
+| LongCat 2.5 | OpenCode Go, free |
+| Qwen 3.8 Flash | OpenCode Go, open model |
+
+The runs are actual model output. A single run is not a usability study.
+
+## Benchmark
+
+The four recorded runs are archived for a reproducible craft comparison:
 
 ```sh
 npm run benchmark:lab
 ```
 
-The benchmark measures each run at 1280 and 390px with `demo/measure.mjs` and scores it with `src/craft.mjs`. The heuristic covers text restraint, paragraph restraint, action clarity, hierarchy, cohesion, whitespace, responsive integrity, required facts and contrast, with penalties for missing facts, overflow, a disabled primary action and extreme word counts.
+It writes `docs/BENCHMARK.md` and `docs/benchmark.json`. The v1 after pass averaged 96.2/100 against 77.7 for v0, with 4 of 4 models improving. The score is a transparent heuristic, not a beauty model, and the benchmark is not part of the demo page.
 
-The v1 after pass averaged **96.2/100** against **77.7** for v0, and all four models improved. See [the benchmark](BENCHMARK.md) for the per-model table, component points, rendered evidence and limits. The score is not a beauty model, a usability study or the CLI audit.
-
-The approved gallery is the live layer. A first LongCat 2.5 gallery pass duplicated the hero amount and was rejected (`docs/benchmark/v2-longcat-gallery/`). The tightened rules fixed it in a second pass: 136 words, the amount repeated twice, the page shell applied. That pass scored 92.7 against 96.3 for the recorded v1, so the default remains v1; the evidence is in `docs/benchmark/v3-longcat-gallery/`. The live connector uses the tightened gallery so a visitor can generate on demand. A full v3 benchmark remains pending.
+The gallery was tried in two later passes. The first duplicated the hero amount and was rejected. The tightened second pass fixed the duplication but scored lower than v1, so it was not promoted. Evidence is in `docs/benchmark/v2-longcat-gallery/` and `docs/benchmark/v3-longcat-gallery/`.
 
 ## Reproduce the recorded runs
-
-The generator uses the OpenCode chat-completions endpoint. Set an API key in the environment; the key is never written to the repository.
 
 ```sh
 OPENCODE_API_KEY=... npm run generate:runs -- --presets invoice --force
 ```
 
-Useful flags:
+Useful flags: `--models`, `--presets`, `--force`, `--remeasure`, `--before <file>`, `--after <file>`. The script writes `demo/runs/`, and `npm run build` copies it into `dist/`.
 
-```sh
---models beam-free,longcat-2.5-free
---presets invoice
---force             # regenerate even when run files exist
---remeasure         # recompute measurements without calling a model
---before <file>     # ingest a recorded first draft instead of calling the API
---after <file>      # ingest a recorded harness pass instead of calling the API
-```
+## Limits
 
-The script writes `demo/runs/<preset>-<model>.json`, two PNGs and `demo/runs/index.json`. `npm run build` copies them into `dist/`; the standalone preview embeds them as data URLs.
-
-## Free connector (no visitor key)
-
-The lab prefers a host-configured free connector over BYOK.
-
-- **Local:** `OPENCODE_API_KEY=... npm run dev` starts `/api/lab`. The browser shows **Free local connector** and generates without a key. The token stays in Node.
-- **Public:** deploy `worker/index.mjs` to Cloudflare Workers with `OPENCODE_TOKEN` as a secret, then set `demo/lab-config.json` to the Worker URL and rebuild. Visitors no longer need keys.
-- **Models:** `longcat-2.5-free`, `beam-free`, `hy4-flash-free` only. Output is capped at 24,000 tokens; the local server waits 300 seconds, the Worker 240.
-- **Fallbacks:** no connector -> approved recorded template plus optional BYOK; connector failure -> error and the previous design stays.
-
-See [the public connector guide](PUBLIC-CONNECTOR.md) for deployment, rate limits and the security boundary.
-
-## Live mode
-
-The live panel prefers the host free connector. If none is configured, it supports OpenAI, Anthropic and OpenRouter; OpenRouter is the BYOK default because it exposes free models with browser CORS. OpenAI and Anthropic also allow browser requests; the Anthropic request sends `anthropic-dangerous-direct-browser-access`. The page has no server and no telemetry.
-
-- The key is held in memory. It is written to `sessionStorage` so a reload keeps the tab connected. **Remember on this device** moves it to `localStorage`; Disconnect removes both.
-- Each model call is limited to 180 seconds. Cancel aborts the in-flight calls.
-- The generated HTML is sanitized (scripts, frames, event handlers and external requests removed), receives a restrictive CSP and is rendered in a sandboxed iframe. It is not executed as application code.
-- The harness pass receives the approved gallery. One design is generated, not four. The result is not stored on a server.
-
-## What it does not do
-
-The lab does not run a coding agent, a browser repair loop, the full CLI audit or a controlled paired experiment. It does not authenticate the model response, guarantee completion, or certify accessibility. The measurements are a transparent heuristic. Use [the experiment](EXPERIMENT.md) and the CLI evidence checks for actual acceptance work.
+The lab does not run a coding agent, a repair loop, the full CLI audit or a controlled experiment. It does not authenticate model responses or certify accessibility. Use [the experiment](EXPERIMENT.md) and the CLI evidence checks for acceptance work.

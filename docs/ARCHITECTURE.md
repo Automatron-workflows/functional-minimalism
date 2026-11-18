@@ -35,12 +35,12 @@ flowchart TD
 
 The landing page is a demonstration layer, not part of the harness runtime.
 
-- **Recorded mode** reads `demo/runs/index.json`, four run JSON files and their rendered screenshots. Each run stores the model, prompt, first-draft HTML, harness-pass HTML and measured output at 1280px and 390px. LongCat 2.5 is the approved default; the other three runs are the benchmark.
+- **Recorded mode** reads `demo/runs/index.json`, four run JSON files and their rendered screenshots. Each run stores the model, prompt, first-draft HTML, harness-pass HTML and rendered screenshots. The page shows four equal cards, each with a Before and After view.
 - **First draft** is a single provider call with a neutral output contract and the invoice fixture. It receives no brief, design pack or Functional Minimalism rules.
 - **Harness pass** is a second call with the same model. It receives the Atelier compact brief from `composeBrief`, invoice task guidance, the explicit Atelier visual system, the approved component gallery and a content-only outline of the first draft. CSS is deliberately omitted so the pass rebuilds composition instead of copying the draft.
 - **Approved gallery** is `gallery/templates.json`: manually reviewed HTML/CSS components with approval, provenance and MIT license. The live pass includes it; the hosted `/gallery/` page renders it. A downloaded proposal must be reviewed before it is merged.
-- **Live mode** is bring-your-own-key. The browser calls OpenAI, Anthropic or OpenRouter directly; there is no proxy. One design is generated from the approved gallery. The result is rendered in a sandboxed iframe.
-- **Rendered measures** are a heuristic: visible words, paragraph words, controls, unnamed controls, clipped controls, action-labelled controls, headings, horizontal overflow, required facts, type/colour/radius counts, coverage, contrast, filled actions and visibility. The craft score is a separate transparent heuristic in `src/craft.mjs`.
+- **Live mode** uses the host free connector when configured, otherwise a visitor key. Four models generate four designs; each card renders its own before and after in a sandboxed iframe.
+- **Rendered measures** are used by the offline benchmark, not shown on the demo page: visible words, paragraph words, controls, unnamed controls, clipped controls, action-labelled controls, headings, horizontal overflow, required facts, type/colour/radius counts, coverage, contrast, filled actions and visibility. The craft score is a separate transparent heuristic in `src/craft.mjs`.
 - **Benchmark** is `npm run benchmark:lab`: it measures the archived v0 runs and the current v1 runs, writes `docs/BENCHMARK.md` and `docs/benchmark.json`, and compares before/after deltas. It is not a beauty model or a human study.
 
 The lab does not run a coding agent, a repair loop or a controlled experiment. Recorded runs are single samples; see [the experiment](EXPERIMENT.md) for a real paired study.

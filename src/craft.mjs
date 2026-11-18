@@ -45,6 +45,8 @@ export function craftScore({ desktop, mobile } = {}) {
   if (mobile.overflowX) penalties.push({ code: 'mobile-overflow', points: 10 });
   if (desktop.disabledPrimary) penalties.push({ code: 'disabled-primary', points: 5 });
   if (facts.length && factRatio < 1) penalties.push({ code: 'missing-facts', points: 10 });
+  const amount = facts.find(fact => fact.id === 'amount');
+  if (amount?.repeats > 2) penalties.push({ code: 'repeated-amount', points: 5 });
   const points = Object.fromEntries(Object.entries(components).map(([key, value]) => [key, Number((value * weights[key]).toFixed(1))]));
   const score = Math.max(0, Math.min(100, Number((Object.values(points).reduce((sum, value) => sum + value, 0) - penalties.reduce((sum, item) => sum + item.points, 0)).toFixed(1))));
   return {

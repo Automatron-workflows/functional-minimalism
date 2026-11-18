@@ -1,8 +1,8 @@
 // Prompt lab and recorded-run comparison. No server, no telemetry, no stored
 // key unless the visitor asks for it.
-import {PROVIDERS,buildBaselineMessages,buildHarnessMessages,contentOnlyHTML,extractHTML,sanitizeHTML,requestProvider,listProviderModels} from '../src/lab.mjs?v=2026-11-18-7';
-import {measureDocument,measureSummary} from './measure.mjs?v=2026-11-18-7';
-import {composeBrief,validatePack,validateContract} from '../src/core.mjs?v=2026-11-18-7';
+import {PROVIDERS,buildBaselineMessages,buildHarnessMessages,contentOnlyHTML,extractHTML,sanitizeHTML,requestProvider,listProviderModels} from '../src/lab.mjs?v=2026-11-18-9';
+import {measureDocument,measureSummary} from './measure.mjs?v=2026-11-18-9';
+import {composeBrief,validatePack,validateContract} from '../src/core.mjs?v=2026-11-18-9';
 
 const $=(selector,root=document)=>root.querySelector(selector);
 const $$=(selector,root=document)=>[...root.querySelectorAll(selector)];
@@ -13,7 +13,7 @@ const fmtMs=value=>Number.isFinite(value)?(value<1000?`${value}ms`:`${(value/100
 const truncate=(value,length=120)=>{const text=String(value??'').replace(/\s+/g,' ').trim();return text.length>length?`${text.slice(0,length-1)}…`:text;};
 const emptyMemory={schema:'design-harness.memory/1',decisions:[]};
 const STORE_KEY='functional-minimalism.lab.connection.v1';
-const state={presetId:'invoice',modelId:null,prompt:'',dirty:false,view:'after',run:null,live:null,liveRuns:[],liveTargets:[],liveStatus:new Map(),busy:false,connection:null,measureView:'desktop',abort:null,exportRun:null};
+const state={presetId:'invoice',modelId:null,prompt:'',dirty:false,view:'after',run:null,live:null,liveRuns:[],liveTargets:[],liveStatus:new Map(),busy:false,connection:null,connector:null,measureView:'desktop',abort:null,exportRun:null};
 const liveThumbs=new Map();
 let data=null;
 let modelsForPreset=[];
@@ -22,7 +22,7 @@ const prompt=$('#prompt'),frame=$('#frame'),models=$('#models'),source=$('#sourc
 const shotBefore=$('#shot-before'),shotAfter=$('#shot-after'),liveBefore=$('#live-before'),liveAfter=$('#live-after');
 const frameEmpty=$('#frame-empty'),frameLoading=$('#frame-loading'),loadingLabel=$('#loading-label'),cancelButton=$('#cancel');
 const measureGrid=$('#measure-grid'),metaList=$('#meta-list'),metaLimits=$('#meta-limits'),downloadRunButton=$('#download-run'),approveRunButton=$('#approve-run'),showRecordedButton=$('#show-recorded');
-const fixtureNote=$('#fixture-note'),benchmarkNote=$('#benchmark-note'),benchmarkV1=$('#benchmark-v1'),benchmarkApproved=$('#benchmark-approved'),benchmarkV0=$('#benchmark-v0'),benchmarkCount=$('#benchmark-count'),benchmarkTotal=$('#benchmark-total');
+const fixtureNote=$('#fixture-note'),benchmarkNote=$('#benchmark-note'),benchmarkV1=$('#benchmark-v1'),benchmarkApproved=$('#benchmark-approved'),benchmarkV0=$('#benchmark-v0'),benchmarkCount=$('#benchmark-count'),benchmarkTotal=$('#benchmark-total'),connectorNote=$('#connector-note'),noConnectorNote=$('#no-connector-note');
 const headerConnect=$('#header-connect');
 
 function readStore(storage){try{const raw=storage.getItem(STORE_KEY);return raw?JSON.parse(raw):null;}catch{return null;}}
@@ -38,7 +38,7 @@ function restoreConnection(){
  if(stored&&PROVIDERS[stored.provider]&&stored.key&&stored.model)state.connection=stored;
 }
 function preset(){return data?.presets.presets.find(item=>item.id===state.presetId)??null;}
-function modelLabel(id){const model=state.connection?.models?.find(item=>item.id===id);return model?.label??id;}
+function modelLabel(id){const model=state.connection?.models?.find(item=>item.id===id)??state.connector?.models?.find(item=>item.id===id);return model?.label??id;}
 function runFor(presetId,modelId){return data?.runs.find(item=>item.preset===presetId&&item.model.id===modelId)??null;}
 function defaultModelForPreset(presetId){
  const runs=(data?.runs??[]).filter(item=>item.preset===presetId);
@@ -57,7 +57,7 @@ function freeModelsFor(connection){
  return (connection.models??[]).filter(model=>model.free);
 }
 function liveTargetsFor(connection){
- if(!connection)return[];
+ if(!connection)return state.connector?[{id:state.connector.model,label:modelLabel(state.connector.model),free:true}]:[];
  const selected=connection.models?.find(model=>model.id===connection.model);
  if(selected)return [{id:selected.id,label:selected.label,free:!!selected.free}];
  const free=freeModelsFor(connection);
@@ -105,6 +105,35 @@ async function loadData(){
  return {index,presets:presetsDoc,pack,contracts,fixtures,runs,benchmark,gallery};
 }
 
+async function detectConnector(){
+ let config=null;
+ try{config=await fetchJSON('./lab-config.json');}catch{}
+ const endpoints=[];
+ if(config?.endpoint)endpoints.push({kind:'remote',endpoint:String(config.endpoint).replace(/\/$/,'')});
+ endpoints.push({kind:'local',endpoint:'/api/lab'});
+ for(const candidate of endpoints){
+  try{
+   const response=await fetch(`${candidate.endpoint}/health`,{cache:'no-store'});
+   if(!response.ok)continue;
+   const health=await response.json();
+   if(!health.ok||!Array.isArray(health.models)||!health.models.length)continue;
+   const approved=preset()?.approvedModel;
+   const selected=health.models.find(model=>model.id===approved)??health.models[0];
+   state.connector={...candidate,models:health.models,model:selected.id};
+   return;
+  }catch{}
+ }
+}
+async function requestConnector(endpoint,{model,messages,maxTokens=16000,signal}={}){
+ const started=Date.now();
+ const response=await fetch(`${endpoint}/generate`,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({model,messages,maxTokens}),signal});
+ const text=await response.text();
+ let json=null;
+ try{json=JSON.parse(text);}catch{}
+ if(!response.ok)throw new Error(json?.error??text.slice(0,300)??`Free connector returned ${response.status}`);
+ if(!json?.text?.trim())throw new Error('The free connector returned an empty response.');
+ return {text:json.text,model:json.model??model,finishReason:json.finishReason??null,usage:json.usage??null,elapsedMs:Date.now()-started};
+}
 function setPrompt(value,{dirty=false}={}){state.prompt=value;state.dirty=dirty;prompt.value=value;renderFixtureNote();renderRunButton();renderSource();}
 function renderFixtureNote(){if(fixtureNote)fixtureNote.hidden=state.dirty||!preset()?.fixture;}
 function renderPresetButtons(){for(const button of $$('[data-preset]'))button.setAttribute('aria-pressed',String(button.dataset.preset===state.presetId));}
@@ -112,7 +141,7 @@ function renderRunButton(){
  runLabel.textContent=state.busy?'Generating…':state.dirty?'Run this prompt':'Generate design';
  runButton.disabled=state.busy;
  runButton.setAttribute('aria-busy',String(state.busy));
- runButton.title=state.connection?'Generate one design with the approved Atelier gallery':'Connect a model to generate a design';
+ runButton.title=state.connection?'Generate one design with the approved Atelier gallery':state.connector?'Generate one design with the free connector and approved gallery':'Connect a model to generate a design';
 }
 function renderLiveModelLine(){
  liveModel.replaceChildren();
@@ -121,13 +150,16 @@ function renderLiveModelLine(){
   const change=document.createElement('button');change.type='button';change.className='connect-link';change.textContent='Change';
   change.addEventListener('click',()=>openDialog('connect'));
   liveModel.append('Run with ',strong,' · ',change);
+ }else if(state.connector){
+  const strong=document.createElement('strong');strong.textContent=modelLabel(state.connector.model);
+  liveModel.append(state.connector.kind==='local'?'Free local connector · ':'Free public connector · ',strong,' · no key');
  }else{
   const button=document.createElement('button');button.type='button';button.className='connect-link';button.textContent='Connect a model';
   button.addEventListener('click',()=>openDialog('connect'));
   liveModel.append(button,' to generate one design with the approved gallery.');
  }
- headerConnect.textContent=state.connection?'Model connected':'Connect a model';
- headerConnect.classList.toggle('is-connected',!!state.connection);
+ headerConnect.textContent=state.connection?'Model connected':state.connector?'Free connector':'Connect a model';
+ headerConnect.classList.toggle('is-connected',!!(state.connection||state.connector));
 }
 function renderBenchmark(){
  const summary=data?.benchmark?.summary;
@@ -338,7 +370,10 @@ function prepareConnect(){
  if(state.connection)provider.value=state.connection.provider;
  syncProviderFields();
  $('#api-key').value='';
- $('#connect-status').textContent=state.connection?'Connected. Choose a model, then close this panel.':'Connect a model to run your prompt.';
+ $('#connect-status').textContent=state.connection?'Connected. Choose a model, then close this panel.':state.connector?'The free connector is ready. You can close this panel and generate.':'Connect a model to run your prompt.';
+ connectorNote.hidden=!state.connector;
+ noConnectorNote.hidden=!!state.connector;
+ if(state.connector)connectorNote.textContent=`Free ${state.connector.kind==='local'?'local':'public'} connector active: ${modelLabel(state.connector.model)}. No key is needed. Connecting a provider below overrides it.`;
  syncConnected();
 }
 function syncProviderFields(){
@@ -458,22 +493,26 @@ async function generateOne(target,promptText,connection,rootController){
  const local=new AbortController();
  const forward=()=>local.abort();
  rootController.signal.addEventListener('abort',forward);
- const timer=setTimeout(()=>local.abort(),180000);
- const maxTokens=connection.provider==='openrouter'?32000:16000;
+ const timer=setTimeout(()=>local.abort(),300000);
+ const connector=connection.provider==='connector';
+ const maxTokens=connector?24000:connection.provider==='openrouter'?32000:16000;
  const reasoningEffort=connection.provider==='openrouter'?'low':null;
  const request=requestForPrompt(promptText);
+ const call=messages=>connector
+  ?requestConnector(state.connector.endpoint,{model:target.id,messages,maxTokens,signal:local.signal})
+  :requestProvider(connection.provider,{key:connection.key,model:target.id,messages,maxTokens,temperature:0.3,reasoningEffort,signal:local.signal});
  try{
   setStatus(target.id,'baseline');
-  const baseline=await requestProvider(connection.provider,{key:connection.key,model:target.id,messages:buildBaselineMessages(request),maxTokens,temperature:0.3,reasoningEffort,signal:local.signal});
+  const baseline=await call(buildBaselineMessages(request));
   const beforeHTML=sanitizeHTML(extractHTML(baseline.text));
   setStatus(target.id,'harness');
-  const harness=await requestProvider(connection.provider,{key:connection.key,model:target.id,messages:buildHarnessMessages({prompt:request,beforeHTML:contentOnlyHTML(beforeHTML),brief:briefFor(promptText),guidance:guidanceForCurrentPrompt(),style:preset()?.style,gallery:data.gallery,outline:true}),maxTokens,temperature:0.3,reasoningEffort,signal:local.signal});
+  const harness=await call(buildHarnessMessages({prompt:request,beforeHTML:contentOnlyHTML(beforeHTML),brief:briefFor(promptText),guidance:guidanceForCurrentPrompt(),style:preset()?.style,gallery:data.gallery,outline:true}));
   const afterHTML=sanitizeHTML(extractHTML(harness.text));
   setStatus(target.id,'measuring');
   const facts=factsForCurrentPrompt();
   const [beforeDesktop,beforeMobile,afterDesktop,afterMobile]=await Promise.all([measureHTML(beforeHTML,1280,facts),measureHTML(beforeHTML,390,facts),measureHTML(afterHTML,1280,facts),measureHTML(afterHTML,390,facts)]);
   const item=preset();
-  const run={schema:'functional-minimalism.lab-run/1',id:`live-${target.id}-${Date.now()}`,preset:state.presetId,presetLabel:item?.label??'Custom prompt',prompt:promptText,fixture:item?.fixture??null,createdAt:new Date().toISOString(),model:{id:target.id,label:target.label??modelLabel(target.id),provider:PROVIDERS[connection.provider]?.label??connection.provider,via:'Live browser call',free:!!target.free},harness:{pack:`${data.pack.id}@${data.pack.version}`,gallery:data.gallery?.version??null,brief:true},conditions:{before:{label:'Model default',html:beforeHTML,elapsedMs:baseline.elapsedMs??null,usage:baseline.usage??null,finishReason:baseline.finishReason,measures:{desktop:beforeDesktop,mobile:beforeMobile},screenshot:null},after:{label:'With harness',html:afterHTML,elapsedMs:harness.elapsedMs??null,usage:harness.usage??null,finishReason:harness.finishReason,measures:{desktop:afterDesktop,mobile:afterMobile},screenshot:null}},limitations:'A single live run. The harness pass receives the brief, rules and approved Atelier gallery; it does not run a coding-agent repair loop. Results vary by model, prompt and sampling. This is not a benchmark.'};
+  const run={schema:'functional-minimalism.lab-run/1',id:`live-${target.id}-${Date.now()}`,preset:state.presetId,presetLabel:item?.label??'Custom prompt',prompt:promptText,fixture:item?.fixture??null,createdAt:new Date().toISOString(),model:{id:target.id,label:target.label??modelLabel(target.id),provider:connector?(state.connector.kind==='local'?'Free local connector':'Free public connector'):PROVIDERS[connection.provider]?.label??connection.provider,via:connector?'No-key connector':'Live browser call',free:connector?true:!!target.free},harness:{pack:`${data.pack.id}@${data.pack.version}`,gallery:data.gallery?.version??null,brief:true},conditions:{before:{label:'Model default',html:beforeHTML,elapsedMs:baseline.elapsedMs??null,usage:baseline.usage??null,finishReason:baseline.finishReason,measures:{desktop:beforeDesktop,mobile:beforeMobile},screenshot:null},after:{label:'With harness',html:afterHTML,elapsedMs:harness.elapsedMs??null,usage:harness.usage??null,finishReason:harness.finishReason,measures:{desktop:afterDesktop,mobile:afterMobile},screenshot:null}},limitations:'A single live run. The harness pass receives the brief, rules and approved Atelier gallery; it does not run a coding-agent repair loop. Results vary by model, prompt and sampling. This is not a benchmark.'};
   state.liveStatus.set(target.id,'done');
   state.liveRuns.push(run);
   if(!state.live)showLive(run);
@@ -489,15 +528,15 @@ async function generateOne(target,promptText,connection,rootController){
 }
 async function runComparison(){
  if(state.busy)return;
- if(!state.connection){runStatus.textContent='Connect a model to generate a design.';openDialog('connect');return;}
+ const connection=state.connection??(state.connector?{provider:'connector',key:null,model:state.connector.model,models:state.connector.models}:null);
+ if(!connection){runStatus.textContent='Connect a model to generate a design.';openDialog('connect');return;}
  const promptText=prompt.value.trim();
  if(!promptText){runStatus.textContent='Write a prompt first.';prompt.focus();return;}
  state.prompt=promptText;
  const item=preset();
  state.dirty=!!item&&promptText!==item.prompt.trim();
- const connection=state.connection;
  const targets=liveTargetsFor(connection);
- if(!targets.length){runStatus.textContent='No model is available for this key.';return;}
+ if(!targets.length){runStatus.textContent='No model is available.';return;}
  const previous={run:state.run,live:state.live,liveRuns:state.liveRuns,liveTargets:state.liveTargets};
  state.liveRuns=[];state.liveTargets=targets;state.live=null;state.liveStatus=new Map(targets.map(target=>[target.id,'queued']));liveThumbs.clear();
  const controller=new AbortController();state.abort=controller;
@@ -627,6 +666,7 @@ async function boot(){
   frameEmpty.hidden=false;frameEmpty.querySelector('p').textContent=`The recorded runs could not load: ${error.message}`;runButton.disabled=true;source.textContent='No runs loaded.';renderLiveModelLine();return;
  }
  state.runs=data.runs;
+ await detectConnector();
  const params=new URLSearchParams(location.search); const requestedPreset=params.get('preset');
  if(data.presets.presets.some(item=>item.id===requestedPreset))state.presetId=requestedPreset;
  const item=preset();

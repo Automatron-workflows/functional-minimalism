@@ -25,9 +25,10 @@ The original product plan remains a proposal. This file tracks the implemented s
 | Local Chrome behavioral verification runner | Actual-width iframe runner implemented; GitHub CI passes 26 workshop and 12 prompt-lab assertions each at 390px and 1440px |
 | Live Figma / Code Connect importer | Pending |
 | Alps design pack | Pending actual source |
-| Harness runtime model calls | None; the optional prompt lab calls the provider the visitor connects, with no server |
+| Harness runtime model calls | None; the optional prompt lab uses a host free connector or the provider a visitor connects |
+| Keyless free connector | Local `/api/lab` and Cloudflare Worker adapter; free models only; public keyless generation requires the host to deploy the Worker |
 | AST-based React/TypeScript prop validation | Pending |
-| Craft benchmark of the harness | Implemented; transparent heuristic, v1 after 97.4 vs v0 78.9, 4/4 improved; see docs/BENCHMARK.md |
+| Craft benchmark of the harness | Implemented; transparent heuristic, v1 after 96.2 vs v0 77.7, 4/4 improved; see docs/BENCHMARK.md |
 | Participant usability study or blind human preference test | Not run |
 | GitHub repository / Pages publication | Public source and anonymous demo are live; main CI and Pages deployment pass |
 | Hosted deployment | GitHub Pages demo is canonical. A separate Higgsfield draft requires sign-in and is not advertised |

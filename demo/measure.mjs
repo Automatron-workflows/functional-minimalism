@@ -110,11 +110,15 @@ export function measureDocument(root, { width, facts = [] } = {}) {
     actionControls,
     headings: [...scope.querySelectorAll('h1,h2,h3')].filter(visible).length,
     overflowX: doc.documentElement.scrollWidth > width + 1,
-    facts: facts.map(fact => ({
-      id: fact.id,
-      label: fact.label,
-      visible: new RegExp(fact.pattern, 'i').test(text)
-    })),
+    facts: facts.map(fact => {
+      const matches = text.match(new RegExp(fact.pattern, 'gi')) ?? [];
+      return {
+        id: fact.id,
+        label: fact.label,
+        visible: matches.length > 0,
+        repeats: matches.length
+      };
+    }),
     typeSizes: typeSizes.length,
     fontFamilies: fontFamilies.length,
     uniqueColors: colors.size,

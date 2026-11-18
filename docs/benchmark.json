@@ -1,6 +1,6 @@
 {
   "schema": "functional-minimalism.lab-benchmark/1",
-  "generatedAt": "2026-11-18T09:38:15.725Z",
+  "generatedAt": "2026-11-18T10:39:53.571Z",
   "sample": {
     "models": 4,
     "runsPerVersion": 4,
@@ -39,27 +39,32 @@
               {
                 "id": "supplier",
                 "label": "North Studio",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "amount",
                 "label": "€1,210.00",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "due",
                 "label": "20 November 2026",
-                "visible": true
+                "visible": true,
+                "repeats": 4
               },
               {
                 "id": "destination",
                 "label": "Account ending 4421",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "consequence",
                 "label": "No payment / simulation note",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               }
             ],
             "typeSizes": 9,
@@ -93,27 +98,32 @@
               {
                 "id": "supplier",
                 "label": "North Studio",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "amount",
                 "label": "€1,210.00",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "due",
                 "label": "20 November 2026",
-                "visible": true
+                "visible": true,
+                "repeats": 4
               },
               {
                 "id": "destination",
                 "label": "Account ending 4421",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "consequence",
                 "label": "No payment / simulation note",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               }
             ],
             "typeSizes": 9,
@@ -224,27 +234,32 @@
               {
                 "id": "supplier",
                 "label": "North Studio",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "amount",
                 "label": "€1,210.00",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "due",
                 "label": "20 November 2026",
-                "visible": true
+                "visible": true,
+                "repeats": 4
               },
               {
                 "id": "destination",
                 "label": "Account ending 4421",
-                "visible": true
+                "visible": true,
+                "repeats": 1
               },
               {
                 "id": "consequence",
                 "label": "No payment / simulation note",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               }
             ],
             "typeSizes": 9,
@@ -283,27 +298,32 @@
               {
                 "id": "supplier",
                 "label": "North Studio",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "amount",
                 "label": "€1,210.00",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "due",
                 "label": "20 November 2026",
-                "visible": true
+                "visible": true,
+                "repeats": 4
               },
               {
                 "id": "destination",
                 "label": "Account ending 4421",
-                "visible": true
+                "visible": true,
+                "repeats": 1
               },
               {
                 "id": "consequence",
                 "label": "No payment / simulation note",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               }
             ],
             "typeSizes": 9,
@@ -416,27 +436,32 @@
               {
                 "id": "supplier",
                 "label": "North Studio",
-                "visible": true
+                "visible": true,
+                "repeats": 5
               },
               {
                 "id": "amount",
                 "label": "€1,210.00",
-                "visible": true
+                "visible": true,
+                "repeats": 4
               },
               {
                 "id": "due",
                 "label": "20 November 2026",
-                "visible": true
+                "visible": true,
+                "repeats": 3
               },
               {
                 "id": "destination",
                 "label": "Account ending 4421",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "consequence",
                 "label": "No payment / simulation note",
-                "visible": true
+                "visible": true,
+                "repeats": 3
               }
             ],
             "typeSizes": 5,
@@ -475,27 +500,32 @@
               {
                 "id": "supplier",
                 "label": "North Studio",
-                "visible": true
+                "visible": true,
+                "repeats": 5
               },
               {
                 "id": "amount",
                 "label": "€1,210.00",
-                "visible": true
+                "visible": true,
+                "repeats": 4
               },
               {
                 "id": "due",
                 "label": "20 November 2026",
-                "visible": true
+                "visible": true,
+                "repeats": 3
               },
               {
                 "id": "destination",
                 "label": "Account ending 4421",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "consequence",
                 "label": "No payment / simulation note",
-                "visible": true
+                "visible": true,
+                "repeats": 3
               }
             ],
             "typeSizes": 5,
@@ -521,7 +551,7 @@
             ]
           },
           "score": {
-            "score": 71.2,
+            "score": 66.2,
             "breakdown": [
               {
                 "key": "text",
@@ -587,7 +617,12 @@
                 "points": 3.5
               }
             ],
-            "penalties": [],
+            "penalties": [
+              {
+                "code": "repeated-amount",
+                "points": 5
+              }
+            ],
             "note": "Craft heuristic, not a beauty model or usability study."
           }
         },
@@ -606,27 +641,32 @@
               {
                 "id": "supplier",
                 "label": "North Studio",
-                "visible": true
+                "visible": true,
+                "repeats": 4
               },
               {
                 "id": "amount",
                 "label": "€1,210.00",
-                "visible": true
+                "visible": true,
+                "repeats": 3
               },
               {
                 "id": "due",
                 "label": "20 November 2026",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "destination",
                 "label": "Account ending 4421",
-                "visible": true
+                "visible": true,
+                "repeats": 1
               },
               {
                 "id": "consequence",
                 "label": "No payment / simulation note",
-                "visible": true
+                "visible": true,
+                "repeats": 1
               }
             ],
             "typeSizes": 7,
@@ -663,27 +703,32 @@
               {
                 "id": "supplier",
                 "label": "North Studio",
-                "visible": true
+                "visible": true,
+                "repeats": 4
               },
               {
                 "id": "amount",
                 "label": "€1,210.00",
-                "visible": true
+                "visible": true,
+                "repeats": 3
               },
               {
                 "id": "due",
                 "label": "20 November 2026",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "destination",
                 "label": "Account ending 4421",
-                "visible": true
+                "visible": true,
+                "repeats": 1
               },
               {
                 "id": "consequence",
                 "label": "No payment / simulation note",
-                "visible": true
+                "visible": true,
+                "repeats": 1
               }
             ],
             "typeSizes": 7,
@@ -707,7 +752,7 @@
             ]
           },
           "score": {
-            "score": 97.3,
+            "score": 92.3,
             "breakdown": [
               {
                 "key": "text",
@@ -773,7 +818,12 @@
                 "points": 5
               }
             ],
-            "penalties": [],
+            "penalties": [
+              {
+                "code": "repeated-amount",
+                "points": 5
+              }
+            ],
             "note": "Craft heuristic, not a beauty model or usability study."
           }
         }
@@ -803,27 +853,32 @@
               {
                 "id": "supplier",
                 "label": "North Studio",
-                "visible": true
+                "visible": true,
+                "repeats": 5
               },
               {
                 "id": "amount",
                 "label": "€1,210.00",
-                "visible": true
+                "visible": true,
+                "repeats": 3
               },
               {
                 "id": "due",
                 "label": "20 November 2026",
-                "visible": true
+                "visible": true,
+                "repeats": 3
               },
               {
                 "id": "destination",
                 "label": "Account ending 4421",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "consequence",
                 "label": "No payment / simulation note",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               }
             ],
             "typeSizes": 7,
@@ -861,27 +916,32 @@
               {
                 "id": "supplier",
                 "label": "North Studio",
-                "visible": true
+                "visible": true,
+                "repeats": 5
               },
               {
                 "id": "amount",
                 "label": "€1,210.00",
-                "visible": true
+                "visible": true,
+                "repeats": 3
               },
               {
                 "id": "due",
                 "label": "20 November 2026",
-                "visible": true
+                "visible": true,
+                "repeats": 3
               },
               {
                 "id": "destination",
                 "label": "Account ending 4421",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "consequence",
                 "label": "No payment / simulation note",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               }
             ],
             "typeSizes": 7,
@@ -906,7 +966,7 @@
             ]
           },
           "score": {
-            "score": 69.3,
+            "score": 64.3,
             "breakdown": [
               {
                 "key": "text",
@@ -972,7 +1032,12 @@
                 "points": 3.5
               }
             ],
-            "penalties": [],
+            "penalties": [
+              {
+                "code": "repeated-amount",
+                "points": 5
+              }
+            ],
             "note": "Craft heuristic, not a beauty model or usability study."
           }
         },
@@ -991,27 +1056,32 @@
               {
                 "id": "supplier",
                 "label": "North Studio",
-                "visible": true
+                "visible": true,
+                "repeats": 5
               },
               {
                 "id": "amount",
                 "label": "€1,210.00",
-                "visible": true
+                "visible": true,
+                "repeats": 3
               },
               {
                 "id": "due",
                 "label": "20 November 2026",
-                "visible": true
+                "visible": true,
+                "repeats": 3
               },
               {
                 "id": "destination",
                 "label": "Account ending 4421",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "consequence",
                 "label": "No payment / simulation note",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               }
             ],
             "typeSizes": 7,
@@ -1047,27 +1117,32 @@
               {
                 "id": "supplier",
                 "label": "North Studio",
-                "visible": true
+                "visible": true,
+                "repeats": 5
               },
               {
                 "id": "amount",
                 "label": "€1,210.00",
-                "visible": true
+                "visible": true,
+                "repeats": 3
               },
               {
                 "id": "due",
                 "label": "20 November 2026",
-                "visible": true
+                "visible": true,
+                "repeats": 3
               },
               {
                 "id": "destination",
                 "label": "Account ending 4421",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "consequence",
                 "label": "No payment / simulation note",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               }
             ],
             "typeSizes": 7,
@@ -1090,7 +1165,7 @@
             ]
           },
           "score": {
-            "score": 75,
+            "score": 70,
             "breakdown": [
               {
                 "key": "text",
@@ -1160,6 +1235,10 @@
               {
                 "code": "disabled-primary",
                 "points": 5
+              },
+              {
+                "code": "repeated-amount",
+                "points": 5
               }
             ],
             "note": "Craft heuristic, not a beauty model or usability study."
@@ -1182,27 +1261,32 @@
               {
                 "id": "supplier",
                 "label": "North Studio",
-                "visible": true
+                "visible": true,
+                "repeats": 4
               },
               {
                 "id": "amount",
                 "label": "€1,210.00",
-                "visible": true
+                "visible": true,
+                "repeats": 5
               },
               {
                 "id": "due",
                 "label": "20 November 2026",
-                "visible": true
+                "visible": true,
+                "repeats": 3
               },
               {
                 "id": "destination",
                 "label": "Account ending 4421",
-                "visible": true
+                "visible": true,
+                "repeats": 1
               },
               {
                 "id": "consequence",
                 "label": "No payment / simulation note",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               }
             ],
             "typeSizes": 8,
@@ -1242,27 +1326,32 @@
               {
                 "id": "supplier",
                 "label": "North Studio",
-                "visible": true
+                "visible": true,
+                "repeats": 4
               },
               {
                 "id": "amount",
                 "label": "€1,210.00",
-                "visible": true
+                "visible": true,
+                "repeats": 5
               },
               {
                 "id": "due",
                 "label": "20 November 2026",
-                "visible": true
+                "visible": true,
+                "repeats": 3
               },
               {
                 "id": "destination",
                 "label": "Account ending 4421",
-                "visible": true
+                "visible": true,
+                "repeats": 1
               },
               {
                 "id": "consequence",
                 "label": "No payment / simulation note",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               }
             ],
             "typeSizes": 8,
@@ -1289,7 +1378,7 @@
             ]
           },
           "score": {
-            "score": 60.8,
+            "score": 55.8,
             "breakdown": [
               {
                 "key": "text",
@@ -1355,7 +1444,12 @@
                 "points": 3.5
               }
             ],
-            "penalties": [],
+            "penalties": [
+              {
+                "code": "repeated-amount",
+                "points": 5
+              }
+            ],
             "note": "Craft heuristic, not a beauty model or usability study."
           }
         },
@@ -1374,27 +1468,32 @@
               {
                 "id": "supplier",
                 "label": "North Studio",
-                "visible": true
+                "visible": true,
+                "repeats": 4
               },
               {
                 "id": "amount",
                 "label": "€1,210.00",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "due",
                 "label": "20 November 2026",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "destination",
                 "label": "Account ending 4421",
-                "visible": true
+                "visible": true,
+                "repeats": 1
               },
               {
                 "id": "consequence",
                 "label": "No payment / simulation note",
-                "visible": true
+                "visible": true,
+                "repeats": 1
               }
             ],
             "typeSizes": 6,
@@ -1432,27 +1531,32 @@
               {
                 "id": "supplier",
                 "label": "North Studio",
-                "visible": true
+                "visible": true,
+                "repeats": 4
               },
               {
                 "id": "amount",
                 "label": "€1,210.00",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "due",
                 "label": "20 November 2026",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "destination",
                 "label": "Account ending 4421",
-                "visible": true
+                "visible": true,
+                "repeats": 1
               },
               {
                 "id": "consequence",
                 "label": "No payment / simulation note",
-                "visible": true
+                "visible": true,
+                "repeats": 1
               }
             ],
             "typeSizes": 5,
@@ -1573,27 +1677,32 @@
               {
                 "id": "supplier",
                 "label": "North Studio",
-                "visible": true
+                "visible": true,
+                "repeats": 4
               },
               {
                 "id": "amount",
                 "label": "€1,210.00",
-                "visible": true
+                "visible": true,
+                "repeats": 6
               },
               {
                 "id": "due",
                 "label": "20 November 2026",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "destination",
                 "label": "Account ending 4421",
-                "visible": true
+                "visible": true,
+                "repeats": 6
               },
               {
                 "id": "consequence",
                 "label": "No payment / simulation note",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               }
             ],
             "typeSizes": 8,
@@ -1629,27 +1738,32 @@
               {
                 "id": "supplier",
                 "label": "North Studio",
-                "visible": true
+                "visible": true,
+                "repeats": 4
               },
               {
                 "id": "amount",
                 "label": "€1,210.00",
-                "visible": true
+                "visible": true,
+                "repeats": 6
               },
               {
                 "id": "due",
                 "label": "20 November 2026",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "destination",
                 "label": "Account ending 4421",
-                "visible": true
+                "visible": true,
+                "repeats": 6
               },
               {
                 "id": "consequence",
                 "label": "No payment / simulation note",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               }
             ],
             "typeSizes": 8,
@@ -1672,7 +1786,7 @@
             ]
           },
           "score": {
-            "score": 47,
+            "score": 42,
             "breakdown": [
               {
                 "key": "text",
@@ -1742,6 +1856,10 @@
               {
                 "code": "text-heavy",
                 "points": 5
+              },
+              {
+                "code": "repeated-amount",
+                "points": 5
               }
             ],
             "note": "Craft heuristic, not a beauty model or usability study."
@@ -1762,27 +1880,32 @@
               {
                 "id": "supplier",
                 "label": "North Studio",
-                "visible": true
+                "visible": true,
+                "repeats": 3
               },
               {
                 "id": "amount",
                 "label": "€1,210.00",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "due",
                 "label": "20 November 2026",
-                "visible": true
+                "visible": true,
+                "repeats": 1
               },
               {
                 "id": "destination",
                 "label": "Account ending 4421",
-                "visible": true
+                "visible": true,
+                "repeats": 4
               },
               {
                 "id": "consequence",
                 "label": "No payment / simulation note",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               }
             ],
             "typeSizes": 11,
@@ -1817,27 +1940,32 @@
               {
                 "id": "supplier",
                 "label": "North Studio",
-                "visible": true
+                "visible": true,
+                "repeats": 3
               },
               {
                 "id": "amount",
                 "label": "€1,210.00",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "due",
                 "label": "20 November 2026",
-                "visible": true
+                "visible": true,
+                "repeats": 1
               },
               {
                 "id": "destination",
                 "label": "Account ending 4421",
-                "visible": true
+                "visible": true,
+                "repeats": 4
               },
               {
                 "id": "consequence",
                 "label": "No payment / simulation note",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               }
             ],
             "typeSizes": 11,
@@ -1946,27 +2074,32 @@
               {
                 "id": "supplier",
                 "label": "North Studio",
-                "visible": true
+                "visible": true,
+                "repeats": 3
               },
               {
                 "id": "amount",
                 "label": "€1,210.00",
-                "visible": true
+                "visible": true,
+                "repeats": 3
               },
               {
                 "id": "due",
                 "label": "20 November 2026",
-                "visible": true
+                "visible": true,
+                "repeats": 3
               },
               {
                 "id": "destination",
                 "label": "Account ending 4421",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "consequence",
                 "label": "No payment / simulation note",
-                "visible": true
+                "visible": true,
+                "repeats": 3
               }
             ],
             "typeSizes": 10,
@@ -2001,27 +2134,32 @@
               {
                 "id": "supplier",
                 "label": "North Studio",
-                "visible": true
+                "visible": true,
+                "repeats": 3
               },
               {
                 "id": "amount",
                 "label": "€1,210.00",
-                "visible": true
+                "visible": true,
+                "repeats": 3
               },
               {
                 "id": "due",
                 "label": "20 November 2026",
-                "visible": true
+                "visible": true,
+                "repeats": 3
               },
               {
                 "id": "destination",
                 "label": "Account ending 4421",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "consequence",
                 "label": "No payment / simulation note",
-                "visible": true
+                "visible": true,
+                "repeats": 3
               }
             ],
             "typeSizes": 10,
@@ -2043,7 +2181,7 @@
             ]
           },
           "score": {
-            "score": 49.5,
+            "score": 44.5,
             "breakdown": [
               {
                 "key": "text",
@@ -2113,6 +2251,10 @@
               {
                 "code": "text-heavy",
                 "points": 5
+              },
+              {
+                "code": "repeated-amount",
+                "points": 5
               }
             ],
             "note": "Craft heuristic, not a beauty model or usability study."
@@ -2133,27 +2275,32 @@
               {
                 "id": "supplier",
                 "label": "North Studio",
-                "visible": true
+                "visible": true,
+                "repeats": 3
               },
               {
                 "id": "amount",
                 "label": "€1,210.00",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "due",
                 "label": "20 November 2026",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "destination",
                 "label": "Account ending 4421",
-                "visible": true
+                "visible": true,
+                "repeats": 1
               },
               {
                 "id": "consequence",
                 "label": "No payment / simulation note",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               }
             ],
             "typeSizes": 6,
@@ -2187,27 +2334,32 @@
               {
                 "id": "supplier",
                 "label": "North Studio",
-                "visible": true
+                "visible": true,
+                "repeats": 3
               },
               {
                 "id": "amount",
                 "label": "€1,210.00",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "due",
                 "label": "20 November 2026",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "destination",
                 "label": "Account ending 4421",
-                "visible": true
+                "visible": true,
+                "repeats": 1
               },
               {
                 "id": "consequence",
                 "label": "No payment / simulation note",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               }
             ],
             "typeSizes": 6,
@@ -2324,27 +2476,32 @@
               {
                 "id": "supplier",
                 "label": "North Studio",
-                "visible": true
+                "visible": true,
+                "repeats": 5
               },
               {
                 "id": "amount",
                 "label": "€1,210.00",
-                "visible": true
+                "visible": true,
+                "repeats": 5
               },
               {
                 "id": "due",
                 "label": "20 November 2026",
-                "visible": true
+                "visible": true,
+                "repeats": 4
               },
               {
                 "id": "destination",
                 "label": "Account ending 4421",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "consequence",
                 "label": "No payment / simulation note",
-                "visible": true
+                "visible": true,
+                "repeats": 4
               }
             ],
             "typeSizes": 10,
@@ -2382,27 +2539,32 @@
               {
                 "id": "supplier",
                 "label": "North Studio",
-                "visible": true
+                "visible": true,
+                "repeats": 5
               },
               {
                 "id": "amount",
                 "label": "€1,210.00",
-                "visible": true
+                "visible": true,
+                "repeats": 5
               },
               {
                 "id": "due",
                 "label": "20 November 2026",
-                "visible": true
+                "visible": true,
+                "repeats": 4
               },
               {
                 "id": "destination",
                 "label": "Account ending 4421",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "consequence",
                 "label": "No payment / simulation note",
-                "visible": true
+                "visible": true,
+                "repeats": 4
               }
             ],
             "typeSizes": 9,
@@ -2427,7 +2589,7 @@
             ]
           },
           "score": {
-            "score": 51.5,
+            "score": 46.5,
             "breakdown": [
               {
                 "key": "text",
@@ -2501,6 +2663,10 @@
               {
                 "code": "disabled-primary",
                 "points": 5
+              },
+              {
+                "code": "repeated-amount",
+                "points": 5
               }
             ],
             "note": "Craft heuristic, not a beauty model or usability study."
@@ -2521,27 +2687,32 @@
               {
                 "id": "supplier",
                 "label": "North Studio",
-                "visible": true
+                "visible": true,
+                "repeats": 4
               },
               {
                 "id": "amount",
                 "label": "€1,210.00",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "due",
                 "label": "20 November 2026",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "destination",
                 "label": "Account ending 4421",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "consequence",
                 "label": "No payment / simulation note",
-                "visible": true
+                "visible": true,
+                "repeats": 3
               }
             ],
             "typeSizes": 9,
@@ -2576,27 +2747,32 @@
               {
                 "id": "supplier",
                 "label": "North Studio",
-                "visible": true
+                "visible": true,
+                "repeats": 4
               },
               {
                 "id": "amount",
                 "label": "€1,210.00",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "due",
                 "label": "20 November 2026",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "destination",
                 "label": "Account ending 4421",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "consequence",
                 "label": "No payment / simulation note",
-                "visible": true
+                "visible": true,
+                "repeats": 3
               }
             ],
             "typeSizes": 9,
@@ -2705,27 +2881,32 @@
               {
                 "id": "supplier",
                 "label": "North Studio",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "amount",
                 "label": "€1,210.00",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "due",
                 "label": "20 November 2026",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "destination",
                 "label": "Account ending 4421",
-                "visible": true
+                "visible": true,
+                "repeats": 1
               },
               {
                 "id": "consequence",
                 "label": "No payment / simulation note",
-                "visible": true
+                "visible": true,
+                "repeats": 1
               }
             ],
             "typeSizes": 9,
@@ -2757,27 +2938,32 @@
               {
                 "id": "supplier",
                 "label": "North Studio",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "amount",
                 "label": "€1,210.00",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "due",
                 "label": "20 November 2026",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "destination",
                 "label": "Account ending 4421",
-                "visible": true
+                "visible": true,
+                "repeats": 1
               },
               {
                 "id": "consequence",
                 "label": "No payment / simulation note",
-                "visible": true
+                "visible": true,
+                "repeats": 1
               }
             ],
             "typeSizes": 9,
@@ -2881,27 +3067,32 @@
               {
                 "id": "supplier",
                 "label": "North Studio",
-                "visible": true
+                "visible": true,
+                "repeats": 3
               },
               {
                 "id": "amount",
                 "label": "€1,210.00",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "due",
                 "label": "20 November 2026",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "destination",
                 "label": "Account ending 4421",
-                "visible": true
+                "visible": true,
+                "repeats": 1
               },
               {
                 "id": "consequence",
                 "label": "No payment / simulation note",
-                "visible": true
+                "visible": true,
+                "repeats": 1
               }
             ],
             "typeSizes": 7,
@@ -2935,27 +3126,32 @@
               {
                 "id": "supplier",
                 "label": "North Studio",
-                "visible": true
+                "visible": true,
+                "repeats": 3
               },
               {
                 "id": "amount",
                 "label": "€1,210.00",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "due",
                 "label": "20 November 2026",
-                "visible": true
+                "visible": true,
+                "repeats": 2
               },
               {
                 "id": "destination",
                 "label": "Account ending 4421",
-                "visible": true
+                "visible": true,
+                "repeats": 1
               },
               {
                 "id": "consequence",
                 "label": "No payment / simulation note",
-                "visible": true
+                "visible": true,
+                "repeats": 1
               }
             ],
             "typeSizes": 7,
@@ -3050,12 +3246,12 @@
     }
   ],
   "summary": {
-    "v0Before": 52.9,
-    "v0After": 78.9,
-    "v0Delta": 26,
-    "v1Before": 61.7,
-    "v1After": 97.4,
-    "v1Delta": 35.7,
+    "v0Before": 49.1,
+    "v0After": 77.7,
+    "v0Delta": 28.5,
+    "v1Before": 58,
+    "v1After": 96.2,
+    "v1Delta": 38.2,
     "improved": 4,
     "total": 4
   },

@@ -48,27 +48,32 @@
             {
               "id": "supplier",
               "label": "North Studio",
-              "visible": true
+              "visible": true,
+              "repeats": 4
             },
             {
               "id": "amount",
               "label": "€1,210.00",
-              "visible": true
+              "visible": true,
+              "repeats": 5
             },
             {
               "id": "due",
               "label": "20 November 2026",
-              "visible": true
+              "visible": true,
+              "repeats": 3
             },
             {
               "id": "destination",
               "label": "Account ending 4421",
-              "visible": true
+              "visible": true,
+              "repeats": 1
             },
             {
               "id": "consequence",
               "label": "No payment / simulation note",
-              "visible": true
+              "visible": true,
+              "repeats": 2
             }
           ],
           "typeSizes": 8,
@@ -108,27 +113,32 @@
             {
               "id": "supplier",
               "label": "North Studio",
-              "visible": true
+              "visible": true,
+              "repeats": 4
             },
             {
               "id": "amount",
               "label": "€1,210.00",
-              "visible": true
+              "visible": true,
+              "repeats": 5
             },
             {
               "id": "due",
               "label": "20 November 2026",
-              "visible": true
+              "visible": true,
+              "repeats": 3
             },
             {
               "id": "destination",
               "label": "Account ending 4421",
-              "visible": true
+              "visible": true,
+              "repeats": 1
             },
             {
               "id": "consequence",
               "label": "No payment / simulation note",
-              "visible": true
+              "visible": true,
+              "repeats": 2
             }
           ],
           "typeSizes": 8,
@@ -183,27 +193,32 @@
             {
               "id": "supplier",
               "label": "North Studio",
-              "visible": true
+              "visible": true,
+              "repeats": 4
             },
             {
               "id": "amount",
               "label": "€1,210.00",
-              "visible": true
+              "visible": true,
+              "repeats": 2
             },
             {
               "id": "due",
               "label": "20 November 2026",
-              "visible": true
+              "visible": true,
+              "repeats": 2
             },
             {
               "id": "destination",
               "label": "Account ending 4421",
-              "visible": true
+              "visible": true,
+              "repeats": 1
             },
             {
               "id": "consequence",
               "label": "No payment / simulation note",
-              "visible": true
+              "visible": true,
+              "repeats": 1
             }
           ],
           "typeSizes": 6,
@@ -241,27 +256,32 @@
             {
               "id": "supplier",
               "label": "North Studio",
-              "visible": true
+              "visible": true,
+              "repeats": 4
             },
             {
               "id": "amount",
               "label": "€1,210.00",
-              "visible": true
+              "visible": true,
+              "repeats": 2
             },
             {
               "id": "due",
               "label": "20 November 2026",
-              "visible": true
+              "visible": true,
+              "repeats": 2
             },
             {
               "id": "destination",
               "label": "Account ending 4421",
-              "visible": true
+              "visible": true,
+              "repeats": 1
             },
             {
               "id": "consequence",
               "label": "No payment / simulation note",
-              "visible": true
+              "visible": true,
+              "repeats": 1
             }
           ],
           "typeSizes": 5,

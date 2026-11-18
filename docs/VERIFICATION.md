@@ -2,13 +2,13 @@
 
 ## Prompt-lab update · 18 November 2026
 
-- 57 unit/CLI tests pass, including prompt construction, provider wire formats, HTML extraction/sanitization, content-only outlines, the Atelier pack, the approved gallery and the craft heuristic.
+- 59 unit/CLI tests pass, including prompt construction, provider wire formats, HTML extraction/sanitization, content-only outlines, the Atelier pack, the approved gallery, the craft heuristic, the local free-connector route and the public Worker health/auth boundary.
 - Static build and source checks pass. `npm run test:browser` passes 26 workshop assertions and 12 prompt-lab assertions at actual 390px and 1440px widths, with zero browser exceptions. Lab evidence is stored in `artifacts/browser-results.json`.
 - The recorded set contains four actual v1 model runs: Beam (free), LongCat 2.5 (free), Qwen 3.8 Flash (open model) and Claude Haiku 5.5 (frontier reference). LongCat 2.5 is the approved default. Each run stores the first-draft HTML, the Atelier harness-pass HTML, rendered measurements at 1280px and 390px, and two screenshots.
 - The v1 harness pass uses the Atelier pack, the real compact brief from `composeBrief`, invoice task guidance, the explicit visual system, the invoice fixture and a content-only outline of the first draft. The first draft has no harness context.
-- The approved component gallery in `gallery/templates.json` is validated by the tests and rendered at `/gallery/`. The live pass includes it. A first LongCat 2.5 gallery pass was rejected because it duplicated the hero amount; the tightened gallery rules now require each fact once. A full v2 benchmark is pending.
-- `npm run benchmark:lab` measured four models at 1280 and 390px. The v1 after pass averaged 97.4/100 against 78.9 for v0, with 4/4 models improving on the transparent craft heuristic. This is not a beauty model or a human study.
-- The single-design live flow and the gallery prompt were exercised in Chromium with a deterministic mocked provider response. No real OpenRouter, OpenAI or Anthropic key was used in automated verification. Live provider calls, rate limits and model-specific behavior remain unverified in CI.
+- The approved component gallery in `gallery/templates.json` is validated by the tests and rendered at `/gallery/`. The live pass includes it. A first LongCat 2.5 gallery pass was rejected because it duplicated the hero amount. A second pass with tightened rules fixed the duplication (136 words, amount repeated twice, page shell applied) but scored 92.7 against 96.3 for v1, so the recorded default remains v1. A full gallery benchmark is pending.
+- `npm run benchmark:lab` measured four models at 1280 and 390px. The v1 after pass averaged 96.2/100 against 77.7 for v0, with 4/4 models improving on the transparent craft heuristic. This is not a beauty model or a human study.
+- The local free connector was exercised with a real Beam generation through the local server: no browser key, two calls, approved gallery 1.0.0, 99 visible words in the harness result, 228 -> 99. The token stayed in the Node process. The public Worker was not deployed; anonymous keyless generation on GitHub Pages requires the host to deploy `worker/` and set `demo/lab-config.json`. No real OpenAI, Anthropic or OpenRouter key was used in automated verification.
 - The recorded page and live flow are a demonstration. The craft benchmark is a transparent heuristic, not a usability study, full audit or coding-agent repair loop.
 
 ## Foundation update · 15 November 2026

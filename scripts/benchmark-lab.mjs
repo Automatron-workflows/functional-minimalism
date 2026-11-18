@@ -148,6 +148,14 @@ v1 improved ${report.summary.improved} of ${report.summary.total} models.
 
 The hosted [approved gallery](../gallery/) contains nine manually reviewed components extracted from the Atelier output: page shell, brand line, document, hero amount, summary rail, primary action, line items, labels and status. The live prompt lab now passes that gallery to the harness pass. This table measures v1, which used the Atelier principles without the gallery; the gallery is the next iteration and will be benchmarked as v2.
 
+## Gallery v2 trial (rejected)
+
+A first LongCat 2.5 pass with the approved gallery duplicated the hero amount in the document and the summary rail: 144 words and 88 paragraph words against 130 and 32 in the approved v1 design. It was not approved. The [v2 evidence](./benchmark/v2-longcat-gallery/) is kept for review. The gallery rules now state that each fact appears once and that the summary rail owns the hero amount; the next live pass uses the tightened rules. The approved default remains the v1 LongCat design.
+
+### Gallery v3 trial
+
+A second LongCat 2.5 pass with the tightened gallery rules fixed the v2 duplication: 136 words, the amount repeated twice, the page shell applied, one enabled primary action. It scored 92.7 on the heuristic against 96.3 for v1 because the complete invoice blocks add necessary address paragraphs. It was not promoted; the recorded default stays at v1. The live connector uses the tightened gallery so a visitor can generate a gallery-composed design on demand. Evidence: [v3](./benchmark/v3-longcat-gallery/).
+
 ## v1 component points
 
 ${components}

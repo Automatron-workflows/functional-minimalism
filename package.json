@@ -45,7 +45,8 @@
     "references",
     "Automatron_Design_Harness_Plan.md",
     "AGENTS.md",
-    "gallery"
+    "gallery",
+    "worker"
   ],
   "repository": {
     "type": "git",

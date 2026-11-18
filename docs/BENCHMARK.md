@@ -10,13 +10,13 @@ The score is a transparent heuristic out of 100: text restraint (15), paragraph 
 
 | Model | v0 before | v0 after | v0 delta | v1 before | v1 after | v1 delta |
 | --- | --- | --- | --- | --- | --- | --- |
-| Beam | 43.7 | 66.1 | +22.4 | 71.2 | 97.3 | +26.1 |
-| Claude Haiku 5.5 | 69.3 | 75 | +5.7 | 60.8 | 97.9 | +37.1 |
-| LongCat 2.5 | 47 | 84.5 | +37.5 | 49.5 | 96.3 | +46.8 |
-| Qwen 3.8 Flash | 51.5 | 90.1 | +38.6 | 65.4 | 98.2 | +32.8 |
+| Beam | 43.7 | 66.1 | +22.4 | 66.2 | 92.3 | +26.1 |
+| Claude Haiku 5.5 | 64.3 | 70 | +5.7 | 55.8 | 97.9 | +42.1 |
+| LongCat 2.5 | 42 | 84.5 | +42.5 | 44.5 | 96.3 | +51.8 |
+| Qwen 3.8 Flash | 46.5 | 90.1 | +43.6 | 65.4 | 98.2 | +32.8 |
 
-v0 average: before 52.9, after 78.9, delta 26.  
-v1 average: before 61.7, after 97.4, delta 35.7.  
+v0 average: before 49.1, after 77.7, delta 28.5.  
+v1 average: before 58, after 96.2, delta 38.2.  
 v1 improved 4 of 4 models.
 
 ## What changed in v1
@@ -28,11 +28,15 @@ v1 improved 4 of 4 models.
 
 ## Next layer: the approved component gallery
 
-The hosted [approved gallery](../gallery/) contains nine manually reviewed components extracted from the Atelier output: page shell, brand line, document, hero amount, summary rail, primary action, line items, labels and status. The live prompt lab now passes that gallery to the harness pass. This table measures v1, which used the Atelier principles without the gallery; the gallery is the next iteration and will be benchmarked as v2.
+The hosted [approved gallery](../gallery/) contains nine manually reviewed components extracted from the Atelier output: page shell, brand line, document, hero amount, summary rail, primary action, line items, labels and status. The live prompt lab now passes that gallery to the harness pass. This table measures v1, which used the Atelier principles without the gallery. The gallery was tried in two later passes: v2 was rejected for duplicated facts, and v3 fixed the duplication but scored lower than v1, so the recorded default remains v1. The keyless live connector uses the tightened gallery on demand.
 
 ## Gallery v2 trial (rejected)
 
 A first LongCat 2.5 pass with the approved gallery duplicated the hero amount in the document and the summary rail: 144 words and 88 paragraph words against 130 and 32 in the approved v1 design. It was not approved. The [v2 evidence](./benchmark/v2-longcat-gallery/) is kept for review. The gallery rules now state that each fact appears once and that the summary rail owns the hero amount; the next live pass uses the tightened rules. The approved default remains the v1 LongCat design.
+
+### Gallery v3 trial
+
+A second LongCat 2.5 pass with the tightened gallery rules fixed the v2 duplication: 136 words, the amount repeated twice, the page shell applied, one enabled primary action. It scored 92.7 on the heuristic against 96.3 for v1 because the complete invoice blocks add necessary address paragraphs. It was not promoted; the recorded default stays at v1. The live connector uses the tightened gallery so a visitor can generate a gallery-composed design on demand. Evidence: [v3](./benchmark/v3-longcat-gallery/).
 
 ## v1 component points
 

@@ -12,13 +12,13 @@ Repeated redesigns cost time and tokens. Functional Minimalism puts a good desig
 
 ## What
 
-A local design harness with versioned design packs, composition patterns, screen contracts, scoped design memory, and source/rendered-evidence checks. Your coding agent performs the design, browser work and repair; Functional Minimalism supplies context and checks. The harness CLI itself makes no model calls, uses no credentials, and has no npm dependencies or telemetry. The optional prompt lab calls the provider a visitor connects.
+A local design harness with versioned design packs, composition patterns, screen contracts, scoped design memory, and source/rendered-evidence checks. Your coding agent performs the design, browser work and repair; Functional Minimalism supplies context and checks. The harness CLI itself makes no model calls, uses no credentials, and has no npm dependencies or telemetry. The optional prompt lab calls a host-configured free connector when available, or the provider a visitor connects.
 
 **v0.3.0** includes a live prompt lab, an approved Atelier component gallery, four benchmarked model runs, three working fixture flows, and one-command first-screen setup. Studio is an explicit reference system, not Alps. Nothing is published to npm.
 
 [Source](https://github.com/Automatron-workflows/functional-minimalism) · [Contribute](CONTRIBUTING.md) · [Run a paired experiment](docs/EXPERIMENT.md)
 
-The [public demo](https://automatron-workflows.github.io/functional-minimalism/) is hosted on GitHub Pages and opens without an account. Its route continues into `/demo/`. The recorded runs need no key; live prompt generation needs a provider key from OpenAI, Anthropic or OpenRouter. The source ZIP is also available from the workshop and offline preview. The separate Higgsfield draft is not part of this public release.
+The [public demo](https://automatron-workflows.github.io/functional-minimalism/) is hosted on GitHub Pages and opens without an account. Its route continues into `/demo/`. The recorded runs need no key. A host can deploy the included free connector so visitors also need no key; otherwise live generation uses a visitor key from OpenAI, Anthropic or OpenRouter. The source ZIP is also available from the workshop and offline preview. The separate Higgsfield draft is not part of this public release.
 
 ## Try the harness in a minute
 
@@ -91,13 +91,34 @@ npm run dev
 
 Open **http://127.0.0.1:4178/demo/**. The landing starts with a prefilled invoice prompt and one approved Atelier template. The before is the model's own first draft with no harness context. The after is the harness result: the Atelier system, a real invoice fixture, a content-only outline and the approved component gallery. Use Before and After or the arrow keys to compare. **What changed** reports rendered word counts, controls, headings, overflow and required facts at 1280 and 390px. **Benchmark** opens the four-model craft comparison and its limits.
 
-Connect an OpenRouter key to write your own prompt and generate one design in the browser. Keys stay in this browser and are sent only to the provider. No real payment occurs. **Approve this design** stores a local proposal and downloads a gallery proposal for review; the hosted gallery only changes when a reviewed component is merged into `gallery/templates.json`. Why explains the purpose; Set up gives the exact commands and downloadable source. Try the harness opens film discovery, a simulated invoice confirmation, and project tasks. Inspect runs real DOM checks against the fixture contracts. Design memory lets you accept a scoped correction and download another screen’s brief to see which decisions carry forward. That memory is local to the demo browser; it does not write to your project or agent.
+Write your own prompt and generate one design in the browser. If the host configured the free connector, no key is needed. Otherwise connect an OpenRouter key; keys stay in this browser and are sent only to the provider. No real payment occurs. **Approve this design** stores a local proposal and downloads a gallery proposal for review; the hosted gallery only changes when a reviewed component is merged into `gallery/templates.json`. Why explains the purpose; Set up gives the exact commands and downloadable source. Try the harness opens film discovery, a simulated invoice confirmation, and project tasks. Inspect runs real DOM checks against the fixture contracts. Design memory lets you accept a scoped correction and download another screen’s brief to see which decisions carry forward. That memory is local to the demo browser; it does not write to your project or agent.
 
 After `npm run build`, open **dist/Functional_Minimalism_Preview.html** directly in a browser: a self-contained preview with the recorded runs, workshop and source ZIP embedded. **dist/Functional_Minimalism_Workshop.html** is the separate offline workshop. The approved template and the four benchmark runs are actual model output, not authored illustrations. The recorded set uses two free models, one open model and one frontier reference; the live lab generates one design from the approved gallery. A single recorded run is a demonstration, not a usability study. No real payment occurs.
 
 The approved components live in [`gallery/templates.json`](gallery/templates.json), a manually reviewed MIT dataset rendered at **http://127.0.0.1:4178/gallery/**. The review loop is deliberate: a generated design becomes a proposal, a person extracts and approves components, and the gallery is versioned. Nothing is trained automatically from an unapproved output.
 
+## Keyless free connector
+
+BYOK is friction. The lab supports a host-configured free connector:
+
+```sh
+OPENCODE_API_KEY=... npm run dev
+```
+
+The local server exposes a free-model allowlist at `/api/lab`; the browser detects it and shows **Free local connector**. The token stays in Node, never in the page.
+
+For the public GitHub Pages demo, deploy the included Cloudflare Worker once and point `demo/lab-config.json` at it:
+
+```sh
+cd worker
+npx wrangler secret put OPENCODE_TOKEN
+npx wrangler deploy
+```
+
+Visitors then generate without a key. The Worker only accepts the free models, caps output, rate-limits by IP in its isolate, and keeps the token secret. See [the connector guide](docs/PUBLIC-CONNECTOR.md). If no connector is configured, the approved recorded template and the visitor's own key remain the fallbacks.
+
 ## Time and token usage
+
 
 Setup emits a compact brief that retains the task, source mappings, component rules and accepted decisions. Use `brief --compact` to regenerate it. `npm run measure:context` reports exact UTF-8 byte counts for full and compact example briefs. Bytes are not model tokens.
 
@@ -105,7 +126,7 @@ The harness adds context; the intended saving comes from avoiding repeated redes
 
 The prompt lab sends two calls per generated design: a first draft with no harness context, then a harness pass with the compact brief, task guidance, visual system and approved gallery. **Run details** shows provider-reported tokens where available. Free models are rate-limited and slower; the lab keeps the finished design and reports a failure instead of substituting a fake image. This is a demonstration, not a controlled comparison.
 
-`npm run benchmark:lab` measures the archived v0 and current v1 runs at 1280 and 390px, writes [the benchmark](docs/BENCHMARK.md) and `docs/benchmark.json`. The v1 after pass averaged **97.4/100** against **78.9** for v0 on the transparent craft heuristic, with 4 of 4 models improving. The heuristic rewards text restraint, one visible primary action, hierarchy, cohesion, whitespace, responsive integrity, facts and contrast. It is not a beauty model; see the benchmark limits.
+`npm run benchmark:lab` measures the archived v0 and current v1 runs at 1280 and 390px, writes [the benchmark](docs/BENCHMARK.md) and `docs/benchmark.json`. The v1 after pass averaged **96.2/100** against **77.7** for v0 on the transparent craft heuristic, with 4 of 4 models improving. The heuristic rewards text restraint, one visible primary action, hierarchy, cohesion, whitespace, responsive integrity, facts and contrast. It is not a beauty model; see the benchmark limits.
 
 ## Check the result
 

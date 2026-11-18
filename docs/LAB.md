@@ -15,10 +15,10 @@ The harness pass receives the compact brief produced by the real `composeBrief` 
 
 | Model | Access | Notes |
 | --- | --- | --- |
-| Beam | OpenCode Go, free | Generated 18 November 2026 |
+| Beam | OpenCode Go, free | Generated 17 November 2026 |
 | LongCat 2.5 | OpenCode Go, free | Generated 17 November 2026 |
 | Qwen 3.8 Flash | OpenCode Go, open model | Generated 17 November 2026 |
-| Claude Haiku 5.5 | OpenCode Go, frontier reference | Recovered from an earlier recorded run; timings and tokens were not captured |
+| Claude Haiku 5.5 | OpenCode Go, frontier reference | Recovered 18 November 2026 from an earlier run; timings and tokens were not captured |
 
 Recorded runs are one sample per model. Free models are rate-limited and can be slower or return partial results. The page keeps partial successes and reports failures per model. A single run is not a benchmark, a usability study or evidence of a general time saving.
 

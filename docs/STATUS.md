@@ -22,7 +22,7 @@ The original product plan remains a proposal. This file tracks the implemented s
 | React stack adapters | 13 context adapters; manifest/config detection, explicit UI selection, brief composition and drift checks |
 | React version/build compatibility matrix | Not run; adapters do not certify installed API compatibility |
 | Four recorded model runs, three interactive fixture flows and static build | Implemented; direct starter brief copy/download added; LongCat 2.5 is the approved default |
-| Local Chrome behavioral verification runner | Actual-width iframe runner implemented; GitHub CI passes 26 workshop and 12 prompt-lab assertions each at 390px and 1440px |
+| Local Chrome behavioral verification runner | Actual-width iframe runner implemented; GitHub CI passes 26 workshop and 13 prompt-lab assertions each at 390px and 1440px |
 | Live Figma / Code Connect importer | Pending |
 | Alps design pack | Pending actual source |
 | Harness runtime model calls | None; the optional prompt lab uses a host free connector or the provider a visitor connects |

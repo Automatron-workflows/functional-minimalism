@@ -1,8 +1,8 @@
 // Prompt lab and recorded-run comparison. No server, no telemetry, no stored
 // key unless the visitor asks for it.
-import {PROVIDERS,buildBaselineMessages,buildHarnessMessages,contentOnlyHTML,extractHTML,sanitizeHTML,requestProvider,listProviderModels} from '../src/lab.mjs?v=2026-11-18-10';
-import {measureDocument,measureSummary} from './measure.mjs?v=2026-11-18-10';
-import {composeBrief,validatePack,validateContract} from '../src/core.mjs?v=2026-11-18-10';
+import {PROVIDERS,buildBaselineMessages,buildHarnessMessages,contentOnlyHTML,extractHTML,sanitizeHTML,requestProvider,listProviderModels} from '../src/lab.mjs?v=2026-11-18-11';
+import {measureDocument,measureSummary} from './measure.mjs?v=2026-11-18-11';
+import {composeBrief,validatePack,validateContract} from '../src/core.mjs?v=2026-11-18-11';
 
 const $=(selector,root=document)=>root.querySelector(selector);
 const $$=(selector,root=document)=>[...root.querySelectorAll(selector)];
@@ -22,7 +22,7 @@ const prompt=$('#prompt'),frame=$('#frame'),models=$('#models'),source=$('#sourc
 const shotBefore=$('#shot-before'),shotAfter=$('#shot-after'),liveBefore=$('#live-before'),liveAfter=$('#live-after');
 const frameEmpty=$('#frame-empty'),frameLoading=$('#frame-loading'),loadingLabel=$('#loading-label'),cancelButton=$('#cancel');
 const measureGrid=$('#measure-grid'),metaList=$('#meta-list'),metaLimits=$('#meta-limits'),downloadRunButton=$('#download-run'),approveRunButton=$('#approve-run'),showRecordedButton=$('#show-recorded');
-const fixtureNote=$('#fixture-note'),benchmarkNote=$('#benchmark-note'),benchmarkV1=$('#benchmark-v1'),benchmarkApproved=$('#benchmark-approved'),benchmarkV0=$('#benchmark-v0'),benchmarkCount=$('#benchmark-count'),benchmarkTotal=$('#benchmark-total'),connectorNote=$('#connector-note'),noConnectorNote=$('#no-connector-note');
+const fixtureNote=$('#fixture-note'),benchmarkNote=$('#benchmark-note'),benchmarkV1=$('#benchmark-v1'),benchmarkApproved=$('#benchmark-approved'),benchmarkV0=$('#benchmark-v0'),benchmarkCount=$('#benchmark-count'),benchmarkTotal=$('#benchmark-total'),benchmarkSection=$('#benchmark'),benchmarkGrid=$('#benchmark-grid'),connectorNote=$('#connector-note'),noConnectorNote=$('#no-connector-note');
 const headerConnect=$('#header-connect');
 
 function readStore(storage){try{const raw=storage.getItem(STORE_KEY);return raw?JSON.parse(raw):null;}catch{return null;}}
@@ -161,6 +161,40 @@ function renderLiveModelLine(){
  headerConnect.textContent=state.connection?'Model connected':state.connector?'Free connector':'Connect a model';
  headerConnect.classList.toggle('is-connected',!!(state.connection||state.connector));
 }
+function renderBenchmarkCards(){
+ const records=data?.benchmark?.records??[];
+ if(!records.length||!benchmarkSection||!benchmarkGrid){if(benchmarkSection)benchmarkSection.hidden=true;return;}
+ benchmarkSection.hidden=false;
+ benchmarkGrid.replaceChildren();
+ for(const record of records){
+  const run=data.runs.find(item=>item.model.id===record.model.id);
+  if(!run)continue;
+  const card=document.createElement('button');card.type='button';card.className='benchmark-card';
+  card.setAttribute('aria-label',`Inspect ${record.model.label} before and after`);
+  const pair=document.createElement('span');pair.className='benchmark-pair';
+  for(const [label,src] of [['Before',run.conditions.before.screenshot],['After',run.conditions.after.screenshot]]){
+   const item=document.createElement('span');item.className='pair-item';
+   const image=document.createElement('img');image.src=src;image.alt='';image.loading='lazy';
+   const caption=document.createElement('span');caption.className='pair-label';caption.textContent=label;
+   item.append(image,caption);pair.append(item);
+  }
+  const name=document.createElement('span');name.className='name';name.textContent=record.model.label;
+  const meta=document.createElement('span');meta.className='meta';
+  meta.textContent=[record.model.free?'Free':record.model.via??'Open model',preset()?.approvedModel===record.model.id?'Approved':null].filter(Boolean).join(' · ');
+  const scores=document.createElement('span');scores.className='scores';
+  for(const [label,value] of [['Before',record.v1?.before?.score?.score],['After',record.v1?.after?.score?.score]]){
+   const valueNode=document.createElement('span');valueNode.textContent=`${label} ${Number.isFinite(value)?value.toFixed(1):'n/a'}`;
+   if(label==='After')valueNode.className='score';
+   scores.append(valueNode);
+  }
+  card.append(pair,name,meta,scores);
+  card.addEventListener('click',()=>{
+   selectModel(record.model.id,{announce:false});
+   document.querySelector('#frame')?.scrollIntoView({behavior:'smooth',block:'center'});
+  });
+  benchmarkGrid.append(card);
+ }
+}
 function renderBenchmark(){
  const summary=data?.benchmark?.summary;
  if(!summary){benchmarkNote.hidden=true;return;}
@@ -223,7 +257,7 @@ function renderModels(){
   button.addEventListener('click',()=>selectModel(model.id));
   models.append(button);
  }
- const benchmark=document.createElement('a');benchmark.className='rail-link';benchmark.href='../docs/BENCHMARK.md';benchmark.target='_blank';benchmark.rel='noreferrer';benchmark.textContent='Benchmark · 4 models';
+ const benchmark=document.createElement('a');benchmark.className='rail-link';benchmark.href='#benchmark';benchmark.textContent='Benchmark · 4 models';
  models.append(benchmark);
 }
 function renderMeasureViewButtons(){for(const button of $$('[data-measure-view]'))button.setAttribute('aria-pressed',String(button.dataset.measureView===state.measureView));}
@@ -648,6 +682,7 @@ function runSelfTest(){
  check('approved template selected',state.run?.model.id===preset()?.approvedModel,state.run?.model.id??'none');
  check('one approved rail card',document.querySelectorAll('#models .model').length===1);
  check('benchmark note visible',!document.querySelector('#benchmark-note')?.hidden);
+ check('four benchmark cards',document.querySelectorAll('#benchmark-grid .benchmark-card').length===4);
  check('gallery link present',!!document.querySelector('a[href="../gallery/"]'));
  const originalModel=state.modelId;
  const other=modelsForPreset.find(model=>model.id!==state.modelId);
@@ -675,7 +710,7 @@ async function boot(){
  state.modelId=params.get('model')??defaultModelForPreset(state.presetId);
  state.view=params.get('view')==='before'?'before':'after';
  wire();
- renderPresetButtons();renderModels();renderLiveModelLine();renderFixtureNote();renderRunButton();renderSource();renderMeasureViewButtons();applyView();renderBenchmark();
+ renderPresetButtons();renderModels();renderLiveModelLine();renderFixtureNote();renderRunButton();renderSource();renderMeasureViewButtons();applyView();renderBenchmark();renderBenchmarkCards();
  loadRunFor(state.presetId,state.modelId);
  if(!state.run&&data.runs[0])showRun(data.runs[0]);
  if(params.has('selftest')||window.frameElement?.hasAttribute('data-selftest'))runSelfTest();

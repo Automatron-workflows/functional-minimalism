@@ -22,6 +22,9 @@ test('landing leads with an editable prompt and a recorded comparison',()=>{
  assert.match(html,/Generate design/);
  assert.match(html,/Approve this design/);
  assert.match(html,/id="benchmark-note"/);
+ assert.match(html,/id="benchmark"/);
+ assert.match(html,/id="benchmark-grid"/);
+ assert.match(lab,/benchmark\.href='#benchmark'/);
  assert.match(html,/href="\.\.\/gallery\/"/);
  assert.ok(html.indexOf('id="prompt-form"')<html.indexOf('id="frame"'),'the prompt form must precede the comparison');
  assert.ok(html.indexOf('id="run-meta"')<html.indexOf('id="measure-grid"'),'measurements follow the run details');

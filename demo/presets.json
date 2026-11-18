@@ -1,0 +1,24 @@
+{
+  "schema": "functional-minimalism.lab-presets/1",
+  "presets": [
+    {
+      "id": "invoice",
+      "label": "Invoice review",
+      "prompt": "Review invoice 0042 from North Studio for €1,210.00, due 20 November 2026. The payment would leave account ending 4421. I want to check the supplier, amount and due date, then review the payment before anything happens. Use fictional data. No real payment.",
+      "contract": "../examples/invoice.screen.json",
+      "guidance": [
+        "The decision facts are the supplier, amount, due date and destination. The amount is the dominant number; the invoice number is a reference, not the hero.",
+        "Remove review checklists and status pills unless the request asks for them. Show the four facts directly.",
+        "Keep exactly one enabled primary action: Review payment. A single quiet secondary recovery action is enough; do not add two competing buttons.",
+        "Keep the consequence note once, next to the action. Keep the amount and the primary action visible in the first 1280 by 800 screen."
+      ],
+      "facts": [
+        { "id": "supplier", "label": "North Studio", "pattern": "North Studio" },
+        { "id": "amount", "label": "€1,210.00", "pattern": "1[.,]210(?:[.,]00)?" },
+        { "id": "due", "label": "20 November 2026", "pattern": "20\\s+(?:November|Nov)\\s+2026" },
+        { "id": "destination", "label": "Account ending 4421", "pattern": "4421" },
+        { "id": "consequence", "label": "No payment / simulation note", "pattern": "(?:no|nothing|not)\\s+(?:real\\s+)?payment|payment\\s+(?:is\\s+)?(?:simulated|fictional)|simulation|fiction" }
+      ]
+    }
+  ]
+}

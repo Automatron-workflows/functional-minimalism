@@ -40,7 +40,7 @@ Use this profile for a short product explanation or capability demonstration whe
 - Provide a visible before/after control labelled Before and After. Support pointer drag and keyboard; do not autoplay the comparison.
 - Keep the task, structure and essential facts identical across sources. Preserve each source's composition, palette and typography; do not collapse every source into one default theme.
 - Reserve each result's own accent for its single action. Keep the header, rail and action free of logo badges, rail icons, fake window chrome and button arrows.
-- Disclose authored sources and simulations in the information control. A source name on stage is not enough disclosure.
+- Show whether results are recorded or live, and name the model, provider and date. State the one-run limits. A source name on stage is not enough disclosure, and one run is not a benchmark.
 
 ## Functional interface profile
 

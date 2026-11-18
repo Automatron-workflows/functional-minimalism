@@ -34,8 +34,8 @@ Both are Automatron projects. They work independently.
 - A plain lowercase wordmark on the page; the bracket/minus mark is used for the browser icon.
 - Midnight canvas, warm ivory, restrained copper accents. These belong to the demonstration, not every consuming application.
 - System sans-serif for the product and page. Authored source drafts may use their own model-like typography while they remain subordinate. Copper is reserved for the functional action inside the composed screen. No remote fonts.
-- The landing comparison is manual: model result thumbnails sit under each other in a stable rail, selecting one updates a before/after pair, and dragging the image or using the Before and After control reveals that model's adapted review while keeping its composition, palette and typography. Each result has one accent action. The landing shell's copper belongs to the page, not the adapted results. Visible model names identify the authored sources; the information control states they are not actual outputs.
-- Short visual comparisons, one manual before/after control, and optional details. The comparison does not autoplay; the viewer sets the split.
+- The landing lab is manual: model-run thumbnails sit under each other in a stable rail, selecting one updates a before/after pair, and dragging the image or using the Before and After control reveals the harness result. The recorded runs are actual model output; the live lab can call the visitor's chosen provider. Each result keeps its own composition, palette and typography and one accent action. The landing shell's copper belongs to the page, not the results.
+- Short visual comparisons, one manual before/after control, and optional details. The comparison does not autoplay; recorded and live results are labelled separately.
 
 ## Claims
 
@@ -43,4 +43,4 @@ Say: built to reduce repeated design corrections, designed for better first draf
 
 Measure before claiming: saved minutes, fewer model tokens, reduced cost, better usability, first-pass success rates. Context bytes are not model tokens, and a shorter brief does not establish an end-to-end saving. The harness itself adds context.
 
-The landing comparison names common model defaults to make the comparison legible. The drafts are authored illustrations, not actual model outputs. No cross-model study was run. The workshop uses fictional data and real local checks. A live Figma importer and Alps source pack remain pending.
+The landing lab shows recorded model output and can call a provider with the visitor's key. It is not a benchmark: one run per model and prompt, variant sampling and no coding-agent repair loop. No cross-model study was run. The workshop uses fictional data and real local checks. A live Figma importer and Alps source pack remain pending.

@@ -24,6 +24,7 @@
     "build": "node scripts/build.mjs",
     "check": "node scripts/check.mjs",
     "test:browser": "node scripts/browser-test.mjs",
+    "generate:runs": "node scripts/generate-lab-runs.mjs",
     "package:source": "node scripts/package.mjs",
     "measure:context": "node scripts/measure-context.mjs"
   },

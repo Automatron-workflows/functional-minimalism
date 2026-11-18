@@ -14,7 +14,7 @@ export function createServer(){return http.createServer(async(req,res)=>{
   const resolved=await realpath(target);if(!resolved.startsWith(root+path.sep)){res.writeHead(403);res.end();return;}
   const info=await stat(resolved);if(!info.isFile()){res.writeHead(404);res.end();return;}
   const types={'.html':'text/html','.mjs':'text/javascript','.js':'text/javascript','.css':'text/css','.json':'application/json','.svg':'image/svg+xml','.md':'text/plain','.txt':'text/plain'};
-  res.writeHead(200,{'Content-Type':(types[path.extname(target)]??'application/octet-stream')+'; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff','Content-Security-Policy':"default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'"});
+  res.writeHead(200,{'Content-Type':(types[path.extname(target)]??'application/octet-stream')+'; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff','Content-Security-Policy':"default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://api.openai.com https://api.anthropic.com https://openrouter.ai; object-src 'none'; base-uri 'self'"});
   res.end(req.method==='HEAD'?undefined:await readFile(resolved));
  }catch(error){res.writeHead(error.code==='ENOENT'?404:400);res.end('Not found');}
 });}

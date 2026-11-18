@@ -6,7 +6,7 @@ The original product plan remains a proposal. This file tracks the implemented s
 | --- | --- |
 | Functional minimalism guidance with Dieter Rams reference | Implemented; human review guidance |
 | One-command first-screen setup and doctor | Implemented; compact brief by default |
-| Functional Minimalism brand, manual before/after comparison and setup panel | Implemented; source served in Chromium at 390px and 1440px |
+| Functional Minimalism brand, recorded model-run lab, live prompt comparison and setup panel | Implemented; source served in Chromium at 390px and 1440px |
 | Versioned packs, semantic tokens, alias validation | Implemented |
 | Eleven mapped HTML reference components | Implemented |
 | Pack composition patterns and contract binding | Implemented; document review and manual comparison |
@@ -25,11 +25,11 @@ The original product plan remains a proposal. This file tracks the implemented s
 | Local Chrome behavioral verification runner | Actual-width iframe runner implemented; GitHub CI passes 26 assertions each at 390px and 1440px |
 | Live Figma / Code Connect importer | Pending |
 | Alps design pack | Pending actual source |
-| Automatic model calls or autonomous repair execution | Not included; host-agent workflow supplied |
+| Harness runtime model calls | None; the optional prompt lab calls the provider the visitor connects, with no server |
 | AST-based React/TypeScript prop validation | Pending |
-| Model comparison study and participant usability study | Not run |
+| Model comparison study and participant usability study | Not run; the recorded runs are single samples, not a controlled study |
 | GitHub repository / Pages publication | Public source and anonymous demo are live; main CI and Pages deployment pass |
 | Hosted deployment | GitHub Pages demo is canonical. A separate Higgsfield draft requires sign-in and is not advertised |
 | npm publication | Not published; install from source |
 
-The implementation requires no credentials or external dependencies. Tests and observed results are recorded separately from product claims. The illustrated Before / With harness demo is not a measured performance comparison.
+The harness runtime requires no credentials or external dependencies. The optional prompt lab uses a visitor-supplied provider key in the browser; no server proxies or stores it. Tests and observed results are recorded separately from product claims. The recorded model-run lab shows actual model output; it is not a measured performance comparison, benchmark or usability study.

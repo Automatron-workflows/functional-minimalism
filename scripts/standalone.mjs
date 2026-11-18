@@ -21,6 +21,32 @@ async function buildWorkshopStandalone(){
  const output=path.join(root,'dist/Functional_Minimalism_Workshop.html');await writeFile(output,html);return html;
 }
 
+async function labData(){
+ const read=file=>readFile(path.join(root,file),'utf8');
+ const index=JSON.parse(await read('demo/runs/index.json'));
+ const presets=JSON.parse(await read('demo/presets.json'));
+ const pack=JSON.parse(await read('packs/studio/pack.json'));
+ const contracts={};
+ for(const preset of presets.presets){
+  const file=path.resolve(root,'demo',preset.contract);
+  contracts[preset.id]=JSON.parse(await readFile(file,'utf8'));
+ }
+ const rules=await read('DESIGN_RULES.md');
+ const runs=[];
+ for(const row of index.runs){
+  const run=JSON.parse(await read(`demo/runs/${row.id}.json`));
+  for(const side of ['before','after']){
+   const file=path.join(root,'demo/runs',`${row.id}-${side}.png`);
+   const png=await readFile(file);
+   run.conditions[side].screenshot='data:image/png;base64,'+png.toString('base64');
+  }
+  runs.push(run);
+ }
+ return {index,presets,pack,contracts,runs,rules};
+}
+
+function stripModule(code){return code.replace(/^import .*;\n/gm,'').replace(/^export /gm,'');}
+
 export async function buildStandalone(){
  const read=file=>readFile(path.join(root,file),'utf8');
  const workshop=await buildWorkshopStandalone();
@@ -29,7 +55,13 @@ export async function buildStandalone(){
  const art='data:image/svg+xml;base64,'+Buffer.from(await read('demo/assets/forest.svg')).toString('base64');
  css=css.replaceAll("./assets/forest.svg",art);
  const mark='data:image/svg+xml;base64,'+Buffer.from(await read('demo/mark.svg')).toString('base64');
- let script=(await read('demo/compare.mjs')).replace(/^import .*;\n/gm,'');
+ const core=stripModule(await read('src/core.mjs'));
+ const lab=stripModule(await read('src/lab.mjs'));
+ const measure=stripModule(await read('demo/measure.mjs'));
+ const compare=stripModule(await read('demo/compare.mjs'));
+ const embedded=await labData();
+ const embeddedJSON=JSON.stringify(embedded).replace(/<\/script/gi,'<\\/script');
+ let script=`globalThis.__labData=${embeddedJSON};\n${core}\n${lab}\n${measure}\n${compare}`;
  script+=`\ndocument.querySelector('#workshop iframe').srcdoc=${JSON.stringify(workshop)};`;
  script+=`\nconst __zip=Uint8Array.from(atob(${JSON.stringify(zip.toString('base64'))}),c=>c.charCodeAt(0));const __zipURL=URL.createObjectURL(new Blob([__zip],{type:'application/zip'}));document.querySelector('[data-source]').href=__zipURL;document.querySelector('[data-source]').download='functional-minimalism-source.zip';`;
  script+=`\nconst __guideURL=URL.createObjectURL(new Blob([${JSON.stringify(await read('README.md'))}],{type:'text/plain'}));document.querySelectorAll('a[href="../README.md"]').forEach(a=>{a.href=__guideURL;a.download='README.md';});`;

@@ -41,7 +41,7 @@
           "controls": 2,
           "unnamed": 0,
           "clipped": 0,
-          "actionControls": 0,
+          "actionControls": 1,
           "headings": 7,
           "overflowX": false,
           "facts": [
@@ -70,6 +70,28 @@
               "label": "No payment / simulation note",
               "visible": true
             }
+          ],
+          "typeSizes": 8,
+          "fontFamilies": 1,
+          "uniqueColors": 14,
+          "uniqueRadii": 3,
+          "maxFont": 32,
+          "bodyFont": 16,
+          "fontRatio": 2,
+          "coverage": 0.419,
+          "lowContrast": 1,
+          "filledActions": 1,
+          "primaryVisible": false,
+          "disabledPrimary": 0,
+          "shadowCount": 0,
+          "headingList": [
+            "Review invoice 0042",
+            "Invoice details",
+            "Supplier and customer",
+            "Line items",
+            "Amount due",
+            "Pre-payment checks",
+            "Proposed payment"
           ]
         },
         "mobile": {
@@ -79,7 +101,7 @@
           "controls": 2,
           "unnamed": 0,
           "clipped": 0,
-          "actionControls": 0,
+          "actionControls": 1,
           "headings": 7,
           "overflowX": false,
           "facts": [
@@ -108,6 +130,28 @@
               "label": "No payment / simulation note",
               "visible": true
             }
+          ],
+          "typeSizes": 8,
+          "fontFamilies": 1,
+          "uniqueColors": 14,
+          "uniqueRadii": 3,
+          "maxFont": 28,
+          "bodyFont": 16,
+          "fontRatio": 1.75,
+          "coverage": 0.526,
+          "lowContrast": 1,
+          "filledActions": 1,
+          "primaryVisible": false,
+          "disabledPrimary": 0,
+          "shadowCount": 0,
+          "headingList": [
+            "Review invoice 0042",
+            "Invoice details",
+            "Supplier and customer",
+            "Line items",
+            "Amount due",
+            "Pre-payment checks",
+            "Proposed payment"
           ]
         }
       },
@@ -132,7 +176,7 @@
           "controls": 2,
           "unnamed": 0,
           "clipped": 0,
-          "actionControls": 1,
+          "actionControls": 2,
           "headings": 5,
           "overflowX": false,
           "facts": [
@@ -161,6 +205,26 @@
               "label": "No payment / simulation note",
               "visible": true
             }
+          ],
+          "typeSizes": 6,
+          "fontFamilies": 2,
+          "uniqueColors": 5,
+          "uniqueRadii": 1,
+          "maxFont": 72,
+          "bodyFont": 14,
+          "fontRatio": 5.14,
+          "coverage": 0.303,
+          "lowContrast": 0,
+          "filledActions": 1,
+          "primaryVisible": true,
+          "disabledPrimary": 0,
+          "shadowCount": 1,
+          "headingList": [
+            "Review invoice 0042",
+            "Supplier",
+            "Customer",
+            "Line items",
+            "Amount due"
           ]
         },
         "mobile": {
@@ -170,7 +234,7 @@
           "controls": 2,
           "unnamed": 0,
           "clipped": 0,
-          "actionControls": 1,
+          "actionControls": 2,
           "headings": 5,
           "overflowX": false,
           "facts": [
@@ -199,6 +263,26 @@
               "label": "No payment / simulation note",
               "visible": true
             }
+          ],
+          "typeSizes": 5,
+          "fontFamilies": 2,
+          "uniqueColors": 5,
+          "uniqueRadii": 1,
+          "maxFont": 72,
+          "bodyFont": 14,
+          "fontRatio": 5.14,
+          "coverage": 0.436,
+          "lowContrast": 0,
+          "filledActions": 1,
+          "primaryVisible": true,
+          "disabledPrimary": 0,
+          "shadowCount": 1,
+          "headingList": [
+            "Review invoice 0042",
+            "Supplier",
+            "Customer",
+            "Line items",
+            "Amount due"
           ]
         }
       },

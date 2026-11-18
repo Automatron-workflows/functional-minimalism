@@ -5,6 +5,13 @@ document.querySelector('#approval').textContent=`Approved ${data.approvedAt}`;
 const tokens=data.tokens;
 const tokenCSS=`:root{--canvas:${tokens.canvas};--surface:${tokens.surface};--ink:${tokens.ink};--muted:${tokens.muted};--line:${tokens.line};--accent:${tokens.accent};--onaccent:${tokens.onaccent};--display:${tokens.display};--body:${tokens.body}}`;
 gallery.replaceChildren();
+if(data.principles?.length){
+ const section=document.createElement('section');section.className='principles';
+ const title=document.createElement('h2');title.textContent='Approval rules';
+ const list=document.createElement('ul');
+ for(const principle of data.principles){const item=document.createElement('li');item.textContent=principle;list.append(item);}
+ section.append(title,list);gallery.append(section);
+}
 for(const component of data.components){
  const article=document.createElement('article');article.className='component';
  const info=document.createElement('div');

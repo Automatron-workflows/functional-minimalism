@@ -70,7 +70,21 @@
               "label": "No payment / simulation note",
               "visible": true
             }
-          ]
+          ],
+          "typeSizes": 9,
+          "fontFamilies": 1,
+          "uniqueColors": 13,
+          "uniqueRadii": 3,
+          "maxFont": 32,
+          "bodyFont": 16,
+          "fontRatio": 2,
+          "coverage": 0.249,
+          "lowContrast": 12,
+          "filledActions": 0,
+          "primaryVisible": false,
+          "disabledPrimary": 0,
+          "shadowCount": 5,
+          "headingList": []
         },
         "mobile": {
           "width": 390,
@@ -108,7 +122,21 @@
               "label": "No payment / simulation note",
               "visible": true
             }
-          ]
+          ],
+          "typeSizes": 9,
+          "fontFamilies": 1,
+          "uniqueColors": 13,
+          "uniqueRadii": 3,
+          "maxFont": 26,
+          "bodyFont": 16,
+          "fontRatio": 1.63,
+          "coverage": 0.439,
+          "lowContrast": 12,
+          "filledActions": 0,
+          "primaryVisible": false,
+          "disabledPrimary": 0,
+          "shadowCount": 5,
+          "headingList": []
         }
       },
       "screenshot": "./runs/invoice-qwen3-8-flash-before.png"
@@ -132,7 +160,7 @@
           "controls": 2,
           "unnamed": 0,
           "clipped": 0,
-          "actionControls": 1,
+          "actionControls": 2,
           "headings": 1,
           "overflowX": false,
           "facts": [
@@ -161,6 +189,22 @@
               "label": "No payment / simulation note",
               "visible": true
             }
+          ],
+          "typeSizes": 7,
+          "fontFamilies": 2,
+          "uniqueColors": 5,
+          "uniqueRadii": 1,
+          "maxFont": 72,
+          "bodyFont": 14,
+          "fontRatio": 5.14,
+          "coverage": 0.28,
+          "lowContrast": 0,
+          "filledActions": 1,
+          "primaryVisible": true,
+          "disabledPrimary": 0,
+          "shadowCount": 1,
+          "headingList": [
+            "Invoice 0042"
           ]
         },
         "mobile": {
@@ -170,7 +214,7 @@
           "controls": 2,
           "unnamed": 0,
           "clipped": 0,
-          "actionControls": 1,
+          "actionControls": 2,
           "headings": 1,
           "overflowX": false,
           "facts": [
@@ -199,6 +243,22 @@
               "label": "No payment / simulation note",
               "visible": true
             }
+          ],
+          "typeSizes": 7,
+          "fontFamilies": 2,
+          "uniqueColors": 5,
+          "uniqueRadii": 1,
+          "maxFont": 48,
+          "bodyFont": 14,
+          "fontRatio": 3.43,
+          "coverage": 0.417,
+          "lowContrast": 0,
+          "filledActions": 1,
+          "primaryVisible": true,
+          "disabledPrimary": 0,
+          "shadowCount": 1,
+          "headingList": [
+            "Invoice 0042"
           ]
         }
       },

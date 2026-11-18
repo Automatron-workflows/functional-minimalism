@@ -41,7 +41,7 @@
           "controls": 2,
           "unnamed": 0,
           "clipped": 0,
-          "actionControls": 1,
+          "actionControls": 2,
           "headings": 6,
           "overflowX": false,
           "facts": [
@@ -70,6 +70,27 @@
               "label": "No payment / simulation note",
               "visible": true
             }
+          ],
+          "typeSizes": 5,
+          "fontFamilies": 1,
+          "uniqueColors": 13,
+          "uniqueRadii": 2,
+          "maxFont": 36,
+          "bodyFont": 16,
+          "fontRatio": 2.25,
+          "coverage": 0.389,
+          "lowContrast": 1,
+          "filledActions": 2,
+          "primaryVisible": true,
+          "disabledPrimary": 0,
+          "shadowCount": 5,
+          "headingList": [
+            "North Studio — Invoice 0042",
+            "Invoice details",
+            "Supplier and customer",
+            "Line items",
+            "Details to check",
+            "Payment review"
           ]
         },
         "mobile": {
@@ -79,7 +100,7 @@
           "controls": 2,
           "unnamed": 0,
           "clipped": 0,
-          "actionControls": 1,
+          "actionControls": 2,
           "headings": 6,
           "overflowX": false,
           "facts": [
@@ -108,6 +129,27 @@
               "label": "No payment / simulation note",
               "visible": true
             }
+          ],
+          "typeSizes": 5,
+          "fontFamilies": 1,
+          "uniqueColors": 13,
+          "uniqueRadii": 2,
+          "maxFont": 24,
+          "bodyFont": 16,
+          "fontRatio": 1.5,
+          "coverage": 0.511,
+          "lowContrast": 1,
+          "filledActions": 2,
+          "primaryVisible": true,
+          "disabledPrimary": 0,
+          "shadowCount": 5,
+          "headingList": [
+            "North Studio — Invoice 0042",
+            "Invoice details",
+            "Supplier and customer",
+            "Line items",
+            "Details to check",
+            "Payment review"
           ]
         }
       },
@@ -132,7 +174,7 @@
           "controls": 2,
           "unnamed": 0,
           "clipped": 0,
-          "actionControls": 1,
+          "actionControls": 2,
           "headings": 4,
           "overflowX": false,
           "facts": [
@@ -161,6 +203,25 @@
               "label": "No payment / simulation note",
               "visible": true
             }
+          ],
+          "typeSizes": 7,
+          "fontFamilies": 3,
+          "uniqueColors": 5,
+          "uniqueRadii": 1,
+          "maxFont": 72,
+          "bodyFont": 14,
+          "fontRatio": 5.14,
+          "coverage": 0.277,
+          "lowContrast": 0,
+          "filledActions": 1,
+          "primaryVisible": true,
+          "disabledPrimary": 0,
+          "shadowCount": 1,
+          "headingList": [
+            "North Studio — Invoice 0042",
+            "Line items",
+            "Customer",
+            "Payment review"
           ]
         },
         "mobile": {
@@ -170,7 +231,7 @@
           "controls": 2,
           "unnamed": 0,
           "clipped": 0,
-          "actionControls": 1,
+          "actionControls": 2,
           "headings": 4,
           "overflowX": false,
           "facts": [
@@ -199,6 +260,25 @@
               "label": "No payment / simulation note",
               "visible": true
             }
+          ],
+          "typeSizes": 7,
+          "fontFamilies": 3,
+          "uniqueColors": 5,
+          "uniqueRadii": 1,
+          "maxFont": 72,
+          "bodyFont": 14,
+          "fontRatio": 5.14,
+          "coverage": 0.48,
+          "lowContrast": 0,
+          "filledActions": 1,
+          "primaryVisible": true,
+          "disabledPrimary": 0,
+          "shadowCount": 1,
+          "headingList": [
+            "North Studio — Invoice 0042",
+            "Line items",
+            "Customer",
+            "Payment review"
           ]
         }
       },

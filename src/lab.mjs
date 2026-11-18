@@ -119,8 +119,9 @@ export function buildHarnessMessages({ prompt, beforeHTML, brief, rules, pack, g
   if (style?.length) parts.push(`## Visual system\n${style.map(item => `- ${item}`).join('\n')}`);
   if (gallery?.components?.length) {
     const tokens = gallery.tokens ? Object.entries(gallery.tokens).map(([key, value]) => `${key}: ${value}`).join('; ') : '';
+    const principles = gallery.principles?.length ? `Rules:\n${gallery.principles.map(item => `- ${item}`).join('\n')}\n\n` : '';
     const components = gallery.components.map(component => `### ${component.name} (${component.category})\nCSS: ${component.css}\nHTML: ${component.html}\nRules: ${component.rules.join(' ')}`).join('\n\n');
-    parts.push(`## Approved component gallery\nUse these exact components, structures and styles. Do not invent a new visual language. Reuse the approved tokens: ${tokens}.\n\n${components}`);
+    parts.push(`## Approved component gallery\nUse these exact components, structures and styles. Do not invent a new visual language. Reuse the approved tokens: ${tokens}.\n\n${principles}${components}`);
   }
   if (rules) parts.push(`## Design rules\n${String(rules).trim()}`);
   if (brief) parts.push(`## Screen brief\n${String(brief).trim()}`);

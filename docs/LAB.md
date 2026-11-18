@@ -34,7 +34,7 @@ The benchmark measures each run at 1280 and 390px with `demo/measure.mjs` and sc
 
 The v1 after pass averaged **97.4/100** against **78.9** for v0, and all four models improved. See [the benchmark](BENCHMARK.md) for the per-model table, component points, rendered evidence and limits. The score is not a beauty model, a usability study or the CLI audit.
 
-The approved gallery is the next layer; the v1 table measures the Atelier principles and fixture without the gallery. The live pass already uses the gallery. A v2 benchmark should be added after the next reviewed gallery revision.
+The approved gallery is the next layer. A first LongCat 2.5 gallery pass duplicated the hero amount in the document and the summary rail and was rejected; its evidence is in `docs/benchmark/v2-longcat-gallery/`. The gallery rules now state that each fact appears once and the summary rail owns the hero amount. The live pass uses the tightened gallery. A v2 benchmark should be added after the next reviewed gallery revision.
 
 ## Reproduce the recorded runs
 

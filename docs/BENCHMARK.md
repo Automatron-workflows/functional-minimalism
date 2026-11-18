@@ -30,6 +30,10 @@ v1 improved 4 of 4 models.
 
 The hosted [approved gallery](../gallery/) contains nine manually reviewed components extracted from the Atelier output: page shell, brand line, document, hero amount, summary rail, primary action, line items, labels and status. The live prompt lab now passes that gallery to the harness pass. This table measures v1, which used the Atelier principles without the gallery; the gallery is the next iteration and will be benchmarked as v2.
 
+## Gallery v2 trial (rejected)
+
+A first LongCat 2.5 pass with the approved gallery duplicated the hero amount in the document and the summary rail: 144 words and 88 paragraph words against 130 and 32 in the approved v1 design. It was not approved. The [v2 evidence](./benchmark/v2-longcat-gallery/) is kept for review. The gallery rules now state that each fact appears once and that the summary rail owns the hero amount; the next live pass uses the tightened rules. The approved default remains the v1 LongCat design.
+
 ## v1 component points
 
 | Model | text (15) | paragraph (5) | action (20) | hierarchy (15) | cohesion (15) | whitespace (10) | responsive (10) | facts (5) | contrast (5) |

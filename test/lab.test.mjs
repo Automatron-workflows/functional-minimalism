@@ -95,6 +95,7 @@ test('the Atelier pack composes the invoice brief with the approved system',()=>
 
 test('the approved gallery carries provenance, rules and the core invoice components',()=>{
  assert.equal(gallery.schema,'functional-minimalism.component-gallery/1');
+ assert.ok(gallery.principles.length>=2);
  assert.ok(gallery.components.length>=8);
  for(const component of gallery.components){
   assert.ok(component.id&&component.name&&component.category);
@@ -105,6 +106,7 @@ test('the approved gallery carries provenance, rules and the core invoice compon
  }
  const ids=gallery.components.map(component=>component.id);
  for(const id of ['page-shell','amount','summary-rail','primary-action','line-items'])assert.ok(ids.includes(id),`${id} missing`);
+ assert.match(gallery.components.find(component=>component.id==='summary-rail').rules.join(' '),/summary rail owns the hero amount/i);
 });
 
 test('the craft heuristic rewards restraint and a clear action',()=>{

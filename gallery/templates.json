@@ -55,7 +55,7 @@
       "css": ".document{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 50px rgba(27,26,23,.06);padding:48px;min-width:0}.doc-head{display:flex;justify-content:space-between;gap:32px;align-items:flex-start;padding-bottom:24px;border-bottom:1px solid var(--line)}.doc-head h1{margin:4px 0 0;font-family:var(--display);font-size:40px;font-weight:500;letter-spacing:-.03em;line-height:1.05}.doc-meta{text-align:right}.doc-meta p{margin:4px 0 0;font-size:14px}@media(max-width:760px){.document{padding:24px}.doc-head{flex-direction:column;gap:16px}.doc-meta{text-align:left}}",
       "rules": [
         "Use one white document, 14px radius, 1px border and one soft shadow.",
-        "The amount is the hero; the invoice number is a reference, not the page title."
+        "The invoice number is a reference, not the page title. Do not add a hero amount; the summary rail owns it."
       ]
     },
     {
@@ -83,6 +83,7 @@
       "css": ".summary{min-width:0}.facts{margin:24px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.facts div{display:grid;grid-template-columns:120px minmax(0,1fr);gap:16px;padding:12px 0;border-bottom:1px solid var(--line)}.facts div:last-child{border-bottom:0}.facts dt{color:var(--muted);font-size:12px}.facts dd{margin:0;text-align:right;font-size:14px}.consequence{margin:0 0 20px;color:var(--muted);font-size:12px;line-height:1.55}.secondary{display:inline-flex;min-height:44px;align-items:center;margin-top:8px;color:var(--muted);font-size:12px}@media(max-width:760px){.facts div{grid-template-columns:96px minmax(0,1fr)}.facts dd{text-align:left}}",
       "rules": [
         "Show supplier, amount, due date, source account, destination and consequence once.",
+        "The summary rail owns the hero amount. Do not repeat it in the document header or a second card.",
         "Keep exactly one enabled primary action. The secondary recovery is a quiet text link.",
         "Do not add checklists, AI summaries, status pills or a second primary button."
       ]
@@ -99,7 +100,8 @@
       "rules": [
         "Use one filled primary action per screen.",
         "It must be enabled and visible in the first 1280 by 800 view.",
-        "Use a quiet text link for recovery, not a second filled button."
+        "Use a quiet text link for recovery, not a second filled button.",
+        "Do not add a review checklist before the action."
       ]
     },
     {
@@ -144,5 +146,10 @@
         "Pair color with text. Do not use a pill for the primary action."
       ]
     }
+  ],
+  "principles": [
+    "Each fact appears once. The summary rail owns the hero amount, due date, source, destination and consequence; the document owns the invoice number, parties, line items and table total.",
+    "Do not add a second hero amount, a second summary card, a review checklist, an AI summary or a what-happens-next stepper.",
+    "Use the page shell and approved components; do not invent a new visual language."
   ]
 }

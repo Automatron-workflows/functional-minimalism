@@ -1,6 +1,6 @@
 {
   "schema": "functional-minimalism.lab-index/1",
-  "generatedAt": "2026-11-18T09:34:31.942Z",
+  "generatedAt": "2026-11-18T10:27:41.727Z",
   "models": [
     {
       "id": "beam-free",
@@ -60,7 +60,7 @@
           "controls": 2,
           "unnamed": 0,
           "clipped": 0,
-          "actionControls": 1,
+          "actionControls": 2,
           "headings": 6,
           "overflowX": false,
           "facts": [
@@ -89,6 +89,27 @@
               "label": "No payment / simulation note",
               "visible": true
             }
+          ],
+          "typeSizes": 5,
+          "fontFamilies": 1,
+          "uniqueColors": 13,
+          "uniqueRadii": 2,
+          "maxFont": 36,
+          "bodyFont": 16,
+          "fontRatio": 2.25,
+          "coverage": 0.389,
+          "lowContrast": 1,
+          "filledActions": 2,
+          "primaryVisible": true,
+          "disabledPrimary": 0,
+          "shadowCount": 5,
+          "headingList": [
+            "North Studio — Invoice 0042",
+            "Invoice details",
+            "Supplier and customer",
+            "Line items",
+            "Details to check",
+            "Payment review"
           ]
         },
         "mobile": {
@@ -98,7 +119,7 @@
           "controls": 2,
           "unnamed": 0,
           "clipped": 0,
-          "actionControls": 1,
+          "actionControls": 2,
           "headings": 6,
           "overflowX": false,
           "facts": [
@@ -127,6 +148,27 @@
               "label": "No payment / simulation note",
               "visible": true
             }
+          ],
+          "typeSizes": 5,
+          "fontFamilies": 1,
+          "uniqueColors": 13,
+          "uniqueRadii": 2,
+          "maxFont": 24,
+          "bodyFont": 16,
+          "fontRatio": 1.5,
+          "coverage": 0.511,
+          "lowContrast": 1,
+          "filledActions": 2,
+          "primaryVisible": true,
+          "disabledPrimary": 0,
+          "shadowCount": 5,
+          "headingList": [
+            "North Studio — Invoice 0042",
+            "Invoice details",
+            "Supplier and customer",
+            "Line items",
+            "Details to check",
+            "Payment review"
           ]
         }
       }
@@ -153,7 +195,7 @@
           "controls": 2,
           "unnamed": 0,
           "clipped": 0,
-          "actionControls": 0,
+          "actionControls": 1,
           "headings": 7,
           "overflowX": false,
           "facts": [
@@ -182,6 +224,28 @@
               "label": "No payment / simulation note",
               "visible": true
             }
+          ],
+          "typeSizes": 8,
+          "fontFamilies": 1,
+          "uniqueColors": 14,
+          "uniqueRadii": 3,
+          "maxFont": 32,
+          "bodyFont": 16,
+          "fontRatio": 2,
+          "coverage": 0.419,
+          "lowContrast": 1,
+          "filledActions": 1,
+          "primaryVisible": false,
+          "disabledPrimary": 0,
+          "shadowCount": 0,
+          "headingList": [
+            "Review invoice 0042",
+            "Invoice details",
+            "Supplier and customer",
+            "Line items",
+            "Amount due",
+            "Pre-payment checks",
+            "Proposed payment"
           ]
         },
         "mobile": {
@@ -191,7 +255,7 @@
           "controls": 2,
           "unnamed": 0,
           "clipped": 0,
-          "actionControls": 0,
+          "actionControls": 1,
           "headings": 7,
           "overflowX": false,
           "facts": [
@@ -220,6 +284,28 @@
               "label": "No payment / simulation note",
               "visible": true
             }
+          ],
+          "typeSizes": 8,
+          "fontFamilies": 1,
+          "uniqueColors": 14,
+          "uniqueRadii": 3,
+          "maxFont": 28,
+          "bodyFont": 16,
+          "fontRatio": 1.75,
+          "coverage": 0.526,
+          "lowContrast": 1,
+          "filledActions": 1,
+          "primaryVisible": false,
+          "disabledPrimary": 0,
+          "shadowCount": 0,
+          "headingList": [
+            "Review invoice 0042",
+            "Invoice details",
+            "Supplier and customer",
+            "Line items",
+            "Amount due",
+            "Pre-payment checks",
+            "Proposed payment"
           ]
         }
       }
@@ -275,6 +361,23 @@
               "label": "No payment / simulation note",
               "visible": true
             }
+          ],
+          "typeSizes": 10,
+          "fontFamilies": 2,
+          "uniqueColors": 25,
+          "uniqueRadii": 2,
+          "maxFont": 34,
+          "bodyFont": 16,
+          "fontRatio": 2.13,
+          "coverage": 0.303,
+          "lowContrast": 11,
+          "filledActions": 0,
+          "primaryVisible": false,
+          "disabledPrimary": 0,
+          "shadowCount": 4,
+          "headingList": [
+            "Invoice 0042",
+            "Before you proceed"
           ]
         },
         "mobile": {
@@ -313,6 +416,23 @@
               "label": "No payment / simulation note",
               "visible": true
             }
+          ],
+          "typeSizes": 10,
+          "fontFamilies": 2,
+          "uniqueColors": 25,
+          "uniqueRadii": 2,
+          "maxFont": 30,
+          "bodyFont": 16,
+          "fontRatio": 1.88,
+          "coverage": 0.456,
+          "lowContrast": 11,
+          "filledActions": 0,
+          "primaryVisible": false,
+          "disabledPrimary": 0,
+          "shadowCount": 4,
+          "headingList": [
+            "Invoice 0042",
+            "Before you proceed"
           ]
         }
       }
@@ -368,7 +488,21 @@
               "label": "No payment / simulation note",
               "visible": true
             }
-          ]
+          ],
+          "typeSizes": 9,
+          "fontFamilies": 1,
+          "uniqueColors": 13,
+          "uniqueRadii": 3,
+          "maxFont": 32,
+          "bodyFont": 16,
+          "fontRatio": 2,
+          "coverage": 0.249,
+          "lowContrast": 12,
+          "filledActions": 0,
+          "primaryVisible": false,
+          "disabledPrimary": 0,
+          "shadowCount": 5,
+          "headingList": []
         },
         "mobile": {
           "width": 390,
@@ -406,7 +540,21 @@
               "label": "No payment / simulation note",
               "visible": true
             }
-          ]
+          ],
+          "typeSizes": 9,
+          "fontFamilies": 1,
+          "uniqueColors": 13,
+          "uniqueRadii": 3,
+          "maxFont": 26,
+          "bodyFont": 16,
+          "fontRatio": 1.63,
+          "coverage": 0.439,
+          "lowContrast": 12,
+          "filledActions": 0,
+          "primaryVisible": false,
+          "disabledPrimary": 0,
+          "shadowCount": 5,
+          "headingList": []
         }
       }
     }
